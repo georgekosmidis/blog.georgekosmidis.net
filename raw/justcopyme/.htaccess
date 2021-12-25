@@ -1,0 +1,10 @@
+//TODO: Change to web.config, new solution lives in Azure!
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+Redirect /2018/06/08/publishing-asp-net-core-an-error-occurred-while-starting-the-application/ https://blog.georgekosmidis.net/an-error-occurred-while-starting-the-application-process-failure-and-many-more/
+
+Redirect /index.html /
+
+RedirectMatch 301 ^/20[0-9]{2}/[0-9]{2}/[0-9]{2}/(.*)/$ /$1/
+</IfModule>

@@ -1,6 +1,6 @@
 {
-  "Type": "post",
-  "Slang": "migrating-to-net-5-a-few-clicks-away",
+  "Type": "article",
+  "Url": "/migrating-to-net-5-a-few-clicks-away.html",
   "Title": "Migrating to .NET 5 – A few clicks away!",
   "Description": "<p>Before you actually start reading this article, I have to be honest with you: Unless your app is a Blazor app, you don&#8217;t need to read this; all you need is to download .NET 5, change the target framework in your project properties and that&#8217;s it&#8230;! Then again, if you need the download links or want to check the process I followed, feel free!</p>\n<p>",
   "DatePublished": "2020-12-15T14:29:12+01:00",

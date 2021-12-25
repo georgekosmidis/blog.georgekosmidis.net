@@ -1,6 +1,6 @@
 {
-  "Type": "post",
-  "Slang": "git-cheat-sheet",
+  "Type": "article",
+  "Url": "/git-cheat-sheet.html",
   "Title": "GIT cheat sheet",
   "Description": "<p>I know there are many cheat sheets around (<a href=\"https://education.github.com/git-cheat-sheet-education.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">here is one I like from GitHub</a>) but I couldn&#8217;t find many that contain sequence of commands, from clone to merge and push. This is my version of a cheatsheet which I hope you will find useful.  </p>\n<p>",
   "DatePublished": "2020-05-20T13:04:00+02:00",

@@ -1,6 +1,6 @@
 {
-  "Type": "post",
-  "Slang": "action-results-in-asp-net-core-apis",
+  "Type": "article",
+  "Url": "/action-results-in-asp-net-core-apis.html",
   "Title": "Action results in ASP.NET CORE APIs",
   "Description": "<p>ASP.NET Core supports creating RESTful services, also known as web APIs. To handle requests, a web API uses controllers with actions (in essence methods) that return an <code>ActionResult</code>. Since an <code>ActionResult</code> can be almost anything (it&#8217;s like returning an object from your methods), it makes sense to know how to use it and when to choose to return a specific type instead.</p>\n<p>",
   "DatePublished": "2019-08-08T15:47:46+02:00",

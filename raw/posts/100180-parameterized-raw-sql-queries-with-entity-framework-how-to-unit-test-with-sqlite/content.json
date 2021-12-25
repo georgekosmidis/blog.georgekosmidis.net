@@ -1,6 +1,6 @@
 {
-  "Type": "post",
-  "Slang": "parameterized-raw-sql-queries-with-entity-framework-how-to-unit-test-with-sqlite",
+  "Type": "article",
+  "Url": "/parameterized-raw-sql-queries-with-entity-framework-how-to-unit-test-with-sqlite.html",
   "Title": "Parameterized Raw SQL Queries with Entity Framework: How to Unit Test with SQLite",
   "Description": "<p>Entity Framework Core allows you to drop down to raw SQL queries when working with a relational database. This can be useful, because raw SQL queries can return entity types or, starting with EF Core 2.1, query types that are part of your model, but it could also be a problem when it comes down to <em>Unit Testing</em>.</p>\n<p>    ",
   "DatePublished": "2018-04-07T13:03:06+02:00",
