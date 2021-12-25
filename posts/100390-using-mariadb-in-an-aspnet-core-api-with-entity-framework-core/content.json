@@ -1,0 +1,17 @@
+{
+  "Type": "post",
+  "Slang": "using-mariadb-in-an-aspnet-core-api-with-entity-framework-core",
+  "Title": "Using MariaDB in an ASP.NET Core API with Entity Framework Core",
+  "Description": "<p><a href=\"https://mariadb.org/\" rel=\"noopener noreferrer\" target=\"_blank\">MariaDB</a> Server is one of the most popular open source relational databases. It’s made by the original developers of MySQL and guaranteed to stay open source. It is part of most cloud offerings and the default in most Linux distributions.</p>\n<p>In this post, we will see how to use <a href=\"https://mariadb.org/\" rel=\"noopener noreferrer\" target=\"_blank\">MariaDB</a> as storage for an ASP.NET API and do simple CRUD operations with Entity Framework Core.<br />\n",
+  "DatePublished": "2020-07-15T17:53:05+02:00",
+  "DateModified": "2020-07-25T10:27:58+02:00",
+  "Image": "media/100390-feature.png",
+  "Tags": [
+    "ASPNET",
+    "AspNetCore",
+    "dotnet",
+    "dotnetcore",
+    "MariaDB",
+    "ASP.NET Core"
+  ]
+}

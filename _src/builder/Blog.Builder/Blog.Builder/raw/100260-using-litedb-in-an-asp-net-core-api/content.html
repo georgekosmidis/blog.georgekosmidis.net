@@ -1,0 +1,148 @@
+<p><a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a> is serverless MongoDB-like database delivered in a single DLL (less than 350kb) fully written in .NET C# managed code (compatible with .NET 3.5, 4.x, NETStandard 1.3 and 2.0). It is ideal for mobile apps or for small desktop/web apps, and its API is very similar to MongoDB C# Official Driver.</p>
+<p>In this post, we will see how to use <a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a> as a storage for an ASP.NET API and do simple CRUD operations with it.<br />
+</p>
+<h3>Setting up the project</h3>
+<p>Assuming basic knowledge on how to create a new .NET Core api, I will just list the necessary commands and continue to the interesting parts:<br />
+<pre><code class="language-csharp">dotnet new webapi
+dotnet add package LiteDB
+dotnet build</code></pre></p>
+<blockquote><p>You could also choose to use Visual Studio to create a new ASP.NET Core Web Application, choose &#8220;API&#8221; as the project template and finally add the <a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a> nuget package.</p></blockquote>
+<p>Now that we have a project to work and the <a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a> package installed, we should add the actual database file, right? Well no! <a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a> will create a database automatically upon the first request for getting a collection, so we don&#8217;t need to worry about that. The only thing we should do though, is keep somewhere the path to the database, and there is no better place for it than the <code>appsettings</code>:<br />
+<pre><code class="language-csharp">"LiteDbOptions": {
+  "DatabaseLocation": "LiteDb/LiteDbTest.db"
+}</code></pre></p>
+<h3>Setting up the DbContext</h3>
+<p><a href="https://github.com/mbdavid" rel="noopener noreferrer" target="_blank">Mauricio David</a>, talking about <a href="https://github.com/mbdavid/LiteDB/wiki/Concurrency" rel="noopener noreferrer" target="_blank">thread-safety and process-safety of LiteDb</a>, advises:</p>
+<blockquote><p>If your application works in a single process (like mobile apps, asp.net websites) prefer to use a single database instance and share across all threads.</p></blockquote>
+<p>Since we are not planning anything big, let&#8217;s just do that! Create a <code>DbContext</code> class that instantiates a <code>LiteDatabase</code> in its constructor and inject it into the build-in IoC container as a singleton:<br />
+<pre><code class="language-csharp">public class LiteDbContext : ILiteDbContext
+{
+    public LiteDatabase Database { get; }
+
+    public LiteDbContext(IOptions&lt;LiteDbOptions&gt; options)
+    {
+        Database = new LiteDatabase(options.Value.DatabaseLocation);
+    }
+}</code></pre><br />
+And in the <code>ConfigureServices</code> in <code>Startup.cs</code>:<br />
+<pre><code class="language-csharp">services.AddSingleton&lt;ILiteDbContext, LiteDbContext&gt;();</code></pre></p>
+<blockquote><p>Unfamiliar with the <code>IOptions&lt;LiteDbOptions&gt; options</code>? Read more about the options pattern <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-3.0" rel="noopener noreferrer" target="_blank">here</a></p></blockquote>
+<h3>Setting up a service for LiteDb</h3>
+<p>The webapi project we created contains the <code>WeatherForecast</code> sample which we could use as a sample too. Before we do though, we need to modify the model included; <a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a> needs -as expected- an Id for each model, so we need to add it:<br />
+<pre><code class="language-csharp">public class WeatherForecast
+{
+    public int Id { get; set; }//New addition, Id wasn't there 
+    public DateTime Date { get; set; }
+    public int TemperatureC { get; set; }
+    public int TemperatureF =&gt; 32 + (int)(TemperatureC / 0.5556);
+    public string Summary { get; set; }
+}</code></pre></p>
+<blockquote><p>In a real life application we should create different models for the database and for all requests but now, for the sake of simplicity, we are going to use <code>WeatherForecast</code> model all over.</p></blockquote>
+<p>Next step would be to create the service that stores and retrieves that model from the database. In <a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a>, besides dropping and renaming a collection (and a few other operations like accessing logs), all operations are done by getting a collection &#8211; even creating one! That means that you don&#8217;t need to worry about creating the collection, you can just use <code>GetCollection&lt;WeatherForecast&gt;("WeatherForecast")</code> and you are done!<br />
+So let&#8217;s create a service with a few sample operations and leave the rest to <a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a>.<br />
+<pre><code class="language-csharp">public class LiteDbWeatherForecastService : ILiteDbWeatherForecastService
+{
+    private LiteDatabase _liteDb;
+
+    public LiteDbWeatherForecastService(ILiteDbContext liteDbContext)
+    {
+        _liteDb = liteDbContext.Database;
+    }
+
+    public IEnumerable&lt;WeatherForecast&gt; FindAll()
+    {
+        return _liteDb.GetCollection&lt;WeatherForecast&gt;("WeatherForecast")
+            .FindAll();
+    }
+
+    public WeatherForecast FindOne(int id)
+    {
+        return _liteDb.GetCollection&lt;WeatherForecast&gt;("WeatherForecast")
+            .Find(x =&gt; x.Id == id).FirstOrDefault();
+    }
+
+    public bool Insert(WeatherForecast forecast)
+    {
+        return _liteDb.GetCollection&lt;WeatherForecast&gt;("Api")
+            .Insert(forecast);
+    }
+
+    public bool Update(WeatherForecast forecast)
+    {
+        return _liteDb.GetCollection&lt;WeatherForecast&gt;("Api")
+            .Update(forecast);
+    }
+
+    public int Delete(int id)
+    {
+        return _liteDb.GetCollection&lt;WeatherForecast&gt;("Api")
+            .Delete(x =&gt; x.Id == id);
+    }
+}</code></pre><br />
+And again add it as a service to the IoC container:<br />
+<pre><code class="language-csharp">services.AddTransient&lt;ILiteDbWeatherForecastService, LiteDbWeatherForecastService&gt;();</code></pre></p>
+<h3>Setting up the controller</h3>
+<p>Having done all the hard work, it is now time to connect our service with the <code>WeatherForecastController</code>. The one included as a sample contains just a hard-coded GET action, so we need to rewrite all of it and support the operations we wrote in the <code>ILiteDbWeatherForecastService</code>:<br />
+<pre><code class="language-csharp">[ApiController]
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
+{
+    private readonly ILogger&lt;WeatherForecastController&gt; _logger;
+    private readonly ILiteDbWeatherForecastService _forecastDbService;
+
+    public WeatherForecastController(ILogger&lt;WeatherForecastController&gt; logger, ILiteDbWeatherForecastService forecastDbService)
+    {
+        _forecastDbService = forecastDbService;
+        _logger = logger;
+    }
+
+    [HttpGet]
+    public IEnumerable&lt;WeatherForecast&gt; Get()
+    {
+        return _forecastDbService.FindAll();
+    }
+
+    [HttpGet("{id}", Name = "FindOne")]
+    public ActionResult&lt;WeatherForecast&gt; Get(int id)
+    {
+        var result = _forecastDbService.FindOne(id);
+        if (result != default)
+            return Ok(_forecastDbService.FindOne(id));
+        else
+            return NotFound();
+    }
+
+    [HttpPost]
+    public ActionResult&lt;WeatherForecast&gt; Insert(WeatherForecast dto)
+    {
+        var id = _forecastDbService.Insert(dto);
+        if (id != default)
+            return CreatedAtAction("FindOne", _forecastDbService.FindOne(id));
+        else
+            return BadRequest();
+    }
+
+    [HttpPut]
+    public ActionResult&lt;WeatherForecast&gt; Update(WeatherForecast dto)
+    {
+        var result = _forecastDbService.Update(dto);
+        if (result)
+            return NoContent();
+        else
+            return NotFound();
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult&lt;WeatherForecast&gt; Delete(int id)
+    {
+        var result = _forecastDbService.Delete(id);
+        if (result &gt; 0)
+            return NoContent();
+        else
+            return NotFound();
+    }
+}</code></pre></p>
+<h3>The end!</h3>
+<p>LiteDb is a very easy to use NoSQL database that can be included in small projects very fast. It is also a very nice solution to start playing around with Document DBs so to get familiarize with the different concepts of a relational database. </p>
+<blockquote><p>My playground with <a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a>, including postman calls and the complete API, you can find it in <a href="https://github.com/georgekosmidis/LiteDbSample" rel="noopener noreferrer" target="_blank">github</a>!</p></blockquote>
+<p>One last thing to conclude this post, would be a way (or two) to check or manipulate data in the database. For this, there is a project called <a href="https://github.com/JosefNemec/LiteDbExplorer" rel="noopener noreferrer" target="_blank">LiteDbExplorer</a> maintained by <a href="https://github.com/JosefNemec" rel="noopener noreferrer" target="_blank">Josef Nemec</a> that does a pretty decent job, but you could also try the official <a href="https://github.com/mbdavid/LiteDB.Studio" rel="noopener noreferrer" target="_blank">LiteDB.Studio</a> where you can write SQL-like syntax to check your data.</p><p>The post <a href="https://blog.georgekosmidis.net/using-litedb-in-an-asp-net-core-api/">Using LiteDB in an ASP.NET Core API</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

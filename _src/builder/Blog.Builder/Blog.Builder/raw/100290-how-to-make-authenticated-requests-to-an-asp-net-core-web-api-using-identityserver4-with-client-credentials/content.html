@@ -1,0 +1,365 @@
+<p>This is a guide on how to make requests to a protected resource using <em>Client Credentials</em> with the <a href="https://www.nuget.org/packages/IdentityServer4.Contrib.HttpClientService/" rel="noopener noreferrer" target="_blank">IdentityServer4.Contrib.HttpClientService</a> nuget package. The library is actually an <code>HttpClient</code> service that makes it easy to make authenticated and resilient HTTP requests to protected by <a href="http://identityserver4.readthedocs.io" rel="noopener noreferrer" target="_blank">IdentityServer4</a> resources. Additionally, more features include automatic complex type serialization for requests / deserialization for responds (using <code>Json.NET</code>), caching of the token response to reduce load and an <code>HttpRequestMessage</code> factory that adds an &#8220;<code>X-HttpClientService</code>&#8221; header for logging/tracking between cascading API calls.</p>
+<p></p>
+<h2 id="h2_toc">Table of Contents</h2>
+<ol>
+<li><a href="#h2_install">Install the nuget package</a></li>
+<li><a href="#h2_settings">Add the settings to <code>appsettings.json</code></a></li>
+<li><a href="#h2_register">Register the service</a></li>
+<li><a href="#h2_request">Make a request</a></li>
+<li><a href="#h2_access_token_request">How to setup an Access Token Request</a></li>
+<ul>
+<li><a href="#h3_set_identity_server_options_string">SetIdentityServerOptions(String)</a></li>
+<li><a href="#h3_set_identity_server_options_toptions">SetIdentityServerOptions&lt;TOptions&gt;(TOptions)</a></li>
+<li><a href="#h3_set_identity_server_options_ioptions">SetIdentityServerOptions&lt;TOptions&gt;(IOptions&lt;TOptions&gt;)</a></li>
+<li><a href="#h3_set_identity_server_options_action">SetIdentityServerOptions&lt;TOptions&gt;(Action&lt;TOptions&gt;)</a></li>
+</ul>
+<li><a href="#h2_more">More info on how to serialize requests, deserialize responses</a></li>
+<ul>
+<li><a href="#h3_responseobject">ResponseObject&lt;TResponseBody&gt;</a></li>
+<li><a href="#h3_typecontent">TypeContent(TRequestBody, Encoding, string)</a></li>
+</ul>
+<li><a href="#h2_headers">Attaching headers to the request</a></li>
+<ul>
+<li><a href="#h3_headers_headersadd_string">HeadersAdd(String, String)</a></li>
+<li><a href="#h3_headers_headersadd_list_string">HeadersAdd(String, List&lt;String&gt;)</a></li>
+<li><a href="#h3_headers_headersadd_dictionary">HeadersAdd(Dictionary&lt;String, String&gt;)</a></li>
+<li><a href="#h3_headers_headersadd_dictionary_list">HeadersAdd(Dictionary&lt;String, List&lt;String&gt;&gt;)</a></li>
+<li><a href="#h3_headers_headersclear">HeadersClear()</a></li>
+<li><a href="#h3_headers_headersremove">HeadersRemove(String)</a></li>
+</ul>
+<li><a href="#h2_conclusion">Conclusion</a></li>
+</ol>
+<h2 id="h2_install">Install the nuget package</h2>
+<p>Install the <a href="https://www.nuget.org/packages/IdentityServer4.Contrib.HttpClientService">IdentityServer4.Contrib.HttpClientService</a> nuget package, using either the <a href="https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio" rel="noopener noreferrer" target="_blank">Package Manager</a> or <code>.NET CLI</code>, or any other method:</p>
+<p><code>> dotnet add package IdentityServer4.Contrib.HttpClientService --version 2.2.1</code></p>
+<h2 id="h2_settings">Add the settings to <code>appsettings.json</code></h2>
+<p>The IdentityServer4 settings can be passed in using one of the <code>SetIdentityServerOptions</code> overloads which are explored later in section &#8220;<a href="#h2_access_token_request">How to setup an Access Token Request</a>&#8220;. Although it is always a good idea to keep the code clean of any hard-coded values and use the <code>appsettings.json</code>, this step is only necessary for the <a href="#h3_set_identity_server_options_string"><code>SetIdentityServerOptions(String)</code></a> overload.</p>
+<p><pre><code class="language-csharp">//The values here are part of the demo offered in https://demo.identityserver.io/
+{
+    //...
+    "SomeClientCredentialsOptions": {
+        "Address": "https://demo.identityserver.io/connect/token",
+        "ClientId": "m2m",
+        "ClientSecret": "secret",
+        "Scopes": "api"
+    }
+    //...
+}</code></pre></p>
+<blockquote><p>The configuration section should always be or end with <code>ClientCredentialsOptions</code>. In the example before, the section name was &#8220;<code>SomeClientCredentialsOptions</code>&#8220;.</p></blockquote>
+<h2 id="h2_register">Register the service</h2>
+<p>Although there is a singleton instance (<code>HttpClientServiceFactory.Instance</code>) available, using DI for ASP.NET Core WebAPIs is the <em>only</em> way to go. The library uses internally typed clients and thus the <a href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests" rel="noopener noreferrer" target="_blank">HttpClientFactory</a> to create resilient HTTP requests and avoid socket exhaustion issues. </p>
+<blockquote><p><a href="https://www.stevejgordon.co.uk/" rel="noopener noreferrer" target="_blank">Steve Gordon</a> explores HttpClient internals and potential problems in <a href="https://www.stevejgordon.co.uk/httpclient-creation-and-disposal-internals-should-i-dispose-of-httpclient" rel="noopener noreferrer" target="_blank">HttpClient creation and disposal internals: Should I dispose of HttpClient?</a></p></blockquote>
+<p>In the following example, the <code>HttpClientService</code> is registered in <code>Startup.cs</code> in <code>ConfigureServices(IServiceCollection services)</code> without configuring any options. This is still possible, as some of the <code>SetIdentityServerOptions</code> overloads allow late configuration but it excludes the use of the <code>SetIdentityServerOptions(IOptions<>)</code> overload:<br />
+<pre><code class="language-csharp">//...
+    public void ConfigureServices(IServiceCollection services)
+    {
+        //...
+        services.AddHttpClientService();    //Adds the HTTP client service to the service collection
+        //For typed configuration use: .Configure&lt;ClientCredentialsOptions&gt;(Configuration.GetSection(nameof(ClientCredentialsOptions)));
+        //...
+    }
+//...</code></pre></p>
+<p>As mentioned, the approach above did not include options configuration and the <code>SetIdentityServerOptions(IOptions<>)</code> overload was excluded. In the example that follows, multiple custom services are registered and configured, allowing the use of the options pattern:</p>
+<p><pre><code class="language-csharp">//...
+    public void ConfigureServices(IServiceCollection services)
+    {
+        //...
+        services.AddHttpClientService()
+            .AddSingleton&lt;IYourCustomService, YourCustomService&gt;()
+            .Configure&lt;SomeClientCredentialOptions&gt;(Configuration.GetSection(nameof(SomeClientCredentialOptions)))
+            .AddSingleton&lt;IYourCustomService2, YourCustomService2&gt;()
+            .Configure&lt;DifferentClientCredentialOptions&gt;(Configuration.GetSection(nameof(DifferentClientCredentialOptions)));           //...
+    }
+//...</code></pre></p>
+<h2 id="h2_request">Make a request</h2>
+<p>Either if it is a controller or any custom service, the constructor of that class should request an <code>IHttpClientServiceFactory</code> instance. The injected singleton instance (in the example below <code>_requestServiceFactory</code>), can then be used to create an <code>HttpClientService</code> instance that will hold all common information for all the requests that will be carried out by that instance. That allows adding <code>IdentityServer4</code> options and <code>Headers</code> only once, and then using the same <code>HttpClientService</code> multiple times:</p>
+<p><pre><code class="language-csharp">using IdentityServer4.Contrib.HttpClientService.Extensions;
+
+[ApiController]
+[Route("customers")]
+public class CustomerController : ControllerBase
+{
+	//Request the IHttpClientServiceFactory instance in your controller or service
+	private readonly HttpClientService _httpClientService;
+	
+	public CustomerController(IHttpClientServiceFactory requestServiceFactory){
+		_httpClientService = requestServiceFactory
+			//Create a instance of the service
+			.CreateHttpClientService()
+			//Set the settings for the IdentityServer4 authentication
+			.SetIdentityServerOptions("ClientCredentialsOptions")			
+	}
+
+	[HttpGet]
+	public async Task&lt;IActionResult&gt; Get(){
+		//Make the request
+		var responseObject = await _httpClientService			
+			//GET and deserialize the response body to IEnumerable&lt;Customers&gt;
+			.GetAsync&lt;IEnumerable&lt;Customers&gt;&gt;("https://api/customers");
+
+		//Do something with the results					  
+		if (!responseObject.HasError)
+		{
+			var customers = responseObject.BodyAsType;
+			return Ok(customers);
+		}
+		else
+		{
+			var httpStatusCode = responseObject.StatusCode;
+			var errorMessage = responseObject.Error;           
+			return StatusCode((int)httpStatusCode, errorMessage);
+		}
+	}
+}</code></pre></p>
+<p>Similarly enough, all the HTTP verbs are supported. In the example that follows, a new action is added that uses the same <code>HttpClientService</code> for a POST request:<br />
+<pre><code class="language-csharp">using IdentityServer4.Contrib.HttpClientService.Extensions;
+
+[ApiController]
+[Route("customers")]
+public class CustomerController : ControllerBase
+{
+	//Request the IHttpClientServiceFactory instance in your controller or service
+	private readonly HttpClientService _httpClientService;
+	
+	public CustomerController(IHttpClientServiceFactory requestServiceFactory){
+		_httpClientService = requestServiceFactory
+			//Create a instance of the service
+			.CreateHttpClientService()
+			//Set the settings for the IdentityServer4 authentication
+			.SetIdentityServerOptions("ClientCredentialsOptions")			
+	}
+
+	[HttpGet]
+	public async Task&lt;IActionResult&gt; Get(){
+		//Make the request
+		var responseObject = await _httpClientService			
+			//GET and deserialize the response body to IEnumerable&lt;Customers&gt;
+			.GetAsync&lt;IEnumerable&lt;Customers&gt;&gt;("https://api/customers");
+
+		//Do something with the results					  
+		if (!responseObject.HasError)
+		{
+			var customers = responseObject.BodyAsType;
+			return Ok(customers);
+		}
+		else
+		{
+			var httpStatusCode = responseObject.StatusCode;
+			var errorMessage = responseObject.Error;           
+			return StatusCode((int)httpStatusCode, errorMessage);
+		}
+	}
+
+	[HttpPost]
+	public async Task&lt;IActionResult&gt; Post([FromBody]CustomerForRequest customerForRequest){
+		//Make the request
+		var responseObject = await _httpClientService
+			//Execute a POST request by setting the type of the request body to CustomerForRequest 
+			// and Response to CustomerFromResponse
+			.PostAsync&lt;CustomerForRequest, CustomerFromResponse&gt;("https://api/customers", customerForRequest);
+
+		//Do something with the results					  
+		if (!responseObject.HasError)
+		{
+			var customerFromResponse = responseObject.BodyAsType;
+			return Ok(customerFromResponse);
+		}
+		else
+		{
+			var httpStatusCode = responseObject.StatusCode;
+			var errorMessage = responseObject.Error;           
+			return StatusCode((int)httpStatusCode, errorMessage);
+		}
+	}
+}</code></pre></p>
+<blockquote><p>The <code>SetIdentityServerOptions("SomeClientCredentialsOptions")</code> might be the simplest way of setting up an Access Token Request, the <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options" rel="noopener noreferrer" target="_blank">Options Pattern</a> though is the suggested way. Explore in the following section &#8220;<a href="#h2_access_token_request">How to setup an Access Token Request</a>&#8220;, all the ways of setting up IdentityServer options.</p></blockquote>
+<p>Following are the most useful extension methods for an HTTP request:</p>
+<ul>
+<li><code>GetAsync&lt;TResponseBody&gt;(String requestUri)</code><br />Sends a GET request to the specified <code>requestUri</code> and returns the response wrapped in a <a href="#h3_responseobject"><code>ResponseObject&lt;TResponseBody&gt;</code></a> object in an asynchronous operation. The body of the response will be deserialized to <code>TResponseBody</code> using <code>Json.NET</code>. Check the <a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.Extensions.HttpClientServiceGetExtensions.html" rel="noopener noreferrer" target="_blank">documentation</a> for a full list of the <code>GetAsync</code> extension methods.</li>
+<li><code>PostAsync&lt;TRequestBody,TResponseBody&gt;(String requestUri, TRequestBody requestBody)</code><br />Sends a POST request to the specified <code>requestUri</code> and returns the response wrapped in a <a href="#h3_responseobject"><code>ResponseObject&lt;TResponseBody&gt;</code></a> object in an asynchronous operation. The body of the request will be of type TRequestBody and will be serialized using Json.NET. The body of the response will be deserialized to <code>TResponseBody</code> using <code>Json.NET</code>. Check the <a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.Extensions.HttpClientServicePostExtensions.html" rel="noopener noreferrer" target="_blank">documentation</a> for a full list of the <code>PostAsync</code> extension methods.</li>
+<li><code>PutAsync&lt;TRequestBody,TResponseBody&gt;(String requestUri, TRequestBody requestBody)</code><br />Sends a PUT request to the specified <code>requestUri</code> and returns the response wrapped in a <a href="#h3_responseobject"><code>ResponseObject&lt;TResponseBody&gt;</code></a> object in an asynchronous operation. The body of the request will be of type TRequestBody and will be serialized using Json.NET. The body of the response will be deserialized to <code>TResponseBody</code> using <code>Json.NET</code>. Check the <a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.Extensions.HttpClientServicePutExtensions.html" rel="noopener noreferrer" target="_blank">documentation</a> for a full list of the <code>PutAsync</code> extension methods.</li>
+<li><code>DeleteAsync&lt;TResponseBody&gt;(String requestUri)</code><br />Sends a DELETE request to the specified <code>requestUri</code> and returns the response wrapped in a <a href="#h3_responseobject"><code>ResponseObject&lt;TResponseBody&gt;</code></a> object in an asynchronous operation. The body of the response will be deserialized to <code>TResponseBody</code> using <code>Json.NET</code>. Check the <a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.Extensions.HttpClientServiceDeleteExtensions.html" rel="noopener noreferrer" target="_blank">documentation</a> for a full list of the <code>DeleteAsync</code> extension methods.</li>
+<li><code>PatchAsync&lt;TRequestBody,TResponseBody&gt;(String requestUri, TRequestBody requestBody)</code><br />Sends a PATCH request to the specified <code>requestUri</code> and returns the response wrapped in a <a href="#h3_responseobject"><code>ResponseObject&lt;TResponseBody&gt;</code></a> object in an asynchronous operation. The body of the request will be of type TRequestBody and will be serialized using Json.NET. The body of the response will be deserialized to <code>TResponseBody</code> using <code>Json.NET</code>. Check the <a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.Extensions.HttpClientServicePatchExtensions.html" rel="noopener noreferrer" target="_blank">documentation</a> for a full list of the <code>PatchAsync</code> extension methods.</li>
+<li><code>HeadAsync&lt;TResponseBody&gt;(String requestUri)</code><br />Sends a HEAD request to the specified <code>requestUri</code> and returns the response wrapped in a <a href="#h3_responseobject"><code>ResponseObject&lt;TResponseBody&gt;</code></a> object in an asynchronous operation. The body of the response will be deserialized to <code>TResponseBody</code> using <code>Json.NET</code>. Check the <a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.Extensions.HttpClientServiceHeadExtensions.html" rel="noopener noreferrer" target="_blank">documentation</a> for a full list of the <code>HeadAsync</code> extension methods.</li>
+</ul>
+<h2 id="h2_access_token_request">How to setup an Access Token Request</h2>
+<p>The library supports multiple ways for setting up the necessary options to retrieve an access token, with the <code>SetIdentityServerOptions</code> overloads. Upon success of retrieving one, the result is cached until the token expires; that means that a new request to a protected resource does not necessarily means a new request for an access token.</p>
+<h3 id="h3_set_identity_server_options_string">SetIdentityServerOptions(String)</h3>
+<p>Setup IdentityServer options by defining the configuration section where the settings exist. The type of the options (<code>ClientCredentialsOptions</code> or <code>PasswordOptions</code>) will be determined based on the name of the section (it should be or end with &#8220;<code>ClientCredentialsOptions</code>&#8221; or &#8220;<code>PasswordOptions</code>&#8220;):</p>
+<p><pre><code class="language-csharp">//...
+_requestService = requestServiceFactory
+	//Create a instance of the service
+	.CreateHttpClientService()
+	//Set the settings for the IdentityServer4 authentication
+	.SetIdentityServerOptions("ClientCredentialsOptions")	
+//...</code></pre></p>
+<p>Although this option is not very useful for <code>PasswordTokenRequest</code>, the section can contain the properties of either the <code><a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.Models.ClientCredentialsOptions.html" rel="noopener noreferrer" target="_blank">ClientCredentialsOptions</a></code> or <code><a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.Models.PasswordOptions.html" rel="noopener noreferrer" target="_blank">PasswordOptions</a></code> objects. </p>
+<blockquote><p>For the <code>SetIdentityServerOptions(String)</code> to work, the configuration section name should either be or end with <code>ClientCredentialsOptions</code>.</p></blockquote>
+<blockquote><p>Read the <a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.HttpClientService.html#IdentityServer4_Contrib_HttpClientService_HttpClientService_SetIdentityServerOptions_System_String_" rel="noopener noreferrer" target="_blank">technical specifications</a> of the <code>SetIdentityServerOptions(String)</code> in the documents.</p></blockquote>
+<h3 id="h3_set_identity_server_options_toptions">SetIdentityServerOptions&lt;TOptions&gt;(TOptions)</h3>
+<p>Setup IdentityServer options by passing a <code><a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.Models.ClientCredentialsOptions.html" rel="noopener noreferrer" target="_blank">ClientCredentialsOptions</a></code> or <code><a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.Models.PasswordOptions.html" rel="noopener noreferrer" target="_blank">PasswordOptions</a></code> object directly to the <code>SetIdentityServerOptions&lt;TOptions&gt;(TOptions)</code>:</p>
+<p><pre><code class="language-csharp">//...
+_httpClientService = requestServiceFactory
+	//Create a instance of the service
+	.CreateHttpClientService()
+	//Set the settings for the IdentityServer4 authentication
+	.SetIdentityServerOptions(
+		new PasswordOptions
+			{
+			Address = "https://demo.identityserver.io/connect/token",
+			ClientId = "ClientId",
+			ClientSecret = "ClientSecret",
+			Scope = "Scope",
+			Username = "Username",
+			Password = "Password"
+			}
+		)
+//...</code></pre></p>
+<blockquote><p>Read the <a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.HttpClientService.html#IdentityServer4_Contrib_HttpClientService_HttpClientService_SetIdentityServerOptions__1___0_" rel="noopener noreferrer" target="_blank">technical specifications</a> of the <code>SetIdentityServerOptions&lt;TOptions&gt;(TOptions)</code> in the documents.</p></blockquote>
+<h3 id="h3_set_identity_server_options_ioptions">SetIdentityServerOptions&lt;TOptions&gt;(IOptions&lt;TOptions&gt;)</h3>
+<p>Setup IdentityServer options using the options pattern (read more about the options pattern in <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options" rel="noopener noreferrer" target="_blank">Microsoft Docs</a>):</p>
+<p><strong>Startup.cs</strong><br />
+<pre><code class="language-csharp">//...
+    public void ConfigureServices(IServiceCollection services)
+    {
+        //...
+        services.AddHttpClientService()
+            .AddSingleton&lt;IProtectedResourceService, ProtectedResourceService&gt;()
+            .Configure&lt;ClientCredentialsOptions&gt;(Configuration.GetSection(nameof(ClientCredentialsOptions)));    
+        //...
+    }
+//...</code></pre><br />
+<strong>ProtectedResourceService.cs</strong><br />
+<pre><code class="language-csharp">//...
+public class ProtectedResourceService : IProtectedResourceService
+{
+    private readonly IHttpClientServiceFactory _requestServiceFactory;
+    private readonly IOptions&lt;ClientCredentialsOptions&gt; _identityServerOptions;
+
+    public ProtectedResourceService(IHttpClientServiceFactory requestServiceFactory, IOptions&lt;ClientCredentialsOptions&gt; identityServerOptions)
+    {
+        _requestServiceFactory = requestServiceFactory;
+        _identityServerOptions = identityServerOptions;
+    }
+
+    public async Task&lt;YourObject&gt; Get(){
+        _requestServiceFactory
+        .CreateHttpClientService()
+        .SetIdentityServerOptions(_identityServerOptions)
+        .GetAsync&lt;YourObject&gt;("https://url_that_returns_YourObject");
+    }
+)
+//...</code></pre></p>
+<blockquote><p>Read the <a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.HttpClientService.html#IdentityServer4_Contrib_HttpClientService_HttpClientService_SetIdentityServerOptions__1_Microsoft_Extensions_Options_IOptions___0__" rel="noopener noreferrer" target="_blank">technical specifications</a> of the <code>SetIdentityServerOptions&lt;TOptions&gt;(IOptions&lt;TOptions&gt;)</code> in the documents.</p></blockquote>
+<h3 id="h3_set_identity_server_options_action">SetIdentityServerOptions&lt;TOptions&gt;(Action&lt;TOptions&gt;)</h3>
+<p>Setup IdentityServer options using a delegate:<br />
+<pre><code class="language-csharp">//...
+_httpClientService = requestServiceFactory
+	//Create a instance of the service
+	.CreateHttpClientService()
+	//Set the settings for the IdentityServer4 authentication
+	.SetIdentityServerOptions&lt;PasswordOptions&gt;( x =&gt; {
+		  x.Address = "https://demo.identityserver.io/connect/token";
+		  x.ClientId = "ClientId";
+		  x.ClientSecret = "ClientSecret";
+		  x.Scope = "Scope";
+		  x.Username = "Username";
+		  x.Password = "Password";
+		}
+	)
+//...</code></pre></p>
+<blockquote><p>Read the <a href="https://georgekosmidis.github.io/IdentityServer4.Contrib.HttpClientService/api/IdentityServer4.Contrib.HttpClientService.HttpClientService.html#IdentityServer4_Contrib_HttpClientService_HttpClientService_SetIdentityServerOptions__1_System_Action___0__" rel="noopener noreferrer" target="_blank">technical specifications</a> of the <code>SetIdentityServerOptions&lt;TOptions&gt;(IOptions&lt;TOptions&gt;)</code> in the documents.</p></blockquote>
+<h2 id="h2_more">More info on how to serialize requests, deserialize responses</h2>
+<p>Responses will be deserialized to the type <code>TResponseBody</code> of all the <code>SendAsync&lt;TRequestBody, TResponseBody&gt;(Uri, HttpMethod, TRequestBody)</code> extension methods. The example that follows uses the <code>GetAsync&lt;TResponseBody&gt;(String)</code> extension method to sent GET request to the URL passed as argument; the response then is deserialized to a <code>ResponsePoco</code> instance :<br />
+<pre><code class="language-csharp">//...
+var responseObject = await _requestServiceFactory
+    .CreateHttpClientService()
+    .GetAsync&lt;ResponsePoco&gt;("https://url_that_returns_ResponsePoco_in_json");
+//...</code></pre></p>
+<p>Requests that contain a body (POST, PUT and PATCH) behave similar, by deserializing the response body and serializing the request body. In the example that follows the type <code>TRequestBody</code> of the <code>PostAsync&lt;TRequestBody,TResponseBody&gt;()</code> extension method defines the type of the <code>requestPoco</code> object. The request will be serialized and attached in the request body using <code>JsonConvert.SerializeObject(requestPoco, Formatting.None)</code>. :<br />
+<pre><code class="language-csharp">//...
+var responseObject = await _requestServiceFactory
+    .CreateHttpClientService()
+    .PostAsync&lt;RequestPoco,ResponsePoco&gt;("https://url_that_accepts_RequestPoco_and_responds_with_ResponsePoco", requestPoco);
+//...</code></pre></p>
+<blockquote><p>Use the <code>TypeContent(TRequestBody, Encoding, string)</code> to set the media type and encoding of a request body. Without using <code>TypeContent(...)</code> to explitily set media-type and encoding, the defaults will be <code>application/json</code> and <code>UTF-8</code>.</p></blockquote>
+<h3 id="h3_responseobject">ResponseObject&lt;TResponseBody&gt;</h3>
+<p>The object returned by all extension methods (GetAsync, PostAsync, PutAsync etc) is of type <code>ResponseObject&lt;TResponseBody&gt;</code> and contains multiple properties. Three of them, the properties starting with &#8220;BodyAs&#8230;&#8221;, hold the body of the response either as <code>String</code>, as <code>Stream</code> or as <code>TResponseBody</code>. Follows, a list of all properties and a quick explanation:</p>
+<ul>
+<li><code>Stream BodyAsStream</code> This property is populated by setting the <code>TResponseBody</code> to <code>Stream</code>, e.g. <code>GetAsync&lt;Stream&gt;(...)</code>.</li>
+<li><code>String BodyAsString</code> Unless the <code>TResponseBody</code> is defined as <code>Stream</code>, this will always contain the body of the respone as a raw string.</li>
+<li><code>TResponseBody BodyAsType</code> The property will attempt to deserialize the raw string of the response to <code>TResponseBody</code>, e.g. <code>GetAsync&lt;CustomerModel&gt;(...)</code>.</li>
+<li><code>String Error</code> The error, if any, of the request attempt.</li>
+<li><code>bool HasError</code> A boolean indicating if the something went wrong with the request.</li>
+<li><code>HttpResponseHeaders Headers</code> A collection of the response headers.</li>
+<li><code>HttpRequestMessge HttpRequestMessge</code> The entire <code>HttpRequestMessage</code> for debugging purposes.</li>
+<li><code>HttpResponseMessage HttpResponseMessage</code> The entire <code>HttpResponseMessage</code>.</li>
+<li><code>HttpStatusCode StatusCode</code> The HttpStatusCode returned.</li>
+</ul>
+<h3 id="h3_typecontent">TypeContent(TRequestBody, Encoding, string)</h3>
+<p>Allowing the library to serialize an object and attach it to a request in the body, will by default set the <code>Content-Type</code> header to <code>application/json; charset=utf-8</code>. This default behavior can change with the <code>TypeContent(TRequestBody, Encoding, string)</code> class:</p>
+<p><pre><code class="language-csharp">var responseObject = await _requestServiceFactory
+    //Create a instance of the service
+    .CreateHttpClientService()
+    //.PostAsync&lt;TRequestBody,TResponseBody&gt;(URL, customer of type Customer1)
+    .PostAsync&lt;TypeContent&lt;CustomerForRequest&gt;,CustomerFromResponse&gt;(
+                                            "https://api/customers", 
+                                            new TypeContent(customerForRequest, Encoding.UTF8, "application/json")
+    );</code></pre></p>
+<h2 id="h2_headers">Attaching headers to the request</h2>
+<p>Header management is done using a set of methods that adhere to the general method chaining approach. Although in total 6 methods, they actually do two jobs, adding or removing headers. In the list that follows, the first four methods add headers, and the last two remove:</p>
+<h3 id="h3_headers_headersadd_string">HeadersAdd(String, String)</h3>
+<p>Adds a header to the request. If a second header with the same name already exists, their values will be aggregated to a List<T>, which will result in the values passes as comma separated in the request.</p>
+<h3 id="h3_headers_headersadd_list_string">HeadersAdd(String, List&lt;String&gt;)</h3>
+<p>Adds a header to the request. If a second header with the same name already exists, their values will be aggregated to a List<T>, which will result in the values passes as comma separated in the request.</p>
+<h3 id="h3_headers_headersadd_dictionary">HeadersAdd(Dictionary&lt;String, String&gt;)</h3>
+<p>Adds a collection of headers in the request using a Dictionary<String,String>, where the Key of the Dictionary is the header name and the value is the header value. If a second header with the same name already exists, their values will be aggregated to a List<T>, which will result in the values passes as comma separated in the request.</p>
+<h3 id="h3_headers_headersadd_dictionary_list">HeadersAdd(Dictionary&lt;String, List&lt;String&gt;&gt;)</h3>
+<p>Adds a collection of headers in the request using a Dictionary<String,List<String>>, where the Key of the Dictionary is the header name and the value is a list of header values. If a second header with the same name already exists, their values will be aggregated to a List<T>, which will result in the values passes as comma separated in the request.</p>
+<h3 id="h3_headers_headersclear">HeadersClear()</h3>
+<p>Clears all headers from the request. Use method chaining to reset headers for an <code>HttpClientService</code>, e.g. <code>httpClientService.HeadersClear().HeadersAdd(...)</code></p>
+<h3 id="h3_headers_headersremove">HeadersRemove(String)</h3>
+<p>Removes header from the headers collection by name. Use method chaining to reset headers for an <code>HttpClientService</code>, e.g. <code>httpClientService.HeadersRemove("X-Header").HeadersAdd("X-Header",...)</code></p>
+<p>The following example use method chaining to illustrate a rather non realistic scenario of using all methods:<br />
+<pre><code class="language-csharp">var responseObject = await _requestServiceFactory
+    .CreateHttpClientService()
+    //Adds a header to the request, key-value style.
+    .HeadersAdd("X-Custom-Header", "value")
+    //Adds a header to the request, key-value style, where the value is actually a list of values.
+    .HeadersAdd("X-Custom-Header", new List&lt;String&gt;{ "value1", "value2" })
+    //Adds a collection of headers in the request using a Dictionary&lt;String,String&gt;, 
+    // where the Key of the Dictionary is the header name and the value is the header value
+    .HeadersAdd(new Dictionary&lt;String,String&gt;{ {"X-Custom-Header", "value"} })  
+    //Adds a collection of headers in the request using a Dictionary&lt;String,String&gt;, 
+    // where the Key of the Dictionary is the header name and the value is the header value
+    .HeadersAdd(new Dictionary&lt;String,List&lt;String&gt;&gt;{ {"X-Custom-Header", {"value1","value2"}} })  
+  
+    //Continue setting identity server option, making call etc 
+  .PostAsync&lt;RequestPoco,ResponsePoco&gt;("https://url_that_accepts_RequestPoco_and_responds_with_ResponsePoco", requestPoco);</code></pre></p>
+<h2 id="h2_conclusion">Conclusion</h2>
+<p>The <a href="https://github.com/georgekosmidis/IdentityServer4.Contrib.HttpClientService" rel="noopener noreferrer" target="_blank">IdentityServer4.Contrib.HttpClientService</a> fluent interface makes it easy to create request to protected by IdentityServer4 resources. More over, it makes your code cleaner, by enabling you to preset an <code>HttpClientService</code> with the identity server options needed to login and / or any additional headers you might need. For example, in the following gist the options for the identity server and a custom header is set once, and multiple GET requests are sent in the loop using the same <code>HttpClientService</code>:</p>
+<p><pre><code class="language-csharp">public class YourService
+{
+	//Request the IHttpClientServiceFactory instance in your controller or service
+	private readonly HttpClientService _httpClientService;
+	
+	public CustomerController(IHttpClientServiceFactory requestServiceFactory)
+	{
+		_httpClientService = requestServiceFactory
+            //Create a instance of the service
+            .CreateHttpClientService()
+            //Set the settings for the IdentityServer4 authentication
+            .SetIdentityServerOptions("ClientCredentialsOptions")			
+            //Add a custom header
+            .HeadersAdd("X-Header", "some-value")
+    }
+
+	public async Task SentSomeNumbers(IEnumerable&lt;int&gt; someNumbers)
+	{
+        foreach(var i in someNumbers) {
+            //Reuse the HttpClientService
+            await _httpClientService.GetAsync("https://api/sent_me_numbers")
+        }
+	}
+}</code></pre></p>
+<p>Check the code on <a href="https://github.com/georgekosmidis/IdentityServer4.Contrib.HttpClientService" rel="noopener noreferrer" target="_blank">Github</a>, and give it a star if you like it! The library is available as a nuget package with the name <a href="https://www.nuget.org/packages/IdentityServer4.Contrib.HttpClientService/" rel="noopener noreferrer" target="_blank">IdentityServer4.Contrib.HttpClientService</a>.</p><p>The post <a href="https://blog.georgekosmidis.net/how-to-make-authenticated-requests-to-an-asp-net-core-web-api-using-identityserver4-with-client-credentials/">How to make authenticated requests to an ASP.NET Core web API using IdentityServer4 with Client Credentials.</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

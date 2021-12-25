@@ -1,0 +1,6 @@
+<p>After a good 2 hours of searching what the **** happened and Visual Studio stopped working, I finally found a working solution&#8230;</p>
+<blockquote>
+<p>Just copy all dte*.olb files, from C:\Program Files (X86)\Common Files\Microsoft Shared\MSEnv to C:\Program Files X86\Microsoft Visual Studio 9.0\Common7\IDE.</p>
+</blockquote>
+<p>Just for the record, I tried &#8220;devenv /resetuserdata&#8221; and deleting the involved registry keys with no luck at all. I end up using <a href="http://technet.microsoft.com/en-us/sysinternals/bb896645.aspx" target="_blank" rel="noopener noreferrer">Process Monitor</a> after reading this post: <a href="http://blogs.msdn.com/b/visualstudio/archive/2009/10/29/how-to-fix-the-application-cannot-start-error.aspx?PageIndex=4" target="_blank" rel="noopener noreferrer">http://blogs.msdn.com/b/visualstudio/archive/2009/10/29/how-to-fix-the-application-cannot-start-error.aspx?PageIndex=4</a>.</p>
+<p>With a little luck and a lot of tries,  I got a headache and a working studio.</p><p>The post <a href="https://blog.georgekosmidis.net/visual-studio-2012-4-run-as-administrator-the-application-cannot-start-error/">Visual Studio 2012.4, “Run As Administrator” -> “The application cannot start” error</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

@@ -1,0 +1,16 @@
+{
+  "Type": "post",
+  "Slang": "get-started-with-swagger-and-asp-net-core",
+  "Title": "Get started with Swagger and ASP.NET Core",
+  "Description": "<p>This post is an overview of how to install and configure Swagger for .NET Core. If you are searching for tips &#038; tricks, you might be interested in the article: <a href=\"/swagger-in-asp-net-core-tips-and-tricks/\" rel=\"noopener noreferrer\" target=\"_blank\">Swagger in .NET Core: Tips &#038; Tricks</a>.</p>\n<p>",
+  "DatePublished": "2020-07-11T14:41:09+02:00",
+  "DateModified": "2020-07-11T16:58:26+02:00",
+  "Image": "https://blog.georgekosmidis.net/wp-content/uploads/2020/07/swagger-getting-started.png",
+  "Tags": [
+    "dotnet",
+    "DotNet Core AspNetCore",
+    "Swagger",
+    "Swashbuckle",
+    "ASP.NET Core"
+  ]
+}

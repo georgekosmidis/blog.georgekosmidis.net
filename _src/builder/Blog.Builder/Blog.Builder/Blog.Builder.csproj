@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <BaseOutputPath></BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="raw\20130425135124-sql-server-weird-behavior-with-containstable-isabout-and-weighted-terms\content.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20130425135124-sql-server-weird-behavior-with-containstable-isabout-and-weighted-terms\content.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\content.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\content.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\1f642.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\BlazorStartingSolution.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\BlazorWebComponentNewCity.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\create_component-2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\NewBlazorComponentLoading.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\NewBlazorComponentRun.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\OpenWeatherMap.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\RazorClassLibrary.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\VS_OpenWeatherMap_Models.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="template\card-image.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="template\card-post.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="template\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="_output\" />
+  </ItemGroup>
+
+</Project>

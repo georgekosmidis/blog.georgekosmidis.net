@@ -1,0 +1,210 @@
+<p><a href="https://mariadb.org/" rel="noopener noreferrer" target="_blank">MariaDB</a> Server is one of the most popular open source relational databases. It’s made by the original developers of MySQL and guaranteed to stay open source. It is part of most cloud offerings and the default in most Linux distributions.</p>
+<p>In this post, we will see how to use <a href="https://mariadb.org/" rel="noopener noreferrer" target="_blank">MariaDB</a> as storage for an ASP.NET API and do simple CRUD operations with Entity Framework Core.<br />
+</p>
+<h3>Installing MariaDB</h3>
+<p>Visit the <a href="https://downloads.mariadb.org/" rel="noopener noreferrer" target="_blank">https://downloads.mariadb.org/</a> and download the latest stable version. At the moment of writing this article the last stable version is 10.5.4, so I would suggest to download the MSI packaged named &#8220;<em>mariadb-10.5.4-winx64.msi</em>&#8221; for easier installation.</p>
+<blockquote><p>You can also download the installation package here: <a href="https://downloads.mariadb.org/interstitial/mariadb-10.5.4/winx64-packages/mariadb-10.5.4-winx64.msi" rel="noopener noreferrer" target="_blank">mariadb-10.5.4-winx64.msi</a>.</p></blockquote>
+<p>Installing an MSI package is rather easy, so I am not going to get into details about it. When you&#8217; re done, a shortcut of the management tool that comes with <code>MariaDB</code> will be placed on your desktop; it is called <code>HeidiSQL</code>. It doesn&#8217;t feature the best UI around, but you can do all sort of operations with it!</p>
+<blockquote><p>If you wish to go into the MySQL world, I would suggest <a href="https://dbeaver.io/" rel="noopener noreferrer" target="_blank">DBeaver Community Edition</a> as management tool, which you can download here: <a href="https://dbeaver.io/download/" rel="noopener noreferrer" target="_blank">https://dbeaver.io/download/</a></p></blockquote>
+<h3>Creating the schema</h3>
+<p>We can use <code>HeidiSQL</code> for this! Double click on the <code>HeidiSQL</code> shortcut, fill in the correct username &#038; password (the ones you gave during installation) and click &#8220;<em>Open</em>&#8220;. Once done, right click on the server&#8217;s entry in the tree on the left (= the topmost one). In its context menu, you have &#8220;<em>Create new > Database</em>&#8221; that you can use to -obviously- create a new database! Follows an image that makes things a bit clearer!<br />
+<img src="media\MariaDB-Create.png" alt="MariaDB - Create New Database" /></p>
+<blockquote><p>MySQL case sensitivity depends on the OS, so I would suggest to always use lower case in database and table names.  </p></blockquote>
+<p><a href="/using-litedb-in-an-asp-net-core-api/" rel="noopener noreferrer" target="_blank">It is convenient that <code>LiteDB</code> (and <code>MongoDB</code>) is creating collection on demand</a>, but here we need to create the table ourselves. We are going to use Microsoft&#8217;s example of a weather forecast API as a base for this post, so the only table needed is a table to store the <code>WeatherForcast</code> object. Just had back to <code>HeidiSQL</code>, and run the following script:<br />
+<pre><code class="language-csharp">CREATE TABLE `weatherforecasts` (
+	`Id` INT(11) NOT NULL AUTO_INCREMENT,
+	`Date` DATETIME NULL DEFAULT NULL,
+	`TemperatureC` TINYINT(4) NULL DEFAULT NULL,
+	`Summary` TEXT(65535) NULL DEFAULT NULL COLLATE 'latin1_general_ci',
+	PRIMARY KEY (`Id`)
+)
+COLLATE='latin1_general_ci'
+ENGINE=InnoDB
+;
+</code></pre></p>
+<h3>Setting up the API.NET Core API project</h3>
+<p>We need to create a new <code>webapi</code> to use Microsoft&#8217;s example and this is rather easy; the only addition is the <a href="https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql" rel="noopener noreferrer" target="_blank">Pomelo.EntityFrameworkCore.MySql</a> nuget package. Assuming thus basic knowledge on how to create a new ASP.NET Core API, I will just list the necessary commands and continue with the interesting stuff:<br />
+<pre><code class="language-csharp">dotnet new webapi
+dotnet add package Pomelo.EntityFrameworkCore.MySql
+dotnet build</code></pre></p>
+<blockquote><p>You could also choose to use Visual Studio to create a new ASP.NET Core Web Application, choose &#8220;API&#8221; as the project template and finally add the <a href="https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql" rel="noopener noreferrer" target="_blank">Pomelo.EntityFrameworkCore.MySql</a> nuget package.</p></blockquote>
+<p>That&#8217;s it. ASP.NET Core rules right? Last but not least, we should keep somewhere the connection string for the database, and there is no better place for it than the <code>appsettings</code>. Add the following lines to the <code>appsettings.Development.json</code>:<br />
+<pre><code class="language-csharp">  "ConnectionStrings": {
+    "MariaDbConnectionString": "server=localhost;user id=root;password=root;database=aspnetcore.mariadb"
+  }</code></pre></p>
+<h3>Setting up the DbContext</h3>
+<p>Unlike the setup with LiteDB in the article &#8220;<a href="/using-litedb-in-an-asp-net-core-api/" rel="noopener noreferrer" target="_blank">Using LiteDB in an ASP.NET Core API</a>&#8221; we will not have one connection to share with all requests; Instead, we will just use <code>AddDbContextPool</code> to inject the <code>DbContext</code> as scoped in our service.</p>
+<p>First of all, let&#8217;s create our <code>DataModel</code>, which in reality just adds the <code>public int? Id { get; set; }</code> line in the model of the official example:<br />
+<pre><code class="language-csharp">public class WeatherForecastDataModel
+{
+    public int? Id { get; set; }
+
+    public DateTime Date { get; set; }
+
+    public int TemperatureC { get; set; }
+
+    public int TemperatureF =&gt; 32 + (int)(TemperatureC / 0.5556);
+
+    public string Summary { get; set; }
+}</code></pre></p>
+<blockquote><p>The Id of this model is indeed the primary key and is set as auto-increment in the database, but it is nullable in the model because inserts should not define an Id. This of course is not a proper solution for a real life app, but it is here to serve as a sample.</p></blockquote>
+<blockquote><p>In a real life application we should create different models for the database and for all requests, but now, for the sake of simplicity, we are going to use the <code>WeatherForecast</code> object all over. </p></blockquote>
+<p>After we are done with the model, we should create a custom <code>DbContext</code> (let&#8217;s name it <code>MariaDbContext</code>) that inherits from <code>Microsoft.EntityFrameworkCore.DbContext</code> and lists our one and only <code>WeatherForecastDataModel</code>:<br />
+<pre><code class="language-csharp">public partial class MariaDbContext : Microsoft.EntityFrameworkCore.DbContext
+{
+    public MariaDbContext(DbContextOptions&lt;MariaDbContext&gt; options)
+        : base(options)
+    {
+    }
+
+    public virtual DbSet&lt;WeatherForecastDataModel&gt; WeatherForecasts { get; set; }
+}</code></pre></p>
+<p>Finally, let&#8217;s add the <code>MariaDbContext</code> as a scoped service to the DI Container:<br />
+<pre><code class="language-csharp">public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContextPool&lt;MariaDbDbContext&gt;(options =&gt; options
+        .UseMySql(
+            Configuration.GetConnectionString("MariaDbConnectionString"),
+            mySqlOptions =&gt; mySqlOptions.ServerVersion(new Version(10, 5, 4), ServerType.MariaDb)
+        )
+    );
+    
+    services.AddControllers();
+}</code></pre></p>
+<h3>Setting up a service for MariaDB</h3>
+<p>We should create a service that stores and retrieves the model to/from the database. Since this is done with Entity Framework Core, it is done the way we already know. This is a simplified version of a service with full CRUD operations:<br />
+<pre><code class="language-csharp">public sealed class MariaDbWeatherForecastService : IMariaDbWeatherForecastService
+{
+    private readonly MariaDbContext _dbContext;
+
+    public MariaDbWeatherForecastService(MariaDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+
+    public async Task&lt;int&gt; Delete(int id)
+    {
+        try
+        {
+            _dbContext.WeatherForecasts.Remove(
+                new WeatherForecastDataModel
+                {
+                    Id = id
+                }
+            );
+
+            return await _dbContext.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return 0;
+        }
+    }
+
+    public async Task&lt;IEnumerable&lt;WeatherForecastDataModel&gt;&gt; FindAll()
+    {
+        return await _dbContext.WeatherForecasts.ToListAsync();
+    }
+
+    public async Task&lt;WeatherForecastDataModel&gt; FindOne(int id)
+    {
+        return await _dbContext.WeatherForecasts.FirstOrDefaultAsync(x =&gt; x.Id == id);
+    }
+
+    public async Task&lt;int&gt; Insert(WeatherForecastDataModel forecast)
+    {
+        _dbContext.Add(forecast);
+        return await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task&lt;int&gt; Update(WeatherForecastDataModel forecast)
+    {
+        try
+        {
+            _dbContext.Update(forecast);
+            return await _dbContext.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return 0;
+        }
+    }
+}</code></pre><br />
+And again add it as a service to the IoC container:<br />
+<pre><code class="language-csharp">services.AddScoped&lt;IMariaDbWeatherForecastService, MariaDbWeatherForecastService&gt;();</code></pre></p>
+<h3>Finally, setting up the controller</h3>
+<p>Having done all the hard work, it is now time to connect our service with the <code>WeatherForecastController</code>. The cotroller included as a sample contains just a hard-coded GET action, so we need to rewrite all of it and support the operations we wrote in the <code>IMariaDbWeatherForecastService</code>:<br />
+<pre><code class="language-csharp">[ApiController]
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
+{
+
+    private readonly ILogger&lt;WeatherForecastController&gt; _logger;
+    private readonly IMariaDbWeatherForecastService _forecastDbService;
+
+    public WeatherForecastController(ILogger&lt;WeatherForecastController&gt; logger, IMariaDbWeatherForecastService forecastDbService)
+    {
+        _forecastDbService = forecastDbService;
+        _logger = logger;
+    }
+
+    [HttpGet]
+    public async Task&lt;IEnumerable&lt;WeatherForecastDataModel&gt;&gt; Get()
+    {
+        return await _forecastDbService.FindAll();
+    }
+
+    [HttpGet("{id}", Name = "FindOne")]
+    public async Task&lt;ActionResult&lt;WeatherForecastDataModel&gt;&gt; Get(int id)
+    {
+        var result = await _forecastDbService.FindOne(id);
+        if (result != default)
+            return Ok(result);
+        else
+            return NotFound();
+    }
+
+    [HttpPost]
+    public async Task&lt;ActionResult&lt;WeatherForecastDataModel&gt;&gt; Insert(WeatherForecastDataModel dto)
+    {
+        if (dto.Id != null)
+        {
+            return BadRequest("Id cannot be set for insert action.");
+        }
+
+        var id = await _forecastDbService.Insert(dto);
+        if (id != default)
+            return CreatedAtRoute("FindOne", new { id = id }, dto);
+        else
+            return BadRequest();
+    }
+
+    [HttpPut]
+    public async Task&lt;ActionResult&lt;WeatherForecastDataModel&gt;&gt; Update(WeatherForecastDataModel dto)
+    {
+        if (dto.Id == null)
+        {
+            return BadRequest("Id should be set for insert action.");
+        }
+
+        var result = await _forecastDbService.Update(dto);
+        if (result &gt; 0)
+            return NoContent();
+        else
+            return NotFound();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task&lt;ActionResult&lt;WeatherForecastDataModel&gt;&gt; Delete(int id)
+    {
+        var result = await _forecastDbService.Delete(id);
+        if (result &gt; 0)
+            return NoContent();
+        else
+            return NotFound();
+    }
+}</code></pre></p>
+<h3>The end!</h3>
+<p>MariaDB is a community-developed, commercially supported fork of the MySQL relational database management system (RDBMS), intended to remain free and open-source software under the GNU General Public License. Development is led by some of the original developers of MySQL, who forked it due to concerns over its acquisition by Oracle Corporation in 2009.</p>
+<p>Why choose it for your RDBMS instead of SQL Server? Well <a href="https://azure.microsoft.com/en-us/services/mariadb/" rel="noopener noreferrer" target="_blank">it&#8217;s free and it&#8217;s in Azure already!</a></p>
+<blockquote><p>My playground with <a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">MariaDB</a>, including postman calls and the complete API, you can find in <a href="https://github.com/georgekosmidis/AspNetCore.MariaDb" rel="noopener noreferrer" target="_blank">https://github.com/georgekosmidis/AspNetCore.MariaDb</a>!</p></blockquote><p>The post <a href="https://blog.georgekosmidis.net/using-mariadb-in-an-aspnet-core-api-with-entity-framework-core/">Using MariaDB in an ASP.NET Core API with Entity Framework Core</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

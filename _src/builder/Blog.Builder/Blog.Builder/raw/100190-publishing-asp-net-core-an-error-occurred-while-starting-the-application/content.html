@@ -1,0 +1,24 @@
+<p>Have you seen this error?<br />
+<code>An error occurred while starting the application.<br />
+.NET Core &lt;version&gt; | Microsoft.AspNetCore.Hosting &lt;version&gt; | Microsoft Windows &lt;version&gt; | <a href="https://docs.microsoft.com/el-gr/aspnet/core/host-and-deploy/azure-iis-errors-reference?view=aspnetcore-2.1" rel="noopener noreferrer" target="_blank">Need help?</a></code></p>
+<p></p>
+<blockquote><p>There is <strong>a newer version</strong> of this blog post!<br />
+Visit <a href="/an-error-occurred-while-starting-the-application-process-failure-and-many-more/">/an-error-occurred-while-starting-the-application-process-failure-and-many-more/</a></p></blockquote>/
+<p>It looks like this in your browser:<br />
+<a href="https://blog.georgekosmidis.net/wp-content/uploads/2018/08/552_an_error_occured.png"><img loading="lazy" src="https://blog.georgekosmidis.net/wp-content/uploads/2018/08/552_an_error_occured.png?w=300" alt="" width="300" height="32" class="alignnone size-medium wp-image-554" srcset="https://blog.georgekosmidis.net/wp-content/uploads/2018/08/552_an_error_occured.png 886w, https://blog.georgekosmidis.net/wp-content/uploads/2018/08/552_an_error_occured-300x32.png 300w, https://blog.georgekosmidis.net/wp-content/uploads/2018/08/552_an_error_occured-768x81.png 768w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+<p>Besides that one hint, that the error is while starting, it&#8217;s not very descriptive, right?</p>
+<p>Althouth there many things that could go wrong and the proper way is to actually troubleshoot the error, I end up googling about this for over an hour! In my search I found numerous articles but it turned out that for me the solution was simple!<br />
+<!--more--></p>
+<blockquote><p>I forgot to configure the release output path for swagger :/</p></blockquote>
+<p>Probably you already know how to do this, but in case you don&#8217;t remember&#8230;:<br />
+Right click your project, then click <code>Properties</code>, then click the<code>Build</code> tab and at the <code>Output</code> section check the <code>XML documentation file</code>:<br />
+<a href="https://blog.georgekosmidis.net/wp-content/uploads/2018/08/552_configure.png"><img loading="lazy" src="https://blog.georgekosmidis.net/wp-content/uploads/2018/08/552_configure.png?w=300" alt="" width="300" height="253" class="alignnone size-medium wp-image-555" srcset="https://blog.georgekosmidis.net/wp-content/uploads/2018/08/552_configure.png 800w, https://blog.georgekosmidis.net/wp-content/uploads/2018/08/552_configure-300x253.png 300w, https://blog.georgekosmidis.net/wp-content/uploads/2018/08/552_configure-768x648.png 768w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+<p>And if configuring swagger wasn’t the solution, you can either check one of the links below, or just <a href="https://scottsauber.com/2017/04/10/how-to-troubleshoot-an-error-occurred-while-starting-the-application-in-asp-net-core-on-iis/" rel="noopener noreferrer" target="_blank">troubleshoot your app</a>.</p>
+<ul>
+<li><a href="https://docs.microsoft.com/el-gr/aspnet/core/host-and-deploy/azure-iis-errors-reference?view=aspnetcore-2.1" rel="noopener noreferrer" target="_blank">Microsoft Docs: Common errors reference for Azure App Service and IIS with ASP.NET Core</a></li>
+<li><a href="https://scottsauber.com/2017/04/10/how-to-troubleshoot-an-error-occurred-while-starting-the-application-in-asp-net-core-on-iis/" rel="noopener noreferrer" target="_blank">Scott Sauber Blog: How to troubleshoot: “An error occurred while starting the application” in ASP.NET Core on IIS</a></li>
+<li><a href="https://forums.asp.net/t/2117362.aspx?An+error+occurred+while+starting+the+application+NET+Core+X86+v4+1+1+0+Microsoft+AspNetCore+Hosting+version+1+1+1+Microsoft+Windows+6+2+9200" rel="noopener noreferrer" target="_blank">ASP.NET forums: An error occurred while starting the application. .NET Core X86 v4.1.1.0 | Microsoft.AspNetCore.Hosting version 1.1.1 | Microsoft Windows 6.2.9200RSSHappy to include any other links!</a></li>
+<li><a href="https://blindcoder.uk/asp-net-core-2-an-error-occurred-while-starting-the-application/" target="_blank" rel="noopener noreferrer">Blind Coder Blog: asp.net core 2: an error occurred while starting the application</a></li>
+</ul>
+<blockquote><p>There is <strong>a newer version</strong> of this blog post!<br />
+Visit <a href="/an-error-occurred-while-starting-the-application-process-failure-and-many-more/">/an-error-occurred-while-starting-the-application-process-failure-and-many-more/</a></p></blockquote><p>The/ post <a href="https://blog.georgekosmidis.net/publishing-asp-net-core-an-error-occurred-while-starting-the-application/">Publishing ASP.NET Core: An error occurred while starting the application</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

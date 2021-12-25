@@ -1,0 +1,16 @@
+{
+  "Type": "post",
+  "Slang": "asp-net-mvc-5-with-razor-kendo-ui-dynamic-grid-creation-columns-ordering-grouping-and-paging",
+  "Title": "ASP.NET MVC 5 with Razor Kendo UI: Dynamic Grid Creation – Columns, Ordering, Grouping and Paging",
+  "Description": "<p>The requirements were simple! A grid that will load a whatever query, grouped by whatever columns, with filters enabled, paging and everything. Easy task with ASP.NET Telerik grids but not easy at all with Kendo UI!</p>\n<p>Since we can&#8217;t have a ViewModel or Model for the grid (we don&#8217;t know what columns a whatever query has!), I came up with a rather different ViewModel that holds descriptions for columns, groups etc&#8230;:</p>\n<p>",
+  "DatePublished": "2014-12-01T08:06:56+01:00",
+  "DateModified": "2020-06-16T13:43:51+02:00",
+  "Image": null,
+  "Tags": [
+    "ASP.NET MVC",
+    "Dynamic Grid Columns",
+    "Kendo",
+    "Razor",
+    "ASP.NET MVC 5"
+  ]
+}

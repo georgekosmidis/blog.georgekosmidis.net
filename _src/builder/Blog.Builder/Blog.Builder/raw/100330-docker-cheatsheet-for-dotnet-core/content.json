@@ -1,0 +1,15 @@
+{
+  "Type": "post",
+  "Slang": "docker-cheatsheet-for-dotnet-core",
+  "Title": "Docker cheatsheet for .NET Core",
+  "Description": "<p>This is just a cheat sheet of commands and terminology for Docker and ASP.NET Core; it contains commands that you can find in the <a href=\"https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">original cheat sheet</a>, plus a <code>Dockerfile</code> for ASP.NET Core and a quick guide on how to created one from Visual Studio. Hopefully, both developers that are in the process of getting into the containerize world with Docker and developers that are already in but need a quick recap will find it useful.</p>\n<p>",
+  "DatePublished": "2020-06-12T11:13:58+02:00",
+  "DateModified": "2021-04-06T11:26:50+02:00",
+  "Image": "https://blog.georgekosmidis.net/wp-content/uploads/2020/06/docker_support_in_visual_studio.png",
+  "Tags": [
+    "ASP.NET Core",
+    "AspNetCore",
+    "Docker",
+    "ASP.NET Core"
+  ]
+}

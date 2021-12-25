@@ -1,0 +1,15 @@
+{
+  "Type": "post",
+  "Slang": "publishing-asp-net-core-an-error-occurred-while-starting-the-application",
+  "Title": "Publishing ASP.NET Core: An error occurred while starting the application",
+  "Description": "<p>Have you seen this error?<br />\n<code>An error occurred while starting the application.<br />\n.NET Core &lt;version&gt; | Microsoft.AspNetCore.Hosting &lt;version&gt; | Microsoft Windows &lt;version&gt; | <a href=\"https://docs.microsoft.com/el-gr/aspnet/core/host-and-deploy/azure-iis-errors-reference?view=aspnetcore-2.1\" rel=\"noopener noreferrer\" target=\"_blank\">Need help?</a></code></p>\n<p>",
+  "DatePublished": "2018-06-08T12:23:02+02:00",
+  "DateModified": "2020-07-26T11:09:49+02:00",
+  "Image": "https://blog.georgekosmidis.net/wp-content/uploads/2020/07/featured.jpg",
+  "Tags": [
+    "ASP.NET Core",
+    "Swagger",
+    "Web API",
+    "ASP.NET Core"
+  ]
+}

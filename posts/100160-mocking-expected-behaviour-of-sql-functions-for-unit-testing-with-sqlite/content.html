@@ -1,0 +1,17 @@
+<p>While unit testing, I came across a method in an SQL repository class that was using a <a href="https://docs.microsoft.com/en-us/ef/core/querying/raw-sql" target="_blank" rel="noopener noreferrer">raw SQL query</a>, and along with that, SQL Server&#8217;s newid() function. Since the complicated reason behind this decision was out of scope, I had to find a way to unit test that method&#8230;</p>
+<p>SQLite was -of course- the first approach, but any attempt to actually test the method would nevertheless fail with the exception <code>Microsoft.Data.Sqlite.SqliteException: 'SQLite Error 1: 'no such function: newid'.'</code>.</p>
+<p></p>
+<p>To go around this, I used <code>SqliteConnection.CreateFunction</code> to bind a custom function to the connection and unit test SQL Queries that include that function (e.g. newid() )</p>
+<p>You can see an example of this approach, in the following gist  <pre><code class="language-csharp">var options = new DbContextOptionsBuilder()
+                  .UseSqlite("Data Source=:memory:")
+                  .Options;
+var context = new DemoProjectDbContext(options);
+
+//open one and keep it, in-memory databases live untill the last connection closes
+context.Database.OpenConnection();
+
+var conn = context.Database.GetDbConnection() as SqliteConnection;
+conn.CreateFunction("newid", () =&gt; { return Guid.NewGuid(); });
+context.Database.EnsureCreated();
+
+//Unit test code here...</code></pre></p><p>The post <a href="https://blog.georgekosmidis.net/mocking-expected-behaviour-of-sql-functions-for-unit-testing-with-sqlite/">Mocking expected behaviour of SQL functions for Unit Testing with SQLite</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

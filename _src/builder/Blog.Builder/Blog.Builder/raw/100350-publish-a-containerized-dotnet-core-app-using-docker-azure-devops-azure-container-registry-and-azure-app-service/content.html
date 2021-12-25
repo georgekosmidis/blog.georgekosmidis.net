@@ -1,0 +1,54 @@
+<p>This is a guide on how to use Azure DevOps to build and then publish a docker image as an Azure App Service, using Azure Container Registry.</p>
+<p></p>
+<h2>Prerequisites</h2>
+<p>This guide assumes basic knowledge in Docker and more specifically how to create a <code>Dockerfile</code>. This <a href="/docker-cheat-sheet-for-dotnet-core/" rel="noopener noreferrer" target="_blank">docker cheat sheet</a> provides a ready <code>Dockerfile</code> with explanations, plus an easy way to create your own <code>Dockerfile</code> from within Visual Studio. The guide also requires an account on <a href="https://portal.azure.com/" rel="noopener noreferrer" target="_blank">Azure</a> and <a href="https://dev.azure.com/" rel="noopener noreferrer" target="_blank">Azure DevOps</a>. The code is hosted in Azure DevOps, but almost any -accessible from Azure DevOps- version control system will do.</p>
+<p>In the process that follows, we setup three things mainly; An Azure Container Registry to hold the Docker Image, an Azure DevOps Pipeline to build and push the image to the registry, and and Azure App Service that will continuously pull the image from the registry. </p>
+<h2>Steps to setup Azure Container Registry</h2>
+<p>In order to setup an <em>Azure Container Registry</em>, you will of course need to visit <a href="https://portal.azure.com/" rel="noopener noreferrer" target="_blank">portal.azure.com</a> first. After signing in, follow the next three steps to setup and configure <em>Azure Container Registry</em> correctly:</p>
+<h3>Step 1</h3>
+<p>Use the convenient search bar on top to search for &#8220;<em>Container Registry</em>&#8220;. Once the results are in,  click on the left side on the &#8220;<em>Container Registry</em>&#8221; result, as shown here:<br />
+<img src="media\Azure_Container_Registry_Search.png" alt="Azure Container Registry - Search" /></p>
+<h3>Step 2</h3>
+<p>Once you clicked on the correct result, the &#8220;<em>Create Container Registry</em>&#8221; form will appear and a few selections have to be made. The minimum changes required here, are to select the <em>Subscription</em> and <em>Resource group</em> you wish (you can also create a new recourse), and to write the <em>Registry name</em> you prefer. Change the <em>Location</em> and <em>SKU</em> if needed and click <em>Create</em> once done.<br />
+<img src="media\Azure_Container_Registry_Create.png" alt="Azure Container Registry - Create" /></p>
+<blockquote><p>The <em>Registry name</em> is part of the <em>Login Server</em> for your <em>Azure Container Registry</em>. In this example it will be <em>registryaspnetcoredockerdemo.azurecr.io</em>.</p></blockquote>
+<h3>Step 3</h3>
+<p>Enable the <em>Admin user</em> for this <em>Container Registry</em>. Although the admin account is designed for a single user to access the registry, mainly for testing purposes, in order to be able to use the current registry from an <em>App Service</em> and select image source and <em>Continuous Deployment</em>, the <em>Admin user</em> must be enabled. Find this resource and go to <em>Access Keys</em> to enable the <em>Admin user</em>, as shown below:<br />
+<img src="media\Azure_Container_Registry_Admin.png" alt="Azure Container Registry - Enable Admin User" /></p>
+<blockquote><p>Read more information about the Admin Account in <a href="https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication#admin-account" rel="noopener noreferrer" target="_blank">Microsoft Docs</a></p></blockquote>
+<h2>Steps to setup Azure DevOps</h2>
+<p>We will return in to Azure after finishing and pushing one image successfully. The reason is, we first need to create the repository and image in our <em>Azure Container Registry</em> and then select it from the <em>App Service</em> for <em>Continuous Deployment</em>. Visit <a href="https://dev.azure.com/" rel="noopener noreferrer" target="_blank">dev.azure.com</a>, create a new project (or select an existing one) and follow the next steps to create the pipeline:</p>
+<h3>Step 1</h3>
+<p>First step, creating a pipeline! Click on the blue rocket on the left with the name <em>Pipelines</em> and when you see a screen like the one that follows, click <em>Create Pipeline</em>:<br />
+<img src="media\Azure_DevOps_Configure_Pipeline_Create.png" alt="Azure DevOps - Configure Pipeline Create" /><br />
+(<em>it this is not the first pipeline, you should see a blue &#8220;New pipeline&#8221; button on the top right of your screen</em>)</p>
+<blockquote><p>If it is a newly created project, then you need to enable Pipelines from the Project Settings (you might need to scroll down a bit)</p></blockquote>
+<h3>Step 2</h3>
+<p>For this guide I uploaded the code to <em>Azure Repos Git</em> but there is no limitation, besides of course <em>Azure DevOps</em> being able to access your favorite version control service. In this step, choose your service and <em>Azure DevOps</em> will immediately try to retrieve all the repos of that service. Select the one and you will go to the next step. The available version control services are shown below:<br />
+<img src="media\Azure_DevOps_Configure_Pipeline_Choose_Git.png" alt="Azure DevOps - Configure Pipeline Choose Repo" /></p>
+<h3>Step 3</h3>
+<p>Azure Pipelines offer numerous templates to choose from  for building, testing and deploying your app. For this current guide we will need the &#8220;<em>Docker &#8211; Build and Push an image to Azure Container Registry</em>&#8221; template. Click on it, but before we go the final &#8220;Review&#8221; tab we will need some intermediate configuration to do. The correct template is shown in the image below:<br />
+<img src="media\Azure_DevOps_Configure_Pipeline_Docker.png" alt="Azure DevOps - Configure Pipeline Docker" /></p>
+<h3>Step 4</h3>
+<p>Fourth and fifth steps could easily be one, since in this one you will just need to select the desired subscription. Hopefully you use the same account in <em>portal.azure.com</em> and <em>dev.azure.com</em> so after a sort loading you should be able see a list of all available subscriptions. Select the one you want and click &#8220;<em>Continue</em>&#8220;. In the example below, only the &#8220;<em>Free Trial</em>&#8221; is available:<br />
+<img src="media\Azure_DevOps_4_Configure_Pipeline_Select_Subscription.png" alt="Azure DevOps Configure Pipeline Select Subscription" /></p>
+<h3>Step 5</h3>
+<p>After clicking &#8220;Continue&#8221;, you will see a few more fields appearing; mind only about the &#8220;<em>Container Registry</em>&#8221; dropdown menu. Find and select the one just created in Azure (in this guide <em>RegistryAspNetCoreDockerDemo</em>) and click the blue button &#8220;<em>Validate and Configure</em>&#8220;. In the image below you can see a sample of how that page might look like. The blue button mention is not visible in this screenshot:<br />
+<img src="media\Azure_DevOps_5_Configure_Pipeline_Select_Container_Registry.png" alt="Azure DevOps - Configure Pipeline Select Container Registry" /></p>
+<blockquote><p>You might be asked to sign in to the Microsoft Account you use in Azure to retrieve the available container registries.</p></blockquote>
+<h3>Step 6</h3>
+<p>Easiest step of all since you are done and the moment of truth is here! If you want, you can review your pipeline YAML file, and click &#8220;<em>Save and Run</em>&#8220;. Hold on tight for a few minutes, success is very close and it looks like this:<br />
+<img src="media\Azure_DevOps_6_Configure_Pipeline_Success.png" alt="Azure DevOps - Configure Pipeline Success" /></p>
+<h2>Steps to setup Azure App Service</h2>
+<p>Now that we are done setting up an <em>Azure Pipeline</em>, go back to <a href="https://portal.azure.com/" rel="noopener noreferrer" target="_blank">portal.azure.com</a> and follow the next steps to setup the last part, an <em>Azure App Service</em>.</p>
+<h3>Step 1</h3>
+<p>As before, use the convenient search bar on top to find what you want; this time search for &#8220;<em>Web App</em>&#8221; and click on the result you want see on the <em>Marketplace</em> group. The image below shows exactly the steps:<br />
+<img src="media\Azure_App_Service_1_Search.png" alt="Azure App Service - Search" /></p>
+<h3>Step 2</h3>
+<p>The &#8220;<em>Create Web App</em>&#8221; form will open with a few selections to be made. The minimum changes required are to select your <em>Subscription</em> and <em>Resource group</em>, and of course choose <em>Docker Container</em> as <em>Publish</em>. The &#8220;<em>Name</em>&#8221; will be part of your <em>azurewebsites.net</em> url, you will need it after the next step! For example, in this guide the url that the app will go live will be AspNetCoreDockerDemo.azurewebsites.net (pascal case is just for easy reading of course). If needed, select the appropriate <em>Service Plan</em> and click &#8220;<em>Review + Create</em>&#8220;. The image that follows has an oval shape over the most important choices:<br />
+<img src="media\Azure_App_Service_2_Create.png" alt="Azure App Service - Create" /></p>
+<h3>Step 3</h3>
+<p>And we are finally done! There is only one last step, this one, to configure <em>Continuous Deployment</em>. Go to the resource you just created, and navigate to &#8220;<em>Container Settings</em>&#8221; on the left. Choose &#8220;<em>Azure Container Registry</em>&#8221; as the image source, choose the registry we created before and then the image. Don&#8217;t forget of course to set &#8220;<em>Continuous Deployment</em>&#8221; to &#8220;<em>On</em>&#8221; and hit &#8220;<em>Save</em>&#8220;. The image that follows highlights those selections:<br />
+<img src="media\Azure_App_Service_3_Container_Settings.png" alt="Azure App Service - Container Settings" /></p>
+<h2>Conclusion</h2>
+<p>Although it&#8217;s a process with many steps and potential pitfalls, if you do it once, you will realize that is more about configuring and less than anything creative! You just click and type a few things and you are done! </p><p>The post <a href="https://blog.georgekosmidis.net/publish-a-containerized-dotnet-core-app-using-docker-azure-devops-azure-container-registry-and-azure-app-service/">Publish a containerized .NET Core app using Docker, Azure DevOps, Azure Container Registry and Azure App Service</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

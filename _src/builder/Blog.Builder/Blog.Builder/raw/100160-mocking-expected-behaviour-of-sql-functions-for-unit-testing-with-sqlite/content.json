@@ -1,0 +1,17 @@
+{
+  "Type": "post",
+  "Slang": "mocking-expected-behaviour-of-sql-functions-for-unit-testing-with-sqlite",
+  "Title": "Mocking expected behaviour of SQL functions for Unit Testing with SQLite",
+  "Description": "<p>While unit testing, I came across a method in an SQL repository class that was using a <a href=\"https://docs.microsoft.com/en-us/ef/core/querying/raw-sql\" target=\"_blank\" rel=\"noopener noreferrer\">raw SQL query</a>, and along with that, SQL Server&#8217;s newid() function. Since the complicated reason behind this decision was out of scope, I had to find a way to unit test that method&#8230;</p>\n<p>SQLite was -of course- the first approach, but any attempt to actually test the method would nevertheless fail with the exception <code>Microsoft.Data.Sqlite.SqliteException: 'SQLite Error 1: 'no such function: newid'.'</code>.</p>\n<p>",
+  "DatePublished": "2018-01-08T17:29:14+01:00",
+  "DateModified": "2019-07-26T14:32:07+02:00",
+  "Image": null,
+  "Tags": [
+    "ASP.NET Core",
+    "Unit Test",
+    "ASP.NET Core",
+    "SQL Server",
+    "SQLite",
+    "Unit Testing"
+  ]
+}

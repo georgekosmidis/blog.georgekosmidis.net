@@ -1,0 +1,14 @@
+{
+  "Type": "post",
+  "Slang": "things-you-should-know-about-dotnet-5",
+  "Title": "Things you should know about .NET 5",
+  "Description": "<p>I know many of you are waiting for an LTS to jump in and upgrade your systems, but I think this time things are a bit different! First of all, the next LTS will be .NET 6 which is planned for November 2021, and secondly .NET 5 is already published two months ago as RC1. Actually, two release candidates of .NET 5 were published and tested by many before the actual release:<br />\n",
+  "DatePublished": "2020-11-17T08:28:54+01:00",
+  "DateModified": "2020-11-17T09:51:27+01:00",
+  "Image": "media/100430-feature.png",
+  "Tags": [
+    ".NET",
+    "ASP.NET Core",
+    "C#"
+  ]
+}

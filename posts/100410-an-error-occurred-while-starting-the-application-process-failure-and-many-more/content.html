@@ -1,0 +1,106 @@
+<p>It comes in many colors and flavors, it is usually a headache because there are multiple reasons why you can get this, it usually includes no (or minimal) information in Application log, and if you are unlucky enough to have two problems that cause this, it is a guaranteed bad day.</p>
+<p></p>
+<p>In this blog post I will try to include as many solutions as possible, please feel free to comment and contribute one if it is not included.</p>
+<h2>Possible Error Messages</h2>
+<p>    This is just a list the messages you might get, probably not complete. Feel free to comment if I missed some.</p>
+<ul>
+<li>An error occurred while starting the application</li>
+<li>403.14 Forbidden</li>
+<li>502.5 Process Failure</li>
+<li>500 Internal Server Error</li>
+<li>500.0 In-Process Handler Load Failure</li>
+<li>500.30 In-Process Startup Failure</li>
+<li>500.31 ANCM Failed to Find Native Dependencies</li>
+<li>500.32 ANCM Failed to Load dll</li>
+<li>500.33 ANCM Request Handler Load Failure</li>
+<li>500.34 ANCM Mixed Hosting Models Not Supported</li>
+<li>500.35 ANCM Multiple In-Process Applications in same Process</li>
+<li>500.36 ANCM Out-Of-Process Handler Load Failure</li>
+<li>500.37 ANCM Failed to Start Within Startup Time Limit</li>
+<li>500.38 ANCM Application DLL Not Found</li>
+<li>503 Service unavailable</li>
+<li>Failed to start application (ErrorCode &#8216;0x800700c1&#8217;)</li>
+<li>Connection reset</li>
+</ul>
+<h2>Possible Solutions</h2>
+<p>Please keep in mind, most solutions require the application pool to restart. That means, after applying a solution, you need to go to the IIS on the hosting system, find the correct application pool, and restart it. Find out exactly how <a href="https://www.google.com/search?q=how+to+restart+an+application+pool+in+iis&#038;oq=how+to+restart+an+application+pool+in+iis" rel="noopener noreferrer" target="_blank">here</a>.</p>
+<ol>
+<li>
+        The app did start, but it can&#8217;t generate a valid response.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span><span>Try debugging locally, correct the error and then redeploy.</span>
+    </li>
+<li>
+        dotnet is not installed on the hosting system.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>Visit <a href="https://dotnet.microsoft.com/download" rel="noopener noreferrer" target="_blank">https://dotnet.microsoft.com/download</a> and download the latest version. Try the SDK for older OS.
+    </li>
+<li>
+        dotnet version is wrong, run <code>dotnet --version</code> in CMD to verify.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>Visit <a href="https://dotnet.microsoft.com/download" rel="noopener noreferrer" target="_blank">https://dotnet.microsoft.com/download</a> and download the latest version. Try the SDK for older OS.
+    </li>
+<li>
+        <code>appsettings.<em>[ENVIRONMENT_NAME]</em>.json</code> for the specific environment is not deployed.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>Create the necessary <code>appsettings</code> file.
+    </li>
+<li>
+        <code>appsettings.json</code> or <code>appsettings.<em>[ENVIRONMENT_NAME]</em>.json</code> doesn&#8217;t contain all necessary settings.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>Add all settings from the correct <code>appsettings</code> file.
+    </li>
+<li>
+        You enabled XML documentation but the XML documentation file path is wrong.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>Right click on your project in Visual Studio, go to <em>Properties</em>, then <em>Build</em> and correct the <em>Documentation XML file</em> path to relative one.
+    </li>
+<li>
+        Permissions on the remote machine folders are not set correctly.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>For testing only: try adding <code>Everyone</code> and reset permissions on all child objects. Read <a href="https://docs.microsoft.com/en-us/troubleshoot/iis/default-permissions-user-rights" rel="noopener noreferrer" target="_blank">this</a> for correct permissions.
+    </li>
+<li>
+        The app is deployed to the wrong folder on the hosting system.<br />
+        Go to <em>IIS</em>, find your <em>Site</em> and click <em>Explore</em> on the write to find the correct path.
+    </li>
+<li>
+        The <code>web.config</code> file is missing from the deployment, or the web.config file contents are malformed.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>Right click on your project in <em>Visual Studio</em> and go to <em>Publish</em>. Execute a publishment and use that <code>web.config</code>.
+    </li>
+<li>
+        The <code>web.config</code> contains <code>hostingModel="inprocess"</code> (or it doesn&#8217;t).<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>Either remove it if it is there, or add it if it is not.
+    </li>
+<li>
+        The app is not published for the same processor architecture.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>Check the processor architecture in the hosting system and select the correct one during publishment.
+    </li>
+<li>
+        Run the app in a separate IIS application pool.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>Go to the IIS on the hosting machine, navigate to <em>Application Pools</em>, click on <em>Add Application Pool&#8230;</em>, write the <em>Name</em> you with and click <em>OK</em>. Once done, go to Sites, find the correct app and click on <em>Basic Settings</em> to select the newly created Application Pool.
+    </li>
+<li>
+        Repair the installation of the .NET Core Hosting Bundle or install the SDK.<br />
+        Visit <a href="https://dotnet.microsoft.com/download" rel="noopener noreferrer" target="_blank">https://dotnet.microsoft.com/download</a> and download the latest version. Try the SDK for older OS.
+    </li>
+<li>
+        Check for CPU/Memory usage spikes on the server during startup.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>Try upgrading the hosting machine.
+    </li>
+<li>
+        Disable single-file publishing.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>To do this, set the <code>PublishSingleFile</code> MSBuild property to false.
+    </li>
+<li>
+        Switch to the out-of-process hosting model.<br />
+        <span class="dashicons dashicons-arrow-right-alt2 dashicons-inline"></span>To do this, set the <code>AspNetCoreHostingModel</code> MSBuild property to <code>OutOfProcess</code>.
+    </li>
+</ol>
+<h2>Enable Logging</h2>
+<p>The ASP.NET Core Module stdout log often records useful error messages not found in the Application Event Log. To enable and view stdout logs:</p>
+<ol>
+<li>Navigate to the site&#8217;s deployment folder on the hosting system.</li>
+<li>Edit the <code>web.config</code> file. Set <code>stdoutLogEnabled</code> to <code>true</code> and change the <code>stdoutLogFile</code> path to point to the logs folder (for example, <em>.\_logs\stdout</em>). <code>stdout</code> in the path is the log file name prefix. A timestamp, process id, and file extension are added automatically when the log is created.</li>
+<li>If the logs folder isn&#8217;t present, create the folder.</li>
+<li>Ensure your application pool&#8217;s identity has write permissions to the logs folder.</li>
+<li>Save the updated web.config file.</li>
+<li>Make a request to the app.</li>
+<li>Navigate to the logs folder. Find and open the most recent stdout log.</li>
+<li>Study the log for errors.</li>
+</ol>
+<h2>Contribute please!</h2>
+<p>If you find a reason for this error that it&#8217;s not included here, please contribute!</p><p>The post <a href="https://blog.georgekosmidis.net/an-error-occurred-while-starting-the-application-process-failure-and-many-more/">An error occurred while starting the application, Process Failure and many more</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

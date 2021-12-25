@@ -1,0 +1,15 @@
+{
+  "Type": "post",
+  "Slang": "c-getting-a-user-ip-behind-a-proxy-http_x_forwarded_for",
+  "Title": "C#: Getting a user IP behind a proxy (HTTP_X_FORWARDED_FOR)",
+  "Description": "<p>Did you know that HTTP_X_FORWARDED_FOR can return multiple IPs? According to <a href=\"http://en.wikipedia.org/wiki/X-Forwarded-For\" target=\"_blank\" rel=\"noopener noreferrer\">http://en.wikipedia.org/wiki/X-Forwarded-For</a> the format is:</p>\n<pre>X-Forwarded-For: client, proxy1, proxy2\r\n</pre>\n<p>",
+  "DatePublished": "2013-04-26T18:08:30+02:00",
+  "DateModified": "2020-06-16T13:21:07+02:00",
+  "Image": null,
+  "Tags": [
+    "C#",
+    "HTTP_X_FORWARDED_FOR",
+    "User IP",
+    "Snippets / Tools"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "Type": "post",
+  "Slang": "csharp-10-whats-new",
+  "Title": "C# 10 – What’s new!",
+  "Description": "<p>C# 10 is here with new and exciting feature with an opt-in approach. In this guide we will go through some of the most important changes that will make your code cleaner, smaller, faster and will hopefully convince you to upgrade now!</p>\n<p>",
+  "DatePublished": "2021-11-21T19:28:34+01:00",
+  "DateModified": "2021-11-21T19:28:34+01:00",
+  "Image": "https://blog.georgekosmidis.net/wp-content/uploads/2021/11/blog_post-2.png",
+  "Tags": [
+    "C#",
+    "C# 10",
+    ".NET 6"
+  ]
+}

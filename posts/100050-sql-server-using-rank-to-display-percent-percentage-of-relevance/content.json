@@ -1,0 +1,15 @@
+{
+  "Type": "post",
+  "Slang": "sql-server-using-rank-to-display-percent-percentage-of-relevance",
+  "Title": "SQL Server: Using RANK to display PERCENT (percentage of relevance)",
+  "Description": "<p>So you end up with a query like this:</p>\n<p><script src=\"https://gist.github.com/georgekosmidis/6eb698bb44d51c4f27785c3af21cfde3.js?file=containsTable.sql\"></script></p>\n<p>That yields something like this:</p>\n<pre>\r\nID ... KEY RANK\r\n5  ...  5  765\r\n2  ...  2  322\r\n3  ...  5  128\r\n1  ...  1   75\r\n</pre>\n<p>And you are missing a percentage column. Well, not any more!<br />\n",
+  "DatePublished": "2013-04-27T14:14:56+02:00",
+  "DateModified": "2019-07-23T18:46:52+02:00",
+  "Image": "",
+  "Tags": [
+    "MSSQL ContainsTable",
+    "MSSQL Percent",
+    "MSSQL Rank",
+    "SQL Server"
+  ]
+}

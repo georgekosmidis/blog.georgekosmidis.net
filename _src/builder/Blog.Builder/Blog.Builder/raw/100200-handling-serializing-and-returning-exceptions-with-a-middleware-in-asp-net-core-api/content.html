@@ -1,0 +1,127 @@
+<p>ASP.NET Core offers a very cool way to avoid all that boring boilerplate exception handling code, just by intercepting all requests. It is called <code>Middleware</code> and actually, ASP.NET Core is full of <a href="https://docs.microsoft.com/el-gr/aspnet/core/fundamentals/middleware/index?view=aspnetcore-2.1#built-in-middleware" rel="noopener noreferrer" target="_blank">built-in middlewares</a>!<br />
+</p>
+<h3>What is a middleware?</h3>
+<p><a href="https://docs.microsoft.com/el-gr/aspnet/core/fundamentals/middleware/index?view=aspnetcore-2.1" rel="noopener noreferrer" target="_blank">Microsoft docs</a> describe a middleware as:</p>
+<blockquote><p>
+Middleware is software that&#8217;s assembled into an app pipeline to handle requests and responses. Each component:</p>
+<ul>
+<li>Chooses whether to pass the request to the next component in the pipeline.</li>
+<li>Can perform work before and after the next component in the pipeline is invoked.</li>
+</ul>
+</blockquote>
+<p>But you can also get a very good idea about a middleware by just that following image:<br />
+<img src="media\request-delegate-pipeline.png" alt="Request processing pattern showing a request arriving, processing through three middlewares, and the response leaving the app. Each middleware runs its logic and hands off the request to the next middleware at the next() statement. After the third middleware processes the request, the request passes back through the prior two middlewares in reverse order for additional processing after their next() statements before leaving the app as a response to the client." /><br />
+The three blue middlewares above belong in a pipeline, so the black arrow that represents the request is passing from one middleware to the next. Each middleware intercepts the request in its travel towards the last middleware and can execute custom code before or after the request leaves the middleware. By seeing this image we can also have an idea about how to write our exception handling middleware: Rename <code>Middleware 1</code> to <code>ErrorHandlingMiddleware </code>and wrap the <code>next();</code> in a <code>try catch</code> block!</p>
+<h3>Writing an exception handling middleware</h3>
+<p>I am not going to get into details about how to write a middleware because you can easily read about it <a href="https://docs.microsoft.com/el-gr/aspnet/core/fundamentals/middleware/index?view=aspnetcore-2.1#write-middleware" rel="noopener noreferrer" target="_blank">here</a>, and thus, here is an empty useless middleware!<br />
+<pre><code class="language-csharp">using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+
+namespace MyCodePad
+{
+    public class ErrorHandlingMiddleware
+    {
+        private readonly RequestDelegate _next;
+
+        public ErrorHandlingMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
+        {          
+            await _next(context);
+        }
+    }
+}</code></pre><br />
+The <code>InvokeAsync</code> method does all the job and calls the <code>_next();</code> middleware. As theory describes, you can have your code before <code>_next();</code>, you can have it after and you can even decide if you will ever call <code>_next();</code> (short-circuiting the pipeline).<br />
+But isn&#8217;t that alone <code>_next();</code> asking for a <code>try catch</code> block, or what?<br />
+Let&#8217;s do it, and handle the exception:<br />
+<pre><code class="language-csharp">using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+
+namespace MyCodePad
+{
+    public class ErrorHandlingMiddleware
+    {
+        private readonly RequestDelegate _next;
+
+        public ErrorHandlingMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
+        {          
+            try
+            {
+                await _next(context);
+            }
+            catch (Exception ex)
+            {
+                await HandleExceptionAsync(context, ex);
+            }
+        }
+        
+        private Task HandleExceptionAsync(HttpContext context, Exception ex)
+        {            
+            var result = JsonConvert.SerializeObject(ex);
+
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            if (!context.Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
+            {
+                context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            }
+
+            return context.Response.WriteAsync(result);
+        }
+        
+    }
+}</code></pre></p>
+<p>Up until this point we have a middleware that can successfully catch <em>any</em> exception, try to serialize it and return it back to the client. That could be the end of this post, but there are three significant problems! </p>
+<ul>
+<ol>1. All exceptions implement the <code>ISerializable</code> interface, but this is only suggests that they should be serializable. You can&#8217;t be sure they are!</ol>
+<ol>2. Exceptions have inner exceptions!</ol>
+<ol>3. Handling all exception types in one try catch block is a bad idea because you can hide unexpected problems. We should only handle the ones that our code is written for.
+</ul>
+<h4>Serializing exceptions</h4>
+<p>The accepted answer on Stackoverflow for the question &#8220;<a href="https://stackoverflow.com/questions/342528/are-all-net-exceptions-serializable" rel="noopener noreferrer" target="_blank">Are all .NET Exceptions serializable</a>&#8221; states: </p>
+<blockquote><p>In order to consider serializability we need to consider both the immediate class and all types which are members of this type (this is a recursive process). The base Exception class has a Data property which is of type IDictionary. This is problematic because it allows you, or anyone else, to add any object into the Exception. If this object is not serializable then serialization of the Exception will fail.</p></blockquote>
+<p>That simply means <em>no</em>! You cannot count on an exception being serializable!<br />
+One easy way to forget about serializability problems is to use your own custom ViewModel. Add one to your API and map the Exception properties you want with the properties of your brand new <code>ExceptionViewModel</code>:<br />
+<pre><code class="language-csharp">public class ExceptionViewModel
+{
+    public string ClassName { get; set; }
+    public string Message { get; set; }
+    public ExceptionViewModel InnerException { get; set; }
+    public List&lt;string&gt; StackTrace { get; set; }
+}</code></pre><br />
+And here is the mapping (notice the recursion for the inner exceptions):<br />
+<pre><code class="language-csharp">private ExceptionViewModel GetExceptionViewModel(Exception ex)
+{
+    return new ExceptionViewModel()
+    {
+        ClassName = ex.GetType().Name.Split('.').Reverse().First(),
+        InnerException = ex.InnerException != null ? GetExceptionViewModel(ex.InnerException) : null,
+        Message = ex.Message,
+        StackTrace = ex.StackTrace.Split(Environment.NewLine).ToList()
+    };
+}
+</code></pre></p>
+<h4>Final thoughts</h4>
+<p>Middlewares, among other, offer an amazing opportunity to create a global handler for our exceptions and return back a serialized version of that exception. This can be very helpful if we want to pass this information to the client, but by doing so we could potentially expose sensitive information and details about our code. The best approach to avoid that would be to use the <code>ASPNETCORE_ENVIRONMENT</code> and stop sending details when it is not a development environment. For example:</p>
+<p><pre><code class="language-csharp">private ExceptionViewModel GetExceptionViewModel(Exception ex)
+{
+    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+    var isDevelopment = environment == Microsoft.AspNetCore.Hosting.EnvironmentName.Development;
+
+    return new ExceptionViewModel()
+    {
+        ClassName = !isDevelopment ? "Exception" : ex.GetType().Name.Split('.').Reverse().First(),
+        InnerException = ex.InnerException != null ? GetExceptionViewModel(ex.InnerException) : null,
+        Message = !isDevelopment ? "Internal Server Error" : ex.Message,
+        StackTrace = !isDevelopment ? new List() : ex.StackTrace.Split(Environment.NewLine).ToList()
+    };
+}
+</code></pre></p><p>The post <a href="https://blog.georgekosmidis.net/handling-serializing-and-returning-exceptions-with-a-middleware-in-asp-net-core-api/">Handling, serializing and returning exceptions with a middleware in an ASP.NET Core API</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

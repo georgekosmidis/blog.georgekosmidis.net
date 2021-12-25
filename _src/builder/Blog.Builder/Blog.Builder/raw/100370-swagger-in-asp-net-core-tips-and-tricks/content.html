@@ -1,0 +1,149 @@
+<p>This post contains a few tips and tricks that can help you transform your swagger UI into an interactive documentation. If you don&#8217;t yet know how to install swagger in ASP.NET Core, this post will help you <a href="/get-started-with-swagger-and-asp-net-core/" rel="noopener noreferrer" target="_blank">Get started with Swagger and ASP.NET Core</a>.</p>
+<p></p>
+<h2>How to change the URL of the Swagger UI</h2>
+<p>By default, the Swagger UI can be found at <code>http://localhost:<port>/swagger</code>. To change the path and set, for example, the Swagger UI at the app&#8217;s root, use:<br />
+<pre><code class="language-csharp">app.UseSwaggerUI(c =&gt;
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    c.RoutePrefix = string.Empty;
+});</code></pre></p>
+<h2>How to revert Swagger JSON to version 2.0</h2>
+<p>By default, Swashbuckle generates and exposes Swagger JSON in version 3.0 of the specification -officially called the <a href="https://swagger.io/specification/" rel="noopener noreferrer" target="_blank">OpenAPI Specification</a>. To support backwards compatibility, you can opt into exposing JSON in the 2.0 format instead:<br />
+<pre><code class="language-csharp">app.UseSwagger(c =&gt;
+    {
+        c.SerializeAsV2 = true;
+    });</code></pre></p>
+<h2>How to add author, license, and description</h2>
+<p>If you want, you can pass information such as the author, license, and description, using the <code>OpenApiInfo</code> object:<br />
+<pre><code class="language-csharp">services.AddSwaggerGen(c =&gt;
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "The .NET Lab API",
+        Description = "An imaginary API of my blog",
+        TermsOfService = new Uri("https://blog.georgekosmidis.net/privacy-policy/"),
+        Contact = new OpenApiContact
+        {
+            Name = "George Kosmidis",
+            Email = string.Empty,
+            Url = new Uri("https://georgekosmidis.net"),
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Use under MIT",
+            Url = new Uri("https://blog.georgekosmidis.net/privacy-policy/"),
+        }
+    });
+});</code></pre></p>
+<h2>How to include XML commenting</h2>
+<p>One of my favorites and very useful features, is to enable swagger to read the XML comments of your actions and objects, transforming it to an interactive documentation. </p>
+<p>To do this, you first need to enable the creation of the XML documentation file:<br />
+<img src="media\vs_enable_xml_doc-1.png" alt="Visual Studio, Enable XML Documentation" /></p>
+<ol>
+<li>Right click on the project you wish to enable XML Documentation</li>
+<li>Click on &#8220;<em>Properties</em>&#8220;</li>
+<li>Go to &#8220;<em>Build</em>&#8220;</li>
+<li>Check the &#8220;<em>XML Documentation File:</em>&#8221; checkbox</code></li>
+<li>Change the path and point to the root of your app (use no path at all)</li>
+<li>Suppress the <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1591" rel="noopener noreferrer" target="_blank">1591 compiler</a> warning to avoid headaches</li>
+</ol>
+<blockquote><p>Enabling XML comments provides debug information for all undocumented public types and members. Undocumented types and members are indicated by the warning message. That is why, step 6 is a very good idea!</p></blockquote>
+<blockquote><p>You need to enable XML commenting for every solution configuration (e.g. Debug and Release)</p></blockquote>
+<p>Once done, just instruct Swagger generator to include the comments:<br />
+<pre><code class="language-csharp">services.AddSwaggerGen(c =&gt;
+{
+    // Set the comments path for the Swagger JSON and UI.
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});</code></pre></p>
+<h2>How to enrich your Swagger UI by annotating your models</h2>
+<p>Mark the model with attributes, found in the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=netcore-3.1" rel="noopener noreferrer" target="_blank">System.ComponentModel.DataAnnotations</a> namespace, to help drive the Swagger UI components. For example, the following sample model is of an address, annotated with <code>MinLengthAttribe</code> and <code>MaxLengthAttribute</code></p>
+<p><pre><code class="language-csharp">    /// &lt;summary&gt;
+    /// An object that represents an address
+    /// &lt;/summary&gt;
+    public class AddressModel
+    {
+        /// &lt;summary&gt;
+        /// The Street part of the address
+        /// &lt;/summary&gt;
+        [MinLength(1), MaxLength(255)]
+        public string Street { get; set; }
+        
+        /// &lt;summary&gt;
+        /// The number of the street
+        /// &lt;/summary&gt;
+        [MinLength(1), MaxLength(35)]
+        public string StreetNumber { get; set; }
+        
+        /// &lt;summary&gt;
+        /// The City
+        /// &lt;/summary&gt;
+        [MinLength(3), MaxLength(40)]
+        public string City { get; set; }
+        
+        /// &lt;summary&gt;
+        /// The ZIP Code
+        /// &lt;/summary&gt;
+        [MinLength(4), MaxLength(20)]
+        public string Zip { get; set; }
+        
+        /// &lt;summary&gt;
+        /// The Country
+        /// 
+        /// NOTE: This should be the ISO-3166-1 Alpha-2 code for countries (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#NL), i.e. NL for Netherlands.
+        /// &lt;/summary&gt;
+        public string Country { get; set; }
+    }</code></pre></p>
+<p>The result of which, is the following in Swagger UI:<br />
+<img src="media\swagger_address_sample.png" alt="Swagger - Sample with an address" /></p>
+<h2>How to describe &#8220;Response types&#8221;</h2>
+<p>Return behavior and status codes is one of the most important concerns a developer has while consuming a RESTful API. Without proper description of the possible outcomes of an action, the consumer is left with unexpected behaviors, something that will not make you popular &#8211; at least not for good reasons.</p>
+<p>In the following example, taken from Microsoft, we can see how to describe &#8220;<em>Response Types</em>&#8220;:<br />
+<pre><code class="language-csharp">/// &lt;summary&gt;
+/// Creates a TodoItem.
+/// &lt;/summary&gt;
+/// &lt;remarks&gt;
+/// Sample request:
+///
+///     POST /Todo
+///     {
+///        "id": 1,
+///        "name": "Item1",
+///        "isComplete": true
+///     }
+///
+/// &lt;/remarks&gt;
+/// &lt;param name="item"&gt;&lt;/param&gt;
+/// &lt;returns&gt;A newly created TodoItem&lt;/returns&gt;
+/// &lt;response code="201"&gt;Returns the newly created item&lt;/response&gt;            //Describe the response 201
+/// &lt;response code="400"&gt;If the item is null&lt;/response&gt;                       //Describe the response 400           
+[HttpPost]
+[ProducesResponseType(StatusCodes.Status201Created)]                          //Instruct Swagger about the 201
+[ProducesResponseType(StatusCodes.Status400BadRequest)]                       //Instruct Swagger about the 400
+public ActionResult&lt;TodoItem&gt; Create(TodoItem item)
+{
+    _context.TodoItems.Add(item);
+    _context.SaveChanges();
+
+    return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
+}</code></pre></p>
+<h2>How to brand or theme Swagger UI</h2>
+<p>The default UI is great but there are cases where you need to your API documentation pages to represent your brand or theme. Branding the Swashbuckle components requires adding the resources to serve static files and building the folder structure to host those files. </p>
+<p>In order to do that, you first need to enable static files middleware:<br />
+<pre><code class="language-csharp">public void Configure(IApplicationBuilder app)
+{
+    app.UseStaticFiles();
+    
+    //...
+
+}</code></pre></p>
+<p>And then, after creating your own CSS, feed it to swagger:<br />
+<pre><code class="language-csharp">app.UseSwaggerUI(c =&gt;
+{
+     c.InjectStylesheet("/your_path/your_theme.css");
+}</code></pre></p>
+<h2>The end!</h2>
+<p>Any more configurations you think I should include? Drop me a line, there are sure numerous other tips and tricks! </p>
+<blockquote><p>For a Quick Start guide on how to install Swagger visit <a href="/get-started-with-swagger-and-asp-net-core/" rel="noopener noreferrer" target="_blank">Get started with Swagger and ASP.NET Core</a>.</p></blockquote><p>The post <a href="https://blog.georgekosmidis.net/swagger-in-asp-net-core-tips-and-tricks/">Swagger in ASP.NET Core: Tips & Tricks</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

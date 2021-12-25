@@ -1,0 +1,17 @@
+{
+  "Type": "post",
+  "Slang": "publish-a-containerized-dotnet-core-app-using-docker-azure-devops-azure-container-registry-and-azure-app-service",
+  "Title": "Publish a containerized .NET Core app using Docker, Azure DevOps, Azure Container Registry and Azure App Service",
+  "Description": "<p>This is a guide on how to use Azure DevOps to build and then publish a docker image as an Azure App Service, using Azure Container Registry.</p>\n<p>",
+  "DatePublished": "2020-06-16T09:02:45+02:00",
+  "DateModified": "2020-06-17T13:15:14+02:00",
+  "Image": "media/100350-feature.png",
+  "Tags": [
+    "Azure App Service",
+    "Azure Container Registry",
+    "Azure DevOps",
+    "Continuous Deployment",
+    "Docker",
+    "Azure"
+  ]
+}

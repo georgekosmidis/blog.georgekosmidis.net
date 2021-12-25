@@ -1,0 +1,15 @@
+{
+  "Type": "post",
+  "Slang": "c-basic-combinatorics",
+  "Title": "C#: Basic Combinatorics",
+  "Description": "<p>Basic combinatorics in C# is a straight forward task for relatively small numbers like (100!). This is a helper class I wrote when I was asked to write an online lottery system.</p>\n<p>Keep in mind though, that for bigger numbers (above 100!) you will need <a href=\"http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic\" target=\"_blank\" rel=\"noopener noreferrer\">Arbitrary-precision arithmetic</a>.</p>\n<p>Here is the code and please, if someone knows a faster way or has some suggestions let me now!</p>\n<p>",
+  "DatePublished": "2013-12-13T08:00:00+01:00",
+  "DateModified": "2020-06-16T13:22:53+02:00",
+  "Image": null,
+  "Tags": [
+    "C#",
+    "Combinatorics",
+    "Math",
+    "Snippets / Tools"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "Type": "post",
+  "Slang": "sql-server-how-to-simulate-drop-trigger-or-function-or-sp-if-exists",
+  "Title": "SQL Server: How to simulate DROP TRIGGER IF EXISTS",
+  "Description": "<p>I usually store triggers, store procedures, functions, queries etc in sql files in an SVN repository. I then use a simple app I wrote, that just opens each file and executes it. The problem of course is CREATE and ALTER. I can&#8217;t use CREATE because the same trigger might already be there. On the other hand I couldn&#8217;t use ALTER because some triggers might be new.</p>\n<p>Since there is no DROP TRIGGER IF EXISTS, I came up with this:</p>\n<p>",
+  "DatePublished": "2013-04-26T17:38:00+02:00",
+  "DateModified": "2019-07-23T18:48:14+02:00",
+  "Image": "",
+  "Tags": [
+    "MSSQL Drop",
+    "MSSQL Function",
+    "MSSQL Stored Procedure",
+    "MSSQL Trigger",
+    "SQL Server"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "Type": "post",
+  "Slang": "writing-a-custom-outputformatter-to-return-an-excel-xlsx-from-an-action-in-asp-net-core-api",
+  "Title": "Writing a custom OutputFormatter to return an Excel (.xlsx) from an action in ASP.NET Core API",
+  "Description": "<p>As most of us, I already know my next week work schedule. It includes writing some actions in respond to a requirement for excel exports. It&#8217;s nothing new and its&#8217;s relatively easy with libraries like <a href=\"https://github.com/dotnetcore/NPOI\" target=\"_blank\" rel=\"noopener noreferrer\">NPOI</a>: you just create your excel on the fly and return a <a href=\"https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.fileresult?view=aspnetcore-2.1\" target=\"_blank\" rel=\"noopener noreferrer\">FileResult</a>.</p>\n<p>",
+  "DatePublished": "2018-09-05T20:11:14+02:00",
+  "DateModified": "2020-07-26T11:08:49+02:00",
+  "Image": "media/100210-feature.png",
+  "Tags": [
+    "ASP.NET Core",
+    "MS Excel",
+    "OutputFormatter",
+    "Web API",
+    "ASP.NET Core"
+  ]
+}

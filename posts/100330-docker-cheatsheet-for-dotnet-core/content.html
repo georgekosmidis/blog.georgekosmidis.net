@@ -1,0 +1,178 @@
+<p>This is just a cheat sheet of commands and terminology for Docker and ASP.NET Core; it contains commands that you can find in the <a href="https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf" rel="noopener noreferrer" target="_blank">original cheat sheet</a>, plus a <code>Dockerfile</code> for ASP.NET Core and a quick guide on how to created one from Visual Studio. Hopefully, both developers that are in the process of getting into the containerize world with Docker and developers that are already in but need a quick recap will find it useful.</p>
+<p></p>
+<h2>Basic terminology</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Short explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="white-space:nowrap;">Docker</td>
+<td>
+                Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers. Download Docker for Windows <a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows" rel="noopener noreferrer" target="_blank">here</a>.
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;">Image</td>
+<td>
+                An image, or more correct, a Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;">Container</td>
+<td>
+                A container image becomes a container at runtime when they run on Docker Engine
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;">Docker Engine</td>
+<td>
+                Docker Engine is a container runtime that runs on various Linux (CentOS, Debian, Fedora, Oracle Linux, RHEL, SUSE, and Ubuntu) and Windows Server operating systems&#8230;
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;">Docker Hub</td>
+<td>
+                Docker Hub is a service provided by Docker for finding and sharing container images with your team.
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;">Dockerfile</td>
+<td>
+                A <code>Dockerfile</code> is a text document that contains all the commands a user could call on the command line to assemble an image.
+            </td>
+</tr>
+</tbody>
+</table>
+<blockquote><p>Read more information about Docker Container Images and Docker Containers <a href="https://www.docker.com/resources/what-container" rel="noopener noreferrer" target="_blank">here</a>.</p></blockquote>
+<h2>Basic commands</h2>
+<p>Follows, a list of basic commands that you will regularly need. Run them using command line from the root of your application &#8211; where the <code>Dockerfile</code> should exists. </p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Short explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="white-space:nowrap;"><code><a href="https://docs.docker.com/engine/reference/commandline/pull/" rel="noopener noreferrer" target="_blank">docker pull</a></code></td>
+<td>
+                Retrieve an image from a registry. If you specify only the repository name, Docker will download the image tagged latest from that repository on Docker Hub.<br />
+                e.g. <code>docker pull mcr.microsoft.com/dotnet/core/aspnet:3.1</code> pulls the 3.1 runtime, where <code>docker pull mcr.microsoft.com/dotnet/core/sdk</code> pulls the latest .NET Core SDK.
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><a href="https://docs.docker.com/engine/reference/commandline/build/" rel="noopener noreferrer" target="_blank">docker build</a></code></td>
+<td>
+                Create a new image by running a Dockerfile. User the -t flag to specify the name of the new image and don&#8217;t forget the <code>.</code> (build context for the source files for the <code>COPY</code> command)<br />
+                e.g. <code>docker build -t image.name.for.my.app:v1 .</code>
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><a href="https://docs.docker.com/engine/reference/commandline/image_ls/" rel="noopener noreferrer" target="_blank">docker image list</a></code></td>
+<td>
+                After pulling an image, view the images in your local registry with the <code>docker image list</code> command.
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><a href="https://docs.docker.com/engine/reference/commandline/ps/" rel="noopener noreferrer" target="_blank">docker ps</a></code></td>
+<td>
+                View active containers. Use the <code>-a</code> flag to view all.<br />
+                e.g. <code>docker ps -a</code>
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><a href="https://docs.docker.com/engine/reference/run/" rel="noopener noreferrer" target="_blank">docker run</a></code></td>
+<td>
+                Run an image &#8211; it will become a container. Specify the option <code>-p</code> for port mapping (left hand side local port, right hand side port exposed by docker) and <code>-d</code> to run it as a background service.<br />
+                Speficy the <code>--name</code> option to set the name of the container.<br />
+                e.g. <code>docker run -p 8080:80 -d --name container.name image.name.for.my.app</code>
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><a href="https://docs.docker.com/engine/reference/commandline/stop/" rel="noopener noreferrer" target="_blank">docker stop</a></code></td>
+<td>
+                Stop an active container by specifying the container ID. Get that with the <code>docker ps</code> command<br />
+                e.g. <code>docker stop elegant_ramanujan</code>
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><a href="https://docs.docker.com/engine/reference/commandline/start/" rel="noopener noreferrer" target="_blank">docker start</a></code></td>
+<td>
+                Restart a stopped container.<br />
+                e.g. <code>docker start elegant_ramanujan</code>
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><a href="https://docs.docker.com/engine/reference/commandline/container_rm/" rel="noopener noreferrer" target="_blank">docker container rm</a></code></td>
+<td>
+                Remove a stopped container. Add the <code>-f</code> flag to force remove a running container (not a graceful shutdown)<br />
+                e.g. <code>docker container rm -f elegant_ramanujan</code>
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><a href="https://docs.docker.com/engine/reference/commandline/image_rm/" rel="noopener noreferrer" target="_blank">docker image rm</a></code></td>
+<td>
+                Remove an image. There is no force flag here, all containers using this image must be stopped.<br />
+                e.g. <code>docker image rm mcr.microsoft.com/dotnet/core/samples:aspnetapp</code>
+            </td>
+</tr>
+</tbody>
+</table>
+<h2>A <code>Dockerfile</code> sample</h2>
+<p>Living in the root of the application, a <code>Dockerfile</code> is just a plain text file; you can either use the following command to create it in Windows, or anyway you like: <code>copy NUL Dockerfile</code>. The sample below contains everything necessary to build and run an image. Comments above each command attempt to provide a bit of clarity:</p>
+<p><pre><code class="language-csharp"># This is a sample Dockerfile for building and running ASP.NET Core applications 
+# This is part of the cheat sheet at https://blog.georgekosmidis.net/2020/06/12/docker-cheat-sheet-for-dotnet-core/
+
+# Pull ASP.NET Core 3.1 runtime and give the name 'base'
+# More info on 'FROM' instruction here: https://docs.docker.com/engine/reference/builder/#from
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
+
+# Set the ports where the container listens at runtime
+# More on the 'EXPOSE' instruction here: https://docs.docker.com/engine/reference/builder/#workdir
+EXPOSE 80
+EXPOSE 443
+
+# Pull the ASP.NET Core 3.1 SDK and give the name 'build'
+# The SDK runs an app on ports 5000 and 5001, that's why we also need runtime
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+
+# Set the Working Dir to '/src'. This is where the source code is 
+# The WORKDIR instruction sets the working directory for any 
+#   RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow
+# More on the 'WORKDIR' instruction here: https://docs.docker.com/engine/reference/builder/#workdir
+WORKDIR /src
+
+# Copy your projects 
+# More on the 'COPY' instruction here: https://docs.docker.com/engine/reference/builder/#copy
+COPY ["Name.Of.Your.Project.csproj", "Name.Of.Your.Project/"]
+COPY ["Dependancy.Of.Your.Project.csproj", "Dependancy.Of.Your.Project/"]
+
+# Run in a shell, in this case run 'dotnet restore'
+# More the 'RUN' instruction here: https://docs.docker.com/engine/reference/builder/#run
+RUN dotnet restore "Name.Of.Your.Project/"Name.Of.Your.Project.csproj"
+
+WORKDIR "/src/"Name.Of.Your.Project"
+COPY . .
+RUN dotnet build "Name.Of.Your.Project.csproj" -c Release -o /app/build
+
+# Run the publish command using the SDK named as 'build'
+FROM build AS publish
+RUN dotnet publish "Name.Of.Your.Project.csproj" -c Release -o /app/publish
+
+# Pull 'base' image and name it as 'final' to allow pull access for publish
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ 
+# Set the entry point, in other words, what to run!
+# More on the 'ENTRYPOINT' instruction here https://docs.docker.com/engine/reference/builder/#entrypoint
+ENTRYPOINT ["dotnet", "Name.Of.Your.Project.dll"]</code></pre></p>
+<h2>A cheat with Microsoft Visual Studio</h2>
+<p>If it happens to have a Visual Studio around, just right click on your main project, select &#8216;Add&#8217; and then &#8216;Docker Support&#8230;&#8217;:</p>
+<p><img src="media/100330-docker_support_in_visual_studio.png" alt="Docker Support in Microsoft Visual Studio 2019" />.</p>
+<p>Usually, for ASP.NET Core, I choose &#8216;Linux&#8217; as Operating System; at the end it comes cheaper if you want to host it, for example, in Azure.</p><p>The post <a href="https://blog.georgekosmidis.net/docker-cheatsheet-for-dotnet-core/">Docker cheatsheet for .NET Core</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

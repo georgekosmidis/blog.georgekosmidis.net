@@ -1,0 +1,17 @@
+{
+  "Type": "post",
+  "Slang": "using-litedb-in-an-asp-net-core-api",
+  "Title": "Using LiteDB in an ASP.NET Core API",
+  "Description": "<p><a href=\"https://www.litedb.org/\" rel=\"noopener noreferrer\" target=\"_blank\">LiteDB</a> is serverless MongoDB-like database delivered in a single DLL (less than 350kb) fully written in .NET C# managed code (compatible with .NET 3.5, 4.x, NETStandard 1.3 and 2.0). It is ideal for mobile apps or for small desktop/web apps, and its API is very similar to MongoDB C# Official Driver.</p>\n<p>In this post, we will see how to use <a href=\"https://www.litedb.org/\" rel=\"noopener noreferrer\" target=\"_blank\">LiteDB</a> as a storage for an ASP.NET API and do simple CRUD operations with it.<br />\n",
+  "DatePublished": "2019-11-02T19:31:44+01:00",
+  "DateModified": "2020-06-17T13:19:01+02:00",
+  "Image": "media/100260-feature.png",
+  "Tags": [
+    "ASP.NET Core",
+    "DocumentDB",
+    "LiteDB",
+    "NoSQL",
+    "Web API",
+    "ASP.NET Core"
+  ]
+}

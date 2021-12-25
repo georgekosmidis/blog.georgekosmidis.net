@@ -1,0 +1,266 @@
+<p>This post is contains sample on how to upload an image with FTPS in ASP.NET Core. It also contains a cheat sheet of all the properties and methods of an instance of an <code>FtpWebRequest</code> object, mostly as a quick reference guide.</p>
+<p></p>
+<h2>The sample!</h2>
+<p>I know it is usually the other way around, but I kind of feel this is the most important part of this post! If you want to learn more about all the properties and methods of an instance of <code>FtpWebRequest</code>, keep scrolling!<br />
+<script src="https://gist.github.com/georgekosmidis/3e91fd26f9bb63f9faaa6c072ba8827b.js"></script></p>
+<h2>Properties of an instance of an <code>FtpWebRequest</code> object.</h2>
+<p>The following is a table containing all properties of an instance of an <code>FtpWebRequest</code> object. In bold you will find the ones mostly used and in italics the properties not supported.</p>
+<div style="width:100%; margin:0; overflow-x:scroll;">
+<table style="width:780px; table-layout:fixed">
+<thead>
+<tr>
+<th>Property</th>
+<th>Short explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="white-space:nowrap;"><code><strong>string Method { get; set; }</strong></code></td>
+<td>
+                Gets or sets the command to send to the FTP server.<br />
+(e.g. <code>request.Method = WebRequestMethods.Ftp.UploadFile;</code>)<br />
+<em>Check the container class of the <a href="https://github.com/microsoft/referencesource/blob/a7bd3242bd7732dec4aebb21fbc0f6de61c2545e/System/net/System/Net/WebRequestMethods.cs#L4" rel="noopener noreferrer" target="_blank">System.Net.WebRequestMethods.Ftp</a> class for available commands.</em>
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><strong>ICredentials Credentials { get; set; }</strong></code></td>
+<td>
+                 Set the credentials used to communicate with the FTP server.<br />
+(e.g. <code>request.Credentials = new NetworkCredential(username, password);</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><strong>bool KeepAlive { get; set; }</strong></code></td>
+<td>
+                Keep the connection alive after the request completes. Default is true.<br />
+(e.g. <code>request.KeepAlive = true;</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><strong>bool UsePassive { get; set; }</strong></code></td>
+<td>
+                Client should initiate a connection on the data port. Default is true.<br />
+(e.g. <code>request.UsePassive = true;</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><strong>bool EnableSsl { get; set; }</strong></code></td>
+<td>
+                Set control and data transmissions to be encrypted. Default is true.<br />
+(e.g. <code>request.EnableSsl= true;</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><strong>bool UseBinary</strong></code></td>
+<td>
+                Indicate to the server that the data to be transferred is binary. Default is true.<br />
+(e.g. <code>request.UseBinary = true;</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><strong>int Timeout { get; set; }</strong></code></td>
+<td>
+                 Set the number of milliseconds to wait for a request.<br />
+(e.g. <code>request.Timeout = 5000;</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code>string RenameTo { get; set; }</code></td>
+<td>
+                 Set the new name of a file being renamed.<br />
+(e.g. <code>request.RenameTo = "new_name";</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code>AuthenticationLevel AuthenticationLevel { get; set; }</code></td>
+<td>
+                Indicate the level of authentication and impersonation used for this request.<br />
+(e.g. <code>request.AuthenticationLevel = System.Net.Security.AuthenticationLevel.MutualAuthRequested;</code>)
+            </td>
+</tr>
+<tr>
+<td><code>X509CertificateCollection ClientCertificates { get; set; }</code></td>
+<td>
+                 Set the certificates used for establishing an encrypted connection to the FTP server.<br />
+(e.g. <code>request.ClientCertificates = new System.Security.Cryptography.X509Certificates.X509CertificateCollection();</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code>string ConnectionGroupName { get; set; }</code></td>
+<td>
+                 Set the name of the connection group that contains the service point used to send the current request.<br />
+(e.g. <code>request.ConnectionGroupName = "The .NET Lab";</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code>long ContentOffset { get; set; }</code></td>
+<td>
+                 Byte offset into the file being <em>downloaded</em> by this request.<br />
+(e.g. <code>request.ContentOffset = 512;</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code>IWebProxy Proxy { get; set; }</code></td>
+<td>
+                 Set the proxy used to communicate with the FTP server.<br />
+(e.g. <code>request.Proxy = new WebProxy();</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code>int ReadWriteTimeout { get; set; }</code></td>
+<td>
+                 Set a time-out when reading from or writing to a stream.<br />
+(e.g. <code>request.ReadWriteTimeout = 30;</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code>Uri RequestUri { get; }</code></td>
+<td>
+                 Get the URI requested by this instance.<br />
+(e.g. <code>var uri = request.RequestUri;</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code>ServicePoint ServicePoint { get; }</code></td>
+<td>
+                 Get the <code>System.Net.ServicePoint</code> object used to connect to the FTP server.<br />
+(e.g. <code>var servicepoint = request.ServicePoint;</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><em>WebHeaderCollection Headers { get; set; }</em></code></td>
+<td>
+                 It&#8217;s always empty!
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><em>bool PreAuthenticate { get; set; }</em></code></td>
+<td>
+                 Not supported!
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><em>string ContentType { get; set; }</em></code></td>
+<td>
+                 Not supported!
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><em>long ContentLength { get; set; }</em></code></td>
+<td>
+                Value is ignored, don&#8217;t use it!
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><em>bool UseDefaultCredentials { get; set; }</em></code></td>
+<td>
+                 Not supported!
+            </td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Methods of an instance of an <code>FtpWebRequest</code> object.</h2>
+<p>Same as before, the most common methods can be found with bold and in the top!</p>
+<div style="width:100%; margin:0; overflow-x:scroll;">
+<table style="width:780px; table-layout:fixed">
+<thead>
+<tr>
+<th>Property</th>
+<th>Short explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="white-space:nowrap;"><code><strong>.Create()</strong></code></td>
+<td>
+                Initialize a new <code>System.Net.WebRequest</code> instance for the specified URI scheme.<br />
+(e.g. <code>var request = (FtpWebRequest)WebRequest.Create(host + "/" + path + "/" + filename);</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><strong>WebResponse GetResponse();</strong></code></td>
+<td>
+                Retrieve the stream used to upload data to an FTP server.<br />
+(e.g. <code>WebResponse response = request.GetResponse();</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><strong>Task&lt;WebResponse&gt; GetResponseAsync();</strong></code></td>
+<td>
+                Retrieve the stream used to upload data to an FTP server asynchronously.<br />
+(e.g. <code>var response = await request.GetResponse();</code>)
+            </td>
+</tr>
+<tr>
+<td style="white-space:nowrap;"><code><strong>void Abort();</strong></code></td>
+<td>
+                Terminate an asynchronous FTP operation.<br />
+(e.g. <code>request.Abort();</code>)
+            </td>
+</tr>
+<tr>
+<td><code>IAsyncResult BeginGetRequestStream(AsyncCallback callback, object state);</code></td>
+<td>
+                Begin asynchronously opening a request&#8217;s content stream for writing.<br />
+(e.g. <code>request.BeginGetRequestStream(new AsyncCallback(GetRequestStreamCallback), request);</code>)<br />
+<em>Check the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest.begingetrequeststream?view=netcore-3.1" rel="noopener noreferrer" target="_blank">Microsoft Docs</a> for more info.</em>
+            </td>
+</tr>
+<tr>
+<td><code>Stream EndGetRequestStream(IAsyncResult asyncResult);</code></td>
+<td>
+                Begin asynchronously opening a request&#8217;s content stream for writing.<br />
+(e.g. <code> Stream postStream = request.EndGetRequestStream(asynchronousResult);</code>)<br />
+<em>Check the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest.endgetrequeststream?view=netcore-3.1" rel="noopener noreferrer" target="_blank">Microsoft Docs</a> for more info.</em>
+            </td>
+</tr>
+<tr>
+<td><code>IAsyncResult BeginGetResponse(AsyncCallback callback, object state)</code></td>
+<td>
+                Begin sending a request and receiving a response from an FTP server asynchronously.<br />
+(e.g. <code>IAsyncResult result=<br />
+        (IAsyncResult) myHttpWebRequest.BeginGetResponse(new AsyncCallback(RespCallback),myRequestState);</code>)<br />
+<em>Check the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest.begingetresponse?view=netcore-3.1" rel="noopener noreferrer" target="_blank">Microsoft Docs</a> for more info.</em>
+            </td>
+</tr>
+<tr>
+<td><code>WebResponse EndGetResponse(IAsyncResult asyncResult)</code></td>
+<td>
+                Ends a pending asynchronous operation started with <code>BeginGetResponse(System.AsyncCallback,System.Object)</code>.<br />
+(e.g. <code> myRequestState.response = (HttpWebResponse) myHttpWebRequest2.EndGetResponse(asynchronousResult);</code>)<br />
+<em>Check the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest.endgetresponse?view=netcore-3.1" rel="noopener noreferrer" target="_blank">Microsoft Docs</a> for more info.</em>
+            </td>
+</tr>
+<tr>
+<td><code>Stream GetRequestStream();</code></td>
+<td>
+                 Retrieve the stream used to upload data to an FTP server.<br />
+(e.g. <code> var stream = request.GetRequestStream();</code>)<br />
+<em>Check the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest.getrequeststream?view=netcore-3.1" rel="noopener noreferrer" target="_blank">Microsoft Docs</a> for more info.</em>
+            </td>
+</tr>
+<tr>
+<td><code>Task&lt;Stream&gt; GetRequestStreamAsync();</code></td>
+<td>
+                 Retrieve the stream used to upload data to an FTP server asynchronously.<br />
+(e.g. <code>var stream = await request.GetRequestStreamAsync();</code>)
+            </td>
+</tr>
+<tr>
+<td><code>object InitializeLifetimeService();</code></td>
+<td>
+                  Obtain a lifetime service object to control the lifetime policy for this instance.<br />
+(e.g. <code>var service = request.InitializeLifetimeService();</code>)
+            </td>
+</tr>
+<tr>
+<td><code>object GetLifetimeService();</code></td>
+<td>
+                  Retrieve the current lifetime service object that controls the lifetime policy for this instance.<br />
+(e.g. <code>var service = request.GetLifetimeService();</code>)
+            </td>
+</tr>
+</tbody>
+</table>
+</div><p>The post <a href="https://blog.georgekosmidis.net/code-snippet-how-to-upload-an-image-with-ftps-in-dotnet-core/">Code Snippet: How to upload an image with FTPS in ASP.NET Core</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

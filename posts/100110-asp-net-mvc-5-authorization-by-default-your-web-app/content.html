@@ -1,0 +1,20 @@
+<p>Securing your MVC app is a tricky business! Although security is a huge topic, one of the problems that you might encounter is that unauthenticated users are allowed by default to execute every action in your web app. That behaviour is potentially unsafe because you have to remember to decorate your actions with the authorize attribute, and humans are prone to errors!</p>
+<p>This is why, in my opinion, authentication should be enforced by default, or differently <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute%28v=vs.118%29.aspx" target="_blank" rel="noopener noreferrer">[Authorize]</a> attribute should be added behind the scenes to every action.</p>
+<p></p>
+<p>Thankfully, you can use global filters to do that!<br />Open <em>App_Start</em> folder, double click on <em>FilterConfig.cs</em> and add as a global filter the <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute%28v=vs.118%29.aspx" target="_blank" rel="noopener noreferrer">AuthorizeAttribute()</a> like this:</p>
+<p><pre><code class="language-csharp">using System.Web;
+using System.Web.Mvc;
+
+namespace MyNewProject {
+    public class FilterConfig {
+        public static void RegisterGlobalFilters( GlobalFilterCollection filters ) {
+            filters.Add( new HandleErrorAttribute() );
+            filters.Add( new AuthorizeAttribute() );
+        }
+    }
+}</code></pre></p>
+<p>This way, every controller and action needs authorization before executing its code. The only thing you have to remember, is to allow access wherever you want (e.g. login actio ) using the AllowAnonymous attribute:</p>
+<p><pre><code class="language-csharp">[AllowAnonymous]
+public ActionResult Login() {
+    return View();
+}</code></pre></p><p>The post <a href="https://blog.georgekosmidis.net/asp-net-mvc-5-authorization-by-default-your-web-app/">ASP.NET MVC 5: “Authorization” by default for your web app</a> first appeared on <a href="https://blog.georgekosmidis.net">George Kosmidis</a>.</p>

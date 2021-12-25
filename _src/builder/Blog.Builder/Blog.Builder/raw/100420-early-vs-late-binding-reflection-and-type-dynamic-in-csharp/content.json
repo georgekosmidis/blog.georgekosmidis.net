@@ -1,0 +1,17 @@
+{
+  "Type": "post",
+  "Slang": "early-vs-late-binding-reflection-and-type-dynamic-in-csharp",
+  "Title": "Early vs Late Binding, reflection, and type dynamic in C#",
+  "Description": "<p>Most script languages use late binding and most compiled languages use early binding; C#, although a compiled language and thus an early binding one, has reflection for late binding. In this post we will explore early &#038; late binding in C# with theory and samples. </p>\n<p>",
+  "DatePublished": "2020-08-07T09:50:08+02:00",
+  "DateModified": "2021-12-10T20:47:22+01:00",
+  "Image": "https://blog.georgekosmidis.net/wp-content/uploads/2020/08/featured.png",
+  "Tags": [
+    "C#",
+    "dynamic",
+    "early binding",
+    "late binding",
+    "Reflection",
+    "ASP.NET Core"
+  ]
+}

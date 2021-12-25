@@ -1,0 +1,15 @@
+{
+  "Type": "post",
+  "Slang": "integration-tests-in-asp-net-core-api",
+  "Title": "Integration Tests in ASP.NET Core API",
+  "Description": "<p>Automated testing is an important part of modern software production as it ensures higher quality and faster delivery, and on the same time it makes testing more affordable. Integration tests, sitting just between Unit Tests and E2E tests, improve test coverage and ensure proper communication between units. In this post, we will explore the possibilities of integration testing of ASP.NET Core by using <a href=\"https://xunit.net/\" rel=\"noopener noreferrer\" target=\"_blank\">xUnit</a> to create a test for multiple endpoints. </p>\n<p>",
+  "DatePublished": "2019-12-02T12:22:05+01:00",
+  "DateModified": "2020-07-26T11:05:32+02:00",
+  "Image": "https://blog.georgekosmidis.net/wp-content/uploads/2019/12/featured.jpg",
+  "Tags": [
+    "ASP.NET Core",
+    "Unit Test",
+    "ASP.NET Core",
+    "Unit Testing"
+  ]
+}
