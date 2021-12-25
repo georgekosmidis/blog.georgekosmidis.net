@@ -57,6 +57,7 @@ foreach (var item in blogPostsResponse.BodyAsType.Items.OrderBy(x => x.DatePubli
 
                                         return relativeLink;
                                     });
+    item.ContentHtml = Regex.Replace(item.ContentHtml, "<p>The post <a href=(.+) first appeared on(.+)Kosmidis</a>.</p>", string.Empty);
 
     var key = item.Id.Split('=')[1];
     var slang = item.Url.Trim('/').Split('/').Last();

@@ -1,0 +1,38 @@
+<p>Entity Framework Core allows you to drop down to raw SQL queries when working with a relational database. This can be useful, because raw SQL queries can return entity types or, starting with EF Core 2.1, query types that are part of your model, but it could also be a problem when it comes down to <em>Unit Testing</em>.</p>
+<p>    </p>
+<blockquote><p>
+You can read more about Raw SQL Queries here: <a href="https://docs.microsoft.com/en-us/ef/core/querying/raw-sql" target="_blank" rel="noopener noreferrer">https://docs.microsoft.com/en-us/ef/core/querying/raw-sql</a>
+</p></blockquote>
+<p>By using raw SQL queries though, in any case, it is important to remember to parameterize user input to protect your system from SQL injection attacks.</p>
+<blockquote><p>
+Read more about SQL Injections in this <a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/sql-injection?view=sql-server-2017" target="_blank" rel="noopener noreferrer">Microsoft article</a> and in this <a href="https://www.owasp.org/index.php/SQL_Injection" target="_blank" rel="noopener noreferrer">OWASP page</a></p>
+</blockquote>
+<p>For example, the following gist file contains a basic raw SQL Query that is using user input the wrong way, and thus, it&#8217;s vulnerable to SQL Injection attacks:<br />
+<pre><code class="language-csharp">var username = "george";//coming from UI
+
+var blogs = context.Blogs
+    .FromSql("SELECT * FROM dbo.Blogs WHERE username = '" +username+"'") // &lt;- vulnerable to sql injection attacks
+    .ToList();</code></pre></p>
+<p>To solve this, Microsoft suggests one of the 3 following approaches:</p>
+<h2>Using SqlParameter</h2>
+<p><pre><code class="language-csharp">var username = new SqlParameter("username ", "george");
+
+var blogs = context.Blogs
+    .FromSql("SELECT * FROM dbo.Blogs WHERE username = @username", username )
+    .ToList();</code></pre></p>
+<p>This of course works perfectly against injection attacks, but if we try to unit test the above code using SQLite, the test will fail with the error <code>Message: System.InvalidCastException : Unable to cast object of type 'System.Data.SqlClient.SqlParameter' to type 'Microsoft.Data.Sqlite.SqliteParameter'.</code><br />which is self explanatory! An <code>SqlClient.SqlParmeter</code> is not an <code>Sqlite.SqliteParameter</code>!</p>
+<h2>Using <code>String.Format</code> syntax</h2>
+<p><pre><code class="language-csharp">var username = "george";
+
+var blogs = context.Blogs
+    .FromSql("SELECT * FROM dbo.Blogs WHERE username = {0}", username )
+    .ToList();</code></pre></p>
+<p>Although this may look like <code>String.Format</code> syntax, the supplied value is wrapped in a parameter and the generated parameter name is inserted where the {0} placeholder was specified.</p>
+<h2>Using interpolation syntax</h2>
+<p><pre><code class="language-csharp">var username = "george";
+
+var blogs = context.Blogs
+    .FromSql(@"SELECT * FROM dbo.Blogs WHERE username = {username}")
+    .ToList();</code></pre></p>
+<p>Same as the previous approach, the supplied value is wrapped in a parameter and the generated parameter name inserted where the {0} placeholder was specified.</p>
+<p>The last two approaches, actually allow .NET to wrap the supplied value with the appropriate parameter for each dbContext: <code>SqlClient.SqlParmeter</code> for your running app, <code>Sqlite.SqliteParameter</code> for your tests!</p>

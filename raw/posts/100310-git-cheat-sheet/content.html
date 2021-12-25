@@ -1,0 +1,123 @@
+<p>I know there are many cheat sheets around (<a href="https://education.github.com/git-cheat-sheet-education.pdf" rel="noopener noreferrer" target="_blank">here is one I like from GitHub</a>) but I couldn&#8217;t find many that contain sequence of commands, from clone to merge and push. This is my version of a cheatsheet which I hope you will find useful.  </p>
+<p></p>
+<h2>Basic commands</h2>
+<table>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>git init repo_name</code></td>
+<td>Initializes a new repo locally</td>
+</tr>
+<tr>
+<td><code>git clone project_url</code></td>
+<td>Clone a project locally</td>
+</tr>
+<tr>
+<td><code>git checkout branch_name</code></td>
+<td>Checkout a branch</td>
+</tr>
+<tr>
+<td><code>git add .</code></td>
+<td>Add all changes</td>
+</tr>
+<tr>
+<td><code>git push</code></td>
+<td>Push all changes</td>
+</tr>
+<tr>
+<td><code>git pull</code></td>
+<td>Pull all changes</td>
+</tr>
+<tr>
+<td><code>git commit -m "completed feature"</code></td>
+<td>Commit all changes</td>
+</tr>
+<tr>
+<td><code>git checkout -b feature/branch</code></td>
+<td>Create a new branch</td>
+</tr>
+<tr>
+<td><code>git rebase develop</code></td>
+<td>Rebase</td>
+</tr>
+<tr>
+<td><code>git branch -D feature/branch</code></td>
+<td>Delete a branch</td>
+</tr>
+<tr>
+<td><code>git reset --hard</code></td>
+<td>Undo all changes</td>
+</tr>
+<tr>
+<td><code>git branch -m old_name new_name</code></td>
+<td>Rename branch</td>
+</tr>
+<tr>
+<td><code>git merge feature</code></td>
+<td>Merge changes </td>
+</tr>
+</table>
+<h2>Common operations</h2>
+<p>Clone a project locally:</p>
+<pre>
+cd path/for/project/without/project_name
+git clone project_url
+</pre>
+<p>Create a new branch:</p>
+<pre>
+git checkout -b feature/branch
+git push --set-upstream origin feature/branch
+</pre>
+<p>Rebase of a feature branch based on the develop branch:</p>
+<pre>
+git checkout develop:
+git pull
+git checkout feature/branch
+git rebase develop
+git rebase --continue
+</pre>
+<p>Merge feature branch into develop:</p>
+<pre>
+git checkout feature/branch
+git pull
+git status                       # should be clean
+git checkout develop
+git pull 
+git status                       # should be clean
+git merge feature/branch --no-ff
+git push
+git branch -D feature/branch     # deletes the branch!!!
+</pre>
+<p>Publish develop to master:</p>
+<pre>
+git checkout develop
+git pull
+git status                       # should be clean
+git checkout master
+git pull 
+git status                       # should be clean
+git merge develop
+git push
+</pre>
+<p>Rename branch:</p>
+<pre>
+git checkout old_name
+git pull
+git branch -m old_name new_name
+git push --set-upstream origin new_name
+</pre>
+<p>Sync changes with remote:</p>
+<pre>
+git add .
+git commit -m "some changes"
+git pull                     # always pull and merge locally
+git push
+</pre>
+<p>Undo all changes on branch X:</p>
+<pre>
+git checkout X
+git reset --hard
+</pre>
+<blockquote><p>Do you commonly use any other sequence of git commands? Send it and I will include it!</p></blockquote>

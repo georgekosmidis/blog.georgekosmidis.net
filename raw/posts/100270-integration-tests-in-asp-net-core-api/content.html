@@ -1,0 +1,57 @@
+<p>Automated testing is an important part of modern software production as it ensures higher quality and faster delivery, and on the same time it makes testing more affordable. Integration tests, sitting just between Unit Tests and E2E tests, improve test coverage and ensure proper communication between units. In this post, we will explore the possibilities of integration testing of ASP.NET Core by using <a href="https://xunit.net/" rel="noopener noreferrer" target="_blank">xUnit</a> to create a test for multiple endpoints. </p>
+<p></p>
+<h3>What is Integration Testing</h3>
+<p>During the process of creating a smartphone, the display, the sensors, the lenses, the battery, all of the parts, are produced and tested separately (<em>Unit Testing</em>). When two or more units are ready, they are assembled and <em>Integration Testing</em> is performed. This process is similar to all engineering fields, including of course software engineering where integration tests ensure that an app&#8217;s components function correctly at a level that includes the app&#8217;s supporting infrastructure, such as the database, file system, and network. </p>
+<p>ASP.NET Core supports integration tests using a unit test framework with a test web host and an in-memory test server, so some basic understanding of unit tests is assumed. If you are unfamiliar with test concepts and/or <a href="https://xunit.net/" rel="noopener noreferrer" target="_blank">xUnit</a>, check the <a href="https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test" rel="noopener noreferrer" target="_blank">Unit testing C# in .NET Core using dotnet test and xUnit</a>.</p>
+<h3>What is xUnit</h3>
+<p>xUnit is the name of a collection of testing frameworks that became very popular among software developers. They derive their structure and functionality from <a href="http://sunit.sourceforge.net/" rel="noopener noreferrer" target="_blank">Smalltalk&#8217;s SUnit</a>, which was designed by Kent Beck in 1998. Since it was written in a highly structured object-oriented style, it was easy to be adapted to languages such as Java and C#.</p>
+<blockquote><p>You can read more on how to use xUnit in <a href="https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test" rel="noopener noreferrer" target="_blank">Microsoft Docs</a> or in <a href="https://xunit.net/docs/getting-started/netcore/cmdline" rel="noopener noreferrer" target="_blank">xUnit Documenation</a> </p></blockquote>
+<h3>Creating the test class</h3>
+<p>Version 2.1 of .NET Core introduced <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1?view=aspnetcore-3.0" rel="noopener noreferrer" target="_blank">WebApplicationFactory&lt;TEntryPoint&gt;</a> for bootstrapping an application in memory. This factory can be used to create a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.testhost.testserver?view=aspnetcore-2.2&#038;viewFallbackFrom=aspnetcore-3.0" rel="noopener noreferrer" target="_blank">TestServer</a> instance using the MVC application defined by <code>TEntryPoint</code> and one or more <code>HttpClient</code> instances used to send <code>HttpRequestMessage</code> to the <code>TestServer</code>. <code>TEntryPoint</code> is the entry point class of the System Under Test, usually the <code>Startup</code> class:</p>
+<p><pre><code class="language-csharp">public class IntegrationParallelismTesting
+{
+    private readonly WebApplicationFactory&lt;Startup&gt; _factory;
+    public IntegrationParallelismTesting(WebApplicationFactory&lt;Startup&gt; factory)
+    {
+        _factory = factory;
+    }
+}</code></pre></p>
+<blockquote><p>If the SUT&#8217;s environment isn&#8217;t set, the environment defaults to <code>Development</code>.</p></blockquote>
+<p>Since sometimes &#8211;<em>like with the</em> <code>WebApplicationFactory&lt;TEntryPoint&gt;</code>&#8211; test context creation and cleanup can be very expensive, the context should be shared across all tests in a class. To achieve this, the test class must implement a <em>class fixture</em> interface (<a href="https://xunit.net/docs/shared-context#class-fixture" rel="noopener noreferrer" target="_blank">IClassFixture</a>):</p>
+<p><pre><code class="language-csharp">public class IntegrationParallelismTesting
+        : IClassFixture&lt;WebApplicationFactory&lt;Startup&gt;&gt;
+{
+    private readonly WebApplicationFactory&lt;Startup&gt; _factory;
+    public IntegrationParallelismTesting(WebApplicationFactory&lt;Startup&gt; factory)
+    {
+        _factory = factory;
+    }
+}</code></pre></p>
+<h3>Creating a test </h3>
+<p>This is a trivial task on each own, since <code>Theory</code> and <code>InlineData</code> can help create one test for multiple endpoints. The example below uses <code>_factory.CreateClient();</code> to create an instance of <code>HttpClient</code>, makes a call to the <code>url</code> passed as argument, and finally evaluates the results:</p>
+<p><pre><code class="language-csharp">[Theory]
+[InlineData("/")]
+[InlineData("/Index")]
+[InlineData("/Contact")]
+public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
+{
+    // Arrange
+    var client = _factory.CreateClient();
+
+    // Act
+    var response = await client.GetAsync(url);
+
+    // Assert
+    response.EnsureSuccessStatusCode(); // Status Code 200-299
+    Assert.Equal("text/html; charset=utf-8", 
+        response.Content.Headers.ContentType.ToString());
+}</code></pre></p>
+<blockquote><p>Using <code>HttpClient</code> with the <code>using</code> statement can cause a serious issue named ‘sockets exhaustion’. <a href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests" rel="noopener noreferrer" target="_blank">Read more</a> about how to use <code>HttpClientFactory</code> instead!</p></blockquote>
+<h3>Conclusion</h3>
+<p><a href="https://www.guru99.com/unit-test-vs-integration-test.html" rel="noopener noreferrer" target="_blank">Unit Tests vs Integration Tests</a>, the battle continuous as it seems the line is not always so clear: Just replace a mock with the real object and you converted a Unit Test to an Integration Test &#8211; not always true&#8230;</p>
+<p>There is a very nice detailed article by <a href="http://blog.stevensanderson.com/" rel="noopener noreferrer" target="_blank">Stevens Anderson</a> called <a href="http://blog.stevensanderson.com/2009/11/04/selective-unit-testing-costs-and-benefits/" rel="noopener noreferrer" target="_blank">Selective Unit Testing – Costs and Benefits</a> that can help clear things out, but I personally always favor Integration Tests, and write Unit Tests in these cases only:</p>
+<ul>
+<li>Algorithmic logic, <em>e.g. calculations, business rules etc</em></li>
+<li>Complex code, <em>e.g. code with many dependencies</em>s</li>
+<li>Runtime error prone code, <em>e.g. when using reflection</em></li>
+</ul>

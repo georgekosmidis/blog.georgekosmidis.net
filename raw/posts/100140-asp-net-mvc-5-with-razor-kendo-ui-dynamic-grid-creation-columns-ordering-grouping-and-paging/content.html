@@ -1,0 +1,67 @@
+<p>The requirements were simple! A grid that will load a whatever query, grouped by whatever columns, with filters enabled, paging and everything. Easy task with ASP.NET Telerik grids but not easy at all with Kendo UI!</p>
+<p>Since we can&#8217;t have a ViewModel or Model for the grid (we don&#8217;t know what columns a whatever query has!), I came up with a rather different ViewModel that holds descriptions for columns, groups etc&#8230;:</p>
+<p></p>
+<p><pre><code class="language-csharp">public class WhatEverQueryModel {
+    public DataTable Data { get; set; }
+    public List Groups { get; set; }
+    public Dictionary Bind { get; set; }
+}</code></pre></p>
+<p>The following action simply populates the three properties of our model:</p>
+<p><pre><code class="language-csharp">public ActionResult Index( int id ) {
+
+    //Get query details (query id as argument)
+    var queryDetails = GetQueryDetails( id );
+    var conString = GetConString( queryDetails.ConString.username, queryDetails.ConString.password, queryDetails.ConString.db, queryDetails.ConString.server );
+    var SQL = queryDetails.Query;
+
+    var Model  = new ViewModels.WhatEverQueryModel();
+    Model.Data = GetQueryData( conString, SQL );//Execute query using conString
+    Model.Groups = queryDetails.GroupBy.Split( ',' ).Reverse().ToList();//Comma separated values
+
+    //Column description: Name and Type
+    var dyn = new Dictionary();
+    foreach ( System.Data.DataColumn column in Model.Data.Columns ) {
+        var t = System.Type.GetType( column.DataType.FullName );
+        dyn.Add( column.ColumnName, t );
+    }
+    Model.Bind = dyn;
+
+    return View( Model );
+}</code></pre></p>
+<p>And finally, all comes together for the grid in the View:</p>
+<p><pre><code class="language-csharp">@(Html.Kendo().Grid()
+    .Name( "WhateverQueryGrid" )
+    .Columns( columns =&gt; {
+        //Define the columns
+        foreach ( var c in Model.Bind )
+            columns.Bound( c.Value, c.Key );
+    } )
+    .DataSource( dataSource =&gt; dataSource
+        .Ajax()
+        .Model( model =&gt; {
+            //Define the model
+            foreach ( System.Data.DataColumn column in Model.Data.Columns ) {
+                model.Field( column.ColumnName, column.DataType );
+            }
+        } )
+        //Unfortunately you need an ajax call that will execute and return the same data of the same query.
+        //Alternatively you can save the data from the Index action to a session variable and restore it in Grid_Read,
+        //but I would probably suggest a TOP 1 query at first, and a paged call in Grid_Read, depending on the number of rows returned...
+        //This code does neither, so you should probably implement a solution for the two calls...!
+        .Read( read =&gt; read.Action( "Grid_Read", "WhateverQueryController" ) )
+        .Group( group =&gt; {
+            //Define the grids
+            foreach ( var g in Model.Groups )
+                if ( Model.Bind.Keys.Contains( g ) )
+                    group.Add( g, Model.Bind.Where( x =&gt; x.Key == g ).First().Value );
+        } )
+    )
+    .Groupable()
+    .Sortable( s =&gt; s.AllowUnsort( true ) )
+    .Filterable( ftb =&gt; ftb.Mode( GridFilterMode.Menu ) )
+        .Pageable( pageable =&gt; pageable
+        .Refresh( true )
+        .PageSizes( true )
+        .ButtonCount( 5 )
+    )
+)</code></pre></p>

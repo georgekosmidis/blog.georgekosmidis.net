@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>George Kosmidis | The .NET Lab</title>
+    <style>
+        header {
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(themes/default/img/header_bg.png);
+            background-size: cover;
+            background-position: 50% 50%;
+        }
+
+        header svg {
+            width: 25px;
+            fill: #f8f9fa;
+        }
+        footer svg {
+            width: 25px;
+            fill: black;
+        }        
+
+        .me {
+            width: 180px;
+            height: 180px;
+        }
+
+
+        @media (min-width: 992px) {
+            .container {
+                max-width: 1200px
+            }
+
+            header>.container {
+                max-width: 768px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="container-fluid p-3 bg-dark border-bottom">
+
+        <div class="container text-white">
+            <div class="row">
+                <div class="col-sm-12 col-md-3 text-center">
+                    <img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+                </div>
+                <div class="col-sm-12 col-md-9">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <h1 class="display-5 text-center">George Kosmidis</h1>
+                                <small class="d-block text-center">Microsoft MVP | Cloud Solutions Architect | .NET
+                                    Software Engineer |
+                                    Organizer of Munich .NET Meetup | Speaker</small>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col text-center">
+                                <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
+                                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <title>Twitter</title>
+                                        <path
+                                            d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a href="https://github.com/georgekosmidis" target="_blank" class="btn">
+                                    <svg role="img" class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <title>GitHub</title>
+                                        <path
+                                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a href="https://www.linkedin.com/in/georgekosmidis/" target="_blank" class="btn">
+                                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <title>LinkedIn</title>
+                                        <path
+                                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a href="https://www.youtube.com/c/GeorgeKosmidis" target="_blank" class="btn">
+                                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <title>YouTube</title>
+                                        <path
+                                            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a href="https://sessionize.com/georgekosmidis/" target="_blank" class="btn">
+                                    <svg role="img" viewBox="0 0 288 288" xmlns="http://www.w3.org/2000/svg">
+                                        <title>Sessionize</title>
+                                        <g transform="translate(0.000000,288.000000) scale(0.100000,-0.100000)">
+                                            <path
+                                                d="M135 2861 c-22 -10 -54 -34 -72 -52 -67 -71 -63 22 -63 -1369 0 -1391 -4 -1298 63 -1369 70 -73 42 -71 715 -71 l602 0 0 40 c0 108 -52 232 -127 301 -92 85 -229 125 -469 139 -119 6 -160 13 -190 28 -63 32 -96 81 -108 161 -6 43 12 87 470 1118 263 590 480 1073 483 1073 3 0 22 -42 41 -92 47 -127 157 -344 228 -453 156 -239 367 -450 607 -608 100 -65 373 -202 478 -238 37 -13 67 -27 67 -30 0 -3 -348 -160 -772 -349 -425 -188 -777 -346 -782 -350 -4 -5 11 -18 35 -30 235 -119 367 -331 394 -633 l7 -77 482 0 c444 0 484 2 521 19 51 23 111 89 125 138 8 27 10 249 8 773 -4 660 -6 743 -22 809 -69 289 -197 522 -396 721 -199 199 -432 327 -721 396 -67 16 -148 18 -819 21 -712 3 -747 2 -785 -16z m2069 -483 c99 -51 198 -181 200 -264 1 -57 -21 -79 -77 -78 -137 3 -328 220 -288 328 19 50 84 55 165 14z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                </a>
+                                <a href="https://www.meetup.com/munich-dotnet-meetup/" target="_blank"
+                                    class="btn">
+                                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <title>Meetup</title>
+                                        <path
+                                            d="M6.98.555a.518.518 0 0 0-.105.011.53.53 0 1 0 .222 1.04.533.533 0 0 0 .409-.633.531.531 0 0 0-.526-.418zm6.455.638a.984.984 0 0 0-.514.143.99.99 0 1 0 1.02 1.699.99.99 0 0 0 .34-1.36.992.992 0 0 0-.846-.482zm-3.03 2.236a5.029 5.029 0 0 0-4.668 3.248 3.33 3.33 0 0 0-1.46.551 3.374 3.374 0 0 0-.94 4.562 3.634 3.634 0 0 0-.605 4.649 3.603 3.603 0 0 0 2.465 1.597c.018.732.238 1.466.686 2.114a3.9 3.9 0 0 0 5.423.992c.068-.047.12-.106.184-.157.987.881 2.47 1.026 3.607.24a2.91 2.91 0 0 0 1.162-1.69 4.238 4.238 0 0 0 2.584-.739 4.274 4.274 0 0 0 1.19-5.789 2.466 2.466 0 0 0 .433-3.308 2.448 2.448 0 0 0-1.316-.934 4.436 4.436 0 0 0-.776-2.873 4.467 4.467 0 0 0-5.195-1.656 5.106 5.106 0 0 0-2.773-.807zm-5.603.817a.759.759 0 0 0-.423.135.758.758 0 1 0 .863 1.248.757.757 0 0 0 .193-1.055.758.758 0 0 0-.633-.328zm15.994 2.37a.842.842 0 0 0-.47.151.845.845 0 1 0 1.175.215.845.845 0 0 0-.705-.365zm-8.15 1.028c.063 0 .124.005.182.014a.901.901 0 0 1 .45.187c.169.134.273.241.432.393.24.227.414.089.534.02.208-.122.369-.219.984-.208.633.011 1.363.237 1.514 1.317.168 1.199-1.966 4.289-1.817 5.722.106 1.01 1.815.299 1.96 1.22.186 1.198-2.136.753-2.667.493-.832-.408-1.337-1.34-1.12-2.26.16-.688 1.7-3.498 1.757-3.93.059-.44-.177-.476-.324-.484-.19-.01-.34.081-.526.362-.169.255-2.082 4.085-2.248 4.398-.296.56-.67.694-1.044.674-.548-.029-.798-.32-.72-.848.047-.31 1.26-3.049 1.323-3.476.039-.265-.013-.546-.275-.68-.263-.135-.572.07-.664.227-.128.215-1.848 4.706-2.032 5.038-.316.576-.65.76-1.152.784-1.186.056-2.065-.92-1.678-2.116.173-.532 1.316-4.571 1.895-5.599.389-.69 1.468-1.216 2.217-.892.387.167.925.437 1.084.507.366.163.759-.277.913-.412.155-.134.302-.276.49-.357.142-.06.343-.095.532-.094zm10.88 2.057a.468.468 0 0 0-.093.011.467.467 0 0 0-.36.555.47.47 0 0 0 .557.36.47.47 0 0 0 .36-.557.47.47 0 0 0-.464-.37zm-22.518.81a.997.997 0 0 0-.832.434 1 1 0 1 0 1.39-.258 1 1 0 0 0-.558-.176zm21.294 2.094a.635.635 0 0 0-.127.013.627.627 0 0 0-.48.746.628.628 0 0 0 .746.483.628.628 0 0 0 .482-.746.63.63 0 0 0-.621-.496zm-18.24 6.097a.453.453 0 0 0-.092.012.464.464 0 1 0 .195.908.464.464 0 0 0 .356-.553.465.465 0 0 0-.459-.367zm13.675 1.55a1.044 1.044 0 0 0-.583.187 1.047 1.047 0 1 0 1.456.265 1.044 1.044 0 0 0-.873-.451zM11.4 22.154a.643.643 0 0 0-.36.115.646.646 0 0 0-.164.899.646.646 0 0 0 .899.164.646.646 0 0 0 .164-.898.646.646 0 0 0-.54-.28z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-5">
+        <div class="row" data-masonry='{"percentPosition": true }'>
+			<div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100490-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Secrets management for ASP.NET Core and Azure DevOps</h5>
+			<p class="card-text"><p>In this post we will discover how to handle <em>appsettings.json</em> secrets (like API keys, passwords etc.) in a .NET app and eventually how to deploy a protected app and let <em>Azure DevOps</em> handle the secret replacement.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">06/12/2021 09:52:53</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100480-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">MongoDB Shell or Compass query with a GUID</h5>
+			<p class="card-text"><p>Just a small one for today. Have you ever tried to query <em>MongoDB</em> with a <code>GUID</code>? Well I did and it can be confusing!</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">29/11/2021 12:12:23</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100470-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">C# 10 – What’s new!</h5>
+			<p class="card-text"><p>C# 10 is here with new and exciting feature with an opt-in approach. In this guide we will go through some of the most important changes that will make your code cleaner, smaller, faster and will hopefully convince you to upgrade now!</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">21/11/2021 19:28:34</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100460-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">.NET 6, A guide for the high impact Breaking Changes</h5>
+			<p class="card-text"><p>.NET 6 is the first Long-Term-Support (LTS) version since the &#8220;one .NET to rule them all&#8221; era</em>, which means it&#8217;s plan as future-proof. It includes a tone of improvements and changes that are planned to live long, thing that brought with it a few high impact <em>Breaking Changes</em>. Although there are <a href="https://docs.microsoft.com/en-us/dotnet/core/compatibility/6.0" rel="noopener" target="_blank">lower impact braking changes</a> too, this guide will help you identify if any of the important ones really affect you, and provide a suggestion at the same time.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">14/11/2021 18:59:35</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100450-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Create and use your first component in Blazor!</h5>
+			<p class="card-text"><p>Blazor, the new client-side UI framework from the ASP.NET team, is definitely making a splash among the developers that were trying to avoid the JavaScript coding experience (or even better the debugging JavaScript experience!). </p>
+<p></p>
+			<p class="card-text"><small class="text-muted">24/12/2021 18:21:57</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100440-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Migrating to .NET 5 – A few clicks away!</h5>
+			<p class="card-text"><p>Before you actually start reading this article, I have to be honest with you: Unless your app is a Blazor app, you don&#8217;t need to read this; all you need is to download .NET 5, change the target framework in your project properties and that&#8217;s it&#8230;! Then again, if you need the download links or want to check the process I followed, feel free!</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">21/12/2020 22:40:50</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100430-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Things you should know about .NET 5</h5>
+			<p class="card-text"><p>I know many of you are waiting for an LTS to jump in and upgrade your systems, but I think this time things are a bit different! First of all, the next LTS will be .NET 6 which is planned for November 2021, and secondly .NET 5 is already published two months ago as RC1. Actually, two release candidates of .NET 5 were published and tested by many before the actual release:<br />
+</p>
+			<p class="card-text"><small class="text-muted">17/11/2020 09:51:27</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100420-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Early vs Late Binding, reflection, and type dynamic in C#</h5>
+			<p class="card-text"><p>Most script languages use late binding and most compiled languages use early binding; C#, although a compiled language and thus an early binding one, has reflection for late binding. In this post we will explore early &#038; late binding in C# with theory and samples. </p>
+<p></p>
+			<p class="card-text"><small class="text-muted">10/12/2021 20:47:22</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100410-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">An error occurred while starting the application, Process Failure and many more</h5>
+			<p class="card-text"><p>It comes in many colors and flavors, it is usually a headache because there are multiple reasons why you can get this, it usually includes no (or minimal) information in Application log, and if you are unlucky enough to have two problems that cause this, it is a guaranteed bad day.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">25/07/2020 17:59:33</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100400-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">A Hello World with Microsoft’s Machine Learning framework, ML.NET</h5>
+			<p class="card-text"><p>Artificial Intelligence, Machine Learning and all relevant keywords have been leading the headlines lately and for good reason. This <del datetime="2020-07-22T08:48:54+00:00">new</del> field has already transformed industries across the globe, and companies are racing to understand how to integrate this emerging technology: If we had an AI ready to give answers, what would we ask? And if we can think of a question, is it valid for an AI?</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">26/07/2020 10:31:48</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100390-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Using MariaDB in an ASP.NET Core API with Entity Framework Core</h5>
+			<p class="card-text"><p><a href="https://mariadb.org/" rel="noopener noreferrer" target="_blank">MariaDB</a> Server is one of the most popular open source relational databases. It’s made by the original developers of MySQL and guaranteed to stay open source. It is part of most cloud offerings and the default in most Linux distributions.</p>
+<p>In this post, we will see how to use <a href="https://mariadb.org/" rel="noopener noreferrer" target="_blank">MariaDB</a> as storage for an ASP.NET API and do simple CRUD operations with Entity Framework Core.<br />
+</p>
+			<p class="card-text"><small class="text-muted">25/07/2020 10:27:58</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100380-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Code Snippet: How to upload an image with FTPS in ASP.NET Core</h5>
+			<p class="card-text"><p>This post is contains sample on how to upload an image with FTPS in ASP.NET Core. It also contains a cheat sheet of all the properties and methods of an instance of an <code>FtpWebRequest</code> object, mostly as a quick reference guide.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">14/07/2020 21:23:58</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100370-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Swagger in ASP.NET Core: Tips & Tricks</h5>
+			<p class="card-text"><p>This post contains a few tips and tricks that can help you transform your swagger UI into an interactive documentation. If you don&#8217;t yet know how to install swagger in ASP.NET Core, this post will help you <a href="/get-started-with-swagger-and-asp-net-core/" rel="noopener noreferrer" target="_blank">Get started with Swagger and ASP.NET Core</a>.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">17/07/2020 08:37:08</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100360-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Get started with Swagger and ASP.NET Core</h5>
+			<p class="card-text"><p>This post is an overview of how to install and configure Swagger for .NET Core. If you are searching for tips &#038; tricks, you might be interested in the article: <a href="/swagger-in-asp-net-core-tips-and-tricks/" rel="noopener noreferrer" target="_blank">Swagger in .NET Core: Tips &#038; Tricks</a>.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">11/07/2020 16:58:26</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100350-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Publish a containerized .NET Core app using Docker, Azure DevOps, Azure Container Registry and Azure App Service</h5>
+			<p class="card-text"><p>This is a guide on how to use Azure DevOps to build and then publish a docker image as an Azure App Service, using Azure Container Registry.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">17/06/2020 13:15:14</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100340-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Troubleshooting “You don’t appear to have an active Azure subscription.”</h5>
+			<p class="card-text"><p>The message can appear in any service trying to retrieve active Azure Resources either within Azure Portal or from any 3rd party consumer. As an example, it can appear while trying to create an Azure Resource Manager service connection in Azure DevOps.<br />
+</p>
+			<p class="card-text"><small class="text-muted">17/06/2020 13:15:28</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100330-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Docker cheatsheet for .NET Core</h5>
+			<p class="card-text"><p>This is just a cheat sheet of commands and terminology for Docker and ASP.NET Core; it contains commands that you can find in the <a href="https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf" rel="noopener noreferrer" target="_blank">original cheat sheet</a>, plus a <code>Dockerfile</code> for ASP.NET Core and a quick guide on how to created one from Visual Studio. Hopefully, both developers that are in the process of getting into the containerize world with Docker and developers that are already in but need a quick recap will find it useful.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">06/04/2021 11:26:50</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">C# 9.0</h5>
+			<p class="card-text"><p>It may be that <a href="https://devblogs.microsoft.com/dotnet/announcing-net-5-preview-4-and-our-journey-to-one-net/" target="_blank" rel="noopener noreferrer">.NET 5</a>, the one and only .NET that will clear the confusion and lead the way for the next years was probably the biggest(?) announcement of Microsoft Build 2020, but there were numerous other equally important; from the general availability of the <a href="https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-now-available/" target="_blank" rel="noopener noreferrer">Blazor WebAssembly</a>, the <a href="https://aka.ms/staticsitegen" target="_blank" rel="noopener noreferrer">Azure Static Web Apps</a> and all the projects related to <a href="https://azure.microsoft.com/en-us/updates/announcing-project-bonsai-and-project-moab/" target="_blank" rel="noopener noreferrer">IoT</a> and <a href="https://mybuild.microsoft.com/sessions/d685eb11-896b-4fce-a293-ca1231d5de7c?source=sessions" target="_blank" rel="noopener noreferrer">Artificial Intelligence</a>, all the way to <a href="https://devblogs.microsoft.com/dotnet/introducing-net-multi-platform-app-ui/" target="_blank" rel="noopener noreferrer">.NET MAUI</a> (short for Multi-platform App UI), <a href="https://devblogs.microsoft.com/visualstudio/introducing-visual-studio-codespaces/" target="_blank" rel="noopener noreferrer">Visual Studio Codespaces</a>,  <a href="https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-5-0-preview-4/" target="_blank" rel="noopener noreferrer">Entity Framework Core 5</a>, <a href="https://devblogs.microsoft.com/aspnet/introducing-project-tye/" target="_blank" rel="noopener noreferrer">Project Tye</a>, <a href="https://aka.ms/QuantumBlog/Build20" target="_blank" rel="noopener noreferrer">Azure Quantum</a> and the <a href="https://devblogs.microsoft.com/cosmosdb/build-2020-announcements/" target="_blank" rel="noopener noreferrer">multiple new features and capabilities</a> of Azure Cosmos DB.</p>
+<p>Although there were many more interesting things, C# 9 was left out intentionally because in this post we will deal with some of its exciting new features!</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">11/06/2020 20:43:47</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100310-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">GIT cheat sheet</h5>
+			<p class="card-text"><p>I know there are many cheat sheets around (<a href="https://education.github.com/git-cheat-sheet-education.pdf" rel="noopener noreferrer" target="_blank">here is one I like from GitHub</a>) but I couldn&#8217;t find many that contain sequence of commands, from clone to merge and push. This is my version of a cheatsheet which I hope you will find useful.  </p>
+<p></p>
+			<p class="card-text"><small class="text-muted">20/07/2020 20:31:52</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100300-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Quantum Computing basics with Q# – The superposition of a qubit</h5>
+			<p class="card-text"><p>There are some problems so difficult, so incredibly vast, that even if every supercomputer in the world worked on the problem, it would still take longer than the lifetime of the universe to solve!<br />
+</p>
+			<p class="card-text"><small class="text-muted">17/06/2020 13:16:09</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">How to make authenticated requests to an ASP.NET Core web API using IdentityServer4 with Client Credentials.</h5>
+			<p class="card-text"><p>This is a guide on how to make requests to a protected resource using <em>Client Credentials</em> with the <a href="https://www.nuget.org/packages/IdentityServer4.Contrib.HttpClientService/" rel="noopener noreferrer" target="_blank">IdentityServer4.Contrib.HttpClientService</a> nuget package. The library is actually an <code>HttpClient</code> service that makes it easy to make authenticated and resilient HTTP requests to protected by <a href="http://identityserver4.readthedocs.io" rel="noopener noreferrer" target="_blank">IdentityServer4</a> resources. Additionally, more features include automatic complex type serialization for requests / deserialization for responds (using <code>Json.NET</code>), caching of the token response to reduce load and an <code>HttpRequestMessage</code> factory that adds an &#8220;<code>X-HttpClientService</code>&#8221; header for logging/tracking between cascading API calls.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">17/03/2020 20:46:14</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Using TPL Dataflow Library for Concurrency Testing</h5>
+			<p class="card-text"><p>The Task Parallel Library contains a very interesting set of dataflow components that for some reason they didn&#8217;t get the attention they deserve. This set is called <em>TPL Dataflow Library</em> and in few words, it is a robust in-process actor library that worth spending some time learning it! In this post, we will learn how to use it for concurrency testing.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">10/01/2020 12:48:06</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100270-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Integration Tests in ASP.NET Core API</h5>
+			<p class="card-text"><p>Automated testing is an important part of modern software production as it ensures higher quality and faster delivery, and on the same time it makes testing more affordable. Integration tests, sitting just between Unit Tests and E2E tests, improve test coverage and ensure proper communication between units. In this post, we will explore the possibilities of integration testing of ASP.NET Core by using <a href="https://xunit.net/" rel="noopener noreferrer" target="_blank">xUnit</a> to create a test for multiple endpoints. </p>
+<p></p>
+			<p class="card-text"><small class="text-muted">26/07/2020 11:05:32</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100260-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Using LiteDB in an ASP.NET Core API</h5>
+			<p class="card-text"><p><a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a> is serverless MongoDB-like database delivered in a single DLL (less than 350kb) fully written in .NET C# managed code (compatible with .NET 3.5, 4.x, NETStandard 1.3 and 2.0). It is ideal for mobile apps or for small desktop/web apps, and its API is very similar to MongoDB C# Official Driver.</p>
+<p>In this post, we will see how to use <a href="https://www.litedb.org/" rel="noopener noreferrer" target="_blank">LiteDB</a> as a storage for an ASP.NET API and do simple CRUD operations with it.<br />
+</p>
+			<p class="card-text"><small class="text-muted">17/06/2020 13:19:01</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100250-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Action results in ASP.NET CORE APIs</h5>
+			<p class="card-text"><p>ASP.NET Core supports creating RESTful services, also known as web APIs. To handle requests, a web API uses controllers with actions (in essence methods) that return an <code>ActionResult</code>. Since an <code>ActionResult</code> can be almost anything (it&#8217;s like returning an object from your methods), it makes sense to know how to use it and when to choose to return a specific type instead.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">17/06/2020 13:17:23</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Unit testing a custom middleware in ASP.NET Core API</h5>
+			<p class="card-text"><p>Middlewares are a fundamental part of any ASP.NET Core application, introduced from day one. They are executed in the order they are added on every request, and could be considered similar to the <code>HttpHandlers</code> and <code>HttpModules</code> of the classic ASP.NET. Since middlewares can execute code before or after calling the next in the pipeline, they are considered ideal for a ton of various application features, including exception handling, logging, authentication etc.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">16/06/2020 12:30:55</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Error handling in ASP.NET Core Web API</h5>
+			<p class="card-text"><p>We all know the traditional try-catch blocks and -used correctly- there is of course nothing wrong with them! But even though all is good with that, ASP.NET Core has an even better way of doing things, two ways actually, that can make our code cleaner and easier to read! By following the <em>&#8220;Middleware&#8221;</em> approach, we extract all our custom exception handling code from within the actions and centralizing it in one place thus, cleaner code!</p>
+<p>In this post we will explore these three cases, and starting from the simple try-catch block we will refactor towards a custom error handling middleware.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">08/08/2019 18:08:18</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100220-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">IdentityServer4, ASP.NET Core API and a client with username/password</h5>
+			<p class="card-text"><p>This is an end-to-end guide on how to quickly setup <a href="http://docs.identityserver.io/en/latest/" target="_blank" rel="noopener noreferrer">IdentityServer4</a>, use it in your ASP.NET Core API for authentication, and finally login to your API from a client by asking a user for her/his username and password. It is divided in three parts that describe respectively the configuration of each one of the following three systems:<br />
+</p>
+			<p class="card-text"><small class="text-muted">26/07/2020 12:59:06</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100210-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Writing a custom OutputFormatter to return an Excel (.xlsx) from an action in ASP.NET Core API</h5>
+			<p class="card-text"><p>As most of us, I already know my next week work schedule. It includes writing some actions in respond to a requirement for excel exports. It&#8217;s nothing new and its&#8217;s relatively easy with libraries like <a href="https://github.com/dotnetcore/NPOI" target="_blank" rel="noopener noreferrer">NPOI</a>: you just create your excel on the fly and return a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.fileresult?view=aspnetcore-2.1" target="_blank" rel="noopener noreferrer">FileResult</a>.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">26/07/2020 11:08:49</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Handling, serializing and returning exceptions with a middleware in an ASP.NET Core API</h5>
+			<p class="card-text"><p>ASP.NET Core offers a very cool way to avoid all that boring boilerplate exception handling code, just by intercepting all requests. It is called <code>Middleware</code> and actually, ASP.NET Core is full of <a href="https://docs.microsoft.com/el-gr/aspnet/core/fundamentals/middleware/index?view=aspnetcore-2.1#built-in-middleware" rel="noopener noreferrer" target="_blank">built-in middlewares</a>!<br />
+</p>
+			<p class="card-text"><small class="text-muted">26/07/2019 14:30:08</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100190-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Publishing ASP.NET Core: An error occurred while starting the application</h5>
+			<p class="card-text"><p>Have you seen this error?<br />
+<code>An error occurred while starting the application.<br />
+.NET Core &lt;version&gt; | Microsoft.AspNetCore.Hosting &lt;version&gt; | Microsoft Windows &lt;version&gt; | <a href="https://docs.microsoft.com/el-gr/aspnet/core/host-and-deploy/azure-iis-errors-reference?view=aspnetcore-2.1" rel="noopener noreferrer" target="_blank">Need help?</a></code></p>
+<p></p>
+			<p class="card-text"><small class="text-muted">26/07/2020 11:09:49</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Parameterized Raw SQL Queries with Entity Framework: How to Unit Test with SQLite</h5>
+			<p class="card-text"><p>Entity Framework Core allows you to drop down to raw SQL queries when working with a relational database. This can be useful, because raw SQL queries can return entity types or, starting with EF Core 2.1, query types that are part of your model, but it could also be a problem when it comes down to <em>Unit Testing</em>.</p>
+<p>    </p>
+			<p class="card-text"><small class="text-muted">26/07/2020 11:44:44</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Thread synchronisation with SemaphoreSlim and async delegate calls</h5>
+			<p class="card-text"><p>Although running a parallel foreach that makes async calls is a pretty usual task, I found my self in a complicated situation, when async delegate calls got in the way!</p>
+<p>The situation arose while I was trying to write a <a href="https://msdn.microsoft.com/en-us/library/system.runtime.caching.memorycache(v=vs.110).aspx" target="_blank" rel="noopener noreferrer">MemoryCache</a> manager for my application (the manager was actually a wrapper of <a href="https://msdn.microsoft.com/en-us/library/system.runtime.caching.memorycache(v=vs.110).aspx" target="_blank" rel="noopener noreferrer">MemoryCache Class</a>).</p>
+<p>The following gist file, is a basic structure of what I was trying to do: Ask <code>MemoryCacheManager</code> for an item with <code>AddOrGetExisting</code> by passing a <code>key</code> to find the object and a generic delegate Func <code>task</code> that actually returns the object.<br />
+</p>
+			<p class="card-text"><small class="text-muted">26/07/2020 11:10:53</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Mocking expected behaviour of SQL functions for Unit Testing with SQLite</h5>
+			<p class="card-text"><p>While unit testing, I came across a method in an SQL repository class that was using a <a href="https://docs.microsoft.com/en-us/ef/core/querying/raw-sql" target="_blank" rel="noopener noreferrer">raw SQL query</a>, and along with that, SQL Server&#8217;s newid() function. Since the complicated reason behind this decision was out of scope, I had to find a way to unit test that method&#8230;</p>
+<p>SQLite was -of course- the first approach, but any attempt to actually test the method would nevertheless fail with the exception <code>Microsoft.Data.Sqlite.SqliteException: 'SQLite Error 1: 'no such function: newid'.'</code>.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">26/07/2019 14:32:07</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Simple website stress tool with C# and Apache HTTP server benchmarking tool</h5>
+			<p class="card-text"><p>To be honest, I got bored trying to remember all switches and combinations of Apache&#8217;s benchmarking tool! Since I use it sort of rarely, I just wrapped it in a convenient -for me at least- app that I can use without having to remember or read anything!</p>
+<p>This is my simple implementation of a website stress tool that uses Apache HTTP server benchmarking tool to get results for any request. Just follow the link for my github account, download, build, and use <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /></p>
+<p></p>
+			<p class="card-text"><small class="text-muted">16/06/2020 13:25:36</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">ASP.NET MVC 5 with Razor Kendo UI: Dynamic Grid Creation – Columns, Ordering, Grouping and Paging</h5>
+			<p class="card-text"><p>The requirements were simple! A grid that will load a whatever query, grouped by whatever columns, with filters enabled, paging and everything. Easy task with ASP.NET Telerik grids but not easy at all with Kendo UI!</p>
+<p>Since we can&#8217;t have a ViewModel or Model for the grid (we don&#8217;t know what columns a whatever query has!), I came up with a rather different ViewModel that holds descriptions for columns, groups etc&#8230;:</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">16/06/2020 13:43:51</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">ASP.NET MVC 5: Custom authentication with OnActionExecuting</h5>
+			<p class="card-text"><p>Although I prefer the <a title="ASP.NET MVC 5: Custom AuthorizeAttribute for custom authentication" href="http://blog.georgekosmidis.net/2014/05/17/mvc-custom-authorizeattribute-for-custom-authentication/" target="_blank" rel="noopener noreferrer">AuthorizeAttribute</a> approach, there is another simpler way with a base Controller and OnActionExecuting:</p>
+<p>Let&#8217;s assume the following Controller:</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">26/07/2019 13:30:17</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">ASP.NET MVC 5: Custom AuthorizeAttribute for custom authentication</h5>
+			<p class="card-text"><p>In a previous <a href="/asp-net-mvc-5-authorization-by-default-your-web-app/">post</a> I wrote about how you <del>can</del> should protect your web app from human errors made by developers, by enforcing authentication by default.</p>
+<p>Since adding the <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute.aspx" target="_blank" rel="noopener noreferrer">AuthorizeAttribute</a> to every action involves global filters, we can use that to add our own custom authentication, by inheriting <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute.aspx" target="_blank" rel="noopener noreferrer">AuthorizeAttribute</a>and overriding the <code>AuthorizeCore</code> and <code>HandleUnauthorizeRequest</code> methods.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">26/07/2019 13:30:11</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">ASP.NET MVC 5: “Authorization” by default for your web app</h5>
+			<p class="card-text"><p>Securing your MVC app is a tricky business! Although security is a huge topic, one of the problems that you might encounter is that unauthenticated users are allowed by default to execute every action in your web app. That behaviour is potentially unsafe because you have to remember to decorate your actions with the authorize attribute, and humans are prone to errors!</p>
+<p>This is why, in my opinion, authentication should be enforced by default, or differently <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute%28v=vs.118%29.aspx" target="_blank" rel="noopener noreferrer">[Authorize]</a> attribute should be added behind the scenes to every action.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">26/07/2019 13:30:03</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">C#: Basic Combinatorics</h5>
+			<p class="card-text"><p>Basic combinatorics in C# is a straight forward task for relatively small numbers like (100!). This is a helper class I wrote when I was asked to write an online lottery system.</p>
+<p>Keep in mind though, that for bigger numbers (above 100!) you will need <a href="http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic" target="_blank" rel="noopener noreferrer">Arbitrary-precision arithmetic</a>.</p>
+<p>Here is the code and please, if someone knows a faster way or has some suggestions let me now!</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">16/06/2020 13:22:53</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Visual Studio 2012.4, “Run As Administrator” -> “The application cannot start” error</h5>
+			<p class="card-text"><p>After a good 2 hours of searching what the **** happened and Visual Studio stopped working, I finally found a working solution&#8230;</p>
+<blockquote>
+<p>Just copy all dte*.olb files, from C:\Program Files (X86)\Common Files\Microsoft Shared\MSEnv to C:\Program Files X86\Microsoft Visual Studio 9.0\Common7\IDE.</p>
+</blockquote>
+<p>Just for the record, I tried &#8220;devenv /resetuserdata&#8221; and deleting the involved registry keys with no luck at all. I end up using <a href="http://technet.microsoft.com/en-us/sysinternals/bb896645.aspx" target="_blank" rel="noopener noreferrer">Process Monitor</a> after reading this post: <a href="http://blogs.msdn.com/b/visualstudio/archive/2009/10/29/how-to-fix-the-application-cannot-start-error.aspx?PageIndex=4" target="_blank" rel="noopener noreferrer">http://blogs.msdn.com/b/visualstudio/archive/2009/10/29/how-to-fix-the-application-cannot-start-error.aspx?PageIndex=4</a>.</p>
+<p>With a little luck and a lot of tries,  I got a headache and a working studio.</p></p>
+			<p class="card-text"><small class="text-muted">06/12/2013 23:42:56</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">Export MS SQL Database schema with C#</h5>
+			<p class="card-text"><p>A few days ago, I was searching for a way to export MS SQL schema of <b>all</b> databases of a server for backup and migration purposes. Although I found some tools, what I needed was a way to get stored procedures, functions, views, triggers and everything even if it was <b>encrypted</b>.</p>
+<p>Since I couldn&#8217;t find a way to automate this (<i>e.g. run it every night to backup schema of my server</i>),  I thought it would be a nice weekend project.</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">16/06/2020 13:25:17</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">C#: Calculating all Greek Public Holidays for any given year</h5>
+			<p class="card-text"><p>After <a href="/c-calculating-orthodox-and-catholic-easter/" title="C#: Calculating Orthodox and Catholic Easter">calculating the Greek Orthodox Easter</a>, it was time for the public holidays calculation. With the Easter calculation ready, it proved to be much easier than expected!<br />
+</p>
+			<p class="card-text"><small class="text-muted">16/06/2020 13:23:16</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">C#: Calculating Orthodox and Catholic Easter</h5>
+			<p class="card-text"><p>Some time ago I was called about an online calendar for a company&#8217;s portal. The need was to inform employees about public holidays for the requested year. In Greece, some of those holidays are static, meaning they occur the exact same date each year, and some are based on the Orthodox Easter, so they move from date to date. There are a lot of online services that can return these information, but I thought I should give it a go and try writing the Orthodox Easter calculation offline. Saying that, I found the algorithm online, and since I was there I also found the Catholic Easter algorithm.</p>
+<p>This is a post for the calculation of the two Christianity events, and in a later post I will also publish the public holidays calculation.</p>
+<p><em>(Have in mind that since the methods return DateTime, &#8220;every possible year&#8221; is not quite accurate! And besides this, both algorithms have problems after year 4200. You can read more about it here: <a href="http://en.wikipedia.org/wiki/Computus" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/Computus</a>)</em></p>
+<p></p>
+			<p class="card-text"><small class="text-muted">16/06/2020 13:23:28</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">SQL Server: Using RANK to display PERCENT (percentage of relevance)</h5>
+			<p class="card-text"><p>So you end up with a query like this:</p>
+<p><script src="https://gist.github.com/georgekosmidis/6eb698bb44d51c4f27785c3af21cfde3.js?file=containsTable.sql"></script></p>
+<p>That yields something like this:</p>
+<pre>
+ID ... KEY RANK
+5  ...  5  765
+2  ...  2  322
+3  ...  5  128
+1  ...  1   75
+</pre>
+<p>And you are missing a percentage column. Well, not any more!<br />
+</p>
+			<p class="card-text"><small class="text-muted">23/07/2019 18:46:52</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">C#: Getting a user IP behind a proxy (HTTP_X_FORWARDED_FOR)</h5>
+			<p class="card-text"><p>Did you know that HTTP_X_FORWARDED_FOR can return multiple IPs? According to <a href="http://en.wikipedia.org/wiki/X-Forwarded-For" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/X-Forwarded-For</a> the format is:</p>
+<pre>X-Forwarded-For: client, proxy1, proxy2
+</pre>
+<p></p>
+			<p class="card-text"><small class="text-muted">16/06/2020 13:21:07</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">SQL Server: How to simulate DROP TRIGGER IF EXISTS</h5>
+			<p class="card-text"><p>I usually store triggers, store procedures, functions, queries etc in sql files in an SVN repository. I then use a simple app I wrote, that just opens each file and executes it. The problem of course is CREATE and ALTER. I can&#8217;t use CREATE because the same trigger might already be there. On the other hand I couldn&#8217;t use ALTER because some triggers might be new.</p>
+<p>Since there is no DROP TRIGGER IF EXISTS, I came up with this:</p>
+<p></p>
+			<p class="card-text"><small class="text-muted">23/07/2019 18:48:14</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="media/100020-feature.png" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">SQL Server: Using .NET assemblies (SQLCLR)</h5>
+			<p class="card-text"><p>SQLCLR is a technology for hosting of the .NET CLR engine inside SQL Server. Adding an assembly can be a lifesaver sometimes, since the limitations of coding in TSQL stored procedures, triggers or functions are a lot and profound.<br />
+</p>
+			<p class="card-text"><small class="text-muted">29/07/2020 12:03:33</small></p>
+		</div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
+	<div class="card">
+		<img src="" class="bd-placeholder-img card-img-top">
+		<div class="card-body">
+			<h5 class="card-title">SQL Server: Weird behavior with CONTAINSTABLE, ISABOUT and weighted terms</h5>
+			<p class="card-text"><p>I came across the following weird behaviour in an ISABOUT query in SQL SERVER, that involves weight keyword and the final rank of the results. I want to describe that behaviour here, just in case some has a good explanation over it!</p>
+<blockquote><p>
+This posts assumes some basic knowledge of <a href="https://docs.microsoft.com/en-us/sql/relational-databases/search/query-with-full-text-search?view=sql-server-2017" target="_blank" rel="noopener noreferrer">querying with full text search</a> </p></blockquote>
+<p></p>
+			<p class="card-text"><small class="text-muted">23/07/2019 18:49:25</small></p>
+		</div>
+	</div>
+</div>
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light border-top">
+        <div class="container mx-auto text-center">
+            <div class="text-muted">© Copyright 2018, <a href="https://georgekosmidis.net" target="_blank">George Kosmidis</a></div>
+            <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
+                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <title>Twitter</title>
+                    <path
+                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z">
+                    </path>
+                </svg>
+            </a>
+            <a href="https://github.com/georgekosmidis" target="_blank" class="btn">
+                <svg role="img" class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <title>GitHub</title>
+                    <path
+                        d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12">
+                    </path>
+                </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/georgekosmidis/" target="_blank" class="btn">
+                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <title>LinkedIn</title>
+                    <path
+                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z">
+                    </path>
+                </svg>
+            </a>
+            <a href="https://www.youtube.com/c/GeorgeKosmidis" target="_blank" class="btn">
+                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <title>YouTube</title>
+                    <path
+                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z">
+                    </path>
+                </svg>
+            </a>
+            <a href="https://sessionize.com/georgekosmidis/" target="_blank" class="btn">
+                <svg role="img" viewBox="0 0 288 288" xmlns="http://www.w3.org/2000/svg">
+                    <title>Sessionize</title>
+                    <g transform="translate(0.000000,288.000000) scale(0.100000,-0.100000)">
+                        <path
+                            d="M135 2861 c-22 -10 -54 -34 -72 -52 -67 -71 -63 22 -63 -1369 0 -1391 -4 -1298 63 -1369 70 -73 42 -71 715 -71 l602 0 0 40 c0 108 -52 232 -127 301 -92 85 -229 125 -469 139 -119 6 -160 13 -190 28 -63 32 -96 81 -108 161 -6 43 12 87 470 1118 263 590 480 1073 483 1073 3 0 22 -42 41 -92 47 -127 157 -344 228 -453 156 -239 367 -450 607 -608 100 -65 373 -202 478 -238 37 -13 67 -27 67 -30 0 -3 -348 -160 -772 -349 -425 -188 -777 -346 -782 -350 -4 -5 11 -18 35 -30 235 -119 367 -331 394 -633 l7 -77 482 0 c444 0 484 2 521 19 51 23 111 89 125 138 8 27 10 249 8 773 -4 660 -6 743 -22 809 -69 289 -197 522 -396 721 -199 199 -432 327 -721 396 -67 16 -148 18 -819 21 -712 3 -747 2 -785 -16z m2069 -483 c99 -51 198 -181 200 -264 1 -57 -21 -79 -77 -78 -137 3 -328 220 -288 328 19 50 84 55 165 14z">
+                        </path>
+                    </g>
+                </svg>
+            </a>
+            <a href="https://www.meetup.com/munich-dotnet-meetup/" target="_blank"
+                class="btn btn-outline-light">
+                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <title>Meetup</title>
+                    <path
+                        d="M6.98.555a.518.518 0 0 0-.105.011.53.53 0 1 0 .222 1.04.533.533 0 0 0 .409-.633.531.531 0 0 0-.526-.418zm6.455.638a.984.984 0 0 0-.514.143.99.99 0 1 0 1.02 1.699.99.99 0 0 0 .34-1.36.992.992 0 0 0-.846-.482zm-3.03 2.236a5.029 5.029 0 0 0-4.668 3.248 3.33 3.33 0 0 0-1.46.551 3.374 3.374 0 0 0-.94 4.562 3.634 3.634 0 0 0-.605 4.649 3.603 3.603 0 0 0 2.465 1.597c.018.732.238 1.466.686 2.114a3.9 3.9 0 0 0 5.423.992c.068-.047.12-.106.184-.157.987.881 2.47 1.026 3.607.24a2.91 2.91 0 0 0 1.162-1.69 4.238 4.238 0 0 0 2.584-.739 4.274 4.274 0 0 0 1.19-5.789 2.466 2.466 0 0 0 .433-3.308 2.448 2.448 0 0 0-1.316-.934 4.436 4.436 0 0 0-.776-2.873 4.467 4.467 0 0 0-5.195-1.656 5.106 5.106 0 0 0-2.773-.807zm-5.603.817a.759.759 0 0 0-.423.135.758.758 0 1 0 .863 1.248.757.757 0 0 0 .193-1.055.758.758 0 0 0-.633-.328zm15.994 2.37a.842.842 0 0 0-.47.151.845.845 0 1 0 1.175.215.845.845 0 0 0-.705-.365zm-8.15 1.028c.063 0 .124.005.182.014a.901.901 0 0 1 .45.187c.169.134.273.241.432.393.24.227.414.089.534.02.208-.122.369-.219.984-.208.633.011 1.363.237 1.514 1.317.168 1.199-1.966 4.289-1.817 5.722.106 1.01 1.815.299 1.96 1.22.186 1.198-2.136.753-2.667.493-.832-.408-1.337-1.34-1.12-2.26.16-.688 1.7-3.498 1.757-3.93.059-.44-.177-.476-.324-.484-.19-.01-.34.081-.526.362-.169.255-2.082 4.085-2.248 4.398-.296.56-.67.694-1.044.674-.548-.029-.798-.32-.72-.848.047-.31 1.26-3.049 1.323-3.476.039-.265-.013-.546-.275-.68-.263-.135-.572.07-.664.227-.128.215-1.848 4.706-2.032 5.038-.316.576-.65.76-1.152.784-1.186.056-2.065-.92-1.678-2.116.173-.532 1.316-4.571 1.895-5.599.389-.69 1.468-1.216 2.217-.892.387.167.925.437 1.084.507.366.163.759-.277.913-.412.155-.134.302-.276.49-.357.142-.06.343-.095.532-.094zm10.88 2.057a.468.468 0 0 0-.093.011.467.467 0 0 0-.36.555.47.47 0 0 0 .557.36.47.47 0 0 0 .36-.557.47.47 0 0 0-.464-.37zm-22.518.81a.997.997 0 0 0-.832.434 1 1 0 1 0 1.39-.258 1 1 0 0 0-.558-.176zm21.294 2.094a.635.635 0 0 0-.127.013.627.627 0 0 0-.48.746.628.628 0 0 0 .746.483.628.628 0 0 0 .482-.746.63.63 0 0 0-.621-.496zm-18.24 6.097a.453.453 0 0 0-.092.012.464.464 0 1 0 .195.908.464.464 0 0 0 .356-.553.465.465 0 0 0-.459-.367zm13.675 1.55a1.044 1.044 0 0 0-.583.187 1.047 1.047 0 1 0 1.456.265 1.044 1.044 0 0 0-.873-.451zM11.4 22.154a.643.643 0 0 0-.36.115.646.646 0 0 0-.164.899.646.646 0 0 0 .899.164.646.646 0 0 0 .164-.898.646.646 0 0 0-.54-.28z">
+                    </path>
+                </svg>
+            </a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+        integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+        async></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

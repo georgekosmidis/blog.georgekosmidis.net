@@ -1,0 +1,97 @@
+<p>The Task Parallel Library contains a very interesting set of dataflow components that for some reason they didn&#8217;t get the attention they deserve. This set is called <em>TPL Dataflow Library</em> and in few words, it is a robust in-process actor library that worth spending some time learning it! In this post, we will learn how to use it for concurrency testing.</p>
+<p></p>
+<h3>What is the Task Parallel Library</h3>
+<p>The TPL is a set of types and APIs that allow developers to write parallel programs that target multi-core machines. The goal is to simplify the process of adding parallelism and concurrency to applications, by scaling the degree of concurrency dynamically and handling the partitioning of the work, the thread scheduling and other low-level details internally. This allows the developer to maximize performance while focusing on the actual work to be done.</p>
+<blockquote><p>Parallel Programming is taking advantage of multiple CPU cores to execute multiple threads simultaneously. Learn more about it <a href="https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/index" rel="noopener noreferrer" target="_blank">here</a>.</p></blockquote>
+<h3>What is the TPL Dataflow Library</h3>
+<p>It is a set of dataflow components that promote actor-based programming by providing in-process message passing. This dataflow is extremely useful in cases of multiple operations that need to asynchronously talk to each other, for example parsing chunks of data as they arrive. In essence, the <a href="https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/dataflow-task-parallel-library" rel="noopener noreferrer" target="_blank">TPL Dataflow Library</a> provides a foundation for message passing and parallelizing CPU and IO intensive applications. </p>
+<p>The easiness of use can be demonstrated following these simple steps:</p>
+<ol>
+<li>Create an <code>ActionBlock</code><br />
+<em>e.g. </em><code>var block = new ActionBlock&lt;Uri&gt;(_ => _.DoSomething(uri));</code></li>
+<li>Sent items to it<br />
+<em>e.g. </em><code>block.SendAsync(new Uri("..."));</code></li>
+<li>Wait until it&#8217;s done<br />
+<em>e.g. </em><code>block.Completion.Wait();</code></li>
+</ol>
+<p>And that&#8217;s it!<br />
+Of course this is far away from any working solution, but it illustrates perfectly the simplicity upon the dataflow library is build.</p>
+<h3>Going a bit deeper with ActionBlock</h3>
+<p>Production code of anything useful should include more than a simple method call: TPL Dataflow supports out of the box cancellation, capacity bound that protects from memory growth, degree of parallelism capping and of course async/awaits. Following, an example that uses the most important of the <code>ActionBlock</code> goodies:</p>
+<p><pre><code class="language-csharp">var actionBlock = new ActionBlock&lt;Uri&gt;(
+    async uri =&gt;
+    {
+        var response = await client.GetAsync(uri);
+        response.EnsureSuccessStatusCode();
+
+        Assert.Equal("application/json; charset=utf-8",
+           response.Content.Headers.ContentType.ToString());
+    },
+    new ExecutionDataflowBlockOptions
+    {
+        BoundedCapacity = 5000,                              //Item count limitation  
+        CancellationToken = ...                              //Cancelation 
+        MaxDegreeOfParallelism = Environment.ProcessorCount  //All cores
+    });</code></pre></p>
+<h3>Are tests for concurrency issues possible?</h3>
+<p>It is theoretically impossible to create a test that proves there are no concurrency issues in a black-box system, and the reason is simple: Maybe the developer made it thread-unsafe on her/his birthday! Nevertheless, in a white-box system where the code that does the work and the code that does the threading are separate, concurrency tests are feasible by mocking the code that does the work. This guide on <a href="http://www.lenholgate.com/blog/2004/05/practical-testing.html" rel="noopener noreferrer" target="_blank">Practical Testing</a> has C++ as codebase, but it is an interesting read. </p>
+<p>In a more simplistic approach though, let&#8217;s assume a <code>WeekendCounter</code> class with a <code>Count()</code> method that returns the number of all weekend since the start of time till the <code>DateTime to</code>. The code would need various improvements but it perfectly serves the reason of this post:<br />
+<pre><code class="language-csharp">    public class WeekendCounter
+    {
+        private DateTime current = DateTime.MinValue;
+        
+        public int Count(DateTime to)
+        {
+            var count = 0;
+            //find first
+            while (current.DayOfWeek != DayOfWeek.Sunday)
+                current = current.AddDays(1);
+            
+            //count rest
+            while (current &lt;= to)
+            {
+                count++;
+                current = current.AddDays(7);
+            }
+            return count;
+        }
+    }</code></pre></p>
+<h3>Using TPL Dataflow in a unit test</h3>
+<p>Essentially, a unit test is nothing more than a method that instantiates a small portion of our application and verifies its behavior independently from other parts. In the following <em>test</em> method one instance of the <code>WeekendCounter</code> class can be tested for concurrency issues, by calling in parallel the <code>Count()</code> method. The limitation here would only be the number of logical cores available, as more than one is of course needed. </p>
+<blockquote><p>From <a href="https://docs.microsoft.com/en-us/dotnet/api/system.environment.processorcount?redirectedfrom=MSDN&#038;view=netframework-4.8#System_Environment_ProcessorCount" rel="noopener noreferrer" target="_blank">Microsoft Docs</a>: If the current machine contains multiple processor groups, this property returns the number of logical processors that are available for use by the common language runtime (CLR).</p></blockquote>
+<p>The code that follows uses xUnit and TPL Dataflow to test the <code>Count()</code> method, asserting the expected count on each block:</p>
+<p><pre><code class="language-csharp">[Fact]
+public async Task WeekendCounter_Parallelism_ShouldHaveNoConcurrencyIssues()
+{
+    // You need at least 2 processors!
+    Assert.True(Environment.ProcessorCount &gt; 1, "Not a chance!");
+
+    // Single instance of WeekendCounter to be tested
+    var counter = new WeekendCounter();
+
+    // Create an ActionBlock with the code to be executed
+    var actionBlock = new ActionBlock&lt;Tuple&lt;DateTime, int&gt;&gt;(
+        test =&gt;
+        {
+            var result = counter.Count(test.Item1);
+            Assert.Equal(test.Item2, result);
+        },
+        new ExecutionDataflowBlockOptions
+        {
+            MaxDegreeOfParallelism = Environment.ProcessorCount
+        });
+
+    // Add items to the block
+    for (var i = 0; i &lt; Environment.ProcessorCount; i++)
+        await actionBlock.SendAsync(
+            Tuple.Create(new DateTime(1983, 4, 26), 103432));
+
+
+    // Requests completion of the ActionBlock object.
+    actionBlock.Complete();
+
+    // Wait for the ActionBlock object to assert the result.
+    actionBlock.Completion.Wait();
+}</code></pre></p>
+<h3>Conclusion</h3>
+<p>Although <code>ActionBlock</code> is the most useful block and alone covers almost all cases, there are more that adding together as puzzle pieces create a flow of information from one block to another, thus the name data flow. The reason behind why this library didn&#8217;t get traction it is surely puzzling, especially for the simple ActionBlock. Nevertheless, the applications are potentially unlimited, from just a few lines of code that test your app to biggest complex applications like the <a href="https://www.microsoft.com/en-us/microsoft-365/enterprise-mobility-security/advanced-threat-analytics?SilentAuth=1&#038;wa=wsignin1.0" rel="noopener noreferrer" target="_blank">Microsoft Advanced Threat Analytics</a></p>

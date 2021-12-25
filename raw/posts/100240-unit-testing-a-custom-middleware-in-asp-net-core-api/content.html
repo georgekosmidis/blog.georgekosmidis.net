@@ -1,0 +1,99 @@
+<p>Middlewares are a fundamental part of any ASP.NET Core application, introduced from day one. They are executed in the order they are added on every request, and could be considered similar to the <code>HttpHandlers</code> and <code>HttpModules</code> of the classic ASP.NET. Since middlewares can execute code before or after calling the next in the pipeline, they are considered ideal for a ton of various application features, including exception handling, logging, authentication etc.</p>
+<p></p>
+<blockquote><p>You can learn more about middlewares by learning how to create a simple <a href="/handling-serializing-and-returning-exceptions-with-a-middleware-in-asp-net-core-api/" rel="noopener noreferrer" target="_blank">exception handling middleware</a>. </p></blockquote>
+<p>Middlewares offer a powerful and flexible solution and for that, they need to be tested! Thankfully there is a way to do that so let&#8217;s first see what we are going to test and then just get in to it (middleware taken from <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-2.2" rel="noopener noreferrer" target="_blank">Microsoft Docs</a>):<br />
+<pre><code class="language-csharp">using Microsoft.AspNetCore.Http;
+using System.Globalization;
+using System.Threading.Tasks;
+
+namespace Culture
+{
+    public class RequestCultureMiddleware
+    {
+        private readonly RequestDelegate _next;
+
+        public RequestCultureMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
+        {
+            var cultureQuery = context.Request.Query["culture"];
+            if (!string.IsNullOrWhiteSpace(cultureQuery))
+            {
+                var culture = new CultureInfo(cultureQuery);
+
+                CultureInfo.CurrentCulture = culture;
+                CultureInfo.CurrentUICulture = culture;
+            }
+
+            // Call the next delegate/middleware in the pipeline
+            await _next(context);
+        }
+    }
+}</code></pre></p>
+<p>What it actually does is setting up the current culture using the query string from <code>HttpContext</code>. That is nice and useful, but <code>HttpContext</code> is notoriously difficult and dangerous to mock because it is so easy to take a direct dependency on it. I &#8216;ve even read somewhere that mocking <code>HttpContext</code> is like trying to calculate the last digit of pi: when you think you are done you &#8216;ll have more.</p>
+<blockquote><p>HttpContext encapsulates all HTTP-specific information about an individual HTTP request. It is the biggest object made by man.</p></blockquote>
+<p>To the rescue for this, we have <a href="https://github.com/aspnet/HttpAbstractions/blob/master/src/Microsoft.AspNetCore.Http/DefaultHttpContext.cs" rel="noopener noreferrer" target="_blank">DefaultHttpContext</a>. Nothing to mock, saved from messing up with login information, it&#8217;s there waiting to be used. The only thing to keep in mind is the <code>Response.Body</code> property. The <code>Response.Body</code> stream in <code>DefaultHttpContext</code> is <code>Stream.Null</code>, which is a stream that just <em>ignores all reads/writes</em>. No exceptions, no nothing if you use it, just a &#8220;talk to the hand&#8221; attitude! Solution of course, to setup the Stream ourselves before calling the method:</p>
+<p><pre><code class="language-csharp">var context = new DefaultHttpContext();
+context.Response.Body = new MemoryStream();</code></pre></p>
+<p>Now that we found <code>DefaultHttpContext</code> and know how to use it, let&#8217;s just write a unit test to check the default current culture:<br />
+<pre><code class="language-csharp">[TestMethod]
+public async Task RequestCultureMiddleware_DefaultBehaviour()
+{
+    //Create a new instance of the middleware
+    var middleware = new RequestCultureMiddleware(
+        next: (innerHttpContext) =&gt;
+        {
+            innerHttpContext.Response.WriteAsync(CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            return Task.CompletedTask;
+        }
+    ); 
+
+    //Create the DefaultHttpContext
+    var context = new DefaultHttpContext();
+    context.Response.Body = new MemoryStream();
+
+    //Call the middleware
+    await middleware.InvokeAsync(context);
+
+    //Don't forget to rewind the stream
+    context.Response.Body.Seek(0, SeekOrigin.Begin);
+    var body = new StreamReader(context.Response.Body).ReadToEnd();
+
+    //'en' seems OK for me as the default
+    Assert.AreEqual("en", body);
+}</code></pre></p>
+<p>Comments are relieving as to what is happening: We are passing a <code>RequestDelegate</code> as the next argument of the <code>RequestCultureMiddleware</code> constructor, that writes in the response the two letter ISO language name of the culture we set. In simple words, if the <code>RequestCultureMiddleware</code> works correctly all next middlewares in the pipeline after it, should have their culture set to whatever the user sent as a query string. </p>
+<p>And let&#8217;s test exactly that now:</p>
+<p><pre><code class="language-csharp">[TestMethod]
+public async Task RequestCultureMiddleware_SetToGerman()
+{
+    //Create a new instance of the middleware
+    var middleware = new RequestCultureMiddleware(
+        next: (innerHttpContext) =&gt;
+        {
+            innerHttpContext.Response.WriteAsync(CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            return Task.CompletedTask;
+        }
+    );
+
+    //Create the DefaultHttpContext
+    var context = new DefaultHttpContext();
+    context.Response.Body = new MemoryStream();
+
+    //Set culture to de-DE
+    context.Request.QueryString = context.Request.QueryString.Add("culture", "de-DE");
+
+    //Call the middleware
+    await middleware.InvokeAsync(context);
+
+    //Don't forget to rewind the stream
+    context.Response.Body.Seek(0, SeekOrigin.Begin);
+    var body = new StreamReader(context.Response.Body).ReadToEnd();
+
+    //This time, 'de' should be the two letter ISO language name
+    Assert.AreEqual("de", body);
+}</code></pre></p>
+<p>And that was it! Easy right? Happy and safe middlewaring everybody!</p>

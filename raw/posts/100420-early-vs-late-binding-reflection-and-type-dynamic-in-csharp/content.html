@@ -1,0 +1,100 @@
+<p>Most script languages use late binding and most compiled languages use early binding; C#, although a compiled language and thus an early binding one, has reflection for late binding. In this post we will explore early &#038; late binding in C# with theory and samples. </p>
+<p></p>
+<h2>Early Binding</h2>
+<p>A binding is called an early binding, compiler time binding or static type binding when the target method is found during compile time (the code that will call the method is also created during compile time). If the required method doesn&#8217;t exist, an error is issued during compilation.</p>
+<blockquote><p>Whether there is an extra step to find the method during call time is irrelevant. That means, the binding is still considered early independently of if the method is virtual or not.</p></blockquote>
+<p>For example, the next code block uses early binding to call the <code>RandomMethod</code> method of the object <code>EarlyBindingSample</code>, and then the method <code>NotExistingMethod</code> that doesn&#8217;t exist. Since the second method doesn&#8217;t exists, the compiler throws an error:</p>
+<p><pre><code class="language-csharp">public class EarlyBindingSample 
+{
+	public void RandomMethod()
+	{
+		//...
+	}
+}
+
+var earlyBinding = new EarlyBindingSample();
+
+/***Existing method***/
+//This is early binding, the method is found during compile time
+earlyBinding.RandomMethod(); 
+
+/***Non-Existing method***/
+//Method 'NotExistingMethod' does't exist:
+earlyBinding.NotExistingMethod(); 
+//Compiler Error CS1061:
+// 'EarlyBindingSample' does not contain a definition for 'NotExistingMethod' 
+//   and no accessible extension method 'NotExistingMethod' 
+//   accepting a first argument of type 'EarlyBindingSample' could be found 
+//   (are you missing a using directive or an assembly reference?)</code></pre></p>
+<h2>Late Binding</h2>
+<p>Late binding or runtime binding in C# is achieved with reflection. Late bound means the target method is looked up at run time. Often the textual name of the method is used to look it up. If the method isn&#8217;t there, the program will crash or go into some exception handling scheme during run time.</p>
+<p>For example, the code bellow uses reflection to locate and execute two methods, one existing and one not. Since the object returned by the activator is converted to <code>ILateBoundSample</code>, the compiler knows that the method <code>NotExistingMethod</code> doesn&#8217;t exist, so this is causing a <em>compiler error</em>. On the other hand, using the same interface the compiler <em>assumes</em> that a method named <code>RandomMethod</code> exists in the load type and it compiles properly. This assumption is usually correct, and the approach saves us from many awkward runtime late binding errors, but there is no Holy Grail &#8211; we can never be sure the implementation of the method <code>RandomMethod</code> actually exists in the loaded type.</p>
+<p><pre><code class="language-csharp">public interface ILateBoundSample
+{
+	void RandomMethod();
+}
+
+//Load an assembly
+var assembly = Assembly.LoadFile(Path.GetFullPath("path_to_your_assembly"));
+
+//Locate all types that implement interface 'ILateBoundSample'
+var types = assembly.GetTypes().Where(p =&gt; typeof(ILateBoundSample).IsAssignableFrom(p));
+if (types.Any())
+{
+	/***Existing method***/
+	//Create an instance of that class
+	var lateBoundSample = (ILateBoundSample)Activator.CreateInstance(types.First());
+	
+	//Locate and call method RandomMethod();
+	lateBoundSample.RandomMethod();
+	
+	/***Non-Existing method***/
+	//Method 'NotExistingMethod' does't exist
+	// Since 'lateBoundSample' is of type 'ILateBoundSample', compiler knows
+	lateBoundSample.NotExistingMethod(); 
+	//Compiler Error CS1061:
+	// 'ILateBoundSample' does not contain a definition for 'NotExistingMethod' 
+	//   and no accessible extension method 'NotExistingMethod' 
+	//   accepting a first argument of type 'ILateBoundSample' could be found 
+	//   (are you missing a using directive or an assembly reference?)
+}</code></pre></p>
+<p>In the following example though, we use reflection without any conversion so the compiler never knows what is happening, it just assumes we know what we are doing. The last part of the following code will produce a runtime error:<br />
+<pre><code class="language-csharp">public class LateBindingSample 
+{
+	public void RandomMethod()
+	{
+		//...
+	}
+}
+
+var lateBoundSample = new LateBindingSample();
+
+/***Existing method***/
+//Locate method 'NotExistingMethod' that doesn't exist
+var method = lateBoundSample.GetType().GetMethod("RandomMethod");
+
+//Call method without any parameteres (null)
+var result = method.Invoke(lateBoundSample, null);
+
+/***Non-Existing method***/
+//Try to locate method 'RandomMethod'
+var method = lateBoundSample.GetType().GetMethod("NotExistingMethod");
+
+//Call method without any parameteres (null)
+var result = method.Invoke(lateBoundSample, null);
+// You 'll get a runtime error since 'method' is null:
+// System.NullReferenceException: 'Object reference not set to an instance of an object.</code></pre></p>
+<h2>A step deeper in late binding</h2>
+<p>Late Binding usually has an impact on performance because late binding requires lookups at runtime, thus, the developer has to choose which stage will be impacted more by binding; it is usually compile time that is chosen. The runtime delay though, although it&#8217;s there, is not that big of a deal in most of the cases:</p>
+<ul>
+<li>For a normal function, the <em>compiler</em> can work out the numeric location of it in memory; when the function is called it can generate an instruction to call the function at this address.</li>
+<li>For an object that has any virtual methods, the compiler will generate an array that contains the addresses of the virtual methods; this array is called a VMT or a <a href="https://en.wikipedia.org/wiki/Virtual_method_table" rel="noopener noreferrer" target="_blank">Virtual Method Table</a>. Additionally, again during compile time, the compiler will also generate a hidden member for that object, which contains the address of the VMT previously created. When a virtual function is called, the compiler will work out what the position is of the appropriate method in the VMT. It will then generate code to look in the objects VMT and call the virtual method at this position.</li>
+</ul>
+<blockquote><p>The lookup happening for virtual methods is heavily optimized so it will happen very quickly during runtime. That doesn&#8217;t mean there isn&#8217;t any overhead though, so when performance is critical either binding should be chosen or late bind caching during startup.</p></blockquote>
+<h2>And what about <code>dynamic</code>?</h2>
+<p>Introduced in C# 4, many consider <code>dynamic</code> typing as late binding but it is not!</p>
+<p>Usually programming languages are either dynamic typed or strongly typed and C# -as we know- is strongly typed. Type <code>dynamic</code> was introduced in C# 4 as an addition that comes to join the two worlds by resolving information at runtime <em>irrespective of type</em>. This is not binding at all, because <em>it never binds to a type</em>.</p>
+<blockquote><p>Read how to use type dynamic in <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/using-type-dynamic" rel="noopener noreferrer" target="_blank">Microsoft Docs</a></p></blockquote>
+<h2>Playground</h2>
+<p>The playground I used during writing this article can be found in my github account with the repo name <a href="https://github.com/georgekosmidis/LateBindingHelloWorld" rel="noopener noreferrer" target="_blank">LateBindingHelloWorld</a>. It is just a minimalistic approach on how to dynamically load and run code from an external assembly, resembling a real life scenario of dynamic module loading.<br />
+Happy coding!</p>
