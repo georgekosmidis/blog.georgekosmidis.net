@@ -6,9 +6,9 @@ var ROOT = "..\\..\\..\\..\\..\\..\\raw\\";
 var OUTPUT = "..\\..\\..\\..\\..\\..\\_output\\";
 
 //load templates
-var indexTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template.html"));
-var postTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-post.html"));
-var cardPostTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-post.html"));
+var mainTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template.html"));
+var articleTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-article.html"));
+var cardArticleTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-article.html"));
 var cardImageTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-image.html"));
 
 //prepare output
@@ -16,7 +16,7 @@ Directory.Delete(OUTPUT, true);
 Directory.CreateDirectory(OUTPUT);
 Directory.CreateDirectory(Path.Combine(OUTPUT, "media"));
 Directory.CreateDirectory(Path.Combine(OUTPUT, "themes"));
-Helpers.Copy(Path.Combine(ROOT, "themes"), Path.Combine(OUTPUT, "themes"));
+//Helpers.Copy(Path.Combine(ROOT, "themes"), Path.Combine(OUTPUT, "themes"));
 Helpers.Copy(Path.Combine(ROOT, "justcopyme"), OUTPUT);
 
 var pages = new List<ItemData>();
@@ -30,10 +30,9 @@ foreach (var standalonePath in standalones)
 
     var standaloneJsonRaw = File.ReadAllText(Path.Combine(ROOT, "standalones", Path.GetFileNameWithoutExtension(standalonePath) + ".json"));
     var standaloneJsonTyped = JsonConvert.DeserializeObject<ItemData>(standaloneJsonRaw) ?? throw new NullReferenceException("Can't find JSON for " + standalonePath);
-    Helpers.ValidateItemData(standaloneJsonTyped);
     pages.Add(standaloneJsonTyped);
 
-    var standalonePageHtml = Helpers.BuildPage(indexTemplate, standaloneBody, standaloneJsonTyped);
+    var standalonePageHtml = Helpers.BuildHtml(mainTemplate, standaloneBody, standaloneJsonTyped);
     File.WriteAllText(Path.Combine(OUTPUT, Path.GetFileName(standalonePath)), standalonePageHtml);
 }
 
@@ -45,8 +44,7 @@ foreach (var directory in articleDirectories)
 {
     var articleBody = File.ReadAllText(Path.Combine(directory, "content.html"));
     var articleJsonRaw = File.ReadAllText(Path.Combine(directory, "content.json"));
-    var articleJsonTyped = JsonConvert.DeserializeObject<ItemData>(articleJsonRaw) ?? throw new NullReferenceException("Card Data: "+ directory);
-    Helpers.ValidateItemData(articleJsonTyped);
+    var articleJsonTyped = JsonConvert.DeserializeObject<ItemData>(articleJsonRaw) ?? throw new NullReferenceException("Card Data: " + directory);
     pages.Add(articleJsonTyped);
 
     if (Directory.Exists(Path.Combine(directory, "media")))
@@ -55,12 +53,21 @@ foreach (var directory in articleDirectories)
         Helpers.Copy(Path.Combine(directory, "media"), Path.Combine(OUTPUT, "media"));
     }
 
+    //article
+    //----------------------------------------------------------------------------------
+    var articleBodyFinal = Helpers.BuildHtml(articleTemplate, articleBody, articleJsonTyped);
+    var articleFilename = articleJsonTyped.RelativeUrl?.Trim('/').Split('/').Last();
+    var articlePage = Helpers.BuildHtml(mainTemplate, articleBodyFinal, articleJsonTyped);
+    File.WriteAllText(Path.Combine(OUTPUT, $"{articleFilename}"), articlePage);
+
     //index
     //----------------------------------------------------------------------------------
     if (articleJsonTyped.Type == "article")
     {
         bodyForIndexPage.Append(
-            Helpers.BuildCard(cardPostTemplate, articleJsonTyped)
+            Helpers.BuildHtml(cardArticleTemplate,
+                                articleJsonTyped.Description ?? throw new NullReferenceException(nameof(articleJsonTyped.Description)), 
+                                articleJsonTyped)
         );
     }
 }
@@ -75,12 +82,15 @@ var indexData = new ItemData
     Tags = new List<string> { "C#", "CSharp", "dotnet", "ML.NET", "Q#", "Microsoft MVP" },
     Type = "website",
     Title = "George Kosmidis",
-    Url = "/",
-    Image = "/media/me.jpg"
+    RelativeUrl = "/",
+    RelativeImageUrl = "/media/me.jpg"
 };
 pages.Add(indexData);
 
-var indexPage = Helpers.BuildPage(indexTemplate, bodyForIndexPage.ToString(), indexData);
+var indexPage = Helpers.BuildHtml(mainTemplate, bodyForIndexPage.ToString(), indexData);
 File.WriteAllText(Path.Combine(OUTPUT, "index.html"), indexPage);
 
-//TODO: use ´pages´ variable to create a sitemap.xml, an rss, and a json rss with the last 5(?)
+//google sitemap
+//----------------------------------------------------------------------------------
+var sitemap = Helpers.BuildSiteMapXML(pages);
+File.WriteAllText(Path.Combine(OUTPUT, "sitemap.xml"), sitemap);

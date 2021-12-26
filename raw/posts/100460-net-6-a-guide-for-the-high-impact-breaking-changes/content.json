@@ -1,11 +1,11 @@
 {
   "Type": "article",
-  "Url": "/net-6-a-guide-for-the-high-impact-breaking-changes.html",
+  "RelativeUrl": "/net-6-a-guide-for-the-high-impact-breaking-changes.html",
   "Title": ".NET 6, A guide for the high impact Breaking Changes",
   "Description": "<p>.NET 6 is the first Long-Term-Support (LTS) version since the &#8220;one .NET to rule them all&#8221; era</em>, which means it&#8217;s plan as future-proof. It includes a tone of improvements and changes that are planned to live long, thing that brought with it a few high impact <em>Breaking Changes</em>. Although there are <a href=\"https://docs.microsoft.com/en-us/dotnet/core/compatibility/6.0\" rel=\"noopener\" target=\"_blank\">lower impact braking changes</a> too, this guide will help you identify if any of the important ones really affect you, and provide a suggestion at the same time.</p>\n<p>",
   "DatePublished": "2021-11-14T09:38:36+01:00",
   "DateModified": "2021-11-14T18:59:35+01:00",
-  "Image": "media/100460-feature.png",
+  "RelativeImageUrl": "/media/100460-feature.png",
   "Tags": [
     ".NET",
     ".NET 6",

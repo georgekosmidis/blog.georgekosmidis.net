@@ -1,11 +1,11 @@
 {
   "Type": "article",
-  "Url": "/code-snippet-how-to-upload-an-image-with-ftps-in-dotnet-core.html",
+  "RelativeUrl": "/code-snippet-how-to-upload-an-image-with-ftps-in-dotnet-core.html",
   "Title": "Code Snippet: How to upload an image with FTPS in ASP.NET Core",
   "Description": "<p>This post is contains sample on how to upload an image with FTPS in ASP.NET Core. It also contains a cheat sheet of all the properties and methods of an instance of an <code>FtpWebRequest</code> object, mostly as a quick reference guide.</p>\n<p>",
   "DatePublished": "2020-07-13T13:34:52+02:00",
   "DateModified": "2020-07-14T21:23:58+02:00",
-  "Image": "media/100380-feature.png",
+  "RelativeImageUrl": "/media/100380-feature.png",
   "Tags": [
     "ASP.NET Core",
     "AspNetCore",

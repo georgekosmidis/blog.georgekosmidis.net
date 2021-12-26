@@ -1,8 +1,8 @@
-<p>Some time ago I was called about an online calendar for a company&#8217;s portal. The need was to inform employees about public holidays for the requested year. In Greece, some of those holidays are static, meaning they occur the exact same date each year, and some are based on the Orthodox Easter, so they move from date to date. There are a lot of online services that can return these information, but I thought I should give it a go and try writing the Orthodox Easter calculation offline. Saying that, I found the algorithm online, and since I was there I also found the Catholic Easter algorithm.</p>
-<p>This is a post for the calculation of the two Christianity events, and in a later post I will also publish the public holidays calculation.</p>
-<p><em>(Have in mind that since the methods return DateTime, &#8220;every possible year&#8221; is not quite accurate! And besides this, both algorithms have problems after year 4200. You can read more about it here: <a href="http://en.wikipedia.org/wiki/Computus" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/Computus</a>)</em></p>
-<p><br />
-This is the Orthodox Easter calculation:</p>
+<p>Some time ago I was called about an online calendar for a company&#8217;s portal. The need was to inform employees about public holidays for the requested year. In Greece, some of those holidays are static meaning they occur the exact same date each year, but some are based on the Orthodox Easter so they move from date to date. There are a lot of online services that can return these information, but I thought I should give it a go and try writing the Orthodox Easter calculation in C#. Saying that, I found the algorithm online and since I was there I also found the Catholic Easter algorithm.<br />
+</p>
+<blockquote><p>In this post you will find the calculation for the two Christianity events only, and in a later post I will also publish the public holidays calculation.</p></blockquote>
+<blockquote><p>Have in mind that since the methods return <code>DateTime</code> &#8220;every possible year&#8221; is not quite accurate! And besides, both algorithms have problems after year 4200. You can read more about it here: <a href="http://en.wikipedia.org/wiki/Computus" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/Computus</a></p></blockquote>
+<p>This is the Orthodox Easter calculation:</p>
 <p><pre><code class="language-csharp">/// &lt;summary&gt;
 /// Get Orthodox easter for requested year
 /// &lt;/summary&gt;

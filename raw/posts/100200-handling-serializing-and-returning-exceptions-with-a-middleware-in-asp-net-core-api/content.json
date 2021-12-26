@@ -1,11 +1,11 @@
 {
   "Type": "article",
-  "Url": "/handling-serializing-and-returning-exceptions-with-a-middleware-in-asp-net-core-api.html",
+  "RelativeUrl": "/handling-serializing-and-returning-exceptions-with-a-middleware-in-asp-net-core-api.html",
   "Title": "Handling, serializing and returning exceptions with a middleware in an ASP.NET Core API",
   "Description": "<p>ASP.NET Core offers a very cool way to avoid all that boring boilerplate exception handling code, just by intercepting all requests. It is called <code>Middleware</code> and actually, ASP.NET Core is full of <a href=\"https://docs.microsoft.com/el-gr/aspnet/core/fundamentals/middleware/index?view=aspnetcore-2.1#built-in-middleware\" rel=\"noopener noreferrer\" target=\"_blank\">built-in middlewares</a>!<br />\n",
   "DatePublished": "2018-07-24T14:15:28+02:00",
   "DateModified": "2019-07-26T14:30:08+02:00",
-  "Image": "",
+  "RelativeImageUrl": "",
   "Tags": [
     "ASP.NET Core",
     "Error Handling",

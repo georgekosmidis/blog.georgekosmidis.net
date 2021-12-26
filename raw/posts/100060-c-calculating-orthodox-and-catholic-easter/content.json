@@ -1,11 +1,11 @@
 {
   "Type": "article",
-  "Url": "/c-calculating-orthodox-and-catholic-easter.html",
+  "RelativeUrl": "/c-calculating-orthodox-and-catholic-easter.html",
   "Title": "C#: Calculating Orthodox and Catholic Easter",
-  "Description": "<p>Some time ago I was called about an online calendar for a company&#8217;s portal. The need was to inform employees about public holidays for the requested year. In Greece, some of those holidays are static, meaning they occur the exact same date each year, and some are based on the Orthodox Easter, so they move from date to date. There are a lot of online services that can return these information, but I thought I should give it a go and try writing the Orthodox Easter calculation offline. Saying that, I found the algorithm online, and since I was there I also found the Catholic Easter algorithm.</p>\n<p>This is a post for the calculation of the two Christianity events, and in a later post I will also publish the public holidays calculation.</p>\n<p><em>(Have in mind that since the methods return DateTime, &#8220;every possible year&#8221; is not quite accurate! And besides this, both algorithms have problems after year 4200. You can read more about it here: <a href=\"http://en.wikipedia.org/wiki/Computus\" target=\"_blank\" rel=\"noopener noreferrer\">http://en.wikipedia.org/wiki/Computus</a>)</em></p>\n<p>",
+  "Description": "<p>Some time ago I was called about an online calendar for a company&#8217;s portal. The need was to inform employees about public holidays for the requested year. In Greece, some of those holidays are static meaning they occur the exact same date each year, but some are based on the Orthodox Easter so they move from date to date. There are a lot of online services that can return these information, but I thought I should give it a go and try writing the Orthodox Easter calculation in C#. Saying that, I found the algorithm online and since I was there I also found the Catholic Easter algorithm.<br />\n",
   "DatePublished": "2013-04-28T23:59:25+02:00",
-  "DateModified": "2020-06-16T13:23:28+02:00",
-  "Image": "",
+  "DateModified": "2021-12-26T17:27:50+01:00",
+  "RelativeImageUrl": "",
   "Tags": [
     "C#",
     "Catholic Easter",

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="{page-raw-description}">
+	<meta name="description" content="{page-plaintext-description}">
 	<meta name="author" content="George Kosmidis">	
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
@@ -16,9 +16,9 @@
 
 	<meta property="og:title" content="{page-title}" />
 	<meta property="og:type" content="{og-type}" /><!-- website | article -->
-	<meta property="og:url" content="https://blog.georgekosmidis.net{page-filename}" />
-	<meta property="og:image" content="https://blog.georgekosmidis.net{page-image}" />
-	<meta property="og:description " content="{page-raw-description}" />
+	<meta property="og:url" content="https://blog.georgekosmidis.net{page-relative-url}" />
+	<meta property="og:image" content="https://blog.georgekosmidis.net{page-relative-image-url}" />
+	<meta property="og:description " content="{page-plaintext-description}" />
 	
 	{extra-headers}
 	<!-- todo: article -->
@@ -37,7 +37,8 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css" 
 		integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous">    
-	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/default.min.css" 
+		integrity="sha256-CGf39SzxAmEe09Ojoh16/2xTRNleX9wBZcEXVnNqwSM=" crossorigin="anonymous">		
 	<title>{page-title}</title>
     <style>
         header {
@@ -226,7 +227,13 @@
         crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" 
 		integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" 
-		crossorigin="anonymous"></script><script>
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
+		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
+		crossorigin="anonymous"></script>
+	<script>hljs.highlightAll();</script>			
+		
+	<script>
 	window.cookieconsent.initialise({
 	  "palette": {
 		"popup": {
@@ -244,7 +251,7 @@
 		"dismiss": "It's just code, I 'll stay!"
 	  }
 	});
-	</script>		
+	</script>	
 </body>
 
 </html>

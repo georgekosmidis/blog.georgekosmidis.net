@@ -1,11 +1,11 @@
 {
   "Type": "article",
-  "Url": "/troubleshooting-you-dont-appear-to-have-an-active-azure-subscription.html",
+  "RelativeUrl": "/troubleshooting-you-dont-appear-to-have-an-active-azure-subscription.html",
   "Title": "Troubleshooting “You don’t appear to have an active Azure subscription.”",
   "Description": "<p>The message can appear in any service trying to retrieve active Azure Resources either within Azure Portal or from any 3rd party consumer. As an example, it can appear while trying to create an Azure Resource Manager service connection in Azure DevOps.<br />\n",
   "DatePublished": "2020-06-14T16:01:01+02:00",
   "DateModified": "2020-06-17T13:15:28+02:00",
-  "Image": "media/100340-feature.png",
+  "RelativeImageUrl": "/media/100340-feature.png",
   "Tags": [
     "Azure",
     "subscription",

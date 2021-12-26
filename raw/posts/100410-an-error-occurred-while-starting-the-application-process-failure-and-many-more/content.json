@@ -1,11 +1,11 @@
 {
   "Type": "article",
-  "Url": "/an-error-occurred-while-starting-the-application-process-failure-and-many-more.html",
+  "RelativeUrl": "/an-error-occurred-while-starting-the-application-process-failure-and-many-more.html",
   "Title": "An error occurred while starting the application, Process Failure and many more",
   "Description": "<p>It comes in many colors and flavors, it is usually a headache because there are multiple reasons why you can get this, it usually includes no (or minimal) information in Application log, and if you are unlucky enough to have two problems that cause this, it is a guaranteed bad day.</p>\n<p>",
   "DatePublished": "2020-07-24T14:40:02+02:00",
   "DateModified": "2020-07-25T17:59:33+02:00",
-  "Image": "media/100410-feature.png",
+  "RelativeImageUrl": "/media/100410-feature.png",
   "Tags": [
     "ASP.NET Core",
     "dotnet",

@@ -1,11 +1,11 @@
 {
   "Type": "article",
-  "Url": "/mongodb-shell-or-compass-query-with-a-guid.html",
+  "RelativeUrl": "/mongodb-shell-or-compass-query-with-a-guid.html",
   "Title": "MongoDB Shell or Compass query with a GUID",
   "Description": "<p>Just a small one for today. Have you ever tried to query <em>MongoDB</em> with a <code>GUID</code>? Well I did and it can be confusing!</p>\n<p>",
   "DatePublished": "2021-11-29T11:03:59+01:00",
   "DateModified": "2021-11-29T12:12:23+01:00",
-  "Image": "media/100480-feature.png",
+  "RelativeImageUrl": "/media/100480-feature.png",
   "Tags": [
     "Blazor",
     "GUID",

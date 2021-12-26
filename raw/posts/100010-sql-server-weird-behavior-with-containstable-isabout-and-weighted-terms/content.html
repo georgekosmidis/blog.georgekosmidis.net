@@ -1,8 +1,8 @@
-<p>I came across the following weird behaviour in an ISABOUT query in SQL SERVER, that involves weight keyword and the final rank of the results. I want to describe that behaviour here, just in case some has a good explanation over it!</p>
+<p>I came across the following weird behavior in an ISABOUT query in SQL SERVER, that involves the weight keyword and the final rank of the results. I want to describe this behavior here, just in case someone has a good explanation for it!</p>
+<p></p>
 <blockquote><p>
 This posts assumes some basic knowledge of <a href="https://docs.microsoft.com/en-us/sql/relational-databases/search/query-with-full-text-search?view=sql-server-2017" target="_blank" rel="noopener noreferrer">querying with full text search</a> </p></blockquote>
-<p></p>
-<p>The following bullets, are the sum up of the behaviour. Notice how the results are reversed as the weight value goes down!</p>
+<p>The following bullets, are the sum up of the behavior. Notice how the results are reversed as the weight value goes down!</p>
 <ul>
 <li>weight(1): RANK of KEY 1 is 249<br /><em>(results order 1,2,3)</em></li>
 <li>weight(0.8): RANK of KEY 1 is 321<br /><em>(weight down =&gt; rank up, results order 1,2,3)</em></li>
@@ -13,74 +13,68 @@ This posts assumes some basic knowledge of <a href="https://docs.microsoft.com/e
 </ul>
 <p>As you can see, from 0.2 to 0.17 ranking decreases and <b>results are messed up</b>! From 0.16 results are inverted (<em>the weight values that reproduce this behaviour depend on terms, columns searched, etc</em>).</p>
 <p>Microsoft states <a href='http://msdn.microsoft.com/en-us/library/ms142524(v=sql.105).aspx' target='_blank' rel="noopener noreferrer">here</a> that the actual value of RANK is meaningless, but I am sure the results order isn&#8217;t! </p>
-<p><strong>Reproducing the behaviour</strong></p>
+<p><strong>Reproducing the behavior</strong></p>
 <p>These are the exact queries that I used to reproduce this behaviour:</p>
 <p><strong>QUERY 1 (weight 1):</strong> (Initial ranking)<br />
 <pre><code class="language-csharp">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (1) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
-<pre>
-   KEY   RANK
+<pre><code class="language-plaintext">   KEY   RANK
     1    249
     2    156
     3    114
-</pre>
+</code></pre>
 <p><strong>QUERY 2 (weight 0.8):</strong>  (Ranking increases, initial order is preserved)<br />
 <pre><code class="language-csharp">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (0.8) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
-<pre>
-   KEY    RANK
+<pre><code class="language-plaintext">   KEY    RANK
     1     321
     2     201
     3     146
-</pre>
+</code></pre>
 <p><strong>QUERY 3 (weight 0.2):</strong>  (Ranking increases, initial order is preserved)<br />
 <pre><code class="language-csharp">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (0.2) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
-<pre>
-   KEY   RANK
+<pre><code class="language-plaintext">   KEY   RANK
     1    998
     2    877
     3    692
-</pre>
+</code></pre>
 <p><strong>QUERY 4 (weight 0.17):</strong> (Ranking decreases, best match is now last, inverted behavior <u>for these terms</u> begin at 0.17)<br />
 <pre><code class="language-csharp">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (0.17) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
-<pre>
-   KEY   RANK
+<pre><code class="language-plaintext">   KEY   RANK
     2    960
     3    958
     1    802
-</pre>
+</code></pre>
 <p><strong>QUERY 5 (weight 0.16):</strong> (Ranking increases, best match is now second)<br />
 <pre><code class="language-csharp">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (0.16) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
-<pre>
-   KEY   RANK
+<pre><code class="language-plaintext">   KEY   RANK
     2    978
     1    935
     3    841
-</pre>
+</code></pre>
 <p><strong>QUERY 6 (weight 0.01):</strong>  (Ranking decreases, best match is last again)<br />
 <pre><code class="language-csharp">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (0.01) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
-<pre> 
-   KEY   RANK
+<pre><code class="language-plaintext">   KEY   RANK
     3    105
     2     77
     1     50
-</pre>
+</code></pre>
 <p>This of course causes major problems when you use a custom &#8220;word-breaker&#8221;, creating something like this:<br />
 <pre><code class="language-csharp">CONTAINSTABLE(FullTextTable, FullTextColumn, 
       'ISABOUT (

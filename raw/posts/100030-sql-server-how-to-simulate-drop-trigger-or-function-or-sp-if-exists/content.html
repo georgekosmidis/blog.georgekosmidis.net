@@ -1,7 +1,7 @@
 <p>I usually store triggers, store procedures, functions, queries etc in sql files in an SVN repository. I then use a simple app I wrote, that just opens each file and executes it. The problem of course is CREATE and ALTER. I can&#8217;t use CREATE because the same trigger might already be there. On the other hand I couldn&#8217;t use ALTER because some triggers might be new.</p>
-<p>Since there is no DROP TRIGGER IF EXISTS, I came up with this:</p>
-<p><br />
-<script src="https://gist.github.com/georgekosmidis/5df82554e25ba05da7466824f6d3d352.js"></script></p>
+<p></p>
+<p>Since there is no <code>DROP TRIGGER IF EXISTS</code>, I came up with this:</p>
+<p><script src="https://gist.github.com/georgekosmidis/5df82554e25ba05da7466824f6d3d352.js"></script></p>
 <p>Of course, &#8216;YOUR_TRIGGER_NAME&#8217; could be &#8216;YOUR_FUNCTION_NAME&#8217; or whatever! Just match it with the &#8216;type&#8217;. These are all the possible values of column type:</p>
 <pre>
 <strong>AF = Aggregate function</strong> (CLR)

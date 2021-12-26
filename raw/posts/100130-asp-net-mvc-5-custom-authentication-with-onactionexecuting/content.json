@@ -1,11 +1,11 @@
 {
   "Type": "article",
-  "Url": "/asp-net-mvc-5-custom-authentication-with-onactionexecuting.html",
+  "RelativeUrl": "/asp-net-mvc-5-custom-authentication-with-onactionexecuting.html",
   "Title": "ASP.NET MVC 5: Custom authentication with OnActionExecuting",
   "Description": "<p>Although I prefer the <a title=\"ASP.NET MVC 5: Custom AuthorizeAttribute for custom authentication\" href=\"http://blog.georgekosmidis.net/2014/05/17/mvc-custom-authorizeattribute-for-custom-authentication/\" target=\"_blank\" rel=\"noopener noreferrer\">AuthorizeAttribute</a> approach, there is another simpler way with a base Controller and OnActionExecuting:</p>\n<p>Let&#8217;s assume the following Controller:</p>\n<p>",
   "DatePublished": "2014-11-25T21:44:00+01:00",
   "DateModified": "2019-07-26T13:30:17+02:00",
-  "Image": "",
+  "RelativeImageUrl": "",
   "Tags": [
     "ASP.NET MVC",
     "Authentication",

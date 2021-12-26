@@ -1,5 +1,7 @@
-<p>So you end up with a query like this:</p>
-<p><pre><code class="language-csharp">SELECT *
+<p>So you end up with a query l that returns what you searched for and with SQL Server Full Text Search engine, and with it the RANK column! How do you end up with a percentage of relevance for your users to enjoy?</p>
+<p><br />
+Take a look at the following query for example:<br />
+<pre><code class="language-csharp">SELECT *
 FROM table AS FT_TBL INNER JOIN
    CONTAINSTABLE(table, column, contains_search_condition) AS KEY_TBL
    ON FT_TBL.unique_key_column = KEY_TBL.[KEY]
@@ -7,16 +9,14 @@ WHERE KEY_TBL.RANK &gt; 0
 ORDER BY KEY_TBL.RANK DESC
 </code></pre></p>
 <p>That yields something like this:</p>
-<pre>
-ID ... KEY RANK
+<pre><code class="language-plaintext">ID ... KEY RANK
 5  ...  5  765
 2  ...  2  322
 3  ...  5  128
 1  ...  1   75
-</pre>
-<p>And you are missing a percentage column. Well, not any more!<br />
-<br />
-<pre><code class="language-csharp">SELECT *, LOG(RANK) / LOG(SUM(RANK) OVER( PARTITION BY 1)) AS [PERCENT]
+</code></pre>
+<p>And you are missing a percentage column. Well, not any more!</p>
+<p><pre><code class="language-csharp">SELECT *, LOG(RANK) / LOG(SUM(RANK) OVER( PARTITION BY 1)) AS [PERCENT]
 FROM table AS FT_TBL INNER JOIN
    CONTAINSTABLE(table, column, contains_search_condition) AS KEY_TBL
    ON FT_TBL.unique_key_column = KEY_TBL.[KEY]

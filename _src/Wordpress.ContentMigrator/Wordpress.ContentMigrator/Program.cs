@@ -56,14 +56,16 @@ foreach (var item in blogPostsResponse.BodyAsType.Items.OrderBy(x => x.DatePubli
                                         return relativeLink;
                                     });
     item.ContentHtml = Regex.Replace(item.ContentHtml, "<p>The post <a href=(.+) first appeared on(.+)Kosmidis</a>.</p>", string.Empty);
+    item.ContentHtml = Regex.Replace(item.ContentHtml, "<img src=\"https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png\" alt=\"🙂\"[^>]*>", string.Empty);
+
     //TODO: replace smilies with :)
     //TODO: two gists escape, probably because they are in the description
 
     var key = item.Id.Split('=')[1];
     var slang = item.Url.Trim('/').Split('/').Last();
-    var url = "/" + slang + ".html";
+    var relativeUrl = "/" + slang + ".html";
     var title = item.Title ?? throw new NullReferenceException(nameof(item.Title));
-    var image = "";
+    var relativeImageUrl = "";
     var datePublished = item.DatePublished ?? throw new NullReferenceException(nameof(item.DatePublished));
     var dateModified = item.DateModified ?? throw new NullReferenceException(nameof(item.DateModified));
     var tags = item.Tags ?? new List<string>();
@@ -97,7 +99,7 @@ foreach (var item in blogPostsResponse.BodyAsType.Items.OrderBy(x => x.DatePubli
         }
 
         await File.WriteAllBytesAsync(Path.Combine(postDirectory, "media", $"{folderNum}-feature.png"), Helpers.ReadFully(featureImageResponse.BodyAsStream));
-        image = $"media/{folderNum}-feature.png";
+        relativeImageUrl = $"/media/{folderNum}-feature.png";
     }
 
     //handle body images
@@ -145,7 +147,7 @@ foreach (var item in blogPostsResponse.BodyAsType.Items.OrderBy(x => x.DatePubli
         //await File.WriteAllBytesAsync(Path.Combine(postDirectory, "media", imageName), Helpers.ReadFully(bodyImage.BodyAsStream));
     }
 
-    var migratedPost = new MigratedPost(url, title, description, datePublished, dateModified, image, tags);
+    var migratedPost = new MigratedPost(relativeUrl, title, description, datePublished, dateModified, relativeImageUrl, tags);
 
     //save json
     var json = JsonConvert.SerializeObject(migratedPost, Formatting.Indented);
