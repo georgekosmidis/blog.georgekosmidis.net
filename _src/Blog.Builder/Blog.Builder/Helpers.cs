@@ -50,7 +50,7 @@ internal static class Helpers
         }
     }
 
-    public static string BuildHtml(string indexTemplate, string body, ItemData itemData)
+    public static string BuildHtml(string indexTemplate, string body, string paging, ItemData itemData)
     {
         ValidateItemData(itemData);
         var template = indexTemplate.Replace("{itemdata-Type}", itemData.Type, StringComparison.InvariantCultureIgnoreCase)
@@ -68,6 +68,7 @@ internal static class Helpers
                             .Replace("{itemdata-RelativeImageUrl}", itemData.RelativeImageUrl, StringComparison.InvariantCultureIgnoreCase)
                             .Replace("{itemdata-Tags}", string.Join(", ", itemData.Tags ?? throw new NullReferenceException(nameof(itemData.Tags))), StringComparison.InvariantCultureIgnoreCase)
                             .Replace("{itemdata-ExtraHeaders}", string.Join(' ', itemData.ExtraHeaders), StringComparison.InvariantCultureIgnoreCase)
+                            .Replace("{page-navigation}", paging)
                             .Replace("{body}", body, StringComparison.InvariantCultureIgnoreCase)
                            ;
         if (string.IsNullOrWhiteSpace(itemData.RelativeImageUrl))
@@ -107,6 +108,56 @@ internal static class Helpers
 
         return sb.ToString();
     }
+
+    //TODO: revert all to razor engine. life will be simpler
+    public static string BuildPaging(int currentPageIndex, int pageTotal)
+    {
+        var sb = new StringBuilder();
+
+        var disabled = "";
+        var previousLink = $"/index-page-{currentPageIndex}.html";
+        if (currentPageIndex == 0)
+        {
+            disabled = "disabled";
+        }
+        if (currentPageIndex == 1)
+        {
+            previousLink = $"/index.html";
+        }
+        sb.Append($"<li class=\"page-item {disabled}\">");
+        sb.Append($"<a class=\"page-link\" href=\"{previousLink}\">Previous</a>");
+        sb.Append("</li>");
+
+        for (var i = 0; i < pageTotal; i++)
+        {
+            var active = "";
+            var currentLink = $"/index-page-{i + 1}.html";
+            if (i == 0)
+            {
+                currentLink = $"/index.html";
+            }
+            if (i == currentPageIndex)
+            {
+                active = "active";
+            }
+            sb.Append($"<li class=\"page-item {active}\"><a class=\"page-link\" href=\"{currentLink}\">{i + 1}</a></li>");
+        }
+
+        disabled = "";
+        var nextLink = $"/index-page-{currentPageIndex + 2}.html";
+        if (currentPageIndex == pageTotal - 1)
+        {
+            nextLink = $"/index-page-{currentPageIndex + 1}.html";
+            disabled = "disabled";
+        }
+        sb.Append($"<li class=\"page-item {disabled}\">");
+        sb.Append($"<a class=\"page-link\" href=\"{nextLink}\">Next</a>");
+        sb.Append("</li>");
+
+
+        return sb.ToString().Trim();
+    }
+
 
     //TODO: compress output
 
