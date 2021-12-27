@@ -52,7 +52,7 @@ foreach (var standalonePath in standalones)
     File.WriteAllText(Path.Combine(OUTPUT, Path.GetFileName(standalonePath)), standalonePageHtml);
 }
 
-//todo: add images and possibly other cards
+//todo: add other cards, like meetup and talks
 
 //index & article
 //----------------------------------------------------------------------------------

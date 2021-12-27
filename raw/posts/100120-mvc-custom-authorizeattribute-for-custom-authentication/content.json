@@ -2,9 +2,9 @@
   "Type": "article",
   "RelativeUrl": "/mvc-custom-authorizeattribute-for-custom-authentication.html",
   "Title": "ASP.NET MVC 5: Custom AuthorizeAttribute for custom authentication",
-  "Description": "<p>In a previous <a href=\"/asp-net-mvc-5-authorization-by-default-your-web-app/\">post</a> I wrote about how you <del>can</del> should protect your web app from human errors by enforcing authentication by default.</p>\n<p>In this, lets check how to write your very own custom <code>AuthorizeAttribute</code>!</p>\n<p>Since adding the <a href=\"http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute.aspx\" target=\"_blank\" rel=\"noopener noreferrer\">AuthorizeAttribute</a> to every action involves global filters, we can use that to add our own custom authentication, by inheriting <a href=\"http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute.aspx\" target=\"_blank\" rel=\"noopener noreferrer\">AuthorizeAttribute</a>and overriding the <code>AuthorizeCore</code> and <code>HandleUnauthorizeRequest</code> methods.</p>\n<p>",
+  "Description": "<p>In a previous <a href=\"/asp-net-mvc-5-authorization-by-default-your-web-app/\">post</a> I wrote about how you <del>can</del> should protect your web app from human errors by enforcing authentication by default.<br />\n",
   "DatePublished": "2014-05-17T11:49:58+02:00",
-  "DateModified": "2021-12-26T17:35:43+01:00",
+  "DateModified": "2021-12-26T17:45:35+01:00",
   "RelativeImageUrl": "",
   "Tags": [
     "ASP.NET MVC",

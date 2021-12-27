@@ -101,7 +101,8 @@ In this post we will explore these three cases, and starting from the simple try
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
 					<a href="/">
-						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - We all know the traditional try-catch blocks and -used correctly- there is of course nothing wrong with them! But even though all is good with that, ASP.NET Core has an even better way of doing things, two ways actually, that can make our code cleaner and easier to read! By following the &#8220;Middleware&#8221; approach, we extract all our custom exception handling code from within the actions and centralizing it in one place thus, cleaner code!
+In this post we will explore these three cases, and starting from the simple try-catch block we will refactor towards a custom error handling middleware." />
 					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
@@ -116,7 +117,7 @@ In this post we will explore these three cases, and starting from the simple try
                         </div>
                         <div class="row mt-4">
                             <div class="col text-center">
-                                <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
+                                <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn" rel="noopener">
                                     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <title>Twitter</title>
                                         <path
@@ -124,7 +125,7 @@ In this post we will explore these three cases, and starting from the simple try
                                         </path>
                                     </svg>
                                 </a>
-                                <a href="https://github.com/georgekosmidis" target="_blank" class="btn">
+                                <a href="https://github.com/georgekosmidis" target="_blank" class="btn" rel="noopener">
                                     <svg role="img" class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <title>GitHub</title>
                                         <path
@@ -132,7 +133,7 @@ In this post we will explore these three cases, and starting from the simple try
                                         </path>
                                     </svg>
                                 </a>
-                                <a href="https://www.linkedin.com/in/georgekosmidis/" target="_blank" class="btn">
+                                <a href="https://www.linkedin.com/in/georgekosmidis/" target="_blank" class="btn" rel="noopener">
                                     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <title>LinkedIn</title>
                                         <path
@@ -140,7 +141,7 @@ In this post we will explore these three cases, and starting from the simple try
                                         </path>
                                     </svg>
                                 </a>
-                                <a href="https://www.youtube.com/c/GeorgeKosmidis" target="_blank" class="btn">
+                                <a href="https://www.youtube.com/c/GeorgeKosmidis" target="_blank" class="btn" rel="noopener">
                                     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <title>YouTube</title>
                                         <path
@@ -148,7 +149,7 @@ In this post we will explore these three cases, and starting from the simple try
                                         </path>
                                     </svg>
                                 </a>
-                                <a href="https://sessionize.com/georgekosmidis/" target="_blank" class="btn">
+                                <a href="https://sessionize.com/georgekosmidis/" target="_blank" class="btn" rel="noopener">
                                     <svg role="img" viewBox="0 0 288 288" xmlns="http://www.w3.org/2000/svg">
                                         <title>Sessionize</title>
                                         <g transform="translate(0.000000,288.000000) scale(0.100000,-0.100000)">
@@ -158,12 +159,10 @@ In this post we will explore these three cases, and starting from the simple try
                                         </g>
                                     </svg>
                                 </a>
-								<a href="https://www.facebook.com/groups/msdevtech" target="_blank"
-								class="btn">
+								<a href="https://www.facebook.com/groups/msdevtech" target="_blank" class="btn" rel="noopener">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img"><path d="M353.701,0H55.087C24.665,0,0.002,24.662,0.002,55.085v298.616c0,30.423,24.662,55.085,55.085,55.085 h147.275l0.251-146.078h-37.951c-4.932,0-8.935-3.988-8.954-8.92l-0.182-47.087c-0.019-4.959,3.996-8.989,8.955-8.989h37.882 v-45.498c0-52.8,32.247-81.55,79.348-81.55h38.65c4.945,0,8.955,4.009,8.955,8.955v39.704c0,4.944-4.007,8.952-8.95,8.955 l-23.719,0.011c-25.615,0-30.575,12.172-30.575,30.035v39.389h56.285c5.363,0,9.524,4.683,8.892,10.009l-5.581,47.087 c-0.534,4.506-4.355,7.901-8.892,7.901h-50.453l-0.251,146.078h87.631c30.422,0,55.084-24.662,55.084-55.084V55.085 C408.786,24.662,384.124,0,353.701,0z"/></svg>	
 								</a>
-                                <a href="https://www.meetup.com/munich-dotnet-meetup/" target="_blank"
-                                    class="btn">
+                                <a href="https://www.meetup.com/munich-dotnet-meetup/" target="_blank" class="btn" rel="noopener">
                                     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <title>Meetup</title>
                                         <path
@@ -305,14 +304,14 @@ Let&#8217;s check it:</p>
     </main>
 
 <nav aria-label="Page navigation">
-  <ul class="pagination pagination-lg justify-content-center">
+  <ul class="pagination justify-content-center">
     
   </ul>
 </nav>
 
     <footer class="footer mt-auto py-3 border-top">
         <div class="container mx-auto text-center">
-            <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
+            <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn" rel="noopener">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <title>Twitter</title>
                     <path
@@ -320,7 +319,7 @@ Let&#8217;s check it:</p>
                     </path>
                 </svg>
             </a>
-            <a href="https://github.com/georgekosmidis" target="_blank" class="btn">
+            <a href="https://github.com/georgekosmidis" target="_blank" class="btn" rel="noopener">
                 <svg role="img" class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <title>GitHub</title>
                     <path
@@ -328,7 +327,7 @@ Let&#8217;s check it:</p>
                     </path>
                 </svg>
             </a>
-            <a href="https://www.linkedin.com/in/georgekosmidis/" target="_blank" class="btn">
+            <a href="https://www.linkedin.com/in/georgekosmidis/" target="_blank" class="btn" rel="noopener">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <title>LinkedIn</title>
                     <path
@@ -336,7 +335,7 @@ Let&#8217;s check it:</p>
                     </path>
                 </svg>
             </a>
-            <a href="https://www.youtube.com/c/GeorgeKosmidis" target="_blank" class="btn">
+            <a href="https://www.youtube.com/c/GeorgeKosmidis" target="_blank" class="btn" rel="noopener">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <title>YouTube</title>
                     <path
@@ -344,7 +343,7 @@ Let&#8217;s check it:</p>
                     </path>
                 </svg>
             </a>
-            <a href="https://sessionize.com/georgekosmidis/" target="_blank" class="btn">
+            <a href="https://sessionize.com/georgekosmidis/" target="_blank" class="btn" rel="noopener">
                 <svg role="img" viewBox="0 0 288 288" xmlns="http://www.w3.org/2000/svg">
                     <title>Sessionize</title>
                     <g transform="translate(0.000000,288.000000) scale(0.100000,-0.100000)">
@@ -354,12 +353,10 @@ Let&#8217;s check it:</p>
                     </g>
                 </svg>
             </a>
-			<a href="https://www.facebook.com/groups/msdevtech" target="_blank"
-			class="btn">
+			<a href="https://www.facebook.com/groups/msdevtech" target="_blank" class="btn" rel="noopener">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img"><path d="M353.701,0H55.087C24.665,0,0.002,24.662,0.002,55.085v298.616c0,30.423,24.662,55.085,55.085,55.085 h147.275l0.251-146.078h-37.951c-4.932,0-8.935-3.988-8.954-8.92l-0.182-47.087c-0.019-4.959,3.996-8.989,8.955-8.989h37.882 v-45.498c0-52.8,32.247-81.55,79.348-81.55h38.65c4.945,0,8.955,4.009,8.955,8.955v39.704c0,4.944-4.007,8.952-8.95,8.955 l-23.719,0.011c-25.615,0-30.575,12.172-30.575,30.035v39.389h56.285c5.363,0,9.524,4.683,8.892,10.009l-5.581,47.087 c-0.534,4.506-4.355,7.901-8.892,7.901h-50.453l-0.251,146.078h87.631c30.422,0,55.084-24.662,55.084-55.084V55.085 C408.786,24.662,384.124,0,353.701,0z"/></svg>	
 			</a>			
-            <a href="https://www.meetup.com/munich-dotnet-meetup/" target="_blank"
-                class="btn btn-outline-light">
+            <a href="https://www.meetup.com/munich-dotnet-meetup/" target="_blank" class="btn" rel="noopener">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <title>Meetup</title>
                     <path
@@ -367,7 +364,7 @@ Let&#8217;s check it:</p>
                     </path>
                 </svg>
             </a>
-			<div class="text-muted">© Copyright 2018, <a href="https://georgekosmidis.net" target="_blank">George Kosmidis</a>.<br /> Is lawyer the most boring job in the world? Read the <a href="/privacy.html">Privacy Policy</a> to find out.</div>
+			<div class="text-muted">© Copyright 2018, <a href="https://georgekosmidis.net" target="_blank" rel="noopener">George Kosmidis</a>.<br /> Is lawyer the most boring job in the world? Read the <a href="/privacy.html">Privacy Policy</a> to find out.</div>
 
         </div>
     </footer>
