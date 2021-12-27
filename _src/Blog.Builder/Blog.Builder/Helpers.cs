@@ -53,22 +53,20 @@ internal static class Helpers
     public static string BuildHtml(string indexTemplate, string body, ItemData itemData)
     {
         ValidateItemData(itemData);
-        return indexTemplate.Replace("{extra-headers}", String.Join(' ', itemData.ExtraHeaders))
-                            .Replace("{page-plaintext-description}", itemData.PlainTextDescription)
-                            .Replace("{og-type}", itemData.Type)
-                            .Replace("{page-relative-image-url}", itemData.RelativeImageUrl)
-                            .Replace("{page-relative-url}", itemData.RelativeUrl)
-                            .Replace("{page-title}", itemData.Title)
-
-                            .Replace("{article-title}", itemData.Title)
-                            .Replace("{page-body}", body)
-                            .Replace("{article-content}", body)
-
-                            .Replace("{ad-relative-image-url}", itemData.RelativeImageUrl)
-                            .Replace("{article-relative-image-url}", itemData.RelativeImageUrl)
-                            .Replace("{article-relative-thumb-url}", itemData.RelativeImageUrl)
-                            .Replace("{article-description}", itemData.Description)
-                            .Replace("{article-date}", itemData.DateModified?.ToLongDateString());
+        return indexTemplate.Replace("{itemdata-type}", itemData.Type)
+                            .Replace("{itemdata-relativeurl}", itemData.RelativeUrl)
+                            .Replace("{itemdata-title}", itemData.Title)
+                            .Replace("{itemdata-description}", itemData.Description)
+                            .Replace("{itemdata-plaintextdescription}", itemData.PlainTextDescription)
+                            .Replace("{itemdata-lastmodifiedtext}", itemData.LastModifiedText)
+                            .Replace("{itemdata-publishedtext}", itemData.PublishedText)
+                            .Replace("{itemdata-datepublished}", itemData.DatePublished?.ToLongDateString())
+                            .Replace("{itemdata-datemodified}", itemData.DateModified?.ToLongDateString())
+                            .Replace("{itemdata-relativeimageurl}", itemData.RelativeImageUrl)
+                            .Replace("{itemdata-tags}", string.Join(", ", itemData.Tags ?? throw new NullReferenceException(nameof(itemData.Tags))))
+                            .Replace("{itemdata-extraheaders}", string.Join(' ', itemData.ExtraHeaders))
+                            .Replace("{body}", body)
+                           ;
     }
 
     public static string BuildSiteMapXML(List<ItemData> items)
@@ -92,5 +90,5 @@ internal static class Helpers
         return sb.ToString();
     }
 
-    
+
 }

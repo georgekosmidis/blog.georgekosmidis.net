@@ -15,6 +15,10 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
+	<!-- todo favicon -->
+	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+
 	<meta property="og:title" content="Create and use your first component in Blazor!" />
 	<meta property="og:type" content="article" /><!-- website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net/create-and-use-your-first-component-in-blazor.html" />
@@ -24,12 +28,12 @@
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="{og-article-published_time}" />
-	<meta property="og:article:modified_time" content="{og-article-modified_time}" />
-	<meta property="og:article:expiration_time" content="{og-article-expiration_time}" />
+	<meta property="og:article:published_time" content="Wednesday, 10 November 2021" />
+	<meta property="og:article:modified_time" content="Friday, 24 December 2021" />
+	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
-	<meta property="og:article:section" content="{og-article-section}" />
-	<meta property="og:article:tag" content="{og-article-tag}" />
+	<meta property="og:article:section" content="{itemdata-section}" />
+	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
 	<!-- todo: search -->
 	<!-- todo: rss -->
@@ -63,7 +67,19 @@
             height: 180px;
         }
 
-
+		.readableWidth {
+			max-width: 50em;
+			min-width: 40em;
+		}
+		.readableWidth img {
+			max-width: 45em;
+		}		
+		h1,h2,h3,h4,h5,h6 {
+				font-weight: 300;
+		}
+		a {
+			text-decoration: none;
+		}
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -76,14 +92,16 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
 
     <header class="container-fluid p-3 bg-dark border-bottom">
 
         <div class="container text-white">
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
-                    <img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					<a href="/">
+						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div class="container">
@@ -156,22 +174,34 @@
         </div>
     </header>
 
-    <main class="container py-5">
+    <main class="container bg-light py-4">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>Create and use your first component in Blazor!</h1>
-		</div>  
-	</div>	
-	<div class="row">
-		<div class="col">
-			<img src="/media/100450-feature.png" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			<p>Blazor, the new client-side UI framework from the ASP.NET team, is definitely making a splash among the developers that were trying to avoid the JavaScript coding experience (or even better the debugging JavaScript experience!). </p>
+	<div class="row readableWidth mx-auto">
+		<div class="col shadow bg-white rounded">
+			<div class="container">
+				<div class="row">
+					<div class="col pt-3">
+						<h1 class="text-center display-6">Create and use your first component in Blazor!</h1>
+					</div>  
+				</div>	
+				<div class="row">
+					<div class="col pb-2">
+						<div class="text-black-50 text-center">
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 2 months ago / Last modified 2 days ago</small>
+						</div>
+					</div>  
+				</div>	
+
+				
+				<div class="row">
+					<div class="col text-center">
+						<img src="/media/100450-feature.png" alt="Create and use your first component in Blazor!"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p>Blazor, the new client-side UI framework from the ASP.NET team, is definitely making a splash among the developers that were trying to avoid the JavaScript coding experience (or even better the debugging JavaScript experience!). </p>
 <p></p>
 <p>JavaScript flavors ruled successfully the frontend world for so long, that this loved and hated language start infiltrating the backend world with Node.js. Strongly-typed languages fought back, and ASP.NET was the first to introduce a solution: Blazor, an attempt to bring strongly typed C# to the frontend, a breath of fresh air for all strongly-typed language lovers!</p>
 <blockquote><p>In case you like code more than words, visit the WeatherWidget component&#8217;s source code in <a href="https://github.com/georgekosmidis/Blazor.WeatherWidget" rel="noopener" target="_blank">Github</a>.</p></blockquote>
@@ -764,13 +794,16 @@ else
 <p>Blazor is here to stay because enables sharing code written in C# between the browser and the server, which means type definitions and data structures can be shared and verified anywhere in the stack. Less code means less bugs which brings security and confidence within a full-stack team.</p>
 <h2>Code Samples</h2>
 <p>You can find the samples included in the post as gists <a href="https://gist.github.com/georgekosmidis/2aabf736158f73c3ed4d2c73d5d1d028" rel="noopener" target="_blank">here</a>. Additionally, find the code of a fully working weather component in my github account: <a href="https://github.com/georgekosmidis/Blazor.WeatherWidget/" rel="noopener" target="_blank">https://github.com/georgekosmidis/Blazor.WeatherWidget/</a> and a live sample here: <a href="https://blazor-weatherwidget.azurewebsites.net/" rel="noopener" target="_blank">https://blazor-weatherwidget.azurewebsites.net/</a>. Additionally, I also made a <a href="https://www.nuget.org/packages/Blazor.WeatherWidget/" rel="noopener" target="_blank">Nuget Package</a> out of it </p>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+	</div>			
 </div>
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light border-top">
+    <footer class="footer mt-auto py-3 border-top">
         <div class="container mx-auto text-center">
             <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

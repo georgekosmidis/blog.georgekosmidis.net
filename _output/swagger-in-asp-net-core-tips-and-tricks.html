@@ -15,6 +15,10 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
+	<!-- todo favicon -->
+	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+
 	<meta property="og:title" content="Swagger in ASP.NET Core: Tips & Tricks" />
 	<meta property="og:type" content="article" /><!-- website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net/swagger-in-asp-net-core-tips-and-tricks.html" />
@@ -24,12 +28,12 @@
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="{og-article-published_time}" />
-	<meta property="og:article:modified_time" content="{og-article-modified_time}" />
-	<meta property="og:article:expiration_time" content="{og-article-expiration_time}" />
+	<meta property="og:article:published_time" content="Saturday, 11 July 2020" />
+	<meta property="og:article:modified_time" content="Friday, 17 July 2020" />
+	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
-	<meta property="og:article:section" content="{og-article-section}" />
-	<meta property="og:article:tag" content="{og-article-tag}" />
+	<meta property="og:article:section" content="{itemdata-section}" />
+	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
 	<!-- todo: search -->
 	<!-- todo: rss -->
@@ -63,7 +67,19 @@
             height: 180px;
         }
 
-
+		.readableWidth {
+			max-width: 50em;
+			min-width: 40em;
+		}
+		.readableWidth img {
+			max-width: 45em;
+		}		
+		h1,h2,h3,h4,h5,h6 {
+				font-weight: 300;
+		}
+		a {
+			text-decoration: none;
+		}
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -76,14 +92,16 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
 
     <header class="container-fluid p-3 bg-dark border-bottom">
 
         <div class="container text-white">
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
-                    <img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					<a href="/">
+						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div class="container">
@@ -156,22 +174,34 @@
         </div>
     </header>
 
-    <main class="container py-5">
+    <main class="container bg-light py-4">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>Swagger in ASP.NET Core: Tips & Tricks</h1>
-		</div>  
-	</div>	
-	<div class="row">
-		<div class="col">
-			<img src="/media/100370-feature.png" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			<p>This post contains a few tips and tricks that can help you transform your swagger UI into an interactive documentation. If you don&#8217;t yet know how to install swagger in ASP.NET Core, this post will help you <a href="/get-started-with-swagger-and-asp-net-core/" rel="noopener noreferrer" target="_blank">Get started with Swagger and ASP.NET Core</a>.</p>
+	<div class="row readableWidth mx-auto">
+		<div class="col shadow bg-white rounded">
+			<div class="container">
+				<div class="row">
+					<div class="col pt-3">
+						<h1 class="text-center display-6">Swagger in ASP.NET Core: Tips & Tricks</h1>
+					</div>  
+				</div>	
+				<div class="row">
+					<div class="col pb-2">
+						<div class="text-black-50 text-center">
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 18 months ago / Last modified 18 months ago</small>
+						</div>
+					</div>  
+				</div>	
+
+				
+				<div class="row">
+					<div class="col text-center">
+						<img src="/media/100370-feature.png" alt="Swagger in ASP.NET Core: Tips & Tricks"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p>This post contains a few tips and tricks that can help you transform your swagger UI into an interactive documentation. If you don&#8217;t yet know how to install swagger in ASP.NET Core, this post will help you <a href="/get-started-with-swagger-and-asp-net-core/" rel="noopener noreferrer" target="_blank">Get started with Swagger and ASP.NET Core</a>.</p>
 <p></p>
 <h2>How to change the URL of the Swagger UI</h2>
 <p>By default, the Swagger UI can be found at <code>http://localhost:<port>/swagger</code>. To change the path and set, for example, the Swagger UI at the app&#8217;s root, use:<br />
@@ -320,13 +350,16 @@ public ActionResult&lt;TodoItem&gt; Create(TodoItem item)
 <h2>The end!</h2>
 <p>Any more configurations you think I should include? Drop me a line, there are sure numerous other tips and tricks! </p>
 <blockquote><p>For a Quick Start guide on how to install Swagger visit <a href="/get-started-with-swagger-and-asp-net-core/" rel="noopener noreferrer" target="_blank">Get started with Swagger and ASP.NET Core</a>.</p></blockquote>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+	</div>			
 </div>
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light border-top">
+    <footer class="footer mt-auto py-3 border-top">
         <div class="container mx-auto text-center">
             <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

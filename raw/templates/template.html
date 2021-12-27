@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="{page-plaintext-description}">
+	<meta name="description" content="{itemdata-plaintextdescription}">
 	<meta name="author" content="George Kosmidis">	
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
@@ -14,20 +14,24 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
-	<meta property="og:title" content="{page-title}" />
-	<meta property="og:type" content="{og-type}" /><!-- website | article -->
-	<meta property="og:url" content="https://blog.georgekosmidis.net{page-relative-url}" />
-	<meta property="og:image" content="https://blog.georgekosmidis.net{page-relative-image-url}" />
-	<meta property="og:description " content="{page-plaintext-description}" />
+	<!-- todo favicon -->
+	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+
+	<meta property="og:title" content="{itemdata-title}" />
+	<meta property="og:type" content="{itemdata-type}" /><!-- website | article -->
+	<meta property="og:url" content="https://blog.georgekosmidis.net{itemdata-relativeurl}" />
+	<meta property="og:image" content="https://blog.georgekosmidis.net{itemdata-relativeimageurl}" />
+	<meta property="og:description " content="{itemdata-plaintextdescription}" />
 	
-	{extra-headers}
+	{itemdata-extraheaders}
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="{og-article-published_time}" />
-	<meta property="og:article:modified_time" content="{og-article-modified_time}" />
-	<meta property="og:article:expiration_time" content="{og-article-expiration_time}" />
+	<meta property="og:article:published_time" content="{itemdata-datepublished}" />
+	<meta property="og:article:modified_time" content="{itemdata-datemodified}" />
+	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
-	<meta property="og:article:section" content="{og-article-section}" />
-	<meta property="og:article:tag" content="{og-article-tag}" />
+	<meta property="og:article:section" content="{itemdata-section}" />
+	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
 	<!-- todo: search -->
 	<!-- todo: rss -->
@@ -39,7 +43,7 @@
 		integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous">    
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/default.min.css" 
 		integrity="sha256-CGf39SzxAmEe09Ojoh16/2xTRNleX9wBZcEXVnNqwSM=" crossorigin="anonymous">		
-	<title>{page-title}</title>
+	<title>{itemdata-title}</title>
     <style>
         header {
             background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(themes/default/img/header_bg.png);
@@ -61,7 +65,19 @@
             height: 180px;
         }
 
-
+		.readableWidth {
+			max-width: 50em;
+			min-width: 40em;
+		}
+		.readableWidth img {
+			max-width: 45em;
+		}		
+		h1,h2,h3,h4,h5,h6 {
+				font-weight: 300;
+		}
+		a {
+			text-decoration: none;
+		}
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -74,14 +90,16 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
 
     <header class="container-fluid p-3 bg-dark border-bottom">
 
         <div class="container text-white">
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
-                    <img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					<a href="/">
+						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div class="container">
@@ -154,13 +172,13 @@
         </div>
     </header>
 
-    <main class="container py-5">
+    <main class="container bg-light py-4">
         <div class="row" data-masonry='{"percentPosition": true }'>
-			{page-body}
+			{body}
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light border-top">
+    <footer class="footer mt-auto py-3 border-top">
         <div class="container mx-auto text-center">
             <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

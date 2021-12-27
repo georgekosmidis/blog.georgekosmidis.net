@@ -15,6 +15,10 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
+	<!-- todo favicon -->
+	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+
 	<meta property="og:title" content="Integration Tests in ASP.NET Core API" />
 	<meta property="og:type" content="article" /><!-- website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net/integration-tests-in-asp-net-core-api.html" />
@@ -24,12 +28,12 @@
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="{og-article-published_time}" />
-	<meta property="og:article:modified_time" content="{og-article-modified_time}" />
-	<meta property="og:article:expiration_time" content="{og-article-expiration_time}" />
+	<meta property="og:article:published_time" content="Monday, 2 December 2019" />
+	<meta property="og:article:modified_time" content="Sunday, 26 July 2020" />
+	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
-	<meta property="og:article:section" content="{og-article-section}" />
-	<meta property="og:article:tag" content="{og-article-tag}" />
+	<meta property="og:article:section" content="{itemdata-section}" />
+	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
 	<!-- todo: search -->
 	<!-- todo: rss -->
@@ -63,7 +67,19 @@
             height: 180px;
         }
 
-
+		.readableWidth {
+			max-width: 50em;
+			min-width: 40em;
+		}
+		.readableWidth img {
+			max-width: 45em;
+		}		
+		h1,h2,h3,h4,h5,h6 {
+				font-weight: 300;
+		}
+		a {
+			text-decoration: none;
+		}
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -76,14 +92,16 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
 
     <header class="container-fluid p-3 bg-dark border-bottom">
 
         <div class="container text-white">
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
-                    <img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					<a href="/">
+						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div class="container">
@@ -156,22 +174,34 @@
         </div>
     </header>
 
-    <main class="container py-5">
+    <main class="container bg-light py-4">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>Integration Tests in ASP.NET Core API</h1>
-		</div>  
-	</div>	
-	<div class="row">
-		<div class="col">
-			<img src="/media/100270-feature.png" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			<p>Automated testing is an important part of modern software production as it ensures higher quality and faster delivery, and on the same time it makes testing more affordable. Integration tests, sitting just between Unit Tests and E2E tests, improve test coverage and ensure proper communication between units. In this post, we will explore the possibilities of integration testing of ASP.NET Core by using <a href="https://xunit.net/" rel="noopener noreferrer" target="_blank">xUnit</a> to create a test for multiple endpoints. </p>
+	<div class="row readableWidth mx-auto">
+		<div class="col shadow bg-white rounded">
+			<div class="container">
+				<div class="row">
+					<div class="col pt-3">
+						<h1 class="text-center display-6">Integration Tests in ASP.NET Core API</h1>
+					</div>  
+				</div>	
+				<div class="row">
+					<div class="col pb-2">
+						<div class="text-black-50 text-center">
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 25 months ago / Last modified 17 months ago</small>
+						</div>
+					</div>  
+				</div>	
+
+				
+				<div class="row">
+					<div class="col text-center">
+						<img src="/media/100270-feature.png" alt="Integration Tests in ASP.NET Core API"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p>Automated testing is an important part of modern software production as it ensures higher quality and faster delivery, and on the same time it makes testing more affordable. Integration tests, sitting just between Unit Tests and E2E tests, improve test coverage and ensure proper communication between units. In this post, we will explore the possibilities of integration testing of ASP.NET Core by using <a href="https://xunit.net/" rel="noopener noreferrer" target="_blank">xUnit</a> to create a test for multiple endpoints. </p>
 <p></p>
 <h3>What is Integration Testing</h3>
 <p>During the process of creating a smartphone, the display, the sensors, the lenses, the battery, all of the parts, are produced and tested separately (<em>Unit Testing</em>). When two or more units are ready, they are assembled and <em>Integration Testing</em> is performed. This process is similar to all engineering fields, including of course software engineering where integration tests ensure that an app&#8217;s components function correctly at a level that includes the app&#8217;s supporting infrastructure, such as the database, file system, and network. </p>
@@ -228,13 +258,16 @@ public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
 <li>Complex code, <em>e.g. code with many dependencies</em>s</li>
 <li>Runtime error prone code, <em>e.g. when using reflection</em></li>
 </ul>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+	</div>			
 </div>
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light border-top">
+    <footer class="footer mt-auto py-3 border-top">
         <div class="container mx-auto text-center">
             <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

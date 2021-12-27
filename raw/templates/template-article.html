@@ -1,17 +1,32 @@
 <div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>{article-title}</h1>
-		</div>  
-	</div>	
-	<div class="row">
-		<div class="col">
-			<img src="{article-relative-image-url}" />
+	<div class="row readableWidth mx-auto">
+		<div class="col shadow bg-white rounded">
+			<div class="container">
+				<div class="row">
+					<div class="col pt-3">
+						<h1 class="text-center display-6">{itemdata-title}</h1>
+					</div>  
+				</div>	
+				<div class="row">
+					<div class="col pb-2">
+						<div class="text-black-50 text-center">
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published {itemdata-publishedtext} / Last modified {itemdata-lastmodifiedtext}</small>
+						</div>
+					</div>  
+				</div>	
+
+				
+				<div class="row">
+					<div class="col text-center">
+						<img src="{itemdata-relativeimageurl}" alt="{itemdata-title}"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						{body}
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			{article-content}
-		</div>
-	</div>
+	</div>			
 </div>

@@ -14,6 +14,10 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
+	<!-- todo favicon -->
+	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+
 	<meta property="og:title" content="Privacy Policy" />
 	<meta property="og:type" content="website" /><!-- website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net/privacy.html" />
@@ -22,12 +26,12 @@
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="{og-article-published_time}" />
-	<meta property="og:article:modified_time" content="{og-article-modified_time}" />
-	<meta property="og:article:expiration_time" content="{og-article-expiration_time}" />
+	<meta property="og:article:published_time" content="Thursday, 25 April 2013" />
+	<meta property="og:article:modified_time" content="Saturday, 25 December 2021" />
+	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
-	<meta property="og:article:section" content="{og-article-section}" />
-	<meta property="og:article:tag" content="{og-article-tag}" />
+	<meta property="og:article:section" content="{itemdata-section}" />
+	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
 	<!-- todo: search -->
 	<!-- todo: rss -->
@@ -61,7 +65,19 @@
             height: 180px;
         }
 
-
+		.readableWidth {
+			max-width: 50em;
+			min-width: 40em;
+		}
+		.readableWidth img {
+			max-width: 45em;
+		}		
+		h1,h2,h3,h4,h5,h6 {
+				font-weight: 300;
+		}
+		a {
+			text-decoration: none;
+		}
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -74,14 +90,16 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
 
     <header class="container-fluid p-3 bg-dark border-bottom">
 
         <div class="container text-white">
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
-                    <img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					<a href="/">
+						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div class="container">
@@ -154,7 +172,7 @@
         </div>
     </header>
 
-    <main class="container py-5">
+    <main class="container bg-light py-4">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<h1>Privacy Policy</h1>
 
@@ -366,7 +384,7 @@
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light border-top">
+    <footer class="footer mt-auto py-3 border-top">
         <div class="container mx-auto text-center">
             <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

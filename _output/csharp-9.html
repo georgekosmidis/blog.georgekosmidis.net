@@ -16,6 +16,10 @@ Although there were many more interesting things, C# 9 was left out intentionall
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
+	<!-- todo favicon -->
+	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+
 	<meta property="og:title" content="C# 9.0" />
 	<meta property="og:type" content="article" /><!-- website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net/csharp-9.html" />
@@ -26,12 +30,12 @@ Although there were many more interesting things, C# 9 was left out intentionall
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="{og-article-published_time}" />
-	<meta property="og:article:modified_time" content="{og-article-modified_time}" />
-	<meta property="og:article:expiration_time" content="{og-article-expiration_time}" />
+	<meta property="og:article:published_time" content="Thursday, 11 June 2020" />
+	<meta property="og:article:modified_time" content="Thursday, 11 June 2020" />
+	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
-	<meta property="og:article:section" content="{og-article-section}" />
-	<meta property="og:article:tag" content="{og-article-tag}" />
+	<meta property="og:article:section" content="{itemdata-section}" />
+	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
 	<!-- todo: search -->
 	<!-- todo: rss -->
@@ -65,7 +69,19 @@ Although there were many more interesting things, C# 9 was left out intentionall
             height: 180px;
         }
 
-
+		.readableWidth {
+			max-width: 50em;
+			min-width: 40em;
+		}
+		.readableWidth img {
+			max-width: 45em;
+		}		
+		h1,h2,h3,h4,h5,h6 {
+				font-weight: 300;
+		}
+		a {
+			text-decoration: none;
+		}
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -78,14 +94,16 @@ Although there were many more interesting things, C# 9 was left out intentionall
     </style>
 </head>
 
-<body>
+<body class="bg-light">
 
     <header class="container-fluid p-3 bg-dark border-bottom">
 
         <div class="container text-white">
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
-                    <img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					<a href="/">
+						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div class="container">
@@ -158,22 +176,34 @@ Although there were many more interesting things, C# 9 was left out intentionall
         </div>
     </header>
 
-    <main class="container py-5">
+    <main class="container bg-light py-4">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>C# 9.0</h1>
-		</div>  
-	</div>	
-	<div class="row">
-		<div class="col">
-			<img src="" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			<p>It may be that <a href="https://devblogs.microsoft.com/dotnet/announcing-net-5-preview-4-and-our-journey-to-one-net/" target="_blank" rel="noopener noreferrer">.NET 5</a>, the one and only .NET that will clear the confusion and lead the way for the next years was probably the biggest(?) announcement of Microsoft Build 2020, but there were numerous other equally important; from the general availability of the <a href="https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-now-available/" target="_blank" rel="noopener noreferrer">Blazor WebAssembly</a>, the <a href="https://aka.ms/staticsitegen" target="_blank" rel="noopener noreferrer">Azure Static Web Apps</a> and all the projects related to <a href="https://azure.microsoft.com/en-us/updates/announcing-project-bonsai-and-project-moab/" target="_blank" rel="noopener noreferrer">IoT</a> and <a href="https://mybuild.microsoft.com/sessions/d685eb11-896b-4fce-a293-ca1231d5de7c?source=sessions" target="_blank" rel="noopener noreferrer">Artificial Intelligence</a>, all the way to <a href="https://devblogs.microsoft.com/dotnet/introducing-net-multi-platform-app-ui/" target="_blank" rel="noopener noreferrer">.NET MAUI</a> (short for Multi-platform App UI), <a href="https://devblogs.microsoft.com/visualstudio/introducing-visual-studio-codespaces/" target="_blank" rel="noopener noreferrer">Visual Studio Codespaces</a>,  <a href="https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-5-0-preview-4/" target="_blank" rel="noopener noreferrer">Entity Framework Core 5</a>, <a href="https://devblogs.microsoft.com/aspnet/introducing-project-tye/" target="_blank" rel="noopener noreferrer">Project Tye</a>, <a href="https://aka.ms/QuantumBlog/Build20" target="_blank" rel="noopener noreferrer">Azure Quantum</a> and the <a href="https://devblogs.microsoft.com/cosmosdb/build-2020-announcements/" target="_blank" rel="noopener noreferrer">multiple new features and capabilities</a> of Azure Cosmos DB.</p>
+	<div class="row readableWidth mx-auto">
+		<div class="col shadow bg-white rounded">
+			<div class="container">
+				<div class="row">
+					<div class="col pt-3">
+						<h1 class="text-center display-6">C# 9.0</h1>
+					</div>  
+				</div>	
+				<div class="row">
+					<div class="col pb-2">
+						<div class="text-black-50 text-center">
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 19 months ago / Last modified 19 months ago</small>
+						</div>
+					</div>  
+				</div>	
+
+				
+				<div class="row">
+					<div class="col text-center">
+						<img src="" alt="C# 9.0"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p>It may be that <a href="https://devblogs.microsoft.com/dotnet/announcing-net-5-preview-4-and-our-journey-to-one-net/" target="_blank" rel="noopener noreferrer">.NET 5</a>, the one and only .NET that will clear the confusion and lead the way for the next years was probably the biggest(?) announcement of Microsoft Build 2020, but there were numerous other equally important; from the general availability of the <a href="https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-now-available/" target="_blank" rel="noopener noreferrer">Blazor WebAssembly</a>, the <a href="https://aka.ms/staticsitegen" target="_blank" rel="noopener noreferrer">Azure Static Web Apps</a> and all the projects related to <a href="https://azure.microsoft.com/en-us/updates/announcing-project-bonsai-and-project-moab/" target="_blank" rel="noopener noreferrer">IoT</a> and <a href="https://mybuild.microsoft.com/sessions/d685eb11-896b-4fce-a293-ca1231d5de7c?source=sessions" target="_blank" rel="noopener noreferrer">Artificial Intelligence</a>, all the way to <a href="https://devblogs.microsoft.com/dotnet/introducing-net-multi-platform-app-ui/" target="_blank" rel="noopener noreferrer">.NET MAUI</a> (short for Multi-platform App UI), <a href="https://devblogs.microsoft.com/visualstudio/introducing-visual-studio-codespaces/" target="_blank" rel="noopener noreferrer">Visual Studio Codespaces</a>,  <a href="https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-5-0-preview-4/" target="_blank" rel="noopener noreferrer">Entity Framework Core 5</a>, <a href="https://devblogs.microsoft.com/aspnet/introducing-project-tye/" target="_blank" rel="noopener noreferrer">Project Tye</a>, <a href="https://aka.ms/QuantumBlog/Build20" target="_blank" rel="noopener noreferrer">Azure Quantum</a> and the <a href="https://devblogs.microsoft.com/cosmosdb/build-2020-announcements/" target="_blank" rel="noopener noreferrer">multiple new features and capabilities</a> of Azure Cosmos DB.</p>
 <p>Although there were many more interesting things, C# 9 was left out intentionally because in this post we will deal with some of its exciting new features!</p>
 <p></p>
 <h2><code>init</code> accessor</h2>
@@ -451,13 +481,16 @@ var experienceLevel =
 <li><a href="https://github.com/dotnet/csharplang/blob/master/proposals/top-level-statements.md" target="_blank" rel="noopener noreferrer">Top-level statements</a></li>
 </ul>
 <p>I didn&#8217;t write this list on my own, I took it from the <a href="https://github.com/dotnet/roslyn/blob/master/docs/Language%20Feature%20Status.md" rel="noopener noreferrer" target="_blank">Language Feature Status</a>! </p>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+	</div>			
 </div>
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light border-top">
+    <footer class="footer mt-auto py-3 border-top">
         <div class="container mx-auto text-center">
             <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

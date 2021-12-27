@@ -15,6 +15,10 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
+	<!-- todo favicon -->
+	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+
 	<meta property="og:title" content="C# 10 – What’s new!" />
 	<meta property="og:type" content="article" /><!-- website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net/csharp-10-whats-new.html" />
@@ -24,12 +28,12 @@
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="{og-article-published_time}" />
-	<meta property="og:article:modified_time" content="{og-article-modified_time}" />
-	<meta property="og:article:expiration_time" content="{og-article-expiration_time}" />
+	<meta property="og:article:published_time" content="Sunday, 21 November 2021" />
+	<meta property="og:article:modified_time" content="Sunday, 21 November 2021" />
+	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
-	<meta property="og:article:section" content="{og-article-section}" />
-	<meta property="og:article:tag" content="{og-article-tag}" />
+	<meta property="og:article:section" content="{itemdata-section}" />
+	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
 	<!-- todo: search -->
 	<!-- todo: rss -->
@@ -63,7 +67,19 @@
             height: 180px;
         }
 
-
+		.readableWidth {
+			max-width: 50em;
+			min-width: 40em;
+		}
+		.readableWidth img {
+			max-width: 45em;
+		}		
+		h1,h2,h3,h4,h5,h6 {
+				font-weight: 300;
+		}
+		a {
+			text-decoration: none;
+		}
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -76,14 +92,16 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
 
     <header class="container-fluid p-3 bg-dark border-bottom">
 
         <div class="container text-white">
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
-                    <img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					<a href="/">
+						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div class="container">
@@ -156,22 +174,34 @@
         </div>
     </header>
 
-    <main class="container py-5">
+    <main class="container bg-light py-4">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>C# 10 – What’s new!</h1>
-		</div>  
-	</div>	
-	<div class="row">
-		<div class="col">
-			<img src="/media/100470-feature.png" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			<p>C# 10 is here with new and exciting feature with an opt-in approach. In this guide we will go through some of the most important changes that will make your code cleaner, smaller, faster and will hopefully convince you to upgrade now!</p>
+	<div class="row readableWidth mx-auto">
+		<div class="col shadow bg-white rounded">
+			<div class="container">
+				<div class="row">
+					<div class="col pt-3">
+						<h1 class="text-center display-6">C# 10 – What’s new!</h1>
+					</div>  
+				</div>	
+				<div class="row">
+					<div class="col pb-2">
+						<div class="text-black-50 text-center">
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 1 month ago / Last modified 1 month ago</small>
+						</div>
+					</div>  
+				</div>	
+
+				
+				<div class="row">
+					<div class="col text-center">
+						<img src="/media/100470-feature.png" alt="C# 10 – What’s new!"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p>C# 10 is here with new and exciting feature with an opt-in approach. In this guide we will go through some of the most important changes that will make your code cleaner, smaller, faster and will hopefully convince you to upgrade now!</p>
 <p></p>
 <p>Microsoft announce C# 10 a few days ago, on November 8th 2021, as part of .NET 6 and Visual Studio 2022 general availability. It cannot be installed on each own and it requires more than .NET 6 (also VS2022) because of the conditional, opt-in, features that were added. If you are not convinced yet by the fact that .NET 6 is the fastest ever .NET which massively lowers hosting costs, let&#8217;s take a closer look in C# 10 and you might change your mind!</p>
 <h2>Global and implicit usings</h2>
@@ -329,13 +359,16 @@ if (obj is Person { Address.City: "Munich" }) // Extended property pattern
 <blockquote><p>Find out more about extended property patterns in the <a href="https://docs.microsoft.com/dotnet/csharp/language-reference/operators/patterns#property-pattern" rel="noopener" target="_blank">pattern matching article</a>.</p></blockquote>
 <h2>Not the end!</h2>
 <p>Although these were by far not all the changes C# 10 brings, they were the most important ones. Install <a href="https://dotnet.microsoft.com/download/dotnet/6.0" rel="noopener" target="_blank">.NET 6</a> or <a href="https://visualstudio.microsoft.com/vs/" rel="noopener" target="_blank">Visual Studio 2022</a>, and comment out your favorite new feature!</p>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+	</div>			
 </div>
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light border-top">
+    <footer class="footer mt-auto py-3 border-top">
         <div class="container mx-auto text-center">
             <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

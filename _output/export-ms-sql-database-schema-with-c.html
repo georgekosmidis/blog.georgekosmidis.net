@@ -15,6 +15,10 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
+	<!-- todo favicon -->
+	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+
 	<meta property="og:title" content="Export MS SQL Database schema with C#" />
 	<meta property="og:type" content="article" /><!-- website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net/export-ms-sql-database-schema-with-c.html" />
@@ -24,12 +28,12 @@
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="{og-article-published_time}" />
-	<meta property="og:article:modified_time" content="{og-article-modified_time}" />
-	<meta property="og:article:expiration_time" content="{og-article-expiration_time}" />
+	<meta property="og:article:published_time" content="Monday, 18 November 2013" />
+	<meta property="og:article:modified_time" content="Sunday, 26 December 2021" />
+	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
-	<meta property="og:article:section" content="{og-article-section}" />
-	<meta property="og:article:tag" content="{og-article-tag}" />
+	<meta property="og:article:section" content="{itemdata-section}" />
+	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
 	<!-- todo: search -->
 	<!-- todo: rss -->
@@ -63,7 +67,19 @@
             height: 180px;
         }
 
-
+		.readableWidth {
+			max-width: 50em;
+			min-width: 40em;
+		}
+		.readableWidth img {
+			max-width: 45em;
+		}		
+		h1,h2,h3,h4,h5,h6 {
+				font-weight: 300;
+		}
+		a {
+			text-decoration: none;
+		}
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -76,14 +92,16 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
 
     <header class="container-fluid p-3 bg-dark border-bottom">
 
         <div class="container text-white">
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
-                    <img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					<a href="/">
+						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div class="container">
@@ -156,22 +174,34 @@
         </div>
     </header>
 
-    <main class="container py-5">
+    <main class="container bg-light py-4">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>Export MS SQL Database schema with C#</h1>
-		</div>  
-	</div>	
-	<div class="row">
-		<div class="col">
-			<img src="" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			<p>A few days ago I was searching for a way to export MS SQL schema of <b>all</b> databases of a server for backup and migration purposes. Although I found some tools, what I needed was a way to get stored procedures, functions, views, triggers and everything even if it was <b>encrypted</b>.</p>
+	<div class="row readableWidth mx-auto">
+		<div class="col shadow bg-white rounded">
+			<div class="container">
+				<div class="row">
+					<div class="col pt-3">
+						<h1 class="text-center display-6">Export MS SQL Database schema with C#</h1>
+					</div>  
+				</div>	
+				<div class="row">
+					<div class="col pb-2">
+						<div class="text-black-50 text-center">
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 99 months ago / Last modified 19 hours ago</small>
+						</div>
+					</div>  
+				</div>	
+
+				
+				<div class="row">
+					<div class="col text-center">
+						<img src="" alt="Export MS SQL Database schema with C#"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p>A few days ago I was searching for a way to export MS SQL schema of <b>all</b> databases of a server for backup and migration purposes. Although I found some tools, what I needed was a way to get stored procedures, functions, views, triggers and everything even if it was <b>encrypted</b>.</p>
 <p></p>
 <p>Since I couldn&#8217;t find a way to automate this (<i>e.g. run it every night to backup schema of my server</i>),  I thought it would be a nice weekend project.</p>
 <blockquote><p>You can read more about it, or download project from <a href="https://github.com/georgekosmidis/mssql-schema-dump" target="_blank" rel="noopener noreferrer">https://github.com/georgekosmidis/mssql-schema-dump</a>!</p></blockquote>
@@ -202,13 +232,16 @@ cmd.CommandText += "exec sp_configure 'remote admin connections', 0" + Environme
 cmd.CommandText += "RECONFIGURE WITH OVERRIDE" + Environment.NewLine;
 cmd.ExecuteNonQuery();</code></pre></p>
 <p>That was it! The full working code that retrieves any encrypted object (as far as I know), along with the entire solution is on github: <a href="https://github.com/georgekosmidis/mssql-schema-dump" target="_blank" rel="noopener noreferrer">https://github.com/georgekosmidis/mssql-schema-dump</a></p>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+	</div>			
 </div>
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light border-top">
+    <footer class="footer mt-auto py-3 border-top">
         <div class="container mx-auto text-center">
             <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

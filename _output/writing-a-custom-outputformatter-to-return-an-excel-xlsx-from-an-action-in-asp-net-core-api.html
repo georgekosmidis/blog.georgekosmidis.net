@@ -15,6 +15,10 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
+	<!-- todo favicon -->
+	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+
 	<meta property="og:title" content="Writing a custom OutputFormatter to return an Excel (.xlsx) from an action in ASP.NET Core API" />
 	<meta property="og:type" content="article" /><!-- website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net/writing-a-custom-outputformatter-to-return-an-excel-xlsx-from-an-action-in-asp-net-core-api.html" />
@@ -24,12 +28,12 @@
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="{og-article-published_time}" />
-	<meta property="og:article:modified_time" content="{og-article-modified_time}" />
-	<meta property="og:article:expiration_time" content="{og-article-expiration_time}" />
+	<meta property="og:article:published_time" content="Wednesday, 5 September 2018" />
+	<meta property="og:article:modified_time" content="Sunday, 26 July 2020" />
+	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
-	<meta property="og:article:section" content="{og-article-section}" />
-	<meta property="og:article:tag" content="{og-article-tag}" />
+	<meta property="og:article:section" content="{itemdata-section}" />
+	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
 	<!-- todo: search -->
 	<!-- todo: rss -->
@@ -63,7 +67,19 @@
             height: 180px;
         }
 
-
+		.readableWidth {
+			max-width: 50em;
+			min-width: 40em;
+		}
+		.readableWidth img {
+			max-width: 45em;
+		}		
+		h1,h2,h3,h4,h5,h6 {
+				font-weight: 300;
+		}
+		a {
+			text-decoration: none;
+		}
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -76,14 +92,16 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
 
     <header class="container-fluid p-3 bg-dark border-bottom">
 
         <div class="container text-white">
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
-                    <img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					<a href="/">
+						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" />
+					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div class="container">
@@ -156,22 +174,34 @@
         </div>
     </header>
 
-    <main class="container py-5">
+    <main class="container bg-light py-4">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>Writing a custom OutputFormatter to return an Excel (.xlsx) from an action in ASP.NET Core API</h1>
-		</div>  
-	</div>	
-	<div class="row">
-		<div class="col">
-			<img src="/media/100210-feature.png" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			<p>As most of us, I already know my next week work schedule. It includes writing some actions in respond to a requirement for excel exports. It&#8217;s nothing new and its&#8217;s relatively easy with libraries like <a href="https://github.com/dotnetcore/NPOI" target="_blank" rel="noopener noreferrer">NPOI</a>: you just create your excel on the fly and return a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.fileresult?view=aspnetcore-2.1" target="_blank" rel="noopener noreferrer">FileResult</a>.</p>
+	<div class="row readableWidth mx-auto">
+		<div class="col shadow bg-white rounded">
+			<div class="container">
+				<div class="row">
+					<div class="col pt-3">
+						<h1 class="text-center display-6">Writing a custom OutputFormatter to return an Excel (.xlsx) from an action in ASP.NET Core API</h1>
+					</div>  
+				</div>	
+				<div class="row">
+					<div class="col pb-2">
+						<div class="text-black-50 text-center">
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 40 months ago / Last modified 17 months ago</small>
+						</div>
+					</div>  
+				</div>	
+
+				
+				<div class="row">
+					<div class="col text-center">
+						<img src="/media/100210-feature.png" alt="Writing a custom OutputFormatter to return an Excel (.xlsx) from an action in ASP.NET Core API"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p>As most of us, I already know my next week work schedule. It includes writing some actions in respond to a requirement for excel exports. It&#8217;s nothing new and its&#8217;s relatively easy with libraries like <a href="https://github.com/dotnetcore/NPOI" target="_blank" rel="noopener noreferrer">NPOI</a>: you just create your excel on the fly and return a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.fileresult?view=aspnetcore-2.1" target="_blank" rel="noopener noreferrer">FileResult</a>.</p>
 <p></p>
 <blockquote><p>Read how to create an excel on the fly inside your action here: <a href="http://www.talkingdotnet.com/import-export-excel-asp-net-core-2-razor-pages/" target="_blank" rel="noopener noreferrer">http://www.talkingdotnet.com/import-export-excel-asp-net-core-2-razor-pages/</a></p></blockquote>
 <p>And that could be the end of story for that requirement, but while walking home for the weekend I remembered about the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.formatters.xmlserializeroutputformatter?view=aspnetcore-2.1" target="_blank" rel="noopener noreferrer">XmlSerializerOutputFormatter</a> I read on Microsoft Docs. The idea was to write my own <code>ExcelOutputFormatter</code> to respond to client requests with an Excel instead of a JSON.</p>
@@ -396,13 +426,16 @@ namespace MyCodePad.Formatters
     options.OutputFormatters.Add(new ExcelOutputFormatter());
 });</code></pre></p>
 <blockquote><p>There are two additional ways to either <a href="https://docs.microsoft.com/en-us/aspnet/core/web-api/advanced/formatting?view=aspnetcore-2.1#forcing-a-particular-format" target="_blank" rel="noopener noreferrer">force a particular response format</a> in an action, or by allowing the <a href="https://docs.microsoft.com/en-us/aspnet/core/web-api/advanced/formatting?view=aspnetcore-2.1#response-format-url-mappings" target="_blank" rel="noopener noreferrer">client to request a particular format from the URL</a>, both in Microsoft Docs.</p></blockquote>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+	</div>			
 </div>
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light border-top">
+    <footer class="footer mt-auto py-3 border-top">
         <div class="container mx-auto text-center">
             <a href="https://twitter.com/georgekosmidis" target="_blank" class="btn">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
