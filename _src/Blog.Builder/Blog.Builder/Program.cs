@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
+using SixLabors.ImageSharp;
 
 //set paths
 var ROOT = "..\\..\\..\\..\\..\\..\\raw\\";
@@ -73,6 +74,12 @@ foreach (var directory in articleDirectories)
     {
         //TODO: create a smaller version of the feature image for the index page
         Helpers.Copy(Path.Combine(directory, "media"), Path.Combine(OUTPUT, "media"));
+        foreach (var file in Directory.GetFiles(Path.Combine(directory, "media")))
+        {
+            var ext = Path.GetExtension(file);
+            var name = Path.GetFileNameWithoutExtension(file);
+            Helpers.ResizeImage(file, Path.Combine(OUTPUT, "media", name + "-small" + ext), new Size(500, 10000));//arbitrary big number
+        }
     }
 
     //article

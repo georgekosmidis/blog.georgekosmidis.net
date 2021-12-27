@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 internal static class Helpers
 {
@@ -66,6 +68,7 @@ internal static class Helpers
                             .Replace("{itemdata-DatePublished}", itemData.DatePublished?.ToString("o"), StringComparison.InvariantCultureIgnoreCase)
                             .Replace("{itemdata-dateexpires}", itemData.DateModified?.AddYears(100).ToString("o"), StringComparison.InvariantCultureIgnoreCase)
                             .Replace("{itemdata-RelativeImageUrl}", itemData.RelativeImageUrl, StringComparison.InvariantCultureIgnoreCase)
+                            .Replace("{itemdata-RelativeImageUrl-small}", itemData.RelativeImageUrlSmall, StringComparison.InvariantCultureIgnoreCase)
                             .Replace("{itemdata-Tags}", string.Join(", ", itemData.Tags ?? throw new NullReferenceException(nameof(itemData.Tags))), StringComparison.InvariantCultureIgnoreCase)
                             .Replace("{itemdata-ExtraHeaders}", string.Join(' ', itemData.ExtraHeaders), StringComparison.InvariantCultureIgnoreCase)
                             .Replace("{page-navigation}", paging)
@@ -159,6 +162,16 @@ internal static class Helpers
         return sb.ToString().Trim();
     }
 
+    public static void ResizeImage(string inputPath, string outputPath, Size size)
+    {
+        using var image = Image.Load(inputPath);
+        image.Mutate(x => x.Resize(new ResizeOptions
+        {
+            Mode = ResizeMode.Max,
+            Size = size
+        }));
+        image.Save(outputPath);
+    }
 
     //TODO: compress output
 

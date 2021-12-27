@@ -79,6 +79,18 @@ internal record class ItemData
 
     public string? RelativeImageUrl { get; init; }
 
+    public string? RelativeImageUrlSmall
+    {
+        get
+        {
+            if (RelativeImageUrl is null)
+            {
+                return null;
+            }
+            return Path.Combine(Path.GetDirectoryName(RelativeImageUrl) ?? String.Empty, Path.GetFileNameWithoutExtension(RelativeImageUrl) + "-small" + Path.GetExtension(RelativeImageUrl));
+        }
+    }
+
     public List<string>? Tags { get; init; }
 
     public List<string> ExtraHeaders { get; init; } = new List<string>();
