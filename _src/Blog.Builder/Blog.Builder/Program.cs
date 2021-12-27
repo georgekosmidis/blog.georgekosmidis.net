@@ -69,7 +69,7 @@ foreach (var directory in articleDirectories)
     {
         bodyForIndexPage.Append(
             Helpers.BuildHtml(cardArticleTemplate,
-                                articleJsonTyped.Description ?? throw new NullReferenceException(nameof(articleJsonTyped.Description)), 
+                                articleJsonTyped.Description ?? throw new NullReferenceException(nameof(articleJsonTyped.Description)),
                                 articleJsonTyped)
         );
     }

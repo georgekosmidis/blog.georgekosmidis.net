@@ -5,8 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="We all know the traditional try-catch blocks and -used correctly- there is of course nothing wrong with them! But even though all is good with that, ASP.NET Core has an even better way of doing things, two ways actually, that can make our code cleaner and easier to read! By following the &#8220;Middleware&#8221; approach, we extract all our custom exception handling code from within the actions and centralizing it in one place thus, cleaner code!
-In this post we will explore these three cases, and starting from the simple try-catch block we will refactor towards a custom error handling middleware.
-">
+In this post we will explore these three cases, and starting from the simple try-catch block we will refactor towards a custom error handling middleware.">
 	<meta name="author" content="George Kosmidis">	
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
@@ -16,31 +15,28 @@ In this post we will explore these three cases, and starting from the simple try
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
-	<!-- todo favicon -->
+	<!-- todo: favicon -->
 	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
 	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
 
 	<meta property="og:title" content="Error handling in ASP.NET Core Web API" />
 	<meta property="og:type" content="article" /><!-- website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net/error-handling-in-asp-net-core-web-api.html" />
-	<meta property="og:image" content="https://blog.georgekosmidis.net" />
+	
 	<meta property="og:description " content="We all know the traditional try-catch blocks and -used correctly- there is of course nothing wrong with them! But even though all is good with that, ASP.NET Core has an even better way of doing things, two ways actually, that can make our code cleaner and easier to read! By following the &#8220;Middleware&#8221; approach, we extract all our custom exception handling code from within the actions and centralizing it in one place thus, cleaner code!
-In this post we will explore these three cases, and starting from the simple try-catch block we will refactor towards a custom error handling middleware.
-" />
+In this post we will explore these three cases, and starting from the simple try-catch block we will refactor towards a custom error handling middleware." />
 	
 	
-	<!-- todo: article -->
+	
 	<meta property="og:article:published_time" content="2019-06-26T15:09:39.0000000+02:00" />
 	<meta property="og:article:modified_time" content="2019-08-08T18:08:18.0000000+02:00" />
-	<meta property="og:article:expiration_time" content="2121-12-27T13:51:39.3444688+01:00" />
+	<meta property="og:article:expiration_time" content="2119-08-08T18:08:18.0000000+02:00" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
+
 	<!-- todo: search -->
-	<!-- todo: rss -->
-	<!-- todo: sitemap -->
-	<!-- todo: favicon -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css" 
@@ -162,6 +158,10 @@ In this post we will explore these three cases, and starting from the simple try
                                         </g>
                                     </svg>
                                 </a>
+								<a href="https://www.facebook.com/groups/msdevtech" target="_blank"
+								class="btn">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img"><path d="M353.701,0H55.087C24.665,0,0.002,24.662,0.002,55.085v298.616c0,30.423,24.662,55.085,55.085,55.085 h147.275l0.251-146.078h-37.951c-4.932,0-8.935-3.988-8.954-8.92l-0.182-47.087c-0.019-4.959,3.996-8.989,8.955-8.989h37.882 v-45.498c0-52.8,32.247-81.55,79.348-81.55h38.65c4.945,0,8.955,4.009,8.955,8.955v39.704c0,4.944-4.007,8.952-8.95,8.955 l-23.719,0.011c-25.615,0-30.575,12.172-30.575,30.035v39.389h56.285c5.363,0,9.524,4.683,8.892,10.009l-5.581,47.087 c-0.534,4.506-4.355,7.901-8.892,7.901h-50.453l-0.251,146.078h87.631c30.422,0,55.084-24.662,55.084-55.084V55.085 C408.786,24.662,384.124,0,353.701,0z"/></svg>	
+								</a>
                                 <a href="https://www.meetup.com/munich-dotnet-meetup/" target="_blank"
                                     class="btn">
                                     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -181,7 +181,8 @@ In this post we will explore these three cases, and starting from the simple try
 
     <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
-			<div class="container">
+			<!-- todo: side column -->
+<div class="container">
 	<div class="row readableWidth mx-auto">
 		<div class="col shadow bg-white rounded">
 			<div class="container">
@@ -193,15 +194,11 @@ In this post we will explore these three cases, and starting from the simple try
 				<div class="row">
 					<div class="col pb-2">
 						<div class="text-black-50 text-center">
-						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 2.5 years ago , modified 2.4 years ago </small>
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 2.5 years ago, modified 2.4 years ago</small>
 						</div>
 					</div>  
-				</div>					
-				<div class="row">
-					<div class="col text-center">
-						<img src="" alt="Error handling in ASP.NET Core Web API"/>
-					</div>
-				</div>
+				</div>	
+				
 				<div class="row">
 					<div class="col pt-3 pb-6">
 						<p>We all know the traditional try-catch blocks and -used correctly- there is of course nothing wrong with them! But even though all is good with that, ASP.NET Core has an even better way of doing things, two ways actually, that can make our code cleaner and easier to read! By following the <em>&#8220;Middleware&#8221;</em> approach, we extract all our custom exception handling code from within the actions and centralizing it in one place thus, cleaner code!</p>
@@ -351,6 +348,10 @@ Let&#8217;s check it:</p>
                     </g>
                 </svg>
             </a>
+			<a href="https://www.facebook.com/groups/msdevtech" target="_blank"
+			class="btn">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img"><path d="M353.701,0H55.087C24.665,0,0.002,24.662,0.002,55.085v298.616c0,30.423,24.662,55.085,55.085,55.085 h147.275l0.251-146.078h-37.951c-4.932,0-8.935-3.988-8.954-8.92l-0.182-47.087c-0.019-4.959,3.996-8.989,8.955-8.989h37.882 v-45.498c0-52.8,32.247-81.55,79.348-81.55h38.65c4.945,0,8.955,4.009,8.955,8.955v39.704c0,4.944-4.007,8.952-8.95,8.955 l-23.719,0.011c-25.615,0-30.575,12.172-30.575,30.035v39.389h56.285c5.363,0,9.524,4.683,8.892,10.009l-5.581,47.087 c-0.534,4.506-4.355,7.901-8.892,7.901h-50.453l-0.251,146.078h87.631c30.422,0,55.084-24.662,55.084-55.084V55.085 C408.786,24.662,384.124,0,353.701,0z"/></svg>	
+			</a>			
             <a href="https://www.meetup.com/munich-dotnet-meetup/" target="_blank"
                 class="btn btn-outline-light">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

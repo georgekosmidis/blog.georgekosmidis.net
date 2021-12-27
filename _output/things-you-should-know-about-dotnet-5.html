@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="I know many of you are waiting for an LTS to jump in and upgrade your systems, but I think this time things are a bit different! First of all, the next LTS will be .NET 6 which is planned for November 2021, and secondly .NET 5 is already published two months ago as RC1. Actually, two release candidates of .NET 5 were published and tested by many before the actual release:
-">
+	<meta name="description" content="I know many of you are waiting for an LTS to jump in and upgrade your systems, but I think this time things are a bit different! First of all, the next LTS will be .NET 6 which is planned for November 2021, and secondly .NET 5 is already published two months ago as RC1. Actually, two release candidates of .NET 5 were published and tested by many before the actual release:">
 	<meta name="author" content="George Kosmidis">	
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
@@ -15,30 +14,29 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
-	<!-- todo favicon -->
+	<!-- todo: favicon -->
 	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
 	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
 
 	<meta property="og:title" content="Things you should know about .NET 5" />
 	<meta property="og:type" content="article" /><!-- website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net/things-you-should-know-about-dotnet-5.html" />
+	
 	<meta property="og:image" content="https://blog.georgekosmidis.net/media/100430-feature.png" />
-	<meta property="og:description " content="I know many of you are waiting for an LTS to jump in and upgrade your systems, but I think this time things are a bit different! First of all, the next LTS will be .NET 6 which is planned for November 2021, and secondly .NET 5 is already published two months ago as RC1. Actually, two release candidates of .NET 5 were published and tested by many before the actual release:
-" />
+	
+	<meta property="og:description " content="I know many of you are waiting for an LTS to jump in and upgrade your systems, but I think this time things are a bit different! First of all, the next LTS will be .NET 6 which is planned for November 2021, and secondly .NET 5 is already published two months ago as RC1. Actually, two release candidates of .NET 5 were published and tested by many before the actual release:" />
 	
 	
-	<!-- todo: article -->
+	
 	<meta property="og:article:published_time" content="2020-11-17T08:28:54.0000000+01:00" />
 	<meta property="og:article:modified_time" content="2020-11-17T09:51:27.0000000+01:00" />
-	<meta property="og:article:expiration_time" content="2121-12-27T13:51:38.7747820+01:00" />
+	<meta property="og:article:expiration_time" content="2120-11-17T09:51:27.0000000+01:00" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
 	
+
 	<!-- todo: search -->
-	<!-- todo: rss -->
-	<!-- todo: sitemap -->
-	<!-- todo: favicon -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css" 
@@ -160,6 +158,10 @@
                                         </g>
                                     </svg>
                                 </a>
+								<a href="https://www.facebook.com/groups/msdevtech" target="_blank"
+								class="btn">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img"><path d="M353.701,0H55.087C24.665,0,0.002,24.662,0.002,55.085v298.616c0,30.423,24.662,55.085,55.085,55.085 h147.275l0.251-146.078h-37.951c-4.932,0-8.935-3.988-8.954-8.92l-0.182-47.087c-0.019-4.959,3.996-8.989,8.955-8.989h37.882 v-45.498c0-52.8,32.247-81.55,79.348-81.55h38.65c4.945,0,8.955,4.009,8.955,8.955v39.704c0,4.944-4.007,8.952-8.95,8.955 l-23.719,0.011c-25.615,0-30.575,12.172-30.575,30.035v39.389h56.285c5.363,0,9.524,4.683,8.892,10.009l-5.581,47.087 c-0.534,4.506-4.355,7.901-8.892,7.901h-50.453l-0.251,146.078h87.631c30.422,0,55.084-24.662,55.084-55.084V55.085 C408.786,24.662,384.124,0,353.701,0z"/></svg>	
+								</a>
                                 <a href="https://www.meetup.com/munich-dotnet-meetup/" target="_blank"
                                     class="btn">
                                     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -179,7 +181,8 @@
 
     <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
-			<div class="container">
+			<!-- todo: side column -->
+<div class="container">
 	<div class="row readableWidth mx-auto">
 		<div class="col shadow bg-white rounded">
 			<div class="container">
@@ -191,15 +194,17 @@
 				<div class="row">
 					<div class="col pb-2">
 						<div class="text-black-50 text-center">
-						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 1.1 years ago </small>
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 1.1 years ago</small>
 						</div>
 					</div>  
-				</div>					
+				</div>	
+				
 				<div class="row">
 					<div class="col text-center">
 						<img src="/media/100430-feature.png" alt="Things you should know about .NET 5"/>
 					</div>
 				</div>
+				
 				<div class="row">
 					<div class="col pt-3 pb-6">
 						<p>I know many of you are waiting for an LTS to jump in and upgrade your systems, but I think this time things are a bit different! First of all, the next LTS will be .NET 6 which is planned for November 2021, and secondly .NET 5 is already published two months ago as RC1. Actually, two release candidates of .NET 5 were published and tested by many before the actual release:<br />
@@ -342,6 +347,10 @@ If you want to share code between .NET Framework and .NET 5 (or .NET Core) you s
                     </g>
                 </svg>
             </a>
+			<a href="https://www.facebook.com/groups/msdevtech" target="_blank"
+			class="btn">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img"><path d="M353.701,0H55.087C24.665,0,0.002,24.662,0.002,55.085v298.616c0,30.423,24.662,55.085,55.085,55.085 h147.275l0.251-146.078h-37.951c-4.932,0-8.935-3.988-8.954-8.92l-0.182-47.087c-0.019-4.959,3.996-8.989,8.955-8.989h37.882 v-45.498c0-52.8,32.247-81.55,79.348-81.55h38.65c4.945,0,8.955,4.009,8.955,8.955v39.704c0,4.944-4.007,8.952-8.95,8.955 l-23.719,0.011c-25.615,0-30.575,12.172-30.575,30.035v39.389h56.285c5.363,0,9.524,4.683,8.892,10.009l-5.581,47.087 c-0.534,4.506-4.355,7.901-8.892,7.901h-50.453l-0.251,146.078h87.631c30.422,0,55.084-24.662,55.084-55.084V55.085 C408.786,24.662,384.124,0,353.701,0z"/></svg>	
+			</a>			
             <a href="https://www.meetup.com/munich-dotnet-meetup/" target="_blank"
                 class="btn btn-outline-light">
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

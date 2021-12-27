@@ -1,3 +1,4 @@
+<!-- todo: side column -->
 <div class="container">
 	<div class="row readableWidth mx-auto">
 		<div class="col shadow bg-white rounded">
@@ -13,12 +14,14 @@
 						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / {itemdata-DatePublishedAndModificationText}</small>
 						</div>
 					</div>  
-				</div>					
+				</div>	
+				{start-imageexists}
 				<div class="row">
 					<div class="col text-center">
 						<img src="{itemdata-relativeimageurl}" alt="{itemdata-title}"/>
 					</div>
 				</div>
+				{end-imageexists}
 				<div class="row">
 					<div class="col pt-3 pb-6">
 						{body}

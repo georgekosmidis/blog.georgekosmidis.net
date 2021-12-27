@@ -15,7 +15,8 @@ internal record class ItemData
     {
         get
         {
-            return Regex.Replace(Description ?? throw new ArgumentNullException(nameof(Description)), "<.*?>", String.Empty);
+            var result = Regex.Replace(Description ?? throw new ArgumentNullException(nameof(Description)), "<.*?>", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
+            return result.Trim();
         }
     }
 
