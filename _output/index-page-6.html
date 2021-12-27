@@ -2,10 +2,12 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 
 <head>
+	<base href="http://blog/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Microsoft MVP | Cloud Solutions Architect | .NET Software Engineer | Organizer of Munich .NET Meetup | Speaker">
 	<meta name="author" content="George Kosmidis">	
+	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-e28efe08-45ef-4aee-a2a1-809ce8055092'">
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
 	<link rel="me" type="text/html" href="https://www.youtube.com/c/GeorgeKosmidis" />
@@ -66,7 +68,7 @@
 			max-width: 45em;
 		}		
 		h1,h2,h3,h4,h5,h6 {
-				font-weight: 300;
+			font-weight: 300;
 		}
 		a {
 			text-decoration: none;
@@ -176,7 +178,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">SQL Server: Using RANK to display PERCENT (percentage of relevance)</h3>
+			<h2 class="card-title">SQL Server: Using RANK to display PERCENT (percentage of relevance)</h2>
 			<p class="card-text"><p>So you end up with a query l that returns what you searched for and with SQL Server Full Text Search engine, and with it the RANK column! How do you end up with a percentage of relevance for your users to enjoy?</p>
 <p></p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1 day ago</small></div>
@@ -187,7 +189,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">C#: Getting a user IP behind a proxy (HTTP_X_FORWARDED_FOR)</h3>
+			<h2 class="card-title">C#: Getting a user IP behind a proxy (HTTP_X_FORWARDED_FOR)</h2>
 			<p class="card-text"><p>Did you know that HTTP_X_FORWARDED_FOR can return multiple IPs? According to <a href="http://en.wikipedia.org/wiki/X-Forwarded-For" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/X-Forwarded-For</a> the format is:</p>
 <pre>X-Forwarded-For: client, proxy1, proxy2
 </pre>
@@ -200,7 +202,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">SQL Server: How to simulate DROP TRIGGER IF EXISTS</h3>
+			<h2 class="card-title">SQL Server: How to simulate DROP TRIGGER IF EXISTS</h2>
 			<p class="card-text"><p>I usually store triggers, store procedures, functions, queries etc in sql files in an SVN repository. I then use a simple app I wrote, that just opens each file and executes it. The problem of course is CREATE and ALTER. I can&#8217;t use CREATE because the same trigger might already be there. On the other hand I couldn&#8217;t use ALTER because some triggers might be new.</p>
 <p></p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1 day ago</small></div>
@@ -213,7 +215,7 @@
 		<img src="/media/100020-feature.png" class="bd-placeholder-img card-img-top" alt="SQL Server: Using .NET assemblies (SQLCLR)" />
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">SQL Server: Using .NET assemblies (SQLCLR)</h3>
+			<h2 class="card-title">SQL Server: Using .NET assemblies (SQLCLR)</h2>
 			<p class="card-text"><p>SQLCLR is a technology for hosting of the .NET CLR engine inside SQL Server. Adding an assembly can be a lifesaver sometimes, since the limitations of coding in TSQL stored procedures, triggers or functions are a lot and profound.<br />
 </p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1.4 years ago</small></div>
@@ -224,7 +226,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">SQL Server: Weird behavior with CONTAINSTABLE, ISABOUT and weighted terms</h3>
+			<h2 class="card-title">SQL Server: Weird behavior with CONTAINSTABLE, ISABOUT and weighted terms</h2>
 			<p class="card-text"><p>I came across the following weird behavior in an ISABOUT query in SQL SERVER, that involves the weight keyword and the final rank of the results. I want to describe this behavior here, just in case someone has a good explanation for it!</p>
 <p></p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1 day ago</small></div>
@@ -304,19 +306,26 @@
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
 		crossorigin="anonymous"
+		nonce="e28efe08-45ef-4aee-a2a1-809ce8055092"
         async></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"
+		nonce="e28efe08-45ef-4aee-a2a1-809ce8055092"
+		></script>
 	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" 
 		integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" 
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"
+		nonce="e28efe08-45ef-4aee-a2a1-809ce8055092"
+		></script>
 	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
 		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
-		crossorigin="anonymous"></script>
-	<script>hljs.highlightAll();</script>			
+		crossorigin="anonymous"
+		nonce="e28efe08-45ef-4aee-a2a1-809ce8055092"
+		></script>
+	<script nonce="e28efe08-45ef-4aee-a2a1-809ce8055092">hljs.highlightAll();</script>			
 		
-	<script>
+	<script nonce="e28efe08-45ef-4aee-a2a1-809ce8055092">
 	window.cookieconsent.initialise({
 	  "palette": {
 		"popup": {

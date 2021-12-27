@@ -2,10 +2,12 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 
 <head>
+	<base href="http://blog/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Microsoft MVP | Cloud Solutions Architect | .NET Software Engineer | Organizer of Munich .NET Meetup | Speaker">
 	<meta name="author" content="George Kosmidis">	
+	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-93022214-b7cc-496b-be97-4eda7be293a0'">
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
 	<link rel="me" type="text/html" href="https://www.youtube.com/c/GeorgeKosmidis" />
@@ -66,7 +68,7 @@
 			max-width: 45em;
 		}		
 		h1,h2,h3,h4,h5,h6 {
-				font-weight: 300;
+			font-weight: 300;
 		}
 		a {
 			text-decoration: none;
@@ -176,7 +178,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">ASP.NET MVC 5 with Razor Kendo UI: Dynamic Grid Creation – Columns, Ordering, Grouping and Paging</h3>
+			<h2 class="card-title">ASP.NET MVC 5 with Razor Kendo UI: Dynamic Grid Creation – Columns, Ordering, Grouping and Paging</h2>
 			<p class="card-text"><p>The requirements were simple! A grid that will load a whatever query, grouped by whatever columns, with filters enabled, paging and everything. Easy task with ASP.NET Telerik grids but not easy at all with Kendo UI!</p>
 <p>Since we can&#8217;t have a ViewModel or Model for the grid (we don&#8217;t know what columns a whatever query has!), I came up with a rather different ViewModel that holds descriptions for columns, groups etc&#8230;:</p>
 <p></p>
@@ -188,7 +190,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">ASP.NET MVC 5: Custom authentication with OnActionExecuting</h3>
+			<h2 class="card-title">ASP.NET MVC 5: Custom authentication with OnActionExecuting</h2>
 			<p class="card-text"><p>Although I prefer the <a title="ASP.NET MVC 5: Custom AuthorizeAttribute for custom authentication" href="http://blog.georgekosmidis.net/2014/05/17/mvc-custom-authorizeattribute-for-custom-authentication/" target="_blank" rel="noopener noreferrer">AuthorizeAttribute</a> approach, there is another simpler way with a base Controller and OnActionExecuting:</p>
 <p>Let&#8217;s assume the following Controller:</p>
 <p></p>
@@ -200,7 +202,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">ASP.NET MVC 5: Custom AuthorizeAttribute for custom authentication</h3>
+			<h2 class="card-title">ASP.NET MVC 5: Custom AuthorizeAttribute for custom authentication</h2>
 			<p class="card-text"><p>In a previous <a href="/asp-net-mvc-5-authorization-by-default-your-web-app/">post</a> I wrote about how you <del>can</del> should protect your web app from human errors by enforcing authentication by default.<br />
 </p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1 day ago</small></div>
@@ -211,7 +213,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">ASP.NET MVC 5: “Authorization” by default for your web app</h3>
+			<h2 class="card-title">ASP.NET MVC 5: “Authorization” by default for your web app</h2>
 			<p class="card-text"><p>Securing your MVC app is a tricky business! Although security is a huge topic, one of the problems that you might encounter is that unauthenticated users are allowed by default to execute every action in your web app. This behaviour is potentially unsafe because you have to remember to decorate your actions with the authorize attribute each and every time, and humans are of course prone to errors!</p>
 <p></p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1 day ago</small></div>
@@ -222,7 +224,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">C#: Basic Combinatorics</h3>
+			<h2 class="card-title">C#: Basic Combinatorics</h2>
 			<p class="card-text"><p>Basic combinatorics in C# is a straight forward task for relatively small numbers like (100!). This is a helper class I wrote when I was asked to write an online lottery system.</p>
 <p>Keep in mind though, that for bigger numbers (above 100!) you will need <a href="http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic" target="_blank" rel="noopener noreferrer">Arbitrary-precision arithmetic</a>.</p>
 <p>Here is the code and please, if someone knows a faster way or has some suggestions let me now!</p>
@@ -235,7 +237,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">Visual Studio 2012.4, “Run As Administrator” -> “The application cannot start” error</h3>
+			<h2 class="card-title">Visual Studio 2012.4, “Run As Administrator” -> “The application cannot start” error</h2>
 			<p class="card-text"><p>After a good 2 hours of searching what the **** happened and Visual Studio stopped working, I finally found a working solution..!</p>
 <p></p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1 day ago</small></div>
@@ -246,7 +248,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">Export MS SQL Database schema with C#</h3>
+			<h2 class="card-title">Export MS SQL Database schema with C#</h2>
 			<p class="card-text"><p>A few days ago I was searching for a way to export MS SQL schema of <b>all</b> databases of a server for backup and migration purposes. Although I found some tools, what I needed was a way to get stored procedures, functions, views, triggers and everything even if it was <b>encrypted</b>.</p>
 <p></p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1 day ago</small></div>
@@ -257,7 +259,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">C#: Calculating all Greek Public Holidays for any given year</h3>
+			<h2 class="card-title">C#: Calculating all Greek Public Holidays for any given year</h2>
 			<p class="card-text"><p>After <a href="/c-calculating-orthodox-and-catholic-easter/" title="C#: Calculating Orthodox and Catholic Easter">calculating the Greek Orthodox Easter</a>, it was time for the public holidays calculation. With the Easter calculation ready, it proved to be much easier than expected!<br />
 </p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1.5 years ago</small></div>
@@ -268,7 +270,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">C#: Calculating Orthodox and Catholic Easter</h3>
+			<h2 class="card-title">C#: Calculating Orthodox and Catholic Easter</h2>
 			<p class="card-text"><p>Some time ago I was called about an online calendar for a company&#8217;s portal. The need was to inform employees about public holidays for the requested year. In Greece, some of those holidays are static meaning they occur the exact same date each year, but some are based on the Orthodox Easter so they move from date to date. There are a lot of online services that can return these information, but I thought I should give it a go and try writing the Orthodox Easter calculation in C#. Saying that, I found the algorithm online and since I was there I also found the Catholic Easter algorithm.<br />
 </p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1 day ago</small></div>
@@ -348,19 +350,26 @@
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
 		crossorigin="anonymous"
+		nonce="93022214-b7cc-496b-be97-4eda7be293a0"
         async></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"
+		nonce="93022214-b7cc-496b-be97-4eda7be293a0"
+		></script>
 	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" 
 		integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" 
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"
+		nonce="93022214-b7cc-496b-be97-4eda7be293a0"
+		></script>
 	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
 		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
-		crossorigin="anonymous"></script>
-	<script>hljs.highlightAll();</script>			
+		crossorigin="anonymous"
+		nonce="93022214-b7cc-496b-be97-4eda7be293a0"
+		></script>
+	<script nonce="93022214-b7cc-496b-be97-4eda7be293a0">hljs.highlightAll();</script>			
 		
-	<script>
+	<script nonce="93022214-b7cc-496b-be97-4eda7be293a0">
 	window.cookieconsent.initialise({
 	  "palette": {
 		"popup": {

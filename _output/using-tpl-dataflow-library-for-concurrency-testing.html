@@ -2,10 +2,12 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 
 <head>
+	<base href="http://blog/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="The Task Parallel Library contains a very interesting set of dataflow components that for some reason they didn&#8217;t get the attention they deserve. This set is called TPL Dataflow Library and in few words, it is a robust in-process actor library that worth spending some time learning it! In this post, we will learn how to use it for concurrency testing.">
 	<meta name="author" content="George Kosmidis">	
+	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-ed09c442-91c3-4191-a582-df04261b7485'">
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
 	<link rel="me" type="text/html" href="https://www.youtube.com/c/GeorgeKosmidis" />
@@ -71,7 +73,7 @@
 			max-width: 45em;
 		}		
 		h1,h2,h3,h4,h5,h6 {
-				font-weight: 300;
+			font-weight: 300;
 		}
 		a {
 			text-decoration: none;
@@ -372,19 +374,26 @@ public async Task WeekendCounter_Parallelism_ShouldHaveNoConcurrencyIssues()
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
 		crossorigin="anonymous"
+		nonce="ed09c442-91c3-4191-a582-df04261b7485"
         async></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"
+		nonce="ed09c442-91c3-4191-a582-df04261b7485"
+		></script>
 	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" 
 		integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" 
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"
+		nonce="ed09c442-91c3-4191-a582-df04261b7485"
+		></script>
 	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
 		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
-		crossorigin="anonymous"></script>
-	<script>hljs.highlightAll();</script>			
+		crossorigin="anonymous"
+		nonce="ed09c442-91c3-4191-a582-df04261b7485"
+		></script>
+	<script nonce="ed09c442-91c3-4191-a582-df04261b7485">hljs.highlightAll();</script>			
 		
-	<script>
+	<script nonce="ed09c442-91c3-4191-a582-df04261b7485">
 	window.cookieconsent.initialise({
 	  "palette": {
 		"popup": {

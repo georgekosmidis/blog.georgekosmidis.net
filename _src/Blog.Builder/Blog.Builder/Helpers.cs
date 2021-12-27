@@ -70,6 +70,7 @@ internal static class Helpers
                             .Replace("{itemdata-ExtraHeaders}", string.Join(' ', itemData.ExtraHeaders), StringComparison.InvariantCultureIgnoreCase)
                             .Replace("{page-navigation}", paging)
                             .Replace("{body}", body, StringComparison.InvariantCultureIgnoreCase)
+                            .Replace("{script-nonce}", Guid.NewGuid().ToString(), StringComparison.InvariantCultureIgnoreCase)
                            ;
         if (string.IsNullOrWhiteSpace(itemData.RelativeImageUrl))
         {

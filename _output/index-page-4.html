@@ -2,10 +2,12 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 
 <head>
+	<base href="http://blog/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Microsoft MVP | Cloud Solutions Architect | .NET Software Engineer | Organizer of Munich .NET Meetup | Speaker">
 	<meta name="author" content="George Kosmidis">	
+	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-de45d7a4-fa31-4871-a587-31f317e19dd7'">
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
 	<link rel="me" type="text/html" href="https://www.youtube.com/c/GeorgeKosmidis" />
@@ -66,7 +68,7 @@
 			max-width: 45em;
 		}		
 		h1,h2,h3,h4,h5,h6 {
-				font-weight: 300;
+			font-weight: 300;
 		}
 		a {
 			text-decoration: none;
@@ -176,7 +178,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">Error handling in ASP.NET Core Web API</h3>
+			<h2 class="card-title">Error handling in ASP.NET Core Web API</h2>
 			<p class="card-text"><p>We all know the traditional try-catch blocks and -used correctly- there is of course nothing wrong with them! But even though all is good with that, ASP.NET Core has an even better way of doing things, two ways actually, that can make our code cleaner and easier to read! By following the <em>&#8220;Middleware&#8221;</em> approach, we extract all our custom exception handling code from within the actions and centralizing it in one place thus, cleaner code!</p>
 <p>In this post we will explore these three cases, and starting from the simple try-catch block we will refactor towards a custom error handling middleware.</p>
 <p></p>
@@ -190,7 +192,7 @@
 		<img src="/media/100220-feature.png" class="bd-placeholder-img card-img-top" alt="IdentityServer4, ASP.NET Core API and a client with username/password" />
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">IdentityServer4, ASP.NET Core API and a client with username/password</h3>
+			<h2 class="card-title">IdentityServer4, ASP.NET Core API and a client with username/password</h2>
 			<p class="card-text"><p>This is an end-to-end guide on how to quickly setup <a href="http://docs.identityserver.io/en/latest/" target="_blank" rel="noopener noreferrer">IdentityServer4</a>, use it in your ASP.NET Core API for authentication, and finally login to your API from a client by asking a user for her/his username and password. It is divided in three parts that describe respectively the configuration of each one of the following three systems:<br />
 </p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1.4 years ago</small></div>
@@ -203,7 +205,7 @@
 		<img src="/media/100210-feature.png" class="bd-placeholder-img card-img-top" alt="Writing a custom OutputFormatter to return an Excel (.xlsx) from an action in ASP.NET Core API" />
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">Writing a custom OutputFormatter to return an Excel (.xlsx) from an action in ASP.NET Core API</h3>
+			<h2 class="card-title">Writing a custom OutputFormatter to return an Excel (.xlsx) from an action in ASP.NET Core API</h2>
 			<p class="card-text"><p>As most of us, I already know my next week work schedule. It includes writing some actions in respond to a requirement for excel exports. It&#8217;s nothing new and its&#8217;s relatively easy with libraries like <a href="https://github.com/dotnetcore/NPOI" target="_blank" rel="noopener noreferrer">NPOI</a>: you just create your excel on the fly and return a <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.fileresult?view=aspnetcore-2.1" target="_blank" rel="noopener noreferrer">FileResult</a>.</p>
 <p></p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1.4 years ago</small></div>
@@ -214,7 +216,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">Handling, serializing and returning exceptions with a middleware in an ASP.NET Core API</h3>
+			<h2 class="card-title">Handling, serializing and returning exceptions with a middleware in an ASP.NET Core API</h2>
 			<p class="card-text"><p>ASP.NET Core offers a very cool way to avoid all that boring boilerplate exception handling code, just by intercepting all requests. It is called <code>Middleware</code> and actually, ASP.NET Core is full of <a href="https://docs.microsoft.com/el-gr/aspnet/core/fundamentals/middleware/index?view=aspnetcore-2.1#built-in-middleware" rel="noopener noreferrer" target="_blank">built-in middlewares</a>!<br />
 </p>
 			<div class="card-text text-end"><small class="text-muted">Modified 2.4 years ago</small></div>
@@ -227,7 +229,7 @@
 		<img src="/media/100190-feature.png" class="bd-placeholder-img card-img-top" alt="Publishing ASP.NET Core: An error occurred while starting the application" />
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">Publishing ASP.NET Core: An error occurred while starting the application</h3>
+			<h2 class="card-title">Publishing ASP.NET Core: An error occurred while starting the application</h2>
 			<p class="card-text"><p>Have you seen this error?<br />
 <code>An error occurred while starting the application.<br />
 .NET Core &lt;version&gt; | Microsoft.AspNetCore.Hosting &lt;version&gt; | Microsoft Windows &lt;version&gt; | <a href="https://docs.microsoft.com/el-gr/aspnet/core/host-and-deploy/azure-iis-errors-reference?view=aspnetcore-2.1" rel="noopener noreferrer" target="_blank">Need help?</a></code></p>
@@ -240,7 +242,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">Parameterized Raw SQL Queries with Entity Framework: How to Unit Test with SQLite</h3>
+			<h2 class="card-title">Parameterized Raw SQL Queries with Entity Framework: How to Unit Test with SQLite</h2>
 			<p class="card-text"><p>Entity Framework Core allows you to drop down to raw SQL queries when working with a relational database. This can be useful, because raw SQL queries can return entity types or, starting with EF Core 2.1, query types that are part of your model, but it could also be a problem when it comes down to <em>Unit Testing</em>.</p>
 <p>    </p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1.4 years ago</small></div>
@@ -251,7 +253,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">Thread synchronisation with SemaphoreSlim and async delegate calls</h3>
+			<h2 class="card-title">Thread synchronisation with SemaphoreSlim and async delegate calls</h2>
 			<p class="card-text"><p>Although running a parallel <code>foreach</code> that makes <code>async</code> calls is a pretty usual task, I found my self in a complicated situation, when <code>async</code> <code>delegate</code> calls got in the way!</p>
 <p></p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1 day ago</small></div>
@@ -262,7 +264,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">Mocking expected behaviour of SQL functions for Unit Testing with SQLite</h3>
+			<h2 class="card-title">Mocking expected behaviour of SQL functions for Unit Testing with SQLite</h2>
 			<p class="card-text"><p>While unit testing, I came across a method in an SQL repository class that was using a <a href="https://docs.microsoft.com/en-us/ef/core/querying/raw-sql" target="_blank" rel="noopener noreferrer">raw SQL query</a>, and along with that, SQL Server&#8217;s newid() function. Since the complicated reason behind this decision was out of scope, I had to find a way to unit test that method&#8230;</p>
 <p>SQLite was -of course- the first approach, but any attempt to actually test the method would nevertheless fail with the exception <code>Microsoft.Data.Sqlite.SqliteException: 'SQLite Error 1: 'no such function: newid'.'</code>.</p>
 <p></p>
@@ -274,7 +276,7 @@
 	<div class="card shadow">
 		
 		<div class="card-body">
-			<h3 class="card-title display-7">Simple website stress tool with C# and Apache HTTP server benchmarking tool</h3>
+			<h2 class="card-title">Simple website stress tool with C# and Apache HTTP server benchmarking tool</h2>
 			<p class="card-text"><p>To be honest, I got bored trying to remember all switches and combinations of Apache&#8217;s benchmarking tool! Since I use it sort of rarely, I just wrapped it in a convenient -for me at least- app that I can use without having to remember or read anything!<br />
 </p>
 			<div class="card-text text-end"><small class="text-muted">Modified 1 day ago</small></div>
@@ -354,19 +356,26 @@
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
 		crossorigin="anonymous"
+		nonce="de45d7a4-fa31-4871-a587-31f317e19dd7"
         async></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"
+		nonce="de45d7a4-fa31-4871-a587-31f317e19dd7"
+		></script>
 	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" 
 		integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" 
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"
+		nonce="de45d7a4-fa31-4871-a587-31f317e19dd7"
+		></script>
 	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
 		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
-		crossorigin="anonymous"></script>
-	<script>hljs.highlightAll();</script>			
+		crossorigin="anonymous"
+		nonce="de45d7a4-fa31-4871-a587-31f317e19dd7"
+		></script>
+	<script nonce="de45d7a4-fa31-4871-a587-31f317e19dd7">hljs.highlightAll();</script>			
 		
-	<script>
+	<script nonce="de45d7a4-fa31-4871-a587-31f317e19dd7">
 	window.cookieconsent.initialise({
 	  "palette": {
 		"popup": {
