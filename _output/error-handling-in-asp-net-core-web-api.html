@@ -8,7 +8,7 @@
 	<meta name="description" content="We all know the traditional try-catch blocks and -used correctly- there is of course nothing wrong with them! But even though all is good with that, ASP.NET Core has an even better way of doing things, two ways actually, that can make our code cleaner and easier to read! By following the &#8220;Middleware&#8221; approach, we extract all our custom exception handling code from within the actions and centralizing it in one place thus, cleaner code!
 In this post we will explore these three cases, and starting from the simple try-catch block we will refactor towards a custom error handling middleware.">
 	<meta name="author" content="George Kosmidis">	
-	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-f4f15411-6894-43cf-bfea-018c36506efb'">
+	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-8fed80df-09b0-46ee-b234-f6a0c572eb7a'">
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
 	<link rel="me" type="text/html" href="https://www.youtube.com/c/GeorgeKosmidis" />
@@ -374,26 +374,26 @@ Let&#8217;s check it:</p>
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
 		crossorigin="anonymous"
-		nonce="f4f15411-6894-43cf-bfea-018c36506efb"
+		nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a"
         async></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"
-		nonce="f4f15411-6894-43cf-bfea-018c36506efb"
+		nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a"
 		></script>
 	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" 
 		integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" 
 		crossorigin="anonymous"
-		nonce="f4f15411-6894-43cf-bfea-018c36506efb"
+		nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a"
 		></script>
 	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
 		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
 		crossorigin="anonymous"
-		nonce="f4f15411-6894-43cf-bfea-018c36506efb"
+		nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a"
 		></script>
-	<script nonce="f4f15411-6894-43cf-bfea-018c36506efb">hljs.highlightAll();</script>			
+	<script nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a">hljs.highlightAll();</script>			
 		
-	<script nonce="f4f15411-6894-43cf-bfea-018c36506efb">
+	<script nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a">
 	window.cookieconsent.initialise({
 	  "palette": {
 		"popup": {
