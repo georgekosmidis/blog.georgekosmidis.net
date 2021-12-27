@@ -32,9 +32,9 @@ Since adding the AuthorizeAttribute to every action involves global filters, we 
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="Saturday, 17 May 2014" />
-	<meta property="og:article:modified_time" content="Sunday, 26 December 2021" />
-	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
+	<meta property="og:article:published_time" content="2014-05-17T11:49:58.0000000+02:00" />
+	<meta property="og:article:modified_time" content="2021-12-26T17:35:43.0000000+01:00" />
+	<meta property="og:article:expiration_time" content="2121-12-27T13:51:39.6544210+01:00" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
@@ -84,6 +84,9 @@ Since adding the AuthorizeAttribute to every action involves global filters, we 
 		a {
 			text-decoration: none;
 		}
+		a {
+			text-decoration: underline;
+		}		
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -178,7 +181,7 @@ Since adding the AuthorizeAttribute to every action involves global filters, we 
         </div>
     </header>
 
-    <main class="container bg-light py-4">
+    <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
 	<div class="row readableWidth mx-auto">
@@ -192,19 +195,17 @@ Since adding the AuthorizeAttribute to every action involves global filters, we 
 				<div class="row">
 					<div class="col pb-2">
 						<div class="text-black-50 text-center">
-						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 93 months ago / Last modified 19 hours ago</small>
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 7.6 years ago , modified 20 hours ago</small>
 						</div>
 					</div>  
-				</div>	
-
-				
+				</div>					
 				<div class="row">
 					<div class="col text-center">
 						<img src="" alt="ASP.NET MVC 5: Custom AuthorizeAttribute for custom authentication"/>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
+					<div class="col pt-3 pb-6">
 						<p>In a previous <a href="/asp-net-mvc-5-authorization-by-default-your-web-app/">post</a> I wrote about how you <del>can</del> should protect your web app from human errors by enforcing authentication by default.</p>
 <p>In this, lets check how to write your very own custom <code>AuthorizeAttribute</code>!</p>
 <p>Since adding the <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute.aspx" target="_blank" rel="noopener noreferrer">AuthorizeAttribute</a> to every action involves global filters, we can use that to add our own custom authentication, by inheriting <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute.aspx" target="_blank" rel="noopener noreferrer">AuthorizeAttribute</a>and overriding the <code>AuthorizeCore</code> and <code>HandleUnauthorizeRequest</code> methods.</p>

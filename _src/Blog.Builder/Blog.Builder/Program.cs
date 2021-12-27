@@ -36,6 +36,9 @@ foreach (var standalonePath in standalones)
     File.WriteAllText(Path.Combine(OUTPUT, Path.GetFileName(standalonePath)), standalonePageHtml);
 }
 
+//todo: add images and possibly other cards
+//todo: create paging
+
 //index & posts
 //----------------------------------------------------------------------------------
 var articleDirectories = Directory.GetDirectories(Path.Combine(ROOT, "posts")).ToList().OrderByDescending(x => x);

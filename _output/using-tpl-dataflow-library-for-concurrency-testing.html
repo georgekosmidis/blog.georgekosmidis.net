@@ -28,9 +28,9 @@
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="Wednesday, 8 January 2020" />
-	<meta property="og:article:modified_time" content="Friday, 10 January 2020" />
-	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
+	<meta property="og:article:published_time" content="2020-01-08T19:11:44.0000000+01:00" />
+	<meta property="og:article:modified_time" content="2020-01-10T12:48:06.0000000+01:00" />
+	<meta property="og:article:expiration_time" content="2121-12-27T13:51:39.2076676+01:00" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
@@ -80,6 +80,9 @@
 		a {
 			text-decoration: none;
 		}
+		a {
+			text-decoration: underline;
+		}		
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -174,7 +177,7 @@
         </div>
     </header>
 
-    <main class="container bg-light py-4">
+    <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
 	<div class="row readableWidth mx-auto">
@@ -188,19 +191,17 @@
 				<div class="row">
 					<div class="col pb-2">
 						<div class="text-black-50 text-center">
-						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 24 months ago / Last modified 24 months ago</small>
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 2 years ago </small>
 						</div>
 					</div>  
-				</div>	
-
-				
+				</div>					
 				<div class="row">
 					<div class="col text-center">
 						<img src="" alt="Using TPL Dataflow Library for Concurrency Testing"/>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
+					<div class="col pt-3 pb-6">
 						<p>The Task Parallel Library contains a very interesting set of dataflow components that for some reason they didn&#8217;t get the attention they deserve. This set is called <em>TPL Dataflow Library</em> and in few words, it is a robust in-process actor library that worth spending some time learning it! In this post, we will learn how to use it for concurrency testing.</p>
 <p></p>
 <h3>What is the Task Parallel Library</h3>

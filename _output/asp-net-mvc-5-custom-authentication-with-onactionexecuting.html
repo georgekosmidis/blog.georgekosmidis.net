@@ -30,9 +30,9 @@ Let&#8217;s assume the following Controller:
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="Tuesday, 25 November 2014" />
-	<meta property="og:article:modified_time" content="Friday, 26 July 2019" />
-	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
+	<meta property="og:article:published_time" content="2014-11-25T21:44:00.0000000+01:00" />
+	<meta property="og:article:modified_time" content="2019-07-26T13:30:17.0000000+02:00" />
+	<meta property="og:article:expiration_time" content="2121-12-27T13:51:39.6267573+01:00" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
@@ -82,6 +82,9 @@ Let&#8217;s assume the following Controller:
 		a {
 			text-decoration: none;
 		}
+		a {
+			text-decoration: underline;
+		}		
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -176,7 +179,7 @@ Let&#8217;s assume the following Controller:
         </div>
     </header>
 
-    <main class="container bg-light py-4">
+    <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
 	<div class="row readableWidth mx-auto">
@@ -190,19 +193,17 @@ Let&#8217;s assume the following Controller:
 				<div class="row">
 					<div class="col pb-2">
 						<div class="text-black-50 text-center">
-						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 86 months ago / Last modified 29 months ago</small>
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 7.1 years ago , modified 2.4 years ago </small>
 						</div>
 					</div>  
-				</div>	
-
-				
+				</div>					
 				<div class="row">
 					<div class="col text-center">
 						<img src="" alt="ASP.NET MVC 5: Custom authentication with OnActionExecuting"/>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
+					<div class="col pt-3 pb-6">
 						<p>Although I prefer the <a title="ASP.NET MVC 5: Custom AuthorizeAttribute for custom authentication" href="http://blog.georgekosmidis.net/2014/05/17/mvc-custom-authorizeattribute-for-custom-authentication/" target="_blank" rel="noopener noreferrer">AuthorizeAttribute</a> approach, there is another simpler way with a base Controller and OnActionExecuting:</p>
 <p>Let&#8217;s assume the following Controller:</p>
 <p></p>

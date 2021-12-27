@@ -28,9 +28,9 @@
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="Sunday, 28 April 2013" />
-	<meta property="og:article:modified_time" content="Sunday, 26 December 2021" />
-	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
+	<meta property="og:article:published_time" content="2013-04-28T23:59:25.0000000+02:00" />
+	<meta property="og:article:modified_time" content="2021-12-26T17:27:50.0000000+01:00" />
+	<meta property="og:article:expiration_time" content="2121-12-27T13:51:39.8443104+01:00" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
@@ -80,6 +80,9 @@
 		a {
 			text-decoration: none;
 		}
+		a {
+			text-decoration: underline;
+		}		
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -174,7 +177,7 @@
         </div>
     </header>
 
-    <main class="container bg-light py-4">
+    <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
 	<div class="row readableWidth mx-auto">
@@ -188,19 +191,17 @@
 				<div class="row">
 					<div class="col pb-2">
 						<div class="text-black-50 text-center">
-						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 105 months ago / Last modified 19 hours ago</small>
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 8.7 years ago , modified 20 hours ago</small>
 						</div>
 					</div>  
-				</div>	
-
-				
+				</div>					
 				<div class="row">
 					<div class="col text-center">
 						<img src="" alt="C#: Calculating Orthodox and Catholic Easter"/>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
+					<div class="col pt-3 pb-6">
 						<p>Some time ago I was called about an online calendar for a company&#8217;s portal. The need was to inform employees about public holidays for the requested year. In Greece, some of those holidays are static meaning they occur the exact same date each year, but some are based on the Orthodox Easter so they move from date to date. There are a lot of online services that can return these information, but I thought I should give it a go and try writing the Orthodox Easter calculation in C#. Saying that, I found the algorithm online and since I was there I also found the Catholic Easter algorithm.<br />
 </p>
 <blockquote><p>In this post you will find the calculation for the two Christianity events only, and in a later post I will also publish the public holidays calculation.</p></blockquote>

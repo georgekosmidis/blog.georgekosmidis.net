@@ -26,9 +26,9 @@
 	
 	{itemdata-extraheaders}
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="{itemdata-datepublished}" />
-	<meta property="og:article:modified_time" content="{itemdata-datemodified}" />
-	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
+	<meta property="og:article:published_time" content="{itemdata-DatePublished}" />
+	<meta property="og:article:modified_time" content="{itemdata-DateModified}" />
+	<meta property="og:article:expiration_time" content="{itemdata-DateExpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
@@ -78,6 +78,9 @@
 		a {
 			text-decoration: none;
 		}
+		a {
+			text-decoration: underline;
+		}		
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -172,7 +175,7 @@
         </div>
     </header>
 
-    <main class="container bg-light py-4">
+    <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			{body}
         </div>

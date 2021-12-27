@@ -32,9 +32,9 @@ Here is the code and please, if someone knows a faster way or has some suggestio
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="Friday, 13 December 2013" />
-	<meta property="og:article:modified_time" content="Tuesday, 16 June 2020" />
-	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
+	<meta property="og:article:published_time" content="2013-12-13T08:00:00.0000000+01:00" />
+	<meta property="og:article:modified_time" content="2020-06-16T13:22:53.0000000+02:00" />
+	<meta property="og:article:expiration_time" content="2121-12-27T13:51:39.7199552+01:00" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
@@ -84,6 +84,9 @@ Here is the code and please, if someone knows a faster way or has some suggestio
 		a {
 			text-decoration: none;
 		}
+		a {
+			text-decoration: underline;
+		}		
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -178,7 +181,7 @@ Here is the code and please, if someone knows a faster way or has some suggestio
         </div>
     </header>
 
-    <main class="container bg-light py-4">
+    <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
 	<div class="row readableWidth mx-auto">
@@ -192,19 +195,17 @@ Here is the code and please, if someone knows a faster way or has some suggestio
 				<div class="row">
 					<div class="col pb-2">
 						<div class="text-black-50 text-center">
-						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 98 months ago / Last modified 19 months ago</small>
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 8 years ago , modified 1.5 years ago </small>
 						</div>
 					</div>  
-				</div>	
-
-				
+				</div>					
 				<div class="row">
 					<div class="col text-center">
 						<img src="" alt="C#: Basic Combinatorics"/>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
+					<div class="col pt-3 pb-6">
 						<p>Basic combinatorics in C# is a straight forward task for relatively small numbers like (100!). This is a helper class I wrote when I was asked to write an online lottery system.</p>
 <p>Keep in mind though, that for bigger numbers (above 100!) you will need <a href="http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic" target="_blank" rel="noopener noreferrer">Arbitrary-precision arithmetic</a>.</p>
 <p>Here is the code and please, if someone knows a faster way or has some suggestions let me now!</p>

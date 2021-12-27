@@ -20,7 +20,7 @@ internal record class ItemData
     }
 
 
-    public string LastModifiedText
+    public string DateModifiedText
     {
         get
         {
@@ -30,13 +30,45 @@ internal record class ItemData
         }
     }
 
-    public string PublishedText
+    public string DatePublishedText
     {
         get
         {
             var span = DateTime.Now - (DatePublished ?? throw new ArgumentNullException(nameof(DatePublished)));
 
             return SpanCalculation(span);
+        }
+    }
+
+    public string DatePublishedAndModificationText
+    {
+        get
+        {
+
+            if (DateModifiedText == DatePublishedText)
+            {
+                return $"Published {DatePublishedText}";
+            }
+            else
+            {
+                return $"Published {DatePublishedText}, modified {DateModifiedText}";
+            }
+        }
+    }
+
+    public string DatePublishedOrModificationText
+    {
+        get
+        {
+
+            if (DateModifiedText == DatePublishedText)
+            {
+                return $"Published {DatePublishedText}";
+            }
+            else
+            {
+                return $"Modified {DateModifiedText}";
+            }
         }
     }
 
@@ -53,7 +85,10 @@ internal record class ItemData
 
     private string SpanCalculation(TimeSpan span)
     {
-
+        if (span.Days > 365)
+        {
+            return Math.Round(span.Days / 365d, 1) + " years ago";
+        }
         if (span.Days > 0)
         {
             return span.Days > 30 ? Math.Round(span.Days / 30d) + $" month{(Math.Round(span.Days / 30d) > 1 ? "s" : "")} ago" : span.Days + $" day{(span.Days > 1 ? "s" : "")} ago";

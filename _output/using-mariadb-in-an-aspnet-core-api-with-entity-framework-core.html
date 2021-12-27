@@ -30,9 +30,9 @@ In this post, we will see how to use MariaDB as storage for an ASP.NET API and d
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="Wednesday, 15 July 2020" />
-	<meta property="og:article:modified_time" content="Saturday, 25 July 2020" />
-	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
+	<meta property="og:article:published_time" content="2020-07-15T17:53:05.0000000+02:00" />
+	<meta property="og:article:modified_time" content="2020-07-25T10:27:58.0000000+02:00" />
+	<meta property="og:article:expiration_time" content="2121-12-27T13:51:38.8806059+01:00" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
@@ -82,6 +82,9 @@ In this post, we will see how to use MariaDB as storage for an ASP.NET API and d
 		a {
 			text-decoration: none;
 		}
+		a {
+			text-decoration: underline;
+		}		
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -176,7 +179,7 @@ In this post, we will see how to use MariaDB as storage for an ASP.NET API and d
         </div>
     </header>
 
-    <main class="container bg-light py-4">
+    <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
 	<div class="row readableWidth mx-auto">
@@ -190,19 +193,17 @@ In this post, we will see how to use MariaDB as storage for an ASP.NET API and d
 				<div class="row">
 					<div class="col pb-2">
 						<div class="text-black-50 text-center">
-						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 18 months ago / Last modified 17 months ago</small>
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 1.4 years ago </small>
 						</div>
 					</div>  
-				</div>	
-
-				
+				</div>					
 				<div class="row">
 					<div class="col text-center">
 						<img src="/media/100390-feature.png" alt="Using MariaDB in an ASP.NET Core API with Entity Framework Core"/>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
+					<div class="col pt-3 pb-6">
 						<p><a href="https://mariadb.org/" rel="noopener noreferrer" target="_blank">MariaDB</a> Server is one of the most popular open source relational databases. It’s made by the original developers of MySQL and guaranteed to stay open source. It is part of most cloud offerings and the default in most Linux distributions.</p>
 <p>In this post, we will see how to use <a href="https://mariadb.org/" rel="noopener noreferrer" target="_blank">MariaDB</a> as storage for an ASP.NET API and do simple CRUD operations with Entity Framework Core.<br />
 </p>

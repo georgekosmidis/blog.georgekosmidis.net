@@ -30,9 +30,9 @@ SQLite was -of course- the first approach, but any attempt to actually test the 
 	
 	
 	<!-- todo: article -->
-	<meta property="og:article:published_time" content="Monday, 8 January 2018" />
-	<meta property="og:article:modified_time" content="Friday, 26 July 2019" />
-	<meta property="og:article:expiration_time" content="{itemdata-dateexpires}" />
+	<meta property="og:article:published_time" content="2018-01-08T17:29:14.0000000+01:00" />
+	<meta property="og:article:modified_time" content="2019-07-26T14:32:07.0000000+02:00" />
+	<meta property="og:article:expiration_time" content="2121-12-27T13:51:39.5311992+01:00" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
@@ -82,6 +82,9 @@ SQLite was -of course- the first approach, but any attempt to actually test the 
 		a {
 			text-decoration: none;
 		}
+		a {
+			text-decoration: underline;
+		}		
         @media (min-width: 992px) {
             .container {
                 max-width: 1200px
@@ -176,7 +179,7 @@ SQLite was -of course- the first approach, but any attempt to actually test the 
         </div>
     </header>
 
-    <main class="container bg-light py-4">
+    <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="container">
 	<div class="row readableWidth mx-auto">
@@ -190,19 +193,17 @@ SQLite was -of course- the first approach, but any attempt to actually test the 
 				<div class="row">
 					<div class="col pb-2">
 						<div class="text-black-50 text-center">
-						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 48 months ago / Last modified 29 months ago</small>
+						  <small>by <a href="https://georgekosmidis.net">George Kosmidis</a> / Published 4 years ago , modified 2.4 years ago </small>
 						</div>
 					</div>  
-				</div>	
-
-				
+				</div>					
 				<div class="row">
 					<div class="col text-center">
 						<img src="" alt="Mocking expected behaviour of SQL functions for Unit Testing with SQLite"/>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
+					<div class="col pt-3 pb-6">
 						<p>While unit testing, I came across a method in an SQL repository class that was using a <a href="https://docs.microsoft.com/en-us/ef/core/querying/raw-sql" target="_blank" rel="noopener noreferrer">raw SQL query</a>, and along with that, SQL Server&#8217;s newid() function. Since the complicated reason behind this decision was out of scope, I had to find a way to unit test that method&#8230;</p>
 <p>SQLite was -of course- the first approach, but any attempt to actually test the method would nevertheless fail with the exception <code>Microsoft.Data.Sqlite.SqliteException: 'SQLite Error 1: 'no such function: newid'.'</code>.</p>
 <p></p>
