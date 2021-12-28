@@ -49,7 +49,7 @@
 <h2 id="h2_register">Register the service</h2>
 <p>Although there is a singleton instance (<code>HttpClientServiceFactory.Instance</code>) available, using DI for ASP.NET Core WebAPIs is the <em>only</em> way to go. The library uses internally typed clients and thus the <a href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests" rel="noopener noreferrer" target="_blank">HttpClientFactory</a> to create resilient HTTP requests and avoid socket exhaustion issues. </p>
 <blockquote><p><a href="https://www.stevejgordon.co.uk/" rel="noopener noreferrer" target="_blank">Steve Gordon</a> explores HttpClient internals and potential problems in <a href="https://www.stevejgordon.co.uk/httpclient-creation-and-disposal-internals-should-i-dispose-of-httpclient" rel="noopener noreferrer" target="_blank">HttpClient creation and disposal internals: Should I dispose of HttpClient?</a></p></blockquote>
-<p>In the following example, the <code>HttpClientService</code> is registered in <code>Startup.cs</code> in <code>ConfigureServices(IServiceCollection services)</code> without configuring any options. This is still possible, as some of the <code>SetIdentityServerOptions</code> overloads allow late configuration but it excludes the use of the <code>SetIdentityServerOptions(IOptions<>)</code> overload:<br />
+<p>In the following example, the <code>HttpClientService</code> is registered in <code>Startup.cs</code> in <code>ConfigureServices(IServiceCollection services)</code> without configuring any options. This is still possible, as some of the <code>SetIdentityServerOptions</code> overloads allow late configuration but it excludes the use of the <code>SetIdentityServerOptions(IOptions&lt;&gt;)</code> overload:<br />
 <pre><code class="language-csharp">//...
     public void ConfigureServices(IServiceCollection services)
     {
@@ -309,13 +309,13 @@ var responseObject = await _requestServiceFactory
 <h2 id="h2_headers">Attaching headers to the request</h2>
 <p>Header management is done using a set of methods that adhere to the general method chaining approach. Although in total 6 methods, they actually do two jobs, adding or removing headers. In the list that follows, the first four methods add headers, and the last two remove:</p>
 <h3 id="h3_headers_headersadd_string">HeadersAdd(String, String)</h3>
-<p>Adds a header to the request. If a second header with the same name already exists, their values will be aggregated to a List<T>, which will result in the values passes as comma separated in the request.</p>
+<p>Adds a header to the request. If a second header with the same name already exists, their values will be aggregated to a List&lt;T&gt;, which will result in the values passes as comma separated in the request.</p>
 <h3 id="h3_headers_headersadd_list_string">HeadersAdd(String, List&lt;String&gt;)</h3>
-<p>Adds a header to the request. If a second header with the same name already exists, their values will be aggregated to a List<T>, which will result in the values passes as comma separated in the request.</p>
+<p>Adds a header to the request. If a second header with the same name already exists, their values will be aggregated to a List&lt;T&gt;, which will result in the values passes as comma separated in the request.</p>
 <h3 id="h3_headers_headersadd_dictionary">HeadersAdd(Dictionary&lt;String, String&gt;)</h3>
-<p>Adds a collection of headers in the request using a Dictionary<String,String>, where the Key of the Dictionary is the header name and the value is the header value. If a second header with the same name already exists, their values will be aggregated to a List<T>, which will result in the values passes as comma separated in the request.</p>
+<p>Adds a collection of headers in the request using a Dictionary<String,String>, where the Key of the Dictionary is the header name and the value is the header value. If a second header with the same name already exists, their values will be aggregated to a List&lt;T&gt;, which will result in the values passes as comma separated in the request.</p>
 <h3 id="h3_headers_headersadd_dictionary_list">HeadersAdd(Dictionary&lt;String, List&lt;String&gt;&gt;)</h3>
-<p>Adds a collection of headers in the request using a Dictionary<String,List<String>>, where the Key of the Dictionary is the header name and the value is a list of header values. If a second header with the same name already exists, their values will be aggregated to a List<T>, which will result in the values passes as comma separated in the request.</p>
+<p>Adds a collection of headers in the request using a Dictionary<String,List<String>>, where the Key of the Dictionary is the header name and the value is a list of header values. If a second header with the same name already exists, their values will be aggregated to a List&lt;T&gt;, which will result in the values passes as comma separated in the request.</p>
 <h3 id="h3_headers_headersclear">HeadersClear()</h3>
 <p>Clears all headers from the request. Use method chaining to reset headers for an <code>HttpClientService</code>, e.g. <code>httpClientService.HeadersClear().HeadersAdd(...)</code></p>
 <h3 id="h3_headers_headersremove">HeadersRemove(String)</h3>

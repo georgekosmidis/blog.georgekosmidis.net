@@ -41,37 +41,11 @@ internal record class ItemData
         }
     }
 
-    public string DatePublishedAndModificationText
-    {
-        get
-        {
+    public string DatePublishedAndModificationText => DateModifiedText == DatePublishedText
+                ? $"Published {DatePublishedText}"
+                : $"Published {DatePublishedText}, modified {DateModifiedText}";
 
-            if (DateModifiedText == DatePublishedText)
-            {
-                return $"Published {DatePublishedText}";
-            }
-            else
-            {
-                return $"Published {DatePublishedText}, modified {DateModifiedText}";
-            }
-        }
-    }
-
-    public string DatePublishedOrModificationText
-    {
-        get
-        {
-
-            if (DateModifiedText == DatePublishedText)
-            {
-                return $"Published {DatePublishedText}";
-            }
-            else
-            {
-                return $"Modified {DateModifiedText}";
-            }
-        }
-    }
+    public string DatePublishedOrModificationText => DateModifiedText == DatePublishedText ? $"Published {DatePublishedText}" : $"Modified {DateModifiedText}";
 
     public DateTime? DatePublished { get; init; }
 
@@ -79,24 +53,18 @@ internal record class ItemData
 
     public string? RelativeImageUrl { get; init; }
 
-    public string? RelativeImageUrlSmall
-    {
-        get
-        {
-            if (RelativeImageUrl is null)
-            {
-                return null;
-            }
-            return Path.Combine(Path.GetDirectoryName(RelativeImageUrl) ?? String.Empty, Path.GetFileNameWithoutExtension(RelativeImageUrl) + "-small" + Path.GetExtension(RelativeImageUrl));
-        }
-    }
+    public string? RelativeImageUrlSmall => RelativeImageUrl is null
+                ? null
+                : (Path.GetDirectoryName(RelativeImageUrl) ?? string.Empty).Replace("\\", "/")
+                    + "/" 
+                    + Path.GetFileNameWithoutExtension(RelativeImageUrl) + "-small" + Path.GetExtension(RelativeImageUrl);
 
     public List<string>? Tags { get; init; }
 
     public List<string> ExtraHeaders { get; init; } = new List<string>();
 
 
-    private string SpanCalculation(TimeSpan span)
+    private static string SpanCalculation(TimeSpan span)
     {
         if (span.Days > 365)
         {

@@ -2,6 +2,11 @@
 using Newtonsoft.Json;
 using SixLabors.ImageSharp;
 
+//todo: compress output
+//todo: include meetup and sessionize events
+//todo: postprocessing of articles (fix html, add highlightjs markers)
+
+
 //set paths
 var ROOT = "..\\..\\..\\..\\..\\..\\raw\\";
 var OUTPUT = "..\\..\\..\\..\\..\\..\\_output\\";
@@ -51,7 +56,7 @@ foreach (var standalonePath in standalones)
     pages.Add(standaloneJsonTyped);
 
     var standalonePageHtml = Helpers.BuildHtml(mainTemplate, standaloneBody, string.Empty, standaloneJsonTyped);
-    File.WriteAllText(Path.Combine(OUTPUT, Path.GetFileName(standalonePath)), standalonePageHtml);
+    Helpers.SaveCompressedHtml(Path.Combine(OUTPUT, Path.GetFileName(standalonePath)), standalonePageHtml);
 }
 
 //todo: add other cards, like meetup and talks
@@ -106,7 +111,7 @@ foreach (var directory in articleDirectories)
         var articleBodyFinal = Helpers.BuildHtml(articleTemplate, articleBody, string.Empty, articleJsonTyped);
         var articleFilename = articleJsonTyped.RelativeUrl?.Trim('/').Split('/').Last();
         var articlePage = Helpers.BuildHtml(mainTemplate, articleBodyFinal, string.Empty, articleJsonTyped);
-        File.WriteAllText(Path.Combine(OUTPUT, $"{articleFilename}"), articlePage);
+        Helpers.SaveCompressedHtml(Path.Combine(OUTPUT, $"{articleFilename}"), articlePage);
 
     }
 
@@ -136,7 +141,7 @@ foreach (var directory in articleDirectories)
         {
             indexFileName = $"index-page-{pageNumber + 1}.html";
         }
-        File.WriteAllText(Path.Combine(OUTPUT, indexFileName), indexPage);
+         Helpers.SaveCompressedHtml(Path.Combine(OUTPUT, indexFileName), indexPage);
 
         bodyForIndexPage.Clear();
         pageNumber++;
@@ -148,4 +153,4 @@ foreach (var directory in articleDirectories)
 //google sitemap
 //----------------------------------------------------------------------------------
 var sitemap = Helpers.BuildSiteMapXML(pages);
-File.WriteAllText(Path.Combine(OUTPUT, "sitemap.xml"), sitemap);
+ Helpers.SaveCompressedHtml(Path.Combine(OUTPUT, "sitemap.xml"), sitemap);
