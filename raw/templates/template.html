@@ -16,9 +16,8 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
-	<!-- todo: favicon -->
-	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
-	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+	<link rel="icon" type="image/jpg" href="/media/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="/media/me_180x180.jpg">
 
 	<meta property="og:title" content="{itemdata-title}" />
 	<meta property="og:type" content="{itemdata-type}" /><!-- website | article -->
@@ -29,26 +28,28 @@
 	<meta property="og:description " content="{itemdata-plaintextdescription}" />
 	
 	
-	{start-extraHeadersExists}
+	{start-article}
 	<meta property="og:article:published_time" content="{itemdata-DatePublished}" />
 	<meta property="og:article:modified_time" content="{itemdata-DateModified}" />
 	<meta property="og:article:expiration_time" content="{itemdata-DateExpires}" />
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="{itemdata-section}" />
 	<meta property="og:article:tag" content="{itemdata-tag}" />
-	{end-extraHeadersExists}
+	{end-article}
 
 	<!-- todo: search -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css" 
 		integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous">    
+	{start-article}
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/default.min.css" 
 		integrity="sha256-CGf39SzxAmEe09Ojoh16/2xTRNleX9wBZcEXVnNqwSM=" crossorigin="anonymous">		
+	{end-article}		
 	<title>{itemdata-title}</title>
     <style>
         header {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(themes/default/img/header_bg.png);
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(/media/header_bg.png);
             background-size: cover;
             background-position: 50% 50%;
         }
@@ -103,7 +104,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
 					<a href="/">
-						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - {itemdata-plaintextdescription}" />
+						<img src="/media/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - {itemdata-plaintextdescription}" />
 					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
@@ -266,13 +267,14 @@
 		crossorigin="anonymous"
 		nonce="{script-nonce}"
 		></script>
+	{start-article}
 	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
 		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
 		crossorigin="anonymous"
 		nonce="{script-nonce}"
 		></script>
 	<script nonce="{script-nonce}">hljs.highlightAll();</script>			
-		
+	{end-article}	
 	<script nonce="{script-nonce}">
 	window.cookieconsent.initialise({
 	  "palette": {

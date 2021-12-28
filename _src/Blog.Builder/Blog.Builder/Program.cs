@@ -11,12 +11,13 @@ var mainTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "
 var articleTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-article.html"));
 var cardArticleTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-article.html"));
 var cardImageTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-image.html"));
+var cardSearchTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-search.html"));
 
 //prepare output
 Directory.Delete(OUTPUT, true);
 Directory.CreateDirectory(OUTPUT);
 Directory.CreateDirectory(Path.Combine(OUTPUT, "media"));
-Directory.CreateDirectory(Path.Combine(OUTPUT, "themes"));
+//Directory.CreateDirectory(Path.Combine(OUTPUT, "themes"));
 //Helpers.Copy(Path.Combine(ROOT, "themes"), Path.Combine(OUTPUT, "themes"));
 Helpers.Copy(Path.Combine(ROOT, "justcopyme"), OUTPUT);
 
@@ -54,11 +55,20 @@ foreach (var standalonePath in standalones)
 }
 
 //todo: add other cards, like meetup and talks
+var bodyForIndexPage = new StringBuilder();
+
+//Search
+//----------------------------------------------------------------------------------
+bodyForIndexPage.Append(
+    Helpers.BuildHtml(cardSearchTemplate,
+                        string.Empty,
+                        string.Empty,
+                        indexData)
+);
 
 //index & article
 //----------------------------------------------------------------------------------
 var articleDirectories = Directory.GetDirectories(Path.Combine(ROOT, "posts")).ToList().OrderByDescending(x => x);
-var bodyForIndexPage = new StringBuilder();
 var articleNumberForPagination = 0;
 var pageNumber = 0;
 

@@ -6,6 +6,10 @@ Redirect /index.html /
 
 Redirect /findme.html https://georgekosmidis.net
 
-RedirectMatch 301 ^/20[0-9]{2}/[0-9]{2}/[0-9]{2}/(.*)/$ /$1.html
-RedirectMatch 301 ^/(.*)/$ /$1.html
+RedirectMatch 301 ^20[0-9]{2}/[0-9]{2}/[0-9]{2}/([^\.]*)/$ /$1.html
+RedirectMatch 301 ^20[0-9]{2}/[0-9]{2}/[0-9]{2}/([^\.]*)$ /$1.html
+
+RedirectMatch 301 ^([^\.]+)/$ /$1.html
+RedirectMatch 301 ^([^.]+)$ /$1.html
+
 </IfModule>

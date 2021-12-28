@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Microsoft MVP | Cloud Solutions Architect | .NET Software Engineer | Organizer of Munich .NET Meetup | Speaker">
 	<meta name="author" content="George Kosmidis">	
-	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-fb3d14f6-6554-4128-b7cc-5f6d750d3dbd'">
+	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-9bf22895-af73-4ab4-a46e-54e555943115'">
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
 	<link rel="me" type="text/html" href="https://www.youtube.com/c/GeorgeKosmidis" />
@@ -16,9 +16,8 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
-	<!-- todo: favicon -->
-	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
-	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+	<link rel="icon" type="image/jpg" href="/media/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="/media/me_180x180.jpg">
 
 	<meta property="og:title" content="George Kosmidis" />
 	<meta property="og:type" content="website" /><!-- website | article -->
@@ -36,12 +35,11 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css" 
 		integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous">    
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/default.min.css" 
-		integrity="sha256-CGf39SzxAmEe09Ojoh16/2xTRNleX9wBZcEXVnNqwSM=" crossorigin="anonymous">		
+			
 	<title>George Kosmidis</title>
     <style>
         header {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(themes/default/img/header_bg.png);
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(/media/header_bg.png);
             background-size: cover;
             background-position: 50% 50%;
         }
@@ -96,7 +94,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
 					<a href="/">
-						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - Microsoft MVP | Cloud Solutions Architect | .NET Software Engineer | Organizer of Munich .NET Meetup | Speaker" />
+						<img src="/media/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - Microsoft MVP | Cloud Solutions Architect | .NET Software Engineer | Organizer of Munich .NET Meetup | Speaker" />
 					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
@@ -175,6 +173,11 @@
     <main class="container bg-light pt-4 pb-5">
         <div class="row" data-masonry='{"percentPosition": true }'>
 			<div class="col-md-6 col-lg-4 mb-4">
+	<div class="card text-center bg-transparent border-0" style="height:33px">
+		<script async src="https://cse.google.com/cse.js?cx=c67a1214306f44e87" nonce="9bf22895-af73-4ab4-a46e-54e555943115"></script>
+		<div class="gcse-searchbox-only"></div>
+	</div>
+</div><div class="col-md-6 col-lg-4 mb-4">
 	<div class="card shadow">
 		
 		<img src="\media\100490-feature-small.png" class="bd-placeholder-img card-img-top" alt="Secrets management for ASP.NET Core and Azure DevOps" />
@@ -183,13 +186,13 @@
 			<h2 class="card-title">Secrets management for ASP.NET Core and Azure DevOps</h2>
 			<p class="card-text"><p>In this post we will discover how to handle <em>appsettings.json</em> secrets (like API keys, passwords etc.) in a .NET app and eventually how to deploy a protected app and let <em>Azure DevOps</em> handle the secret replacement.</p>
 <p></p>
-			<div class="card-text text-end"><small class="text-muted">Modified 21 days ago</small></div>
+			<div class="card-text text-end"><small class="text-muted">Published 22 days ago</small></div>
 			<a href="/secrets-management-for-asp-net-core-and-azure-devops.html" _target="_blank" class="stretched-link"></a>
 		</div>
 	</div>
 </div><div class="col-md-6 col-lg-4 mb-4">
 	<div class="card shadow">
-		<img src="\media\mvp-small.png" class="bd-placeholder-img card-img-top" alt="Microsoft MVP - George Kosmidis">
+		<img src="\media\mvp-small.png" class="bd-placeholder-img card-img-top shadow" alt="Microsoft MVP - George Kosmidis">
 		<a href="https://mvp.microsoft.com/en-us/PublicProfile/5004591" class="stretched-link" rel="noopener"></a>
 	</div>
 </div><div class="col-md-6 col-lg-4 mb-4">
@@ -201,7 +204,7 @@
 			<h2 class="card-title">MongoDB Shell or Compass query with a GUID</h2>
 			<p class="card-text"><p>Just a small one for today. Have you ever tried to query <em>MongoDB</em> with a <code>GUID</code>? Well I did and it can be confusing!</p>
 <p></p>
-			<div class="card-text text-end"><small class="text-muted">Published 28 days ago</small></div>
+			<div class="card-text text-end"><small class="text-muted">Modified 28 days ago</small></div>
 			<a href="/mongodb-shell-or-compass-query-with-a-guid.html" _target="_blank" class="stretched-link"></a>
 		</div>
 	</div>
@@ -356,26 +359,20 @@
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
 		crossorigin="anonymous"
-		nonce="fb3d14f6-6554-4128-b7cc-5f6d750d3dbd"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
         async></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"
-		nonce="fb3d14f6-6554-4128-b7cc-5f6d750d3dbd"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
 	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" 
 		integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" 
 		crossorigin="anonymous"
-		nonce="fb3d14f6-6554-4128-b7cc-5f6d750d3dbd"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
-	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
-		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
-		crossorigin="anonymous"
-		nonce="fb3d14f6-6554-4128-b7cc-5f6d750d3dbd"
-		></script>
-	<script nonce="fb3d14f6-6554-4128-b7cc-5f6d750d3dbd">hljs.highlightAll();</script>			
 		
-	<script nonce="fb3d14f6-6554-4128-b7cc-5f6d750d3dbd">
+	<script nonce="9bf22895-af73-4ab4-a46e-54e555943115">
 	window.cookieconsent.initialise({
 	  "palette": {
 		"popup": {

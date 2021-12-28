@@ -8,7 +8,7 @@
 	<meta name="description" content="MariaDB Server is one of the most popular open source relational databases. It’s made by the original developers of MySQL and guaranteed to stay open source. It is part of most cloud offerings and the default in most Linux distributions.
 In this post, we will see how to use MariaDB as storage for an ASP.NET API and do simple CRUD operations with Entity Framework Core.">
 	<meta name="author" content="George Kosmidis">	
-	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-03fcce94-7899-4022-845d-d6ba2e372dd6'">
+	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-9bf22895-af73-4ab4-a46e-54e555943115'">
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
 	<link rel="me" type="text/html" href="https://www.youtube.com/c/GeorgeKosmidis" />
@@ -17,9 +17,8 @@ In this post, we will see how to use MariaDB as storage for an ASP.NET API and d
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
-	<!-- todo: favicon -->
-	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
-	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+	<link rel="icon" type="image/jpg" href="/media/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="/media/me_180x180.jpg">
 
 	<meta property="og:title" content="Using MariaDB in an ASP.NET Core API with Entity Framework Core" />
 	<meta property="og:type" content="article" /><!-- website | article -->
@@ -45,12 +44,14 @@ In this post, we will see how to use MariaDB as storage for an ASP.NET API and d
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css" 
 		integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous">    
+	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/default.min.css" 
 		integrity="sha256-CGf39SzxAmEe09Ojoh16/2xTRNleX9wBZcEXVnNqwSM=" crossorigin="anonymous">		
+			
 	<title>Using MariaDB in an ASP.NET Core API with Entity Framework Core</title>
     <style>
         header {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(themes/default/img/header_bg.png);
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(/media/header_bg.png);
             background-size: cover;
             background-position: 50% 50%;
         }
@@ -105,7 +106,7 @@ In this post, we will see how to use MariaDB as storage for an ASP.NET API and d
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
 					<a href="/">
-						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - MariaDB Server is one of the most popular open source relational databases. It’s made by the original developers of MySQL and guaranteed to stay open source. It is part of most cloud offerings and the default in most Linux distributions.
+						<img src="/media/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - MariaDB Server is one of the most popular open source relational databases. It’s made by the original developers of MySQL and guaranteed to stay open source. It is part of most cloud offerings and the default in most Linux distributions.
 In this post, we will see how to use MariaDB as storage for an ASP.NET API and do simple CRUD operations with Entity Framework Core." />
 					</a>
                 </div>
@@ -498,26 +499,27 @@ public class WeatherForecastController : ControllerBase
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
 		crossorigin="anonymous"
-		nonce="03fcce94-7899-4022-845d-d6ba2e372dd6"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
         async></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"
-		nonce="03fcce94-7899-4022-845d-d6ba2e372dd6"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
 	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" 
 		integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" 
 		crossorigin="anonymous"
-		nonce="03fcce94-7899-4022-845d-d6ba2e372dd6"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
+	
 	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
 		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
 		crossorigin="anonymous"
-		nonce="03fcce94-7899-4022-845d-d6ba2e372dd6"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
-	<script nonce="03fcce94-7899-4022-845d-d6ba2e372dd6">hljs.highlightAll();</script>			
+	<script nonce="9bf22895-af73-4ab4-a46e-54e555943115">hljs.highlightAll();</script>			
 		
-	<script nonce="03fcce94-7899-4022-845d-d6ba2e372dd6">
+	<script nonce="9bf22895-af73-4ab4-a46e-54e555943115">
 	window.cookieconsent.initialise({
 	  "palette": {
 		"popup": {

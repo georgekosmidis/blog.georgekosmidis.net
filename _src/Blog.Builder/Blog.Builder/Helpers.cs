@@ -5,6 +5,8 @@ using SixLabors.ImageSharp.Processing;
 
 internal static class Helpers
 {
+    private static readonly Guid Nonce = Guid.NewGuid();
+
     public static void Copy(string sourceDir, string targetDir)
     {
         Directory.CreateDirectory(targetDir);
@@ -73,7 +75,7 @@ internal static class Helpers
                             .Replace("{itemdata-ExtraHeaders}", string.Join(' ', itemData.ExtraHeaders), StringComparison.InvariantCultureIgnoreCase)
                             .Replace("{page-navigation}", paging)
                             .Replace("{body}", body, StringComparison.InvariantCultureIgnoreCase)
-                            .Replace("{script-nonce}", Guid.NewGuid().ToString(), StringComparison.InvariantCultureIgnoreCase)
+                            .Replace("{script-nonce}", Nonce.ToString(), StringComparison.InvariantCultureIgnoreCase)
                            ;
         if (string.IsNullOrWhiteSpace(itemData.RelativeImageUrl))
         {
@@ -82,13 +84,13 @@ internal static class Helpers
 
         if (itemData.Type != "article")
         {
-            template = Regex.Replace(template, "{start-extraHeadersExists}(.*?){end-extraHeadersExists}", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
+            template = Regex.Replace(template, "{start-article}(.*?){end-article}", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
         }
 
         template = template.Replace("{start-imageexists}", string.Empty)
                            .Replace("{end-imageexists}", string.Empty)
-                           .Replace("{start-extraHeadersExists}", string.Empty)
-                           .Replace("{end-extraHeadersExists}", string.Empty);
+                           .Replace("{start-article}", string.Empty)
+                           .Replace("{end-article}", string.Empty);
         return template;
     }
 

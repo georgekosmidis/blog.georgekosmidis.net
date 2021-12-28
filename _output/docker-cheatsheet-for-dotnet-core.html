@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="This is just a cheat sheet of commands and terminology for Docker and ASP.NET Core; it contains commands that you can find in the original cheat sheet, plus a Dockerfile for ASP.NET Core and a quick guide on how to created one from Visual Studio. Hopefully, both developers that are in the process of getting into the containerize world with Docker and developers that are already in but need a quick recap will find it useful.">
 	<meta name="author" content="George Kosmidis">	
-	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-eaa3a4e2-b01b-4e19-bd99-5063ed5a07de'">
+	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-9bf22895-af73-4ab4-a46e-54e555943115'">
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
 	<link rel="me" type="text/html" href="https://www.youtube.com/c/GeorgeKosmidis" />
@@ -16,9 +16,8 @@
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
-	<!-- todo: favicon -->
-	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
-	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+	<link rel="icon" type="image/jpg" href="/media/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="/media/me_180x180.jpg">
 
 	<meta property="og:title" content="Docker cheatsheet for .NET Core" />
 	<meta property="og:type" content="article" /><!-- website | article -->
@@ -43,12 +42,14 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css" 
 		integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous">    
+	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/default.min.css" 
 		integrity="sha256-CGf39SzxAmEe09Ojoh16/2xTRNleX9wBZcEXVnNqwSM=" crossorigin="anonymous">		
+			
 	<title>Docker cheatsheet for .NET Core</title>
     <style>
         header {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(themes/default/img/header_bg.png);
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(/media/header_bg.png);
             background-size: cover;
             background-position: 50% 50%;
         }
@@ -103,7 +104,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
 					<a href="/">
-						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - This is just a cheat sheet of commands and terminology for Docker and ASP.NET Core; it contains commands that you can find in the original cheat sheet, plus a Dockerfile for ASP.NET Core and a quick guide on how to created one from Visual Studio. Hopefully, both developers that are in the process of getting into the containerize world with Docker and developers that are already in but need a quick recap will find it useful." />
+						<img src="/media/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - This is just a cheat sheet of commands and terminology for Docker and ASP.NET Core; it contains commands that you can find in the original cheat sheet, plus a Dockerfile for ASP.NET Core and a quick guide on how to created one from Visual Studio. Hopefully, both developers that are in the process of getting into the containerize world with Docker and developers that are already in but need a quick recap will find it useful." />
 					</a>
                 </div>
                 <div class="col-sm-12 col-md-9">
@@ -463,26 +464,27 @@ ENTRYPOINT ["dotnet", "Name.Of.Your.Project.dll"]</code></pre></p>
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
 		crossorigin="anonymous"
-		nonce="eaa3a4e2-b01b-4e19-bd99-5063ed5a07de"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
         async></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"
-		nonce="eaa3a4e2-b01b-4e19-bd99-5063ed5a07de"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
 	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" 
 		integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" 
 		crossorigin="anonymous"
-		nonce="eaa3a4e2-b01b-4e19-bd99-5063ed5a07de"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
+	
 	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
 		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
 		crossorigin="anonymous"
-		nonce="eaa3a4e2-b01b-4e19-bd99-5063ed5a07de"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
-	<script nonce="eaa3a4e2-b01b-4e19-bd99-5063ed5a07de">hljs.highlightAll();</script>			
+	<script nonce="9bf22895-af73-4ab4-a46e-54e555943115">hljs.highlightAll();</script>			
 		
-	<script nonce="eaa3a4e2-b01b-4e19-bd99-5063ed5a07de">
+	<script nonce="9bf22895-af73-4ab4-a46e-54e555943115">
 	window.cookieconsent.initialise({
 	  "palette": {
 		"popup": {

@@ -8,7 +8,7 @@
 	<meta name="description" content="We all know the traditional try-catch blocks and -used correctly- there is of course nothing wrong with them! But even though all is good with that, ASP.NET Core has an even better way of doing things, two ways actually, that can make our code cleaner and easier to read! By following the &#8220;Middleware&#8221; approach, we extract all our custom exception handling code from within the actions and centralizing it in one place thus, cleaner code!
 In this post we will explore these three cases, and starting from the simple try-catch block we will refactor towards a custom error handling middleware.">
 	<meta name="author" content="George Kosmidis">	
-	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-8fed80df-09b0-46ee-b234-f6a0c572eb7a'">
+	<meta http-equiv="Content-Security-Policy" content="script-src 'nonce-9bf22895-af73-4ab4-a46e-54e555943115'">
 	<link rel="me" type="text/html" href="https://github.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://www.linkedin.com/in/georgekosmidis/" />
 	<link rel="me" type="text/html" href="https://www.youtube.com/c/GeorgeKosmidis" />
@@ -17,9 +17,8 @@ In this post we will explore these three cases, and starting from the simple try
 	<link rel="me" type="text/html" href="https://twitter.com/georgekosmidis" />
 	<link rel="me" type="text/html" href="https://georgekosmidis.net/" />
 
-	<!-- todo: favicon -->
-	<link rel="icon" type="image/jpg" href="themes/default/img/me_180x180.jpg">
-	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="themes/default/img/me_180x180.jpg">
+	<link rel="icon" type="image/jpg" href="/media/me_180x180.jpg">
+	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="/media/me_180x180.jpg">
 
 	<meta property="og:title" content="Error handling in ASP.NET Core Web API" />
 	<meta property="og:type" content="article" /><!-- website | article -->
@@ -43,12 +42,14 @@ In this post we will explore these three cases, and starting from the simple try
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css" 
 		integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous">    
+	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/default.min.css" 
 		integrity="sha256-CGf39SzxAmEe09Ojoh16/2xTRNleX9wBZcEXVnNqwSM=" crossorigin="anonymous">		
+			
 	<title>Error handling in ASP.NET Core Web API</title>
     <style>
         header {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(themes/default/img/header_bg.png);
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 1) 100%), url(/media/header_bg.png);
             background-size: cover;
             background-position: 50% 50%;
         }
@@ -103,7 +104,7 @@ In this post we will explore these three cases, and starting from the simple try
             <div class="row">
                 <div class="col-sm-12 col-md-3 text-center">
 					<a href="/">
-						<img src="themes/default/img/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - We all know the traditional try-catch blocks and -used correctly- there is of course nothing wrong with them! But even though all is good with that, ASP.NET Core has an even better way of doing things, two ways actually, that can make our code cleaner and easier to read! By following the &#8220;Middleware&#8221; approach, we extract all our custom exception handling code from within the actions and centralizing it in one place thus, cleaner code!
+						<img src="/media/me_180x180.jpg" class="rounded-circle border border-dark me" alt="George Kosmidis - We all know the traditional try-catch blocks and -used correctly- there is of course nothing wrong with them! But even though all is good with that, ASP.NET Core has an even better way of doing things, two ways actually, that can make our code cleaner and easier to read! By following the &#8220;Middleware&#8221; approach, we extract all our custom exception handling code from within the actions and centralizing it in one place thus, cleaner code!
 In this post we will explore these three cases, and starting from the simple try-catch block we will refactor towards a custom error handling middleware." />
 					</a>
                 </div>
@@ -374,26 +375,27 @@ Let&#8217;s check it:</p>
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
 		crossorigin="anonymous"
-		nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
         async></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"
-		nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
 	<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" 
 		integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" 
 		crossorigin="anonymous"
-		nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
+	
 	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
 		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
 		crossorigin="anonymous"
-		nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a"
+		nonce="9bf22895-af73-4ab4-a46e-54e555943115"
 		></script>
-	<script nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a">hljs.highlightAll();</script>			
+	<script nonce="9bf22895-af73-4ab4-a46e-54e555943115">hljs.highlightAll();</script>			
 		
-	<script nonce="8fed80df-09b0-46ee-b234-f6a0c572eb7a">
+	<script nonce="9bf22895-af73-4ab4-a46e-54e555943115">
 	window.cookieconsent.initialise({
 	  "palette": {
 		"popup": {
