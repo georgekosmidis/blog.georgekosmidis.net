@@ -84,15 +84,27 @@ internal static class Helpers
             template = Regex.Replace(template, "{start-imageexists}(.*?){end-imageexists}", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
         }
 
-        if (itemData.Type != "article")
+        if (itemData.Type?.Trim().ToLower() != "article")
         {
             template = Regex.Replace(template, "{start-article}(.*?){end-article}", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
+        }
+        if (itemData.Type?.Trim().ToLower() != "mainpage")
+        {
+            template = Regex.Replace(template, "{start-mainpage}(.*?){end-mainpage}", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
+        }
+        if (itemData.Type?.Trim().ToLower() != "standalone")
+        {
+            template = Regex.Replace(template, "{start-standalone}(.*?){end-standalone}", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
         }
 
         template = template.Replace("{start-imageexists}", string.Empty)
                            .Replace("{end-imageexists}", string.Empty)
                            .Replace("{start-article}", string.Empty)
-                           .Replace("{end-article}", string.Empty);
+                           .Replace("{end-article}", string.Empty)
+                           .Replace("{start-mainpage}", string.Empty)
+                           .Replace("{end-mainpage}", string.Empty)
+                           .Replace("{start-standalone}", string.Empty)
+                           .Replace("{end-standalone}", string.Empty);
         return template;
     }
 

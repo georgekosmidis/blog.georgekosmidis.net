@@ -5,7 +5,7 @@ using SixLabors.ImageSharp;
 //todo: compress output
 //todo: include meetup and sessionize events
 //todo: postprocessing of articles (fix html, add highlightjs markers)
-
+//todo: bigger images on tap, is it possible?
 
 //set paths
 var ROOT = "..\\..\\..\\..\\..\\..\\raw\\";
@@ -36,7 +36,7 @@ var indexData = new ItemData
     DateModified = DateTime.Now,
     Description = "Microsoft MVP | Cloud Solutions Architect | .NET Software Engineer | Organizer of Munich .NET Meetup | Speaker",
     Tags = new List<string> { "C#", "CSharp", "dotnet", "ML.NET", "Q#", "Microsoft MVP" },
-    Type = "website",
+    Type = "mainpage",
     Title = "George Kosmidis",
     RelativeUrl = "/",
     RelativeImageUrl = "/media/me.jpg"
@@ -87,7 +87,6 @@ foreach (var directory in articleDirectories)
 
     if (Directory.Exists(Path.Combine(directory, "media")))
     {
-        //TODO: create a smaller version of the feature image for the index page
         Helpers.Copy(Path.Combine(directory, "media"), Path.Combine(OUTPUT, "media"));
         foreach (var file in Directory.GetFiles(Path.Combine(directory, "media")))
         {
@@ -141,7 +140,7 @@ foreach (var directory in articleDirectories)
         {
             indexFileName = $"index-page-{pageNumber + 1}.html";
         }
-         Helpers.SaveCompressedHtml(Path.Combine(OUTPUT, indexFileName), indexPage);
+        Helpers.SaveCompressedHtml(Path.Combine(OUTPUT, indexFileName), indexPage);
 
         bodyForIndexPage.Clear();
         pageNumber++;
@@ -153,4 +152,4 @@ foreach (var directory in articleDirectories)
 //google sitemap
 //----------------------------------------------------------------------------------
 var sitemap = Helpers.BuildSiteMapXML(pages);
- Helpers.SaveCompressedHtml(Path.Combine(OUTPUT, "sitemap.xml"), sitemap);
+Helpers.SaveCompressedHtml(Path.Combine(OUTPUT, "sitemap.xml"), sitemap);
