@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using SixLabors.ImageSharp;
 
-//todo: compress output
 //todo: include meetup and sessionize events
 //todo: postprocessing of articles (fix html, add highlightjs markers)
 //todo: bigger images on tap, is it possible?
