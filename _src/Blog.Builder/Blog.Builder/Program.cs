@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using Geko.HttpClientService;
+using Geko.HttpClientService.Extensions;
 using Newtonsoft.Json;
 using SixLabors.ImageSharp;
 
@@ -26,6 +28,11 @@ Directory.CreateDirectory(Path.Combine(OUTPUT, "media"));
 Helpers.Copy(Path.Combine(ROOT, "justcopyme"), OUTPUT);
 
 var pages = new List<ItemData>();
+
+//Meetup events
+var httpClientService = HttpClientServiceFactory.Instance.CreateHttpClientService();
+var iCalMeetup = await httpClientService.GetAsync("https://www.meetup.com/munich-dotnet-meetup/events/ical/");
+var iCalSessionize = await httpClientService.GetAsync("https://sessionize.com/calendar/3a2660e0e9bd49cf853a35956e110a80");
 
 //data for index
 //----------------------------------------------------------------------------------
@@ -146,6 +153,7 @@ foreach (var directory in articleDirectories)
 
     }
 }
+
 
 
 //google sitemap
