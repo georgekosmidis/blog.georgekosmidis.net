@@ -12,53 +12,12 @@
     <PackageReference Include="Geko.HttpClientService" Version="3.0.2" />
     <PackageReference Include="Ical.Net" Version="4.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RazorEngine.NetCore" Version="3.1.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.4" />
     <PackageReference Include="WebMarkupMin.Core" Version="2.9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="raw\20130425135124-sql-server-weird-behavior-with-containstable-isabout-and-weighted-terms\content.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20130425135124-sql-server-weird-behavior-with-containstable-isabout-and-weighted-terms\content.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\content.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\content.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\feature.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\1f642.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\BlazorStartingSolution.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\BlazorWebComponentNewCity.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\create_component-2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\NewBlazorComponentLoading.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\NewBlazorComponentRun.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\OpenWeatherMap.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\RazorClassLibrary.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="raw\20211110103644-create-and-use-your-first-component-in-blazor\media\VS_OpenWeatherMap_Models.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="template\card-image.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

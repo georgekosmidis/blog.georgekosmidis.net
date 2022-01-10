@@ -2,6 +2,8 @@
 using Geko.HttpClientService;
 using Geko.HttpClientService.Extensions;
 using Newtonsoft.Json;
+using RazorEngine;
+using RazorEngine.Templating;
 using SixLabors.ImageSharp;
 
 //todo: include meetup and sessionize events
@@ -13,18 +15,16 @@ var ROOT = "..\\..\\..\\..\\..\\..\\raw\\";
 var OUTPUT = "..\\..\\..\\..\\..\\..\\_output\\";
 
 //load templates
-var mainTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template.html"));
-var articleTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-article.html"));
-var cardArticleTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-article.html"));
-var cardImageTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-image.html"));
-var cardSearchTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-search.html"));
+var mainTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template.cshtml"));
+var articleTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-article.cshtml"));
+var cardArticleTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-article.cshtml"));
+var cardImageTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-image.cshtml"));
+var cardSearchTemplate = await File.ReadAllTextAsync(Path.Combine(ROOT, "templates", "template-card-search.cshtml"));
 
 //prepare output
 Directory.Delete(OUTPUT, true);
 Directory.CreateDirectory(OUTPUT);
 Directory.CreateDirectory(Path.Combine(OUTPUT, "media"));
-//Directory.CreateDirectory(Path.Combine(OUTPUT, "themes"));
-//Helpers.Copy(Path.Combine(ROOT, "themes"), Path.Combine(OUTPUT, "themes"));
 Helpers.Copy(Path.Combine(ROOT, "justcopyme"), OUTPUT);
 
 var pages = new List<ItemData>();
@@ -49,6 +49,7 @@ var indexData = new ItemData
 };
 pages.Add(indexData);
 
+var result = Engine.Razor.RunCompile(mainTemplate, "templateKey", typeof(ItemData), indexData);
 
 //standalones
 //----------------------------------------------------------------------------------

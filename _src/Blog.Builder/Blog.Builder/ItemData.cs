@@ -1,15 +1,15 @@
 ﻿using System.Text.RegularExpressions;
 
-internal record class ItemData
+public record class ItemData
 {
 
-    public string? Type { get; init; }
+    public string? Type { get; set; }
 
-    public string? RelativeUrl { get; init; }
+    public string? RelativeUrl { get; set; }
 
-    public string? Title { get; init; }
+    public string? Title { get; set; }
 
-    public string? Description { get; init; }
+    public string? Description { get; set; }
 
     public string PlainTextDescription
     {
@@ -47,11 +47,11 @@ internal record class ItemData
 
     public string DatePublishedOrModificationText => DateModifiedText == DatePublishedText ? $"Published {DatePublishedText}" : $"Modified {DateModifiedText}";
 
-    public DateTime? DatePublished { get; init; }
+    public DateTime? DatePublished { get; set; }
 
-    public DateTime? DateModified { get; init; }
+    public DateTime? DateModified { get; set; }
 
-    public string? RelativeImageUrl { get; init; }
+    public string? RelativeImageUrl { get; set; }
 
     public string? RelativeImageUrlSmall => RelativeImageUrl is null
                 ? null
@@ -59,9 +59,9 @@ internal record class ItemData
                     + "/" 
                     + Path.GetFileNameWithoutExtension(RelativeImageUrl) + "-small" + Path.GetExtension(RelativeImageUrl);
 
-    public List<string>? Tags { get; init; }
+    public List<string>? Tags { get; set; }
 
-    public List<string> ExtraHeaders { get; init; } = new List<string>();
+    public List<string> ExtraHeaders { get; set; } = new List<string>();
 
 
     private static string SpanCalculation(TimeSpan span)
