@@ -22,16 +22,16 @@
 						</div>
 					</div>  
 				</div>	
-@if (string.IsNullOrWhiteSpace(itemData.RelativeImageUrl)) {
+@if ( !string.IsNullOrWhiteSpace(@Model.RelativeImageUrl) ) {
 				<div class="row">
 					<div class="col text-center">
-						<img src="@Model.Relativeimageurl" alt="@Model.Title"/>
+						<img src="@Model.RelativeImageUrl" alt="@Model.Title"/>
 					</div>
 				</div>
 }
 				<div class="row">
 					<div class="col pt-3 pb-6">
-						@body
+						@Model.Body
 					</div>
 				</div>
 			</div>

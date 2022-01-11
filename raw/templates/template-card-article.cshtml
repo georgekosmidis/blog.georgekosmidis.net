@@ -1,13 +1,13 @@
 <div class="col-md-6 col-lg-4 mb-4">
 	<div class="card shadow">
-@if (string.IsNullOrWhiteSpace(itemData.RelativeImageUrl)) {
-		<img src="@Model.RelativeimageurlSmall" class="bd-placeholder-img card-img-top" alt="@Model.Title" />
+@if ( !string.IsNullOrWhiteSpace(@Model.RelativeImageUrl) ) {
+		<img src="@Model.RelativeImageUrlSmall" class="bd-placeholder-img card-img-top" alt="@Model.Title" />
 }
 		<div class="card-body">
 			<h2 class="card-title">@Model.Title</h2>
 			<p class="card-text">@Model.Description</p>
 			<div class="card-text text-end"><small class="text-muted">@Model.DatePublishedOrModificationText</small></div>
-			<a href="@Model.Relativeurl" target="_blank" class="stretched-link"></a>
+			<a href="@Model.RelativeUrl" target="_blank" class="stretched-link"></a>
 		</div>
 	</div>
 </div>

@@ -1,25 +1,13 @@
-﻿using System.Text.RegularExpressions;
+﻿namespace Blog.Builder.Models;
 
-public record class ItemData
+public record class ArticleTemplateData : BasicData
 {
 
-    public string? Type { get; set; }
-
-    public string? RelativeUrl { get; set; }
-
-    public string? Title { get; set; }
-
-    public string? Description { get; set; }
-
-    public string PlainTextDescription
-    {
-        get
-        {
-            var result = Regex.Replace(Description ?? throw new ArgumentNullException(nameof(Description)), "<.*?>", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
-            return result.Trim();
-        }
-    }
-
+    public string? RelativeImageUrlSmall => RelativeImageUrl is null
+                ? null
+                : (Path.GetDirectoryName(RelativeImageUrl) ?? string.Empty).Replace("\\", "/")
+                    + "/"
+                    + Path.GetFileNameWithoutExtension(RelativeImageUrl) + "-small" + Path.GetExtension(RelativeImageUrl);
 
     public string DateModifiedText
     {
@@ -46,22 +34,6 @@ public record class ItemData
                 : $"Published {DatePublishedText}, modified {DateModifiedText}";
 
     public string DatePublishedOrModificationText => DateModifiedText == DatePublishedText ? $"Published {DatePublishedText}" : $"Modified {DateModifiedText}";
-
-    public DateTime? DatePublished { get; set; }
-
-    public DateTime? DateModified { get; set; }
-
-    public string? RelativeImageUrl { get; set; }
-
-    public string? RelativeImageUrlSmall => RelativeImageUrl is null
-                ? null
-                : (Path.GetDirectoryName(RelativeImageUrl) ?? string.Empty).Replace("\\", "/")
-                    + "/" 
-                    + Path.GetFileNameWithoutExtension(RelativeImageUrl) + "-small" + Path.GetExtension(RelativeImageUrl);
-
-    public List<string>? Tags { get; set; }
-
-    public List<string> ExtraHeaders { get; set; } = new List<string>();
 
 
     private static string SpanCalculation(TimeSpan span)
