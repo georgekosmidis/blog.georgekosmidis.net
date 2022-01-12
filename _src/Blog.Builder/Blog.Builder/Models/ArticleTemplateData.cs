@@ -13,7 +13,7 @@ public record class ArticleTemplateData : BasicData
     {
         get
         {
-            var span = DateTime.Now - (DateModified ?? throw new ArgumentNullException(nameof(DateModified)));
+            var span = DateTime.Now - DateModified;
 
             return SpanCalculation(span);
         }
@@ -23,7 +23,7 @@ public record class ArticleTemplateData : BasicData
     {
         get
         {
-            var span = DateTime.Now - (DatePublished ?? throw new ArgumentNullException(nameof(DatePublished)));
+            var span = DateTime.Now - DatePublished;
 
             return SpanCalculation(span);
         }
@@ -55,5 +55,18 @@ public record class ArticleTemplateData : BasicData
             return span.Minutes + $" minute{(span.Minutes > 1 ? "s" : "")} ago";
         }
         return " a few seconds ago";
+    }
+
+    public new void Validate()
+    {
+        base.Validate();
+
+        ArgumentNullException.ThrowIfNull(this.RelativeImageUrlSmall);
+        ArgumentNullException.ThrowIfNull(this.DateModifiedText);
+        ArgumentNullException.ThrowIfNull(this.DatePublishedText);
+        ArgumentNullException.ThrowIfNull(this.DatePublishedAndModificationText);
+
+        ArgumentNullException.ThrowIfNull(this.DatePublishedOrModificationText);
+
     }
 }

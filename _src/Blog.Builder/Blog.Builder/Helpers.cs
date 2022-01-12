@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 using Blog.Builder.Models;
+using Newtonsoft.Json;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 
@@ -31,14 +32,14 @@ internal static class Helpers
         {
             throw new NullReferenceException(nameof(itemData.Type));
         }
-        if (itemData.DateModified is null)
-        {
-            throw new NullReferenceException(nameof(itemData.DateModified));
-        }
-        if (itemData.DatePublished is null)
-        {
-            throw new NullReferenceException(nameof(itemData.DatePublished));
-        }
+        //if (itemData.DateModified is null)
+        //{
+        //    throw new NullReferenceException(nameof(itemData.DateModified));
+        //}
+        //if (itemData.DatePublished is null)
+        //{
+        //    throw new NullReferenceException(nameof(itemData.DatePublished));
+        //}
         if (itemData.Tags is null || !itemData.Tags.Any())
         {
             throw new NullReferenceException(nameof(itemData.Tags));

@@ -10,10 +10,35 @@ public record class MainTemplateData : BasicData
     {
         get
         {
-            var result = Regex.Replace(Description ?? throw new ArgumentNullException(nameof(Description)), "<.*?>", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
+            var result = Regex.Replace(Description, "<.*?>", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
             return result.Trim();
         }
     }
 
     public List<ArticleTemplateData> Articles { get; } = new List<ArticleTemplateData>();
+
+    public new void ValidateMainPage()
+    {
+        base.Validate();
+
+        ArgumentNullException.ThrowIfNull(this.Paging);
+        ArgumentNullException.ThrowIfNull(this.Paging.CurrentPageIndex);
+        ArgumentNullException.ThrowIfNull(this.Paging.ArticlesCount);
+        ArgumentNullException.ThrowIfNull(this.Paging.ArticlesPerPage);
+
+        ArgumentNullException.ThrowIfNull(this.PlainTextDescription);
+
+        ArgumentNullException.ThrowIfNull(this.Articles);
+    }
+
+    public void ValidateIndex()
+    {
+        this.ValidateMainPage();
+
+        if (this.Articles.Count == 0)
+        {
+            throw new ArgumentException("No articles found", nameof(this.Articles));
+        }
+    }
+
 }
