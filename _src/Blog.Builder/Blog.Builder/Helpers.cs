@@ -26,7 +26,7 @@ internal static class Helpers
         }
     }
 
-    public static void ValidateItemData(BasicData itemData)
+    public static void ValidateItemData(MainTemplateData itemData)
     {
         if (itemData.Type == PageTypes.Unknown)
         {

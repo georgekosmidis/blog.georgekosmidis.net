@@ -26,8 +26,9 @@ var serviceProvider = new ServiceCollection()
           })
           .AddSingleton<ITemplateProvider, TemplateProvider>()
           .AddSingleton<ISitemapBuilder, SitemapBuilder>()
-          .AddSingleton<IPageBuilder, PageBuilder>()
+          .AddSingleton<IMainTemplateBuilder, MainTemplateBuilder>()
           .AddSingleton<IPathService, PathService>()
+          .AddSingleton<IPagePreparation, PagePreparation>()
           .AddSingleton<IMarkupMinifier>(provider =>
           {
               var settings = new HtmlMinificationSettings()
@@ -87,7 +88,7 @@ var articleDirectories = Directory.GetDirectories(pathService.FolderWorkingPosts
 
 //data for index
 //----------------------------------------------------------------------------------
-var indexPageData = new MainTemplateData
+var indexPageData = new IndexTemplateData
 {
     DatePublished = DateTime.Now,
     DateModified = DateTime.Now,
@@ -104,14 +105,14 @@ var indexPageData = new MainTemplateData
     }
 };
 
-var pageOrganiser = serviceProvider.GetService<IPageOrganiser>() ?? throw new NullReferenceException(nameof(IPageBuilder));
+var pageOrganiser = serviceProvider.GetService<IPagePreparation>() ?? throw new NullReferenceException(nameof(IMainTemplateBuilder));
 
 //standalones
 //----------------------------------------------------------------------------------
 var standalones = Directory.GetFiles(pathService.FolderWorkingStandalones, "*.html").ToList();
 foreach (var standalonePath in standalones)
 {
-    pageBuilder.Build(standalonePath, PageTypes.Standalone);
+    pageOrganiser.Prepare(standalonePath, PageTypes.Standalone);
 }
 
 //Meetup events

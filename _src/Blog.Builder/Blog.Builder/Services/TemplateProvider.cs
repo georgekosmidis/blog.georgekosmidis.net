@@ -1,4 +1,5 @@
-﻿using Blog.Builder.Models;
+﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Models;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
@@ -14,6 +15,8 @@ internal class TemplateProvider : ITemplateProvider
 
     public TemplateProvider(IPathService pathService)
     {
+        ArgumentNullException.ThrowIfNull(pathService);
+
         Task.Run(async () =>
         {
             MainTemplate = await File.ReadAllTextAsync(pathService.FileWorkingTemplateBase);
@@ -24,5 +27,12 @@ internal class TemplateProvider : ITemplateProvider
             SitemapTemplate = await File.ReadAllTextAsync(pathService.FileWorkingTemplateSitemap);
 
         }).Wait();
+
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.MainTemplate);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.ArticleTemplate);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.CardArticleTemplate);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.CardImageTemplate);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.CardSearchTemplate);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.SitemapTemplate);
     }
 }

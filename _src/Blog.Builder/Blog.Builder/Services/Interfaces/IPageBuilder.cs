@@ -2,7 +2,7 @@
 
 namespace Blog.Builder.Services;
 
-internal interface IPageBuilder
+internal interface IMainTemplateBuilder
 {
-    PageBuilderResult Build(string html, PageTypes pageType);
+    MainTemplateBuilderResult Build(string html, PageTypes pageType);
 }

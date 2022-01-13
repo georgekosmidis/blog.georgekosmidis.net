@@ -1,6 +1,8 @@
-﻿namespace Blog.Builder.Models;
+﻿using Blog.Builder.Exceptions;
 
-public record class ArticleTemplateData : BasicData
+namespace Blog.Builder.Models;
+
+public record class ArticleTemplateData : MainTemplateData
 {
 
     public string? RelativeImageUrlSmall => RelativeImageUrl is null
@@ -61,12 +63,12 @@ public record class ArticleTemplateData : BasicData
     {
         base.Validate();
 
-        ArgumentNullException.ThrowIfNull(this.RelativeImageUrlSmall);
-        ArgumentNullException.ThrowIfNull(this.DateModifiedText);
-        ArgumentNullException.ThrowIfNull(this.DatePublishedText);
-        ArgumentNullException.ThrowIfNull(this.DatePublishedAndModificationText);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.RelativeImageUrlSmall);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.DateModifiedText);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.DatePublishedText);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.DatePublishedAndModificationText);
 
-        ArgumentNullException.ThrowIfNull(this.DatePublishedOrModificationText);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.DatePublishedOrModificationText);
 
     }
 }

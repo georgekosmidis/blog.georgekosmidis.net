@@ -1,4 +1,5 @@
-﻿using Blog.Builder.Models;
+﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Models;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
@@ -24,15 +25,22 @@ internal class PathService : IPathService
 
     public string FolderOutput { get; init; }
     public string FolderOutputMedia { get; init; }
+    public string FileOutputSitemap { get; init; }
 
 
     public PathService(IOptions<AppSettings> options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(options.Value.OutputFolder);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(options.Value.RawFolder);
+
         //todo: check options if they are empty
         FolderWorking = options.Value.RawFolder;
         FolderOutput = options.Value.OutputFolder;
 
         FolderOutputMedia = Path.Combine(FolderOutput, "media");
+
+        FileOutputSitemap = Path.Combine(FolderOutput, "sitemap.xml");
 
         FolderWorkingJustCopy = Path.Combine(FolderWorking, "justcopyme");
         FolderWorkingPosts = Path.Combine(FolderWorking, "posts");
@@ -51,6 +59,8 @@ internal class PathService : IPathService
 
     public string GetWorkingPath(PageTypes pageType)
     {
+        ArgumentNullException.ThrowIfNull(pageType);
+
         switch (pageType)
         {
             case PageTypes.MainPage:

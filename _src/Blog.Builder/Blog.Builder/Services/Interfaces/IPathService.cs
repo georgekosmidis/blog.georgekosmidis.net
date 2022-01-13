@@ -12,6 +12,7 @@ internal interface IPathService
     string FileWorkingTemplateSitemap { get; init; }
     string FolderOutput { get; init; }
     string FolderOutputMedia { get; init; }
+    string FileOutputSitemap { get; init; }
     string FolderWorking { get; init; }
     string FolderWorkingJustCopy { get; init; }
     string FolderWorkingPosts { get; init; }
