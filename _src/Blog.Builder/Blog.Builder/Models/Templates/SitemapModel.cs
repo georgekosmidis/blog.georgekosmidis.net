@@ -1,6 +1,9 @@
 ﻿namespace Blog.Builder.Models;
 
-public class Sitemap
+/// <summary>
+/// Used for the sitemap.xml (template-sitemap.cshtml)
+/// </summary>
+public class SitemapModel
 {
     public List<Url> Urls { get; set; } = new List<Url>();
 

@@ -3,12 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Blog.Builder.Models;
 
-public record class IndexTemplateData : MainTemplateData
+public record class IndexTemplateData : ModelBase
 {
-    public Paging Paging { get; set; } = new Paging();
-
-
-    public List<ArticleTemplateData> Articles { get; } = new List<ArticleTemplateData>();
+    public List<ArticleModel> Articles { get; } = new List<ArticleModel>();
 
     public new void Validate()
     {
@@ -19,9 +16,5 @@ public record class IndexTemplateData : MainTemplateData
         ExceptionHelpers.ThrowIfNull(this.Paging.ArticlesCount);
         ExceptionHelpers.ThrowIfNull(this.Paging.ArticlesPerPage);
         ExceptionHelpers.ThrowIfNullOrEmpty(this.Articles);
-
-
     }
-
-
 }

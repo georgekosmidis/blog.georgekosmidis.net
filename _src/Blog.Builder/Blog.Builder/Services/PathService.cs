@@ -4,29 +4,30 @@ using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
 
+//todo: pass all of this to appsettings, no reason to be hardocoded
 internal class PathService : IPathService
 {
-    public string FolderWorking { get; init; }
+    public string WorkingFolder { get; init; }
 
-    public string FolderWorkingTemplates { get; init; }
-    public string FolderWorkingJustCopy { get; init; }
-    public string FolderWorkingPosts { get; init; }
-    public string FolderWorkingStandalones { get; init; }
-
-
-    public string FileWorkingTemplateBase { get; init; }
-    public string FileWorkingTemplateArticle { get; init; }
-    public string FileWorkingTemplateCardArticle { get; init; }
-    public string FileWorkingTemplateCardImage { get; init; }
-    public string FileWorkingTemplateCardSearch { get; init; }
-    public string FileWorkingTemplateSitemap { get; init; }
+    public string TemplatesFolder { get; init; }
+    public string JustCopyFolder { get; init; }
+    public string PostsFolder { get; init; }
+    public string StandalonesFolder { get; init; }
 
 
+    public string TemplateMain { get; init; }
+    public string TemplateArticle { get; init; }
+    public string TemplateSitemap { get; init; }
+    public string TemplateStandalone { get; init; }
 
-    public string FolderOutput { get; init; }
-    public string FolderOutputMedia { get; init; }
-    public string FileOutputSitemap { get; init; }
+    public string TemplateCardArticle { get; init; }
+    public string TemplateCardImage { get; init; }
+    public string TemplateCardSearch { get; init; }
 
+
+    public string OutputFolder { get; init; }
+    public string OutputMediaFolder { get; init; }
+    public string OutputSitemap { get; init; }
 
     public PathService(IOptions<AppSettings> options)
     {
@@ -34,43 +35,28 @@ internal class PathService : IPathService
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(options.Value.OutputFolder);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(options.Value.RawFolder);
 
-        //todo: check options if they are empty
-        FolderWorking = options.Value.RawFolder;
-        FolderOutput = options.Value.OutputFolder;
+        WorkingFolder = options.Value.RawFolder;
 
-        FolderOutputMedia = Path.Combine(FolderOutput, "media");
+        OutputFolder = options.Value.OutputFolder;       
+        OutputMediaFolder = Path.Combine(OutputFolder, "media");
 
-        FileOutputSitemap = Path.Combine(FolderOutput, "sitemap.xml");
+        OutputSitemap = Path.Combine(OutputFolder, "sitemap.xml");
 
-        FolderWorkingJustCopy = Path.Combine(FolderWorking, "justcopyme");
-        FolderWorkingPosts = Path.Combine(FolderWorking, "posts");
-        FolderWorkingStandalones = Path.Combine(FolderWorking, "standalones");
+        JustCopyFolder = Path.Combine(WorkingFolder, "justcopyme");
+        PostsFolder = Path.Combine(WorkingFolder, "posts");
+        StandalonesFolder = Path.Combine(WorkingFolder, "standalones");
 
-        FolderWorkingTemplates = Path.Combine(FolderWorking, "templates");
+        TemplatesFolder = Path.Combine(WorkingFolder, "templates");
 
-        FileWorkingTemplateBase = Path.Combine(FolderWorkingTemplates, "template.cshtml");
-        FileWorkingTemplateArticle = Path.Combine(FolderWorkingTemplates, "template-article.cshtml");
-        FileWorkingTemplateCardArticle = Path.Combine(FolderWorkingTemplates, "template-card-article.cshtml");
-        FileWorkingTemplateCardImage = Path.Combine(FolderWorkingTemplates, "template-card-article.cshtml");
-        FileWorkingTemplateCardSearch = Path.Combine(FolderWorkingTemplates, "template-card-search.cshtml");
-        FileWorkingTemplateSitemap = Path.Combine(FolderWorkingTemplates, "teamplate-sitemap.cshtml");
+        TemplateMain = Path.Combine(TemplatesFolder, "template-layout.cshtml");
+        TemplateArticle = Path.Combine(TemplatesFolder, "template-article.cshtml");
+        TemplateStandalone = Path.Combine(TemplatesFolder, "template-standalone.cshtml");
+        TemplateSitemap = Path.Combine(TemplatesFolder, "teamplate-sitemap.cshtml");
+
+        TemplateCardArticle = Path.Combine(TemplatesFolder, "template-card-article.cshtml");
+        TemplateCardImage = Path.Combine(TemplatesFolder, "template-card-article.cshtml");
+        TemplateCardSearch = Path.Combine(TemplatesFolder, "template-card-search.cshtml");
 
     }
 
-    public string GetWorkingPath(PageTypes pageType)
-    {
-        ArgumentNullException.ThrowIfNull(pageType);
-
-        switch (pageType)
-        {
-            case PageTypes.MainPage:
-                return FileWorkingTemplateBase;
-            case PageTypes.Article:
-                return FileWorkingTemplateArticle;
-            case PageTypes.Standalone:
-                return FolderWorkingStandalones;
-            default:
-                throw new Exception(pageType.ToString() + " not supported!");
-        }
-    }
 }

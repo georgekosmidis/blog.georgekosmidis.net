@@ -12,7 +12,6 @@ internal static class ExceptionHelpers
         {
             Throw($"{paramName} is null or filled with whitespaces only.");
         }
-
     }
 
     public static void ThrowIfNull([NotNull] object? argument, [CallerArgumentExpression("argument")] string? paramName = null)
@@ -32,7 +31,16 @@ internal static class ExceptionHelpers
         {
             Throw($"{paramName} doesn't has any items.");
         }
+    }
 
+    public static void ThrowIfPathNotExists([NotNull] string? argument, [CallerArgumentExpression("argument")] string? paramName = null)
+    {
+        ThrowIfNullOrWhiteSpace(argument, paramName);
+
+        if (!(Directory.Exists(argument) || File.Exists(argument)))
+        {
+            Throw($"Directory of file '{paramName}' does not exists.");
+        }
     }
 
     [DoesNotReturn]

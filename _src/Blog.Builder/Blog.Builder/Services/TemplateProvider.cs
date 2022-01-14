@@ -6,33 +6,32 @@ namespace Blog.Builder.Services;
 
 internal class TemplateProvider : ITemplateProvider
 {
-    public string MainTemplate { get; private set; } = string.Empty;
-    public string ArticleTemplate { get; private set; } = string.Empty;
-    public string CardArticleTemplate { get; private set; } = string.Empty;
-    public string CardImageTemplate { get; private set; } = string.Empty;
-    public string CardSearchTemplate { get; private set; } = string.Empty;
-    public string SitemapTemplate { get; private set; } = string.Empty;
+    private Dictionary<string, string> Templates = new Dictionary<string, string>();
 
     public TemplateProvider(IPathService pathService)
     {
         ArgumentNullException.ThrowIfNull(pathService);
 
-        Task.Run(async () =>
+        Templates = new Dictionary<string, string>()
         {
-            MainTemplate = await File.ReadAllTextAsync(pathService.FileWorkingTemplateBase);
-            ArticleTemplate = await File.ReadAllTextAsync(pathService.FileWorkingTemplateArticle);
-            CardArticleTemplate = await File.ReadAllTextAsync(pathService.FileWorkingTemplateCardArticle);
-            CardImageTemplate = await File.ReadAllTextAsync(pathService.FileWorkingTemplateCardImage);
-            CardSearchTemplate = await File.ReadAllTextAsync(pathService.FileWorkingTemplateCardSearch);
-            SitemapTemplate = await File.ReadAllTextAsync(pathService.FileWorkingTemplateSitemap);
+            { nameof(ModelBase), File.ReadAllText(pathService.TemplateMain) },
+            { nameof(ArticleModel), File.ReadAllText(pathService.TemplateArticle) },
+            { nameof(StandaloneModel), File.ReadAllText(pathService.TemplateStandalone) },
+            { nameof(SitemapModel), File.ReadAllText(pathService.TemplateSitemap) },
+            { nameof(ModelBase), File.ReadAllText(pathService.TemplateCardArticle) },
+            { nameof(ModelBase), File.ReadAllText(pathService.TemplateCardImage) },
+            { nameof(ModelBase), File.ReadAllText(pathService.TemplateCardSearch) },
+        };
 
-        }).Wait();
+        foreach (var (model, template) in Templates)
+        {
+            ExceptionHelpers.ThrowIfNullOrWhiteSpace(template, model);
+        }
+    }
 
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.MainTemplate);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.ArticleTemplate);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.CardArticleTemplate);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.CardImageTemplate);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.CardSearchTemplate);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.SitemapTemplate);
+    public string Get<T>()
+    {
+        var template = Templates.First( x => x.Key == typeof(T).Name);
+        return template.Value;
     }
 }

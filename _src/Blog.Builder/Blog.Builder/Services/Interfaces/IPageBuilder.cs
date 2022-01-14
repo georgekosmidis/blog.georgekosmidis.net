@@ -4,5 +4,5 @@ namespace Blog.Builder.Services;
 
 internal interface IMainTemplateBuilder
 {
-    MainTemplateBuilderResult Build(string html, PageTypes pageType);
+    PageBuilderResult Build<T>(string directory) where T : ModelBase;
 }

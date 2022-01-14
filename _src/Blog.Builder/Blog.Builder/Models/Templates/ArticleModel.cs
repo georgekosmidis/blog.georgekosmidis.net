@@ -2,7 +2,10 @@
 
 namespace Blog.Builder.Models;
 
-public record class ArticleTemplateData : MainTemplateData
+/// <summary>
+/// Used for an article page (template-article.cshtml)
+/// </summary>
+public record class ArticleModel : ModelBase
 {
 
     public string? RelativeImageUrlSmall => RelativeImageUrl is null

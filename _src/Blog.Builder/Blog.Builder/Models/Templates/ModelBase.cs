@@ -3,10 +3,12 @@ using System.Text.RegularExpressions;
 
 namespace Blog.Builder.Models;
 
-public record class MainTemplateData
+/// <summary>
+/// Used for the main template, the layout (template-layout.cshtml)
+/// </summary>
+public record class ModelBase
 {
-
-    public PageTypes Type { get; set; } = default!;
+    public Paging Paging { get; set; } = new Paging();
 
     public string RelativeUrl { get; set; } = default!;
 
@@ -52,7 +54,6 @@ public record class MainTemplateData
 
     public void Validate()
     {
-        ExceptionHelpers.ThrowIfNull(this.Type);
         ExceptionHelpers.ThrowIfNull(this.DateModified);
         ExceptionHelpers.ThrowIfNull(this.DatePublished);
         ExceptionHelpers.ThrowIfNull(this.DateExpires);
@@ -65,11 +66,6 @@ public record class MainTemplateData
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Title);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.RelativeUrl);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Body);
-
-        if (this.Type == PageTypes.Unknown)
-        {
-            throw new Exception($"{nameof(this.Type)} cannot be {nameof(PageTypes.Unknown)}.");
-        }
     }
 
 }
