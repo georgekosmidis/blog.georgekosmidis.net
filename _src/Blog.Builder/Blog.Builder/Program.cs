@@ -97,7 +97,7 @@ var cardService = serviceProvider.GetService<ICardPreparation>() ?? throw new Nu
 var cardsDirectories = Directory.GetDirectories(pathService.CardsFolder).ToList();
 foreach (var directory in cardsDirectories)
 {
-    cardService.PrepareCard(directory);
+    cardService.RegisterCard(directory);
 }
 
 //standalones
@@ -109,12 +109,11 @@ foreach (var directory in standaloneDirectories)
 }
 
 //articles
+//----------------------------------------------------------------------------------
 foreach (var directory in articleDirectories)
 {
-    //prepare an article page
+    //prepare an article page and add the card for this article
     pagePreparation.PreparePage<LayoutArticleModel>(directory);
-
-    //var articleLayoutData = JsonConvert.DeserializeObject<TemplateLayoutModelBase>(articleData) ?? throw new NullReferenceException("Card Data: " + directory);
 
 }
 

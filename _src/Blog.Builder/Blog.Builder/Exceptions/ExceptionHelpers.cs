@@ -5,7 +5,6 @@ namespace Blog.Builder.Exceptions;
 
 internal static class ExceptionHelpers
 {
-
     public static void ThrowIfNullOrWhiteSpace([NotNull] string? argument, [CallerArgumentExpression("argument")] string? paramName = null)
     {
         if (string.IsNullOrWhiteSpace(argument))

@@ -1,6 +1,9 @@
-﻿namespace Blog.Builder.Services;
+﻿using Blog.Builder.Models.Templates;
+
+namespace Blog.Builder.Services;
 
 internal interface ICardPreparation
 {
-    void PrepareCard(string directory);
+    void RegisterCard(string directory);
+    void RegisterArticleCard(CardArticleModel cardData, DateTime dateCreated);
 }

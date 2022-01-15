@@ -1,4 +1,5 @@
-﻿using Blog.Builder.Models.Templates;
+﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Models.Templates;
 using SixLabors.ImageSharp;
 
 namespace Blog.Builder.Services;
@@ -18,15 +19,11 @@ internal class CardPreparation : ICardPreparation
         _cardBuilder = cardBuilder;
     }
 
-    public void PrepareCard(string directory)
+    public void RegisterCard(string directory)
     {
-        ArgumentNullException.ThrowIfNull(directory);
+        ExceptionHelpers.ThrowIfPathNotExists(directory);
 
-        //Get the result from the builder
-      
-      
-            _cardBuilder.AddCard(directory);
-       
+        _cardBuilder.AddCard(directory);
 
         //copy all media associated with this card
         if (Directory.Exists(Path.Combine(directory, "media")))
@@ -39,5 +36,16 @@ internal class CardPreparation : ICardPreparation
                 Helpers.ResizeImage(file, Path.Combine(_pathService.OutputMediaFolder, name + "-small" + ext), new Size(300, 10000));//stop at 300 width, who cares about height
             }
         }
+    }
+
+    public void RegisterArticleCard(CardArticleModel cardData, DateTime dateCreated)
+    {
+        ArgumentNullException.ThrowIfNull(cardData);
+        _cardBuilder.AddArticleCard(cardData, dateCreated);
+    }
+
+    public string GetHtml(int page, int perPage)
+    {
+        return _cardBuilder.GetHtml(page, perPage);
     }
 }

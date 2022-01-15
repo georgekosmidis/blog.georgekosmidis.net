@@ -1,5 +1,6 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Models;
+using Blog.Builder.Models.Templates;
 using Newtonsoft.Json;
 using RazorEngine.Templating;
 
@@ -17,15 +18,18 @@ internal class PageBuilder : IPageBuilder
 {
     private readonly IRazorEngineService _templateEngine;
     private readonly ITemplateProvider _templateProvider;
+    private readonly ICardBuilder _cardBuilder;
 
-    public PageBuilder(IRazorEngineService templateService,
-                                ITemplateProvider templateProvider)
+    public PageBuilder(IRazorEngineService templateService, ITemplateProvider templateProvider, ICardBuilder cardBuilder)
     {
         ArgumentNullException.ThrowIfNull(templateService);
         ArgumentNullException.ThrowIfNull(templateProvider);
+        ArgumentNullException.ThrowIfNull(cardBuilder);
 
         _templateEngine = templateService;
         _templateProvider = templateProvider;
+        _cardBuilder = cardBuilder;
+
     }
 
     private PageBuilderResult Build<T>(T pageData) where T : LayoutModelBase
@@ -63,6 +67,22 @@ internal class PageBuilder : IPageBuilder
         //then prepare the entire page
         pageData.Body = innerPartHtml.FinalHtml;
         var completePageHtml = Build(pageData as LayoutModelBase);
+
+        //At the end, add a card for this article
+        if (pageData.TemplateDataModel == nameof(LayoutArticleModel))
+        {
+            _cardBuilder.AddArticleCard(new CardArticleModel
+            {
+                TemplateDataModel = nameof(CardArticleModel),
+                Title = pageData.Title,
+                Description = pageData.Description,
+                ImageUrl = pageData.RelativeImageUrl,
+                Link = pageData.RelativeUrl,
+                IsSticky = false,
+                Position = -1,
+                Footer = (pageData as LayoutArticleModel)?.DatePublishedOrModificationText ?? string.Empty,
+            }, pageData.DatePublished);
+        }
 
         return completePageHtml;
     }

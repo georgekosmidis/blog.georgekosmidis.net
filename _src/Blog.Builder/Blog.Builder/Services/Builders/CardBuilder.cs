@@ -70,7 +70,7 @@ internal class CardBuilder : ICardBuilder
         {
             nameof(CardSearchModel) => CreateCardHtml(CardSearchModel.FromBase(cardDataBase)),
             nameof(CardImageModel) => CreateCardHtml(CardImageModel.FromBase(cardDataBase)),
-            nameof(CardArticleModel) => CreateCardHtml(CardArticleModel.FromBase(cardDataBase)),
+            nameof(CardArticleModel) => throw new Exception($"{this.AddCard} cannot be used with {nameof(CardArticleModel)}, use {this.AddArticleCard} instead."),
             _ => throw new Exception($"{cardDataBase.TemplateDataModel} switch is missing."),
         };
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
