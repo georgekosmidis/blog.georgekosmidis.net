@@ -1,5 +1,6 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Models;
+using Blog.Builder.Services.Interfaces;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
@@ -38,7 +39,7 @@ internal class PathService : IPathService
 
         WorkingFolder = options.Value.RawFolder;
 
-        OutputFolder = options.Value.OutputFolder;       
+        OutputFolder = options.Value.OutputFolder;
         OutputMediaFolder = Path.Combine(OutputFolder, "media");
 
         OutputSitemap = Path.Combine(OutputFolder, "sitemap.xml");

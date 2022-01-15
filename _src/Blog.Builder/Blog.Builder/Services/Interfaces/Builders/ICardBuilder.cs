@@ -1,6 +1,6 @@
 ﻿using Blog.Builder.Models.Templates;
 
-namespace Blog.Builder.Services;
+namespace Blog.Builder.Services.Interfaces.Builders;
 
 internal interface ICardBuilder
 {

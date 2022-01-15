@@ -1,11 +1,5 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
-using Blog.Builder.Models;
-using Newtonsoft.Json;
-using SixLabors.ImageSharp;
+﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-
-using WebMarkupMin.Core;
 
 internal static class Helpers
 {

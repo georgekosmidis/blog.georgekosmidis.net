@@ -1,4 +1,4 @@
-﻿namespace Blog.Builder.Models;
+﻿namespace Blog.Builder.Models.Templates;
 
 /// <summary>
 /// Used for the sitemap.xml (template-sitemap.cshtml)

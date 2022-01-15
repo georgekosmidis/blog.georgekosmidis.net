@@ -1,5 +1,7 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Models.Templates;
+using Blog.Builder.Services.Interfaces;
+using Blog.Builder.Services.Interfaces.Builders;
 using SixLabors.ImageSharp;
 
 namespace Blog.Builder.Services;

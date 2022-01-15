@@ -10,7 +10,7 @@ public abstract record class ModelBase
     public Guid Nonce
     {
         get
-        {   
+        {
             //todo: lock or a better way for a unique nonce?
             return nonce;
         }

@@ -1,8 +1,10 @@
-﻿using Blog.Builder.Models;
+﻿using Blog.Builder.Models.Templates;
+using Blog.Builder.Services.Interfaces;
+using Blog.Builder.Services.Interfaces.Builders;
 using RazorEngine.Templating;
 using WebMarkupMin.Core;
 
-namespace Blog.Builder.Services;
+namespace Blog.Builder.Services.Builders;
 
 internal class SitemapBuilder : ISitemapBuilder
 {
@@ -34,14 +36,14 @@ internal class SitemapBuilder : ISitemapBuilder
 
     public void Build()
     {
-        if(sitemap.Urls.Count() == 0)
+        if (sitemap.Urls.Count() == 0)
         {
             throw new ArgumentException("Sitemap is empty", nameof(sitemap));
         }
 
-        var sitemapPageHtml = _templateEngine.RunCompile(_templateProvider.Get<LayoutSitemapModel>(), 
-                                                            nameof(SitemapBuilder), 
-                                                            typeof(LayoutSitemapModel), 
+        var sitemapPageHtml = _templateEngine.RunCompile(_templateProvider.Get<LayoutSitemapModel>(),
+                                                            nameof(SitemapBuilder),
+                                                            typeof(LayoutSitemapModel),
                                                             sitemap);
 
         var result = _markupMinifier.Minify(sitemapPageHtml);

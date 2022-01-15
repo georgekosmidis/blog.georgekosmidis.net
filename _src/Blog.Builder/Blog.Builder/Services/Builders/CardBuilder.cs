@@ -1,20 +1,21 @@
 ﻿using Blog.Builder.Exceptions;
-using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
+using Blog.Builder.Services.Interfaces;
+using Blog.Builder.Services.Interfaces.Builders;
 using Newtonsoft.Json;
 using RazorEngine.Templating;
 using WebMarkupMin.Core;
 
-namespace Blog.Builder.Services;
+namespace Blog.Builder.Services.Builders;
 
 internal record class ArticleCardBuilderResult
 {
-    public string CardHtml { get; init; } = String.Empty;
+    public string CardHtml { get; init; } = string.Empty;
     public DateTime DateCreated { get; init; }
 }
 internal record class OtherCardBuilderResult
 {
-    public string CardHtml { get; init; } = String.Empty;
+    public string CardHtml { get; init; } = string.Empty;
     public int Position { get; init; }
     public bool IsSticky { get; init; }
 }
@@ -70,7 +71,7 @@ internal class CardBuilder : ICardBuilder
         {
             nameof(CardSearchModel) => CreateCardHtml(CardSearchModel.FromBase(cardDataBase)),
             nameof(CardImageModel) => CreateCardHtml(CardImageModel.FromBase(cardDataBase)),
-            nameof(CardArticleModel) => throw new Exception($"{this.AddCard} cannot be used with {nameof(CardArticleModel)}, use {this.AddArticleCard} instead."),
+            nameof(CardArticleModel) => throw new Exception($"{AddCard} cannot be used with {nameof(CardArticleModel)}, use {AddArticleCard} instead."),
             _ => throw new Exception($"{cardDataBase.TemplateDataModel} switch is missing."),
         };
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);

@@ -1,18 +1,15 @@
-﻿using System.Text;
-using Blog.Builder.Models;
+﻿using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
 using Blog.Builder.Services;
-using Geko.HttpClientService;
-using Geko.HttpClientService.Extensions;
+using Blog.Builder.Services.Builders;
+using Blog.Builder.Services.Interfaces;
+using Blog.Builder.Services.Interfaces.Builders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using RazorEngine.Configuration;
 using RazorEngine.Templating;
 using RazorEngine.Text;
-using SixLabors.ImageSharp;
+using System.Text;
 using WebMarkupMin.Core;
 
 var serviceProvider = new ServiceCollection()

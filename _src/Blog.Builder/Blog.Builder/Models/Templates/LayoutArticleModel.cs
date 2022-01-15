@@ -1,6 +1,6 @@
 ﻿using Blog.Builder.Exceptions;
 
-namespace Blog.Builder.Models;
+namespace Blog.Builder.Models.Templates;
 
 /// <summary>
 /// Used for an article page (template-article.cshtml)
@@ -66,12 +66,12 @@ public record class LayoutArticleModel : LayoutModelBase
     {
         base.Validate();
 
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.RelativeImageUrlSmall);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.DateModifiedText);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.DatePublishedText);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.DatePublishedAndModificationText);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(RelativeImageUrlSmall);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(DateModifiedText);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(DatePublishedText);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(DatePublishedAndModificationText);
 
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.DatePublishedOrModificationText);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(DatePublishedOrModificationText);
 
         if (TemplateDataModel != nameof(LayoutArticleModel))
         {

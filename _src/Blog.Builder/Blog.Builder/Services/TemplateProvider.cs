@@ -1,7 +1,7 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
-using Microsoft.Extensions.Options;
+using Blog.Builder.Services.Interfaces;
 
 namespace Blog.Builder.Services;
 
@@ -32,7 +32,7 @@ internal class TemplateProvider : ITemplateProvider
 
     public string Get<T>()
     {
-        var template = Templates.First( x => x.Key == typeof(T).Name);
+        var template = Templates.First(x => x.Key == typeof(T).Name);
         return template.Value;
     }
 }

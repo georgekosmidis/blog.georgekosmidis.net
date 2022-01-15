@@ -1,6 +1,4 @@
-﻿using Blog.Builder.Models;
-
-namespace Blog.Builder.Services;
+﻿namespace Blog.Builder.Services.Interfaces.Builders;
 
 internal interface ISitemapBuilder
 {

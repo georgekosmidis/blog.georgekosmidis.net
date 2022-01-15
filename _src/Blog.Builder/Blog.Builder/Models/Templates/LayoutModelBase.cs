@@ -1,8 +1,7 @@
 ﻿using Blog.Builder.Exceptions;
-using Blog.Builder.Models.Templates;
 using System.Text.RegularExpressions;
 
-namespace Blog.Builder.Models;
+namespace Blog.Builder.Models.Templates;
 
 /// <summary>
 /// Used for the main template, the layout (template-layout.cshtml)
@@ -49,18 +48,18 @@ public record class LayoutModelBase : ModelBase
     {
         base.Validate();
 
-        ExceptionHelpers.ThrowIfNull(this.DateModified);
-        ExceptionHelpers.ThrowIfNull(this.DatePublished);
-        ExceptionHelpers.ThrowIfNull(this.DateExpires);
-        ExceptionHelpers.ThrowIfNullOrEmpty(this.Tags);
-        ExceptionHelpers.ThrowIfNull(this.Section);
-        ExceptionHelpers.ThrowIfNull(this.ExtraHeaders);
+        ExceptionHelpers.ThrowIfNull(DateModified);
+        ExceptionHelpers.ThrowIfNull(DatePublished);
+        ExceptionHelpers.ThrowIfNull(DateExpires);
+        ExceptionHelpers.ThrowIfNullOrEmpty(Tags);
+        ExceptionHelpers.ThrowIfNull(Section);
+        ExceptionHelpers.ThrowIfNull(ExtraHeaders);
 
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Description);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.PlainTextDescription);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Title);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.RelativeUrl);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Body);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Description);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(PlainTextDescription);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Title);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(RelativeUrl);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Body);
 
     }
 

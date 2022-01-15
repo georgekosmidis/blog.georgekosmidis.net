@@ -1,4 +1,6 @@
-﻿using Blog.Builder.Models;
+﻿using Blog.Builder.Models.Templates;
+using Blog.Builder.Services.Interfaces;
+using Blog.Builder.Services.Interfaces.Builders;
 using SixLabors.ImageSharp;
 using WebMarkupMin.Core;
 

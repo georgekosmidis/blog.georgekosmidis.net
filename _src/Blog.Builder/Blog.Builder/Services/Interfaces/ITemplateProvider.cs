@@ -1,4 +1,4 @@
-﻿namespace Blog.Builder.Services;
+﻿namespace Blog.Builder.Services.Interfaces;
 
 internal interface ITemplateProvider
 {

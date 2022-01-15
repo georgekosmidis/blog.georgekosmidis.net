@@ -1,6 +1,4 @@
-﻿using Blog.Builder.Exceptions;
-
-namespace Blog.Builder.Models.Templates;
+﻿namespace Blog.Builder.Models.Templates;
 
 public record class CardSearchModel : CardModelBase
 {

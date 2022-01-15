@@ -1,15 +1,16 @@
 ﻿using Blog.Builder.Exceptions;
-using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
+using Blog.Builder.Services.Interfaces;
+using Blog.Builder.Services.Interfaces.Builders;
 using Newtonsoft.Json;
 using RazorEngine.Templating;
 
-namespace Blog.Builder.Services;
+namespace Blog.Builder.Services.Builders;
 
 internal record class PageBuilderResult
 {
-    public string FinalHtml { get; init; } = String.Empty;
-    public string RelativeUrl { get; init; } = String.Empty;
+    public string FinalHtml { get; init; } = string.Empty;
+    public string RelativeUrl { get; init; } = string.Empty;
     public DateTime DateModified { get; init; } = DateTime.MaxValue;
 
 }
