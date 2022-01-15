@@ -9,30 +9,30 @@ internal class PagePreparation : IPagePreparation
     private readonly IPathService _pathService;
     private readonly ISitemapBuilder _sitemapBuilder;
     private readonly IMarkupMinifier _markupMinifier;
-    private readonly IMainTemplateBuilder _mainTemplateBuilder;
+    private readonly IPageBuilder _pageBuilder;
 
     public PagePreparation(IPathService pathService,
                         ISitemapBuilder sitemapBuilder,
                         IMarkupMinifier markupMinifier,
-                        IMainTemplateBuilder mainTemplateBuilder)
+                        IPageBuilder pageBuilder)
     {
         ArgumentNullException.ThrowIfNull(pathService);
         ArgumentNullException.ThrowIfNull(sitemapBuilder);
         ArgumentNullException.ThrowIfNull(markupMinifier);
-        ArgumentNullException.ThrowIfNull(mainTemplateBuilder);
+        ArgumentNullException.ThrowIfNull(pageBuilder);
 
         _pathService = pathService;
         _sitemapBuilder = sitemapBuilder;
         _markupMinifier = markupMinifier;
-        _mainTemplateBuilder = mainTemplateBuilder;
+        _pageBuilder = pageBuilder;
     }
 
-    public void PreparePage<T>(string directory) where T : ModelBase
+    public void PreparePage<T>(string directory) where T : LayoutModelBase
     {
         ArgumentNullException.ThrowIfNull(directory);
 
         //Get the result from the builder
-        var builderResult = _mainTemplateBuilder.Build<T>(directory);
+        var builderResult = _pageBuilder.Build<T>(directory);
 
         //minify and save page
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
@@ -47,7 +47,7 @@ internal class PagePreparation : IPagePreparation
             {
                 var ext = Path.GetExtension(file);
                 var name = Path.GetFileNameWithoutExtension(file);
-                Helpers.ResizeImage(file, Path.Combine(_pathService.OutputMediaFolder, name + "-small" + ext), new Size(500, 10000));//arbitrary big number
+                Helpers.ResizeImage(file, Path.Combine(_pathService.OutputMediaFolder, name + "-small" + ext), new Size(500, 10000));//stop at 500 width, who cares about height
             }
         }
 

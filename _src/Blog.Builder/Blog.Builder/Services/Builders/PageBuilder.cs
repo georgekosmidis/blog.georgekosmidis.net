@@ -13,7 +13,7 @@ internal record class PageBuilderResult
 
 }
 
-internal class PageBuilder : IMainTemplateBuilder
+internal class PageBuilder : IPageBuilder
 {
     private readonly IRazorEngineService _templateEngine;
     private readonly ITemplateProvider _templateProvider;
@@ -28,7 +28,7 @@ internal class PageBuilder : IMainTemplateBuilder
         _templateProvider = templateProvider;
     }
 
-    private PageBuilderResult Build<T>(T pageData) where T : ModelBase
+    private PageBuilderResult Build<T>(T pageData) where T : LayoutModelBase
     {
         ArgumentNullException.ThrowIfNull(pageData);
         pageData.Validate();
@@ -47,9 +47,9 @@ internal class PageBuilder : IMainTemplateBuilder
         };
     }
 
-    public PageBuilderResult Build<T>(string directory) where T : ModelBase
+    public PageBuilderResult Build<T>(string directory) where T : LayoutModelBase
     {
-        ArgumentNullException.ThrowIfNull(directory);
+        ExceptionHelpers.ThrowIfPathNotExists(directory);
 
         var jsonFileContent = File.ReadAllText(Path.Combine(directory, "content.json"));
         var pageData = JsonConvert.DeserializeObject<T>(jsonFileContent);
@@ -57,11 +57,12 @@ internal class PageBuilder : IMainTemplateBuilder
 
         //first prepare the body of the page
         pageData.Body = File.ReadAllText(Path.Combine(directory, "content.html"));
+        pageData.TemplateDataModel = typeof(T).Name;
         var innerPartHtml = Build(pageData);
 
         //then prepare the entire page
         pageData.Body = innerPartHtml.FinalHtml;
-        var completePageHtml = Build(pageData as ModelBase);
+        var completePageHtml = Build(pageData as LayoutModelBase);
 
         return completePageHtml;
     }

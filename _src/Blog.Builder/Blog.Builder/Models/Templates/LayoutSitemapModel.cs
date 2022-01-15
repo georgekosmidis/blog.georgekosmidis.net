@@ -3,7 +3,7 @@
 /// <summary>
 /// Used for the sitemap.xml (template-sitemap.cshtml)
 /// </summary>
-public class SitemapModel
+public class LayoutSitemapModel
 {
     public List<Url> Urls { get; set; } = new List<Url>();
 

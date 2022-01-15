@@ -1,22 +1,30 @@
-﻿using Blog.Builder.Models;
+﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
+using Newtonsoft.Json;
 using RazorEngine.Templating;
 using WebMarkupMin.Core;
 
 namespace Blog.Builder.Services;
 
-internal record class CardBuilderResult
+internal record class ArticleCardBuilderResult
 {
-    public string FinalHtml { get; init; } = String.Empty;
+    public string CardHtml { get; init; } = String.Empty;
+    public DateTime DateCreated { get; init; }
+}
+internal record class OtherCardBuilderResult
+{
+    public string CardHtml { get; init; } = String.Empty;
     public int Position { get; init; }
     public bool IsSticky { get; init; }
-
 }
-internal class CardBuilder
+
+internal class CardBuilder : ICardBuilder
 {
     private readonly IRazorEngineService _templateEngine;
     private readonly ITemplateProvider _templateProvider;
-    private static readonly List<CardBuilderResult> Cards = new List<CardBuilderResult>();
+    private static readonly List<ArticleCardBuilderResult> ArticleCards = new List<ArticleCardBuilderResult>();
+    private static readonly List<OtherCardBuilderResult> OtherCards = new List<OtherCardBuilderResult>();
 
     private readonly object __lockObj = new object();
 
@@ -34,23 +42,63 @@ internal class CardBuilder
         _templateProvider = templateProvider;
     }
 
-    private CardBuilder Add<T>(T cardData, int position, bool isSticky) where T : CardModelBase
+
+    private string CreateCardHtml<T>(T cardData) where T : CardModelBase
     {
         ArgumentNullException.ThrowIfNull(cardData);
         cardData.Validate();
 
-        var finalHtml = _templateEngine.RunCompile(
-                                                _templateProvider.Get<T>(),
-                                                Guid.NewGuid().ToString(),
-                                                typeof(T),
-                                                cardData);
+        return _templateEngine.RunCompile(
+                                        _templateProvider.Get<T>(),
+                                        Guid.NewGuid().ToString(),
+                                        typeof(T),
+                                        cardData);
+
+    }
+    public ICardBuilder AddCard(string directory)
+    {
+        ExceptionHelpers.ThrowIfPathNotExists(directory);
+
+        var jsonFileContent = File.ReadAllText(Path.Combine(directory, "card.json"));
+        var cardDataBase = JsonConvert.DeserializeObject<CardModelBase>(jsonFileContent);
+        ExceptionHelpers.ThrowIfNull(cardDataBase);
+        cardDataBase.Validate();
+
+        //is there a way to load the type directly like: 
+        // var cardData = cardDataBase as >>cardDataBase.CardType.Name<<;
+        string cardHtml = cardDataBase.TemplateDataModel switch
+        {
+            nameof(CardSearchModel) => CreateCardHtml(CardSearchModel.FromBase(cardDataBase)),
+            nameof(CardImageModel) => CreateCardHtml(CardImageModel.FromBase(cardDataBase)),
+            nameof(CardArticleModel) => CreateCardHtml(CardArticleModel.FromBase(cardDataBase)),
+            _ => throw new Exception($"{cardDataBase.TemplateDataModel} switch is missing."),
+        };
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
+
         lock (__lockObj)
         {
-            Cards.Add(new CardBuilderResult
+            OtherCards.Add(new OtherCardBuilderResult
             {
-                FinalHtml = finalHtml,
-                Position = position,
-                IsSticky = isSticky
+                CardHtml = cardHtml,
+                Position = cardDataBase.Position,
+                IsSticky = cardDataBase.IsSticky
+            });
+        }
+
+        return this;
+
+    }
+    public ICardBuilder AddArticleCard(CardArticleModel cardData, DateTime dateCreated)
+    {
+        var cardHtml = CreateCardHtml(cardData);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
+
+        lock (__lockObj)
+        {
+            ArticleCards.Add(new ArticleCardBuilderResult
+            {
+                CardHtml = cardHtml,
+                DateCreated = dateCreated
             });
         }
 
@@ -60,7 +108,15 @@ internal class CardBuilder
 
     public string GetHtml(int page, int perPage)
     {
-        var result = Cards.OrderBy(x => x.IsSticky ? x.Position + page : x.Position).Take(perPage);
-        return string.Join(string.Empty, result.Select(x => x.FinalHtml).ToArray());
+        var cards = ArticleCards.OrderByDescending(x => x.DateCreated)
+                                .Select(x => x.CardHtml)
+                                .ToList();
+
+        foreach (var card in OtherCards.Select(x => (x.IsSticky ? x.Position + page : x.Position, x.CardHtml)))
+        {
+            cards.Insert(card.Item1, card.CardHtml);
+        }
+
+        return string.Join(string.Empty, cards.Skip(page * perPage).Take(perPage).ToArray());
     }
 }

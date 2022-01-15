@@ -2,7 +2,7 @@
 
 namespace Blog.Builder.Services;
 
-internal interface IMainTemplateBuilder
+internal interface IPageBuilder
 {
-    PageBuilderResult Build<T>(string directory) where T : ModelBase;
+    PageBuilderResult Build<T>(string directory) where T : LayoutModelBase;
 }

@@ -22,7 +22,7 @@
 	<link rel="apple-touch-icon" type="image/jpg" sizes="180x180" href="/media/me_180x180.jpg" />
 
 	<meta property="og:title" content="@Model.Title" />
-	<meta property="og:type" content="@Model.Type" /><!-- website | article -->
+	<meta property="og:type" content="website" /><!-- todo: Custom type from the model? @Model-Type website | article -->
 	<meta property="og:url" content="https://blog.georgekosmidis.net@(Model.RelativeUrl)" />
 @if ( !string.IsNullOrWhiteSpace(@Model.RelativeImageUrl) ) {
 	<meta property="og:image" content="https://blog.georgekosmidis.net@(Model.RelativeImageUrl)" />
@@ -30,7 +30,7 @@
 	<meta property="og:description " content="@Model.PlainTextDescription" />
 	
 	
-@if ( @Model.Type == PageTypes.Article ) {
+@if ( @Model.TemplateDataModel == "LayoutArticleModel" ) {
 	<meta property="og:article:published_time" content="@Model.DatePublished" />
 	<meta property="og:article:modified_time" content="@Model.DateModified" />
 	<meta property="og:article:expiration_time" content="@Model.DateExpires" />
@@ -43,7 +43,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css" 
 		integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous" />    
-@if ( @Model.Type == PageTypes.Article ) {
+@if ( @Model.TemplateDataModel == "LayoutArticleModel" ) {
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/default.min.css" 
 		integrity="sha256-CGf39SzxAmEe09Ojoh16/2xTRNleX9wBZcEXVnNqwSM=" crossorigin="anonymous" />		
 }	
@@ -200,13 +200,13 @@
     </header>
 
     <main class="container bg-light pt-4 pb-5">
-@{ var masonry = @Model.Type == PageTypes.MainPage ? "data-masonry='{\"percentPosition\": true }'" : ""; }
+@{ var masonry = @Model.TemplateDataModel == "LayoutModelBase" ? "data-masonry='{\"percentPosition\": true }'" : ""; }
         <div class="row" @masonry>
             @Model.Body
         </div>
     </main>
 
-@if (@Model.Type == PageTypes.MainPage) {
+@if (@Model.TemplateDataModel == "LayoutModelBase") {
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             @{
@@ -327,7 +327,7 @@
 		crossorigin="anonymous"
 		nonce="@Model.Nonce"
 		></script>
-@if ( @Model.Type == PageTypes.Article ) {
+@if ( @Model.TemplateDataModel == "LayoutArticleModel" ) {
 	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
 		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
 		crossorigin="anonymous"

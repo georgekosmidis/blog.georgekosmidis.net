@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Blog.Builder.Models;
 
-public record class IndexTemplateData : ModelBase
+public record class IndexTemplateData : LayoutModelBase
 {
-    public List<ArticleModel> Articles { get; } = new List<ArticleModel>();
+    public List<LayoutArticleModel> Articles { get; } = new List<LayoutArticleModel>();
 
     public new void Validate()
     {

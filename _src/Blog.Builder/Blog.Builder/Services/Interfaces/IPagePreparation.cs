@@ -4,5 +4,5 @@ namespace Blog.Builder.Services;
 
 internal interface IPagePreparation
 {
-    void PreparePage<T>(string directory) where T: ModelBase;
+    void PreparePage<T>(string directory) where T: LayoutModelBase;
 }

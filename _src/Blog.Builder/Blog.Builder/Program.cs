@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Blog.Builder.Models;
+using Blog.Builder.Models.Templates;
 using Blog.Builder.Services;
 using Geko.HttpClientService;
 using Geko.HttpClientService.Extensions;
@@ -26,9 +27,11 @@ var serviceProvider = new ServiceCollection()
           })
           .AddSingleton<ITemplateProvider, TemplateProvider>()
           .AddSingleton<ISitemapBuilder, SitemapBuilder>()
-          .AddSingleton<IMainTemplateBuilder, PageBuilder>()
+          .AddSingleton<IPageBuilder, PageBuilder>()
           .AddSingleton<IPathService, PathService>()
           .AddSingleton<IPagePreparation, PagePreparation>()
+          .AddSingleton<ICardBuilder, CardBuilder>()
+          .AddSingleton<ICardPreparation, CardPreparation>()
           .AddSingleton<IMarkupMinifier>(provider =>
           {
               var settings = new HtmlMinificationSettings()
@@ -44,7 +47,7 @@ var serviceProvider = new ServiceCollection()
               return new HtmlMinifier(settings);
           })
           .AddOptions()
-          .Configure<AppSettings>( 
+          .Configure<AppSettings>(
                 new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: false)
@@ -66,7 +69,7 @@ Directory.CreateDirectory(pathService.OutputFolder);
 Directory.CreateDirectory(pathService.OutputMediaFolder);
 Helpers.Copy(pathService.JustCopyFolder, pathService.OutputFolder);
 
-var articleDirectories = Directory.GetDirectories(pathService.PostsFolder).ToList().OrderByDescending(x => x);
+var articleDirectories = Directory.GetDirectories(pathService.ArticlesFolder).ToList().OrderByDescending(x => x);
 
 //data for index
 //----------------------------------------------------------------------------------
@@ -86,20 +89,30 @@ var indexPageData = new IndexTemplateData
     }
 };
 
-var pagePreparation = serviceProvider.GetService<IPagePreparation>() ?? throw new NullReferenceException(nameof(IMainTemplateBuilder));
+var pagePreparation = serviceProvider.GetService<IPagePreparation>() ?? throw new NullReferenceException(nameof(IPageBuilder));
+
+//cards
+//----------------------------------------------------------------------------------
+var cardService = serviceProvider.GetService<ICardPreparation>() ?? throw new NullReferenceException(nameof(ICardPreparation));
+var cardsDirectories = Directory.GetDirectories(pathService.CardsFolder).ToList();
+foreach (var directory in cardsDirectories)
+{
+    cardService.PrepareCard(directory);
+}
 
 //standalones
 //----------------------------------------------------------------------------------
 var standaloneDirectories = Directory.GetDirectories(pathService.StandalonesFolder).ToList();
 foreach (var directory in standaloneDirectories)
 {
-    pagePreparation.PreparePage<StandaloneModel>(directory);
+    pagePreparation.PreparePage<LayoutStandaloneModel>(directory);
 }
 
+//articles
 foreach (var directory in articleDirectories)
 {
     //prepare an article page
-    pagePreparation.PreparePage<ArticleModel>(directory);
+    pagePreparation.PreparePage<LayoutArticleModel>(directory);
 
     //var articleLayoutData = JsonConvert.DeserializeObject<TemplateLayoutModelBase>(articleData) ?? throw new NullReferenceException("Card Data: " + directory);
 
@@ -116,12 +129,6 @@ sitemapBuilder.Build();
 
 //string build that will hold first page cards html
 var bodyForIndexPage = new StringBuilder();
-
-////Search
-////----------------------------------------------------------------------------------
-//bodyForIndexPage.Append(
-//    templateService.RunCompile(cardSearchTemplate, "search", typeof(MainTemplateData), indexPageData)
-//);
 
 //index & article
 //----------------------------------------------------------------------------------

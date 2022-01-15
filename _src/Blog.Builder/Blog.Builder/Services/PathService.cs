@@ -11,8 +11,9 @@ internal class PathService : IPathService
 
     public string TemplatesFolder { get; init; }
     public string JustCopyFolder { get; init; }
-    public string PostsFolder { get; init; }
+    public string ArticlesFolder { get; init; }
     public string StandalonesFolder { get; init; }
+    public string CardsFolder { get; init; }
 
 
     public string TemplateMain { get; init; }
@@ -43,8 +44,9 @@ internal class PathService : IPathService
         OutputSitemap = Path.Combine(OutputFolder, "sitemap.xml");
 
         JustCopyFolder = Path.Combine(WorkingFolder, "justcopyme");
-        PostsFolder = Path.Combine(WorkingFolder, "posts");
+        ArticlesFolder = Path.Combine(WorkingFolder, "articles");
         StandalonesFolder = Path.Combine(WorkingFolder, "standalones");
+        CardsFolder = Path.Combine(WorkingFolder, "cards");
 
         TemplatesFolder = Path.Combine(WorkingFolder, "templates");
 
@@ -54,7 +56,7 @@ internal class PathService : IPathService
         TemplateSitemap = Path.Combine(TemplatesFolder, "teamplate-sitemap.cshtml");
 
         TemplateCardArticle = Path.Combine(TemplatesFolder, "template-card-article.cshtml");
-        TemplateCardImage = Path.Combine(TemplatesFolder, "template-card-article.cshtml");
+        TemplateCardImage = Path.Combine(TemplatesFolder, "template-card-image.cshtml");
         TemplateCardSearch = Path.Combine(TemplatesFolder, "template-card-search.cshtml");
 
     }

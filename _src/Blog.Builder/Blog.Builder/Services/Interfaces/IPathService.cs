@@ -1,6 +1,4 @@
-﻿using Blog.Builder.Models;
-
-namespace Blog.Builder.Services;
+﻿namespace Blog.Builder.Services;
 
 internal interface IPathService
 {
@@ -16,7 +14,9 @@ internal interface IPathService
     string OutputSitemap { get; init; }
     string WorkingFolder { get; init; }
     string JustCopyFolder { get; init; }
-    string PostsFolder { get; init; }
+    string ArticlesFolder { get; init; }
     string StandalonesFolder { get; init; }
     string TemplatesFolder { get; init; }
+    string CardsFolder { get; init; }
+
 }

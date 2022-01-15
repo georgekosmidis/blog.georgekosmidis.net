@@ -1,5 +1,6 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Models;
+using Blog.Builder.Models.Templates;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
@@ -14,13 +15,13 @@ internal class TemplateProvider : ITemplateProvider
 
         Templates = new Dictionary<string, string>()
         {
-            { nameof(ModelBase), File.ReadAllText(pathService.TemplateMain) },
-            { nameof(ArticleModel), File.ReadAllText(pathService.TemplateArticle) },
-            { nameof(StandaloneModel), File.ReadAllText(pathService.TemplateStandalone) },
-            { nameof(SitemapModel), File.ReadAllText(pathService.TemplateSitemap) },
-            { nameof(ModelBase), File.ReadAllText(pathService.TemplateCardArticle) },
-            { nameof(ModelBase), File.ReadAllText(pathService.TemplateCardImage) },
-            { nameof(ModelBase), File.ReadAllText(pathService.TemplateCardSearch) },
+            { nameof(LayoutModelBase), File.ReadAllText(pathService.TemplateMain) },
+            { nameof(LayoutArticleModel), File.ReadAllText(pathService.TemplateArticle) },
+            { nameof(LayoutStandaloneModel), File.ReadAllText(pathService.TemplateStandalone) },
+            { nameof(LayoutSitemapModel), File.ReadAllText(pathService.TemplateSitemap) },
+            { nameof(CardArticleModel), File.ReadAllText(pathService.TemplateCardArticle) },
+            { nameof(CardImageModel), File.ReadAllText(pathService.TemplateCardImage) },
+            { nameof(CardSearchModel), File.ReadAllText(pathService.TemplateCardSearch) },
         };
 
         foreach (var (model, template) in Templates)

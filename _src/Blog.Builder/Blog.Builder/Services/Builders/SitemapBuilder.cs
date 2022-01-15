@@ -9,7 +9,7 @@ internal class SitemapBuilder : ISitemapBuilder
     private readonly IRazorEngineService _templateEngine;
     private readonly IPathService _pathService;
     private readonly ITemplateProvider _templateProvider;
-    private static readonly SitemapModel sitemap = new SitemapModel();
+    private static readonly LayoutSitemapModel sitemap = new LayoutSitemapModel();
     private readonly IMarkupMinifier _markupMinifier;
 
     private readonly object __lockObj = new object();
@@ -39,9 +39,9 @@ internal class SitemapBuilder : ISitemapBuilder
             throw new ArgumentException("Sitemap is empty", nameof(sitemap));
         }
 
-        var sitemapPageHtml = _templateEngine.RunCompile(_templateProvider.Get<SitemapBuilder>(), 
+        var sitemapPageHtml = _templateEngine.RunCompile(_templateProvider.Get<LayoutSitemapModel>(), 
                                                             nameof(SitemapBuilder), 
-                                                            typeof(SitemapModel), 
+                                                            typeof(LayoutSitemapModel), 
                                                             sitemap);
 
         var result = _markupMinifier.Minify(sitemapPageHtml);

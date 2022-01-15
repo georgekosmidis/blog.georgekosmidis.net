@@ -5,7 +5,7 @@ namespace Blog.Builder.Models;
 /// <summary>
 /// Used for an article page (template-article.cshtml)
 /// </summary>
-public record class ArticleModel : ModelBase
+public record class LayoutArticleModel : LayoutModelBase
 {
 
     public string? RelativeImageUrlSmall => RelativeImageUrl is null
@@ -73,5 +73,9 @@ public record class ArticleModel : ModelBase
 
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.DatePublishedOrModificationText);
 
+        if (TemplateDataModel != nameof(LayoutArticleModel))
+        {
+            throw new Exception($"{nameof(TemplateDataModel)} must be {nameof(LayoutArticleModel)} for the type {nameof(LayoutArticleModel)}.");
+        }
     }
 }
