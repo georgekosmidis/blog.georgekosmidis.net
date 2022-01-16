@@ -51,13 +51,14 @@ var serviceProvider = new ServiceCollection()
           )
           .BuildServiceProvider();
 
+//todo: comments
+//todo: lists, like Tags, are not working correctly
 //todo: unique images of additional cards (do not overwrite media)
 //todo: last modified on cards and in the article page
 //todo: include meetup and sessionize events
 //todo: postprocessing of articles (fix html, add highlightjs markers)
 //todo: bigger images on tap, is it possible?
 //todo: cards should define the "target" property for <a> tags
-//todo: comments
 //todo: add commenting system
 
 var websitePreparation = serviceProvider.GetService<IWebsitePreparation>() ?? throw new NullReferenceException(nameof(IWebsitePreparation));

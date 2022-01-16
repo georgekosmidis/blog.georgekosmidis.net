@@ -5,31 +5,81 @@ using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
 
+/// <summary>
+/// A service that returns all useful paths for the builder.
+/// </summary>
 internal class PathService : IPathService
 {
-    //folders
+    /// <summary>
+    /// The working folder, the folder that contains standalones, articles etc.
+    /// </summary>
     public string WorkingFolder { get; init; }
+    /// <summary>
+    /// The folder that everything will be copied.
+    /// </summary>
     public string OutputFolder { get; init; }
+    /// <summary>
+    /// The output folder for the media.
+    /// </summary>
     public string OutputMediaFolder { get; init; }
 
+    /// <summary>
+    /// The folder that contains the templates.
+    /// </summary>
     public string WorkingTemplatesFolder { get; init; }
+    /// <summary>
+    /// The folder that contains files to be copied without any process.
+    /// </summary>
     public string WorkingJustCopyFolder { get; init; }
+    /// <summary>
+    /// The folder that contains the articles.
+    /// </summary>
     public string WorkingArticlesFolder { get; init; }
+    /// <summary>
+    /// The folder that contains the standalones, like privacy.html.
+    /// </summary>
     public string WorkingStandalonesFolder { get; init; }
+    /// <summary>
+    /// The folder that contains additional cards, sticky or not.
+    /// </summary>
     public string WorkingCardsFolder { get; init; }
 
-    //files
+    /// <summary>
+    /// The main template file, used as a layout.
+    /// </summary>
     public string TemplateMainFile { get; init; }
+    /// <summary>
+    /// The template for the articles.
+    /// </summary>
     public string TemplateArticleFile { get; init; }
+    /// <summary>
+    /// The tempalte for the sitemap.xml.
+    /// </summary>
     public string TemplateSitemapFile { get; init; }
+    /// <summary>
+    /// The template for the standalones.
+    /// </summary>
     public string TemplateStandaloneFile { get; init; }
 
+    /// <summary>
+    /// The tempalte for the article cards.
+    /// </summary>
     public string TemplateCardArticleFile { get; init; }
+    /// <summary>
+    /// The template for the image cards.
+    /// </summary>
     public string TemplateCardImageFile { get; init; }
+    /// <summary>
+    /// The template for the search cards.
+    /// </summary>
     public string TemplateCardSearchFile { get; init; }
 
     public string OutputSitemapFile { get; init; }
 
+    /// <summary>
+    /// Besides DI, it creates and tests the application paths
+    /// </summary>
+    /// <param name="options"></param>
     public PathService(IOptions<AppSettings> options)
     {
         ArgumentNullException.ThrowIfNull(options);
