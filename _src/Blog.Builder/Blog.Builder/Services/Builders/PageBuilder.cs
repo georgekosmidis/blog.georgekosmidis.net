@@ -19,9 +19,9 @@ internal class PageBuilder : IPageBuilder
 {
     private readonly IRazorEngineService _templateEngine;
     private readonly ITemplateProvider _templateProvider;
-    private readonly ICardPreparation _cardPreparation;
+    private readonly ICardProcessor _cardPreparation;
 
-    public PageBuilder(IRazorEngineService templateService, ITemplateProvider templateProvider, ICardPreparation cardPreparation)
+    public PageBuilder(IRazorEngineService templateService, ITemplateProvider templateProvider, ICardProcessor cardPreparation)
     {
         ArgumentNullException.ThrowIfNull(templateService);
         ArgumentNullException.ThrowIfNull(templateProvider);
@@ -78,7 +78,7 @@ internal class PageBuilder : IPageBuilder
         //At the end, add a card for this article
         if (pageData.TemplateDataModel == nameof(LayoutArticleModel))
         {
-            _cardPreparation.RegisterArticleCard(new CardArticleModel
+            _cardPreparation.ProcessArticleCard(new CardArticleModel
             {
                 TemplateDataModel = nameof(CardArticleModel),
                 Title = pageData.Title,

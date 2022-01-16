@@ -2,10 +2,10 @@
 
 namespace Blog.Builder.Services.Interfaces;
 
-internal interface ICardPreparation
+internal interface ICardProcessor
 {
-    void RegisterCard(string directory);
-    void RegisterArticleCard(CardArticleModel cardData, DateTime dateCreated);
+    void ProcessCard(string directory);
+    void ProcessArticleCard(CardArticleModel cardData, DateTime dateCreated);
     int GetCardsNumber();
     string GetHtml(int pageIndex, int perPage);
 }

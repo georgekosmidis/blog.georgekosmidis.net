@@ -26,9 +26,10 @@ var serviceProvider = new ServiceCollection()
           .AddSingleton<ISitemapBuilder, SitemapBuilder>()
           .AddSingleton<IPageBuilder, PageBuilder>()
           .AddSingleton<IPathService, PathService>()
-          .AddSingleton<IPagePreparation, PagePreparation>()
+          .AddSingleton<IPageProcessor, PageProcessor>()
           .AddSingleton<ICardBuilder, CardBuilder>()
-          .AddSingleton<ICardPreparation, CardPreparation>()
+          .AddSingleton<ICardProcessor, CardProcessor>()
+          .AddSingleton<IWebsitePreparation,WebsitePreparation>()
           .AddSingleton<IMarkupMinifier>(provider =>
           {
               var settings = new HtmlMinificationSettings()
@@ -57,80 +58,8 @@ var serviceProvider = new ServiceCollection()
 //todo: postprocessing of articles (fix html, add highlightjs markers)
 //todo: bigger images on tap, is it possible?
 
-var pathService = serviceProvider.GetService<IPathService>() ?? throw new NullReferenceException(nameof(IPathService));
-
-
-//prepare output
-Directory.Delete(pathService.OutputFolder, true);
-Directory.CreateDirectory(pathService.OutputFolder);
-Directory.CreateDirectory(pathService.OutputMediaFolder);
-Helpers.Copy(pathService.JustCopyFolder, pathService.OutputFolder);
-
-
-var pagePreparation = serviceProvider.GetService<IPagePreparation>() ?? throw new NullReferenceException(nameof(IPageBuilder));
-
-//standalone pages and their sitemap registration
-//----------------------------------------------------------------------------------
-var standalonesDirectory = Directory.GetDirectories(pathService.StandalonesFolder);
-foreach (var directory in standalonesDirectory)
-{
-    pagePreparation.PreparePage<LayoutStandaloneModel>(directory);
-}
-
-//articles, article cards and their sitemap registration
-//----------------------------------------------------------------------------------
-var articleDirectories = Directory.GetDirectories(pathService.ArticlesFolder);
-foreach (var directory in articleDirectories)
-{
-    pagePreparation.PreparePage<LayoutArticleModel>(directory);
-}
-
-//cards
-//----------------------------------------------------------------------------------
-var cardPreparation = serviceProvider.GetService<ICardPreparation>() ?? throw new NullReferenceException(nameof(ICardPreparation));
-var cardsDirectory = Directory.GetDirectories(pathService.CardsFolder);
-foreach (var directory in cardsDirectory)
-{
-    cardPreparation.RegisterCard(directory);
-}
-
-
-//index page and paging
-//----------------------------------------------------------------------------------
-var indexPageData = new LayoutIndexModel
-{
-    DatePublished = DateTime.Now,
-    DateModified = DateTime.Now,
-    Description = "Microsoft MVP | Cloud Solutions Architect | .NET Software Engineer | Organizer of Munich .NET Meetup | Speaker",
-    Tags = new List<string> { "C#", "CSharp", "dotnet", "ML.NET", "Q#", "Microsoft MVP" },
-    Title = "George Kosmidis",
-    RelativeUrl = "/",
-    RelativeImageUrl = "/media/me.jpg",
-    Paging = new Paging
-    {
-        CardsCount = cardPreparation.GetCardsNumber(),
-        CurrentPageIndex = 0
-    }
-};
-
-//first page
-var pageIndex = 0;
-pagePreparation.PrepareIndex(indexPageData, 9);
-
-
-for (var i = 8; i < cardPreparation.GetCardsNumber(); i++)
-{
-    if(i % 9 == 0 || i == cardPreparation.GetCardsNumber() - 1)
-    {
-        indexPageData.Paging.CurrentPageIndex = pageIndex++;
-        pagePreparation.PrepareIndex(indexPageData, 9);
-    }
-}
-
-//Google Sitemaps
-//----------------------------------------------------------------------------------
-var sitemapBuilder = serviceProvider.GetService<ISitemapBuilder>() ?? throw new NullReferenceException(nameof(ISitemapBuilder));
-sitemapBuilder.Build();
+var websitePreparation = serviceProvider.GetService<IWebsitePreparation>() ?? throw new NullReferenceException(nameof(IWebsitePreparation));
+websitePreparation.Prepare();
 
 //Meetup events
 //    var httpClientService = HttpClientServiceFactory.Instance.CreateHttpClientService();

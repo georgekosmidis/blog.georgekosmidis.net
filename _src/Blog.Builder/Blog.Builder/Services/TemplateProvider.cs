@@ -1,5 +1,4 @@
 ﻿using Blog.Builder.Exceptions;
-using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
 using Blog.Builder.Services.Interfaces;
 

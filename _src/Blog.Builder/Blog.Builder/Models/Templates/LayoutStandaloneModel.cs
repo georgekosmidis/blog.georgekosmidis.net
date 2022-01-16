@@ -1,6 +1,4 @@
-﻿using Blog.Builder.Models.Templates;
-
-namespace Blog.Builder.Models;
+﻿namespace Blog.Builder.Models.Templates;
 
 /// <summary>
 /// Used for the standalones, e.g. privacy.html (template-standalone.cshtml)

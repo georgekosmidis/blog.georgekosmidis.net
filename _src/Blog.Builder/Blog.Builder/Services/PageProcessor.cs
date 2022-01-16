@@ -1,4 +1,5 @@
-﻿using Blog.Builder.Models.Templates;
+﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Models.Templates;
 using Blog.Builder.Services.Interfaces;
 using Blog.Builder.Services.Interfaces.Builders;
 using SixLabors.ImageSharp;
@@ -6,19 +7,19 @@ using WebMarkupMin.Core;
 
 namespace Blog.Builder.Services;
 
-internal class PagePreparation : IPagePreparation
+internal class PageProcessor : IPageProcessor
 {
     private readonly IPathService _pathService;
     private readonly ISitemapBuilder _sitemapBuilder;
     private readonly IMarkupMinifier _markupMinifier;
     private readonly IPageBuilder _pageBuilder;
-    private readonly ICardPreparation _cardPreparation;
+    private readonly ICardProcessor _cardPreparation;
 
-    public PagePreparation(IPathService pathService,
+    public PageProcessor(IPathService pathService,
                         ISitemapBuilder sitemapBuilder,
                         IMarkupMinifier markupMinifier,
                         IPageBuilder pageBuilder,
-                        ICardPreparation cardPreparation)
+                        ICardProcessor cardPreparation)
     {
         ArgumentNullException.ThrowIfNull(pathService);
         ArgumentNullException.ThrowIfNull(sitemapBuilder);
@@ -33,9 +34,9 @@ internal class PagePreparation : IPagePreparation
         _cardPreparation = cardPreparation;
     }
 
-    public void PreparePage<T>(string directory) where T : LayoutModelBase
+    public void ProcessPage<T>(string directory) where T : LayoutModelBase
     {
-        ArgumentNullException.ThrowIfNull(directory);
+        ExceptionHelpers.ThrowIfPathNotExists(directory);
 
         //Get the result from the builder
         var builderResult = _pageBuilder.Build<T>(directory);
@@ -60,7 +61,7 @@ internal class PagePreparation : IPagePreparation
         _sitemapBuilder.Add(builderResult.RelativeUrl, builderResult.DateModified);
     }
 
-    public void PrepareIndex(LayoutIndexModel pageData, int cardsPerPage)
+    public void ProcessIndex(LayoutIndexModel pageData, int cardsPerPage)
     {
         ArgumentNullException.ThrowIfNull(pageData);
 
@@ -71,8 +72,6 @@ internal class PagePreparation : IPagePreparation
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
         var indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);
         var savingPath = Path.Combine(_pathService.OutputFolder, $"index{indexPageNumber}.html");
-
-        // cardPreparation.GetHtml(pageIndex++, 9)
 
         File.WriteAllText(savingPath, minifier.MinifiedContent);
         _sitemapBuilder.Add(savingPath, builderResult.DateModified);

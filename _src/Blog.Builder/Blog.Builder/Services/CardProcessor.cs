@@ -6,12 +6,12 @@ using SixLabors.ImageSharp;
 
 namespace Blog.Builder.Services;
 
-internal class CardPreparation : ICardPreparation
+internal class CardProcessor : ICardProcessor
 {
     private readonly IPathService _pathService;
     private readonly ICardBuilder _cardBuilder;
 
-    public CardPreparation(IPathService pathService,
+    public CardProcessor(IPathService pathService,
                         ICardBuilder cardBuilder)
     {
         ArgumentNullException.ThrowIfNull(pathService);
@@ -21,7 +21,7 @@ internal class CardPreparation : ICardPreparation
         _cardBuilder = cardBuilder;
     }
 
-    public void RegisterCard(string directory)
+    public void ProcessCard(string directory)
     {
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
@@ -40,7 +40,7 @@ internal class CardPreparation : ICardPreparation
         }
     }
 
-    public void RegisterArticleCard(CardArticleModel cardData, DateTime dateCreated)
+    public void ProcessArticleCard(CardArticleModel cardData, DateTime dateCreated)
     {
         ArgumentNullException.ThrowIfNull(cardData);
         _cardBuilder.AddArticleCard(cardData, dateCreated);
