@@ -82,18 +82,13 @@ internal class WebsitePreparation : IWebsitePreparation
 
     private void PrepareIndex()
     {
-        if (_cardPreparation.GetCardsNumber() == 0)
-        {
-            throw new Exception($"{nameof(this.PrepareAdditionalCards)} and {nameof(this.PrepareArticles)} must be called before {nameof(this.PrepareIndex)}");
-        }
-
         var pageIndex = 0;
-        layoutIndexModel.Paging.CardsCount = _cardPreparation.GetCardsNumber();
-        _pagePreparation.ProcessIndex(layoutIndexModel, _options.CardsPerPage);
+        var cardsNumber = _cardPreparation.GetCardsNumber(_options.CardsPerPage);
+        layoutIndexModel.Paging.CardsCount = cardsNumber;
 
-        for (var i = _options.CardsPerPage - 1; i < _cardPreparation.GetCardsNumber(); i++)
+        for (var i = _options.CardsPerPage; i < cardsNumber; i++)
         {
-            if (i % _options.CardsPerPage == 0 || i == _cardPreparation.GetCardsNumber() - 1)
+            if (i % _options.CardsPerPage == 0 || i == cardsNumber - 1)
             {
                 layoutIndexModel.Paging.CurrentPageIndex = pageIndex++;
                 _pagePreparation.ProcessIndex(layoutIndexModel, _options.CardsPerPage);

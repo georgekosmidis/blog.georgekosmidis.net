@@ -6,7 +6,7 @@ internal interface ICardBuilder
 {
     void AddArticleCard(CardArticleModel cardData, DateTime dateCreated);
     void AddCard(string directory);
-    string GetHtml(int pageIndex, int perPage);
+    string GetHtml(int pageIndex, int cardsPerPage);
 
-    int GetCardsNumber();
+    int GetCardsNumber(int cardsPerPage);
 }

@@ -51,6 +51,7 @@ var serviceProvider = new ServiceCollection()
           )
           .BuildServiceProvider();
 
+//todo: unique images of additional cards (do not overwrite media)
 //todo: last modifed on cards and in the article page
 //todo: include meetup and sessionize events
 //todo: postprocessing of articles (fix html, add highlightjs markers)

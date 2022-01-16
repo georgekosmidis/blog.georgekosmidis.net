@@ -51,9 +51,9 @@ internal class CardProcessor : ICardProcessor
         return _cardBuilder.GetHtml(pageIndex, perPage);
     }
 
-    public int GetCardsNumber()
+    public int GetCardsNumber(int cardsPerPage)
     {
-        return _cardBuilder.GetCardsNumber();
+        return _cardBuilder.GetCardsNumber(cardsPerPage);
     }
 
 }

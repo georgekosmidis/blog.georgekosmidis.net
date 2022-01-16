@@ -1,4 +1,5 @@
 ﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
 using Blog.Builder.Services.Interfaces;
 using Blog.Builder.Services.Interfaces.Builders;
@@ -104,22 +105,85 @@ internal class CardBuilder : ICardBuilder
     }
 
 
-    public string GetHtml(int pageIndex, int perPage)
+    public string GetHtml(int pageIndex, int cardsPerPage)
     {
         var cards = ArticleCards.OrderByDescending(x => x.DateCreated)
                                 .Select(x => x.CardHtml)
                                 .ToList();
+        var stickyCardsNum = OtherCards.Count(x => x.IsSticky);
 
-        foreach (var card in OtherCards.OrderBy(x => x.Position).Select(x => (x.IsSticky ? x.Position + (pageIndex * perPage) : x.Position, x.CardHtml)))
+        //add the none-sticky cards to their correct position
+        foreach (var card in OtherCards.Where(x => !x.IsSticky).OrderBy(x => x.Position))
         {
-            cards.Insert(card.Item1, card.CardHtml);
+            if (card.Position > cards.Count())
+            {
+                cards.Add(card.CardHtml);
+            }
+            else
+            {
+                cards.Insert(card.Position, card.CardHtml);
+            }
         }
 
-        return string.Join(string.Empty, cards.Skip(pageIndex * perPage).Take(perPage).ToArray());
+        //select the cards that will play a role in the paging,
+        // sticky cards will appear in every page anyway so they can be excluded
+        if (stickyCardsNum >= cardsPerPage)
+        {
+            throw new Exception($"Number of cards per page ({nameof(AppSettings)}.{nameof(AppSettings.CardsPerPage)}) must be bigger than the number of sticky cards (" +
+                $"check property {nameof(CardModelBase.IsSticky)} in all additional cards).");
+        }
+        cards = cards.Skip(pageIndex * (cardsPerPage - stickyCardsNum)).Take(cardsPerPage - stickyCardsNum).ToList();
+
+        //don't create pages with just sticky cards, it makes no sense
+        // this action should have been avoided from GetCardsNumber method
+        if (cards.Count == 0)
+        {
+            throw new Exception($"A request to build a page with just sticky page is not valid. This action should have been avoided by the {nameof(this.GetCardsNumber)} method.");
+        }
+
+        //add the sticky cards to their correct position
+        foreach (var card in OtherCards.Where(x => x.IsSticky).OrderBy(x => x.Position))
+        {
+            if (card.Position > cards.Count())
+            {
+                cards.Add(card.CardHtml);
+            }
+            else
+            {
+                cards.Insert(card.Position, card.CardHtml);
+            }
+        }
+
+        //return the html
+        return string.Join(string.Empty, cards.ToArray());
     }
 
-    public int GetCardsNumber()
+    public int GetCardsNumber(int cardsPerPage)
     {
-        return ArticleCards.Count + OtherCards.Count;
+        var stickyCardsNum = OtherCards.Count(x => x.IsSticky);
+        if (stickyCardsNum >= cardsPerPage)
+        {
+            throw new Exception($"Number of cards per page ({nameof(AppSettings)}.{nameof(AppSettings.CardsPerPage)}) must be bigger than the number of sticky cards (" +
+                $"check property {nameof(CardModelBase.IsSticky)} in all additional cards).");
+        }
+
+        //calculate the number of pages withouth the sticky cards,
+        // they will present in each page anyway
+        var totalPages = Math.Ceiling(ArticleCards.Count / (decimal)(cardsPerPage - stickyCardsNum));
+
+        //return the number of article cards
+        // plus the number of additional cards that are not sticky
+        // plus the sticky cards that will exist in every page
+        var totalCount = ArticleCards.Count
+                            + OtherCards.Count(x => !x.IsSticky)
+                            + OtherCards.Count(x => x.IsSticky) * (int)totalPages;
+
+        //if last page contains just the sticky cards, then do not create a page just for that
+        if (totalCount % cardsPerPage <= stickyCardsNum)
+        {
+            totalCount = totalCount - totalCount % cardsPerPage;
+        }
+
+        return totalCount;
     }
 }

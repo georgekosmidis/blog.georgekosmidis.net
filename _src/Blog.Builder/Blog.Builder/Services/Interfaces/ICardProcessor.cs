@@ -6,6 +6,6 @@ internal interface ICardProcessor
 {
     void ProcessCard(string directory);
     void ProcessArticleCard(CardArticleModel cardData, DateTime dateCreated);
-    int GetCardsNumber();
-    string GetHtml(int pageIndex, int perPage);
+    int GetCardsNumber(int cardsPerPage);
+    string GetHtml(int pageIndex, int cardsPerPage);
 }
