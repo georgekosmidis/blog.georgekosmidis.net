@@ -56,7 +56,8 @@ internal class CardBuilder : ICardBuilder
                                         cardData);
 
     }
-    public ICardBuilder AddCard(string directory)
+
+    public void AddCard(string directory)
     {
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
@@ -85,11 +86,9 @@ internal class CardBuilder : ICardBuilder
                 IsSticky = cardDataBase.IsSticky
             });
         }
-
-        return this;
-
     }
-    public ICardBuilder AddArticleCard(CardArticleModel cardData, DateTime dateCreated)
+
+    public void AddArticleCard(CardArticleModel cardData, DateTime dateCreated)
     {
         var cardHtml = CreateCardHtml(cardData);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
@@ -102,22 +101,25 @@ internal class CardBuilder : ICardBuilder
                 DateCreated = dateCreated
             });
         }
-
-        return this;
     }
 
 
-    public string GetHtml(int page, int perPage)
+    public string GetHtml(int pageIndex, int perPage)
     {
         var cards = ArticleCards.OrderByDescending(x => x.DateCreated)
                                 .Select(x => x.CardHtml)
                                 .ToList();
 
-        foreach (var card in OtherCards.Select(x => (x.IsSticky ? x.Position + page : x.Position, x.CardHtml)))
+        foreach (var card in OtherCards.OrderBy(x => x.Position).Select(x => (x.IsSticky ? x.Position + (pageIndex * perPage) : x.Position, x.CardHtml)))
         {
             cards.Insert(card.Item1, card.CardHtml);
         }
 
-        return string.Join(string.Empty, cards.Skip(page * perPage).Take(perPage).ToArray());
+        return string.Join(string.Empty, cards.Skip(pageIndex * perPage).Take(perPage).ToArray());
+    }
+
+    public int GetCardsNumber()
+    {
+        return ArticleCards.Count + OtherCards.Count;
     }
 }

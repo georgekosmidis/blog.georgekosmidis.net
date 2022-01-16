@@ -2,9 +2,7 @@
 
 public record class Paging
 {
-    public int ArticlesPerPage { get; set; } = 9;
-
-    public int ArticlesCount { get; set; }
+    public int CardsCount { get; set; }
 
     public int CurrentPageIndex { get; set; }
 
@@ -12,7 +10,7 @@ public record class Paging
     {
         get
         {
-            return (int)Math.Ceiling(ArticlesCount / 9m);
+            return (int)Math.Ceiling(CardsCount / 9m);
         }
     }
 }

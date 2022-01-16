@@ -60,17 +60,44 @@ var serviceProvider = new ServiceCollection()
 var pathService = serviceProvider.GetService<IPathService>() ?? throw new NullReferenceException(nameof(IPathService));
 
 
-////prepare output
+//prepare output
 Directory.Delete(pathService.OutputFolder, true);
 Directory.CreateDirectory(pathService.OutputFolder);
 Directory.CreateDirectory(pathService.OutputMediaFolder);
 Helpers.Copy(pathService.JustCopyFolder, pathService.OutputFolder);
 
-var articleDirectories = Directory.GetDirectories(pathService.ArticlesFolder).ToList().OrderByDescending(x => x);
 
-//data for index
+var pagePreparation = serviceProvider.GetService<IPagePreparation>() ?? throw new NullReferenceException(nameof(IPageBuilder));
+
+//standalone pages and their sitemap registration
 //----------------------------------------------------------------------------------
-var indexPageData = new IndexTemplateData
+var standalonesDirectory = Directory.GetDirectories(pathService.StandalonesFolder);
+foreach (var directory in standalonesDirectory)
+{
+    pagePreparation.PreparePage<LayoutStandaloneModel>(directory);
+}
+
+//articles, article cards and their sitemap registration
+//----------------------------------------------------------------------------------
+var articleDirectories = Directory.GetDirectories(pathService.ArticlesFolder);
+foreach (var directory in articleDirectories)
+{
+    pagePreparation.PreparePage<LayoutArticleModel>(directory);
+}
+
+//cards
+//----------------------------------------------------------------------------------
+var cardPreparation = serviceProvider.GetService<ICardPreparation>() ?? throw new NullReferenceException(nameof(ICardPreparation));
+var cardsDirectory = Directory.GetDirectories(pathService.CardsFolder);
+foreach (var directory in cardsDirectory)
+{
+    cardPreparation.RegisterCard(directory);
+}
+
+
+//index page and paging
+//----------------------------------------------------------------------------------
+var indexPageData = new LayoutIndexModel
 {
     DatePublished = DateTime.Now,
     DateModified = DateTime.Now,
@@ -81,39 +108,27 @@ var indexPageData = new IndexTemplateData
     RelativeImageUrl = "/media/me.jpg",
     Paging = new Paging
     {
-        ArticlesCount = articleDirectories.Count(),
+        CardsCount = cardPreparation.GetCardsNumber(),
         CurrentPageIndex = 0
     }
 };
 
-var pagePreparation = serviceProvider.GetService<IPagePreparation>() ?? throw new NullReferenceException(nameof(IPageBuilder));
+//first page
+var pageIndex = 0;
+pagePreparation.PrepareIndex(indexPageData, 9);
 
-//cards
-//----------------------------------------------------------------------------------
-var cardService = serviceProvider.GetService<ICardPreparation>() ?? throw new NullReferenceException(nameof(ICardPreparation));
-var cardsDirectories = Directory.GetDirectories(pathService.CardsFolder).ToList();
-foreach (var directory in cardsDirectories)
+
+for (var i = 8; i < cardPreparation.GetCardsNumber(); i++)
 {
-    cardService.RegisterCard(directory);
+    if(i % 9 == 0 || i == cardPreparation.GetCardsNumber() - 1)
+    {
+        indexPageData.Paging.CurrentPageIndex = pageIndex++;
+        pagePreparation.PrepareIndex(indexPageData, 9);
+    }
 }
 
-//standalones
+//Google Sitemaps
 //----------------------------------------------------------------------------------
-var standaloneDirectories = Directory.GetDirectories(pathService.StandalonesFolder).ToList();
-foreach (var directory in standaloneDirectories)
-{
-    pagePreparation.PreparePage<LayoutStandaloneModel>(directory);
-}
-
-//articles
-//----------------------------------------------------------------------------------
-foreach (var directory in articleDirectories)
-{
-    //prepare an article page and add the card for this article
-    pagePreparation.PreparePage<LayoutArticleModel>(directory);
-
-}
-
 var sitemapBuilder = serviceProvider.GetService<ISitemapBuilder>() ?? throw new NullReferenceException(nameof(ISitemapBuilder));
 sitemapBuilder.Build();
 
@@ -121,54 +136,3 @@ sitemapBuilder.Build();
 //    var httpClientService = HttpClientServiceFactory.Instance.CreateHttpClientService();
 //var iCalMeetup = await httpClientService.GetAsync("https://www.meetup.com/munich-dotnet-meetup/events/ical/");
 //var iCalSessionize = await httpClientService.GetAsync("https://sessionize.com/calendar/3a2660e0e9bd49cf853a35956e110a80");
-
-
-//string build that will hold first page cards html
-var bodyForIndexPage = new StringBuilder();
-
-//index & article
-//----------------------------------------------------------------------------------
-var articleNumberForPagination = 0;
-var pageNumber = 0;
-
-//foreach (var directory in articleDirectories)
-//{
-//    articleNumberForPagination++;
-
-//    var articleDataRaw = File.ReadAllText(Path.Combine(directory, "content.json"));
-//    var articleData = JsonConvert.DeserializeObject<ArticleTemplateData>(articleDataRaw) ?? throw new NullReferenceException("Card Data: " + directory);
-//    var articlePageData = JsonConvert.DeserializeObject<MainTemplateData>(articleDataRaw) ?? throw new NullReferenceException("Card Data: " + directory);
-
-//    //image
-//    //----------------------------------------------------------------------------------
-//    if (articleData.Type == PageTypes.Image)
-//    {
-//        bodyForIndexPage.Append(
-//            templateService.RunCompile(cardImageTemplate, "card:" + directory, typeof(ArticleTemplateData), articleData)
-//        );
-//    }
-
-//    //pagination
-//    //----------------------------------------------------------------------------------
-//    if (articleNumberForPagination % indexPageData.Paging.ArticlesPerPage == 0 || articleNumberForPagination == articleDirectories.Count())
-//    {
-//        indexPageData.Paging.CurrentPageIndex = pageNumber;
-
-//        //index
-//        //----------------------------------------------------------------------------------
-//        indexPageData.Body = bodyForIndexPage.ToString();
-//        var indexPage = templateService.RunCompile(mainTemplate, "index", typeof(MainTemplateData), indexPageData);
-//        var indexFileName = "index.html";
-//        if (pageNumber > 0)
-//        {
-//            indexFileName = $"index-page-{pageNumber + 1}.html";
-//        }
-//        Helpers.SaveCompressedHtml(Path.Combine(OUTPUT, indexFileName), indexPage);
-
-//        sitemap.Add(indexFileName, indexPageData.DateModified);
-
-//        bodyForIndexPage.Clear();
-//        pageNumber++;
-
-//    }
-//}

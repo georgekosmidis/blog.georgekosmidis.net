@@ -19,21 +19,27 @@ internal class PageBuilder : IPageBuilder
 {
     private readonly IRazorEngineService _templateEngine;
     private readonly ITemplateProvider _templateProvider;
-    private readonly ICardBuilder _cardBuilder;
+    private readonly ICardPreparation _cardPreparation;
 
-    public PageBuilder(IRazorEngineService templateService, ITemplateProvider templateProvider, ICardBuilder cardBuilder)
+    public PageBuilder(IRazorEngineService templateService, ITemplateProvider templateProvider, ICardPreparation cardPreparation)
     {
         ArgumentNullException.ThrowIfNull(templateService);
         ArgumentNullException.ThrowIfNull(templateProvider);
-        ArgumentNullException.ThrowIfNull(cardBuilder);
+        ArgumentNullException.ThrowIfNull(cardPreparation);
 
         _templateEngine = templateService;
         _templateProvider = templateProvider;
-        _cardBuilder = cardBuilder;
+        _cardPreparation = cardPreparation;
 
     }
 
-    private PageBuilderResult Build<T>(T pageData) where T : LayoutModelBase
+    /// <summary>
+    /// Used directly for index only
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="pageData"></param>
+    /// <returns></returns>
+    public PageBuilderResult Build<T>(T pageData) where T : LayoutModelBase
     {
         ArgumentNullException.ThrowIfNull(pageData);
         pageData.Validate();
@@ -72,7 +78,7 @@ internal class PageBuilder : IPageBuilder
         //At the end, add a card for this article
         if (pageData.TemplateDataModel == nameof(LayoutArticleModel))
         {
-            _cardBuilder.AddArticleCard(new CardArticleModel
+            _cardPreparation.RegisterArticleCard(new CardArticleModel
             {
                 TemplateDataModel = nameof(CardArticleModel),
                 Title = pageData.Title,

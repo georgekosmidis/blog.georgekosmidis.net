@@ -15,6 +15,7 @@ internal class TemplateProvider : ITemplateProvider
 
         Templates = new Dictionary<string, string>()
         {
+            { nameof(LayoutIndexModel), File.ReadAllText(pathService.TemplateMain) },
             { nameof(LayoutModelBase), File.ReadAllText(pathService.TemplateMain) },
             { nameof(LayoutArticleModel), File.ReadAllText(pathService.TemplateArticle) },
             { nameof(LayoutStandaloneModel), File.ReadAllText(pathService.TemplateStandalone) },

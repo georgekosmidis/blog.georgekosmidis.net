@@ -12,21 +12,25 @@ internal class PagePreparation : IPagePreparation
     private readonly ISitemapBuilder _sitemapBuilder;
     private readonly IMarkupMinifier _markupMinifier;
     private readonly IPageBuilder _pageBuilder;
+    private readonly ICardPreparation _cardPreparation;
 
     public PagePreparation(IPathService pathService,
                         ISitemapBuilder sitemapBuilder,
                         IMarkupMinifier markupMinifier,
-                        IPageBuilder pageBuilder)
+                        IPageBuilder pageBuilder,
+                        ICardPreparation cardPreparation)
     {
         ArgumentNullException.ThrowIfNull(pathService);
         ArgumentNullException.ThrowIfNull(sitemapBuilder);
         ArgumentNullException.ThrowIfNull(markupMinifier);
         ArgumentNullException.ThrowIfNull(pageBuilder);
+        ArgumentNullException.ThrowIfNull(cardPreparation);
 
         _pathService = pathService;
         _sitemapBuilder = sitemapBuilder;
         _markupMinifier = markupMinifier;
         _pageBuilder = pageBuilder;
+        _cardPreparation = cardPreparation;
     }
 
     public void PreparePage<T>(string directory) where T : LayoutModelBase
@@ -54,5 +58,24 @@ internal class PagePreparation : IPagePreparation
         }
 
         _sitemapBuilder.Add(builderResult.RelativeUrl, builderResult.DateModified);
+    }
+
+    public void PrepareIndex(LayoutIndexModel pageData, int cardsPerPage)
+    {
+        ArgumentNullException.ThrowIfNull(pageData);
+
+        pageData.Body = _cardPreparation.GetHtml(pageData.Paging.CurrentPageIndex, cardsPerPage);
+        pageData.Validate();
+
+        var builderResult = _pageBuilder.Build(pageData);
+        var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
+        var indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);
+        var savingPath = Path.Combine(_pathService.OutputFolder, $"index{indexPageNumber}.html");
+
+        // cardPreparation.GetHtml(pageIndex++, 9)
+
+        File.WriteAllText(savingPath, minifier.MinifiedContent);
+        _sitemapBuilder.Add(savingPath, builderResult.DateModified);
+
     }
 }

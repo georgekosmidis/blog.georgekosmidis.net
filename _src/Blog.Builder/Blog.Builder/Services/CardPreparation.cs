@@ -46,8 +46,14 @@ internal class CardPreparation : ICardPreparation
         _cardBuilder.AddArticleCard(cardData, dateCreated);
     }
 
-    public string GetHtml(int page, int perPage)
+    public string GetHtml(int pageIndex, int perPage)
     {
-        return _cardBuilder.GetHtml(page, perPage);
+        return _cardBuilder.GetHtml(pageIndex, perPage);
     }
+
+    public int GetCardsNumber()
+    {
+        return _cardBuilder.GetCardsNumber();
+    }
+
 }
