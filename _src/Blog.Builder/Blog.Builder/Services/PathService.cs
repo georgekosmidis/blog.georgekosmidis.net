@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
 
-//todo: pass all of this to appsettings, no reason to be hardocoded
 internal class PathService : IPathService
 {
     //folders
