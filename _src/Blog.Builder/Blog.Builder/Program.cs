@@ -1,5 +1,4 @@
 ﻿using Blog.Builder.Models;
-using Blog.Builder.Models.Templates;
 using Blog.Builder.Services;
 using Blog.Builder.Services.Builders;
 using Blog.Builder.Services.Interfaces;
@@ -9,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using RazorEngine.Configuration;
 using RazorEngine.Templating;
 using RazorEngine.Text;
-using System.Text;
 using WebMarkupMin.Core;
 
 var serviceProvider = new ServiceCollection()
@@ -20,7 +18,6 @@ var serviceProvider = new ServiceCollection()
               configuration.EncodedStringFactory = new RawStringFactory();
               configuration.AllowMissingPropertiesOnDynamic = true;
               return RazorEngineService.Create(configuration);
-
           })
           .AddSingleton<ITemplateProvider, TemplateProvider>()
           .AddSingleton<ISitemapBuilder, SitemapBuilder>()
@@ -29,7 +26,7 @@ var serviceProvider = new ServiceCollection()
           .AddSingleton<IPageProcessor, PageProcessor>()
           .AddSingleton<ICardBuilder, CardBuilder>()
           .AddSingleton<ICardProcessor, CardProcessor>()
-          .AddSingleton<IWebsitePreparation,WebsitePreparation>()
+          .AddSingleton<IWebsitePreparation, WebsitePreparation>()
           .AddSingleton<IMarkupMinifier>(provider =>
           {
               var settings = new HtmlMinificationSettings()
@@ -54,6 +51,7 @@ var serviceProvider = new ServiceCollection()
           )
           .BuildServiceProvider();
 
+//todo: last modifed on cards and in the article page
 //todo: include meetup and sessionize events
 //todo: postprocessing of articles (fix html, add highlightjs markers)
 //todo: bigger images on tap, is it possible?

@@ -14,14 +14,14 @@ internal class TemplateProvider : ITemplateProvider
 
         Templates = new Dictionary<string, string>()
         {
-            { nameof(LayoutIndexModel), File.ReadAllText(pathService.TemplateMain) },
-            { nameof(LayoutModelBase), File.ReadAllText(pathService.TemplateMain) },
-            { nameof(LayoutArticleModel), File.ReadAllText(pathService.TemplateArticle) },
-            { nameof(LayoutStandaloneModel), File.ReadAllText(pathService.TemplateStandalone) },
-            { nameof(LayoutSitemapModel), File.ReadAllText(pathService.TemplateSitemap) },
-            { nameof(CardArticleModel), File.ReadAllText(pathService.TemplateCardArticle) },
-            { nameof(CardImageModel), File.ReadAllText(pathService.TemplateCardImage) },
-            { nameof(CardSearchModel), File.ReadAllText(pathService.TemplateCardSearch) },
+            { nameof(LayoutIndexModel), File.ReadAllText(pathService.TemplateMainFile) },
+            { nameof(LayoutModelBase), File.ReadAllText(pathService.TemplateMainFile) },
+            { nameof(LayoutArticleModel), File.ReadAllText(pathService.TemplateArticleFile) },
+            { nameof(LayoutStandaloneModel), File.ReadAllText(pathService.TemplateStandaloneFile) },
+            { nameof(LayoutSitemapModel), File.ReadAllText(pathService.TemplateSitemapFile) },
+            { nameof(CardArticleModel), File.ReadAllText(pathService.TemplateCardArticleFile) },
+            { nameof(CardImageModel), File.ReadAllText(pathService.TemplateCardImageFile) },
+            { nameof(CardSearchModel), File.ReadAllText(pathService.TemplateCardSearchFile) },
         };
 
         foreach (var (model, template) in Templates)

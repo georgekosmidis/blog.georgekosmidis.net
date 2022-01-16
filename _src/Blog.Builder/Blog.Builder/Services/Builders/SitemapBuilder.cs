@@ -48,7 +48,7 @@ internal class SitemapBuilder : ISitemapBuilder
 
         var result = _markupMinifier.Minify(sitemapPageHtml);
 
-        File.WriteAllText(_pathService.OutputSitemap, result.MinifiedContent);
+        File.WriteAllText(_pathService.OutputSitemapFile, result.MinifiedContent);
     }
 
     public void Add(string relativeUrl, DateTime dateModified)

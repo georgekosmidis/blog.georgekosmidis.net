@@ -2,6 +2,7 @@
 using Blog.Builder.Models.Templates;
 using Blog.Builder.Services.Interfaces;
 using Blog.Builder.Services.Interfaces.Builders;
+using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
 
@@ -11,18 +12,20 @@ internal class WebsitePreparation : IWebsitePreparation
     private readonly IPageProcessor _pagePreparation;
     private readonly ICardProcessor _cardPreparation;
     private readonly ISitemapBuilder _sitemapBuilder;
-
+    private readonly AppSettings _options;
     private readonly LayoutIndexModel layoutIndexModel;
 
     public WebsitePreparation(IPathService pathService,
                             IPageProcessor pageProcessor,
                             ICardProcessor cardProcessor,
-                            ISitemapBuilder sitemapBuilder)
+                            ISitemapBuilder sitemapBuilder,
+                            IOptions<AppSettings> options)
     {
         _pathService = pathService;
         _pagePreparation = pageProcessor;
         _cardPreparation = cardProcessor;
         _sitemapBuilder = sitemapBuilder;
+        _options = options.Value;
 
         layoutIndexModel = new LayoutIndexModel
         {
@@ -35,7 +38,7 @@ internal class WebsitePreparation : IWebsitePreparation
             RelativeImageUrl = "/media/me.jpg",
             Paging = new Paging
             {
-                CardsPerPage = 9,//todo: ioptions
+                CardsPerPage = _options.CardsPerPage,
                 CardsCount = 0,
                 CurrentPageIndex = 0
             }
@@ -47,12 +50,12 @@ internal class WebsitePreparation : IWebsitePreparation
         Directory.Delete(_pathService.OutputFolder, true);
         Directory.CreateDirectory(_pathService.OutputFolder);
         Directory.CreateDirectory(_pathService.OutputMediaFolder);
-        Helpers.Copy(_pathService.JustCopyFolder, _pathService.OutputFolder);
+        Helpers.Copy(_pathService.WorkingJustCopyFolder, _pathService.OutputFolder);
     }
 
     private void PrepareStandalones()
     {
-        var standalonesDirectory = Directory.GetDirectories(_pathService.StandalonesFolder);
+        var standalonesDirectory = Directory.GetDirectories(_pathService.WorkingStandalonesFolder);
         foreach (var directory in standalonesDirectory)
         {
             _pagePreparation.ProcessPage<LayoutStandaloneModel>(directory);
@@ -61,7 +64,7 @@ internal class WebsitePreparation : IWebsitePreparation
 
     private void PrepareArticles()
     {
-        var articleDirectories = Directory.GetDirectories(_pathService.ArticlesFolder);
+        var articleDirectories = Directory.GetDirectories(_pathService.WorkingArticlesFolder);
         foreach (var directory in articleDirectories)
         {
             _pagePreparation.ProcessPage<LayoutArticleModel>(directory);
@@ -70,7 +73,7 @@ internal class WebsitePreparation : IWebsitePreparation
 
     private void PrepareAdditionalCards()
     {
-        var cardsDirectory = Directory.GetDirectories(_pathService.CardsFolder);
+        var cardsDirectory = Directory.GetDirectories(_pathService.WorkingCardsFolder);
         foreach (var directory in cardsDirectory)
         {
             _cardPreparation.ProcessCard(directory);
@@ -86,14 +89,14 @@ internal class WebsitePreparation : IWebsitePreparation
 
         var pageIndex = 0;
         layoutIndexModel.Paging.CardsCount = _cardPreparation.GetCardsNumber();
-        _pagePreparation.ProcessIndex(layoutIndexModel, 9);
+        _pagePreparation.ProcessIndex(layoutIndexModel, _options.CardsPerPage);
 
-        for (var i = 8; i < _cardPreparation.GetCardsNumber(); i++)
+        for (var i = _options.CardsPerPage - 1; i < _cardPreparation.GetCardsNumber(); i++)
         {
-            if (i % 9 == 0 || i == _cardPreparation.GetCardsNumber() - 1)
+            if (i % _options.CardsPerPage == 0 || i == _cardPreparation.GetCardsNumber() - 1)
             {
                 layoutIndexModel.Paging.CurrentPageIndex = pageIndex++;
-                _pagePreparation.ProcessIndex(layoutIndexModel, 9);
+                _pagePreparation.ProcessIndex(layoutIndexModel, _options.CardsPerPage);
             }
         }
     }

@@ -8,57 +8,80 @@ namespace Blog.Builder.Services;
 //todo: pass all of this to appsettings, no reason to be hardocoded
 internal class PathService : IPathService
 {
+    //folders
     public string WorkingFolder { get; init; }
-
-    public string TemplatesFolder { get; init; }
-    public string JustCopyFolder { get; init; }
-    public string ArticlesFolder { get; init; }
-    public string StandalonesFolder { get; init; }
-    public string CardsFolder { get; init; }
-
-
-    public string TemplateMain { get; init; }
-    public string TemplateArticle { get; init; }
-    public string TemplateSitemap { get; init; }
-    public string TemplateStandalone { get; init; }
-
-    public string TemplateCardArticle { get; init; }
-    public string TemplateCardImage { get; init; }
-    public string TemplateCardSearch { get; init; }
-
-
     public string OutputFolder { get; init; }
     public string OutputMediaFolder { get; init; }
-    public string OutputSitemap { get; init; }
+
+    public string WorkingTemplatesFolder { get; init; }
+    public string WorkingJustCopyFolder { get; init; }
+    public string WorkingArticlesFolder { get; init; }
+    public string WorkingStandalonesFolder { get; init; }
+    public string WorkingCardsFolder { get; init; }
+
+    //files
+    public string TemplateMainFile { get; init; }
+    public string TemplateArticleFile { get; init; }
+    public string TemplateSitemapFile { get; init; }
+    public string TemplateStandaloneFile { get; init; }
+
+    public string TemplateCardArticleFile { get; init; }
+    public string TemplateCardImageFile { get; init; }
+    public string TemplateCardSearchFile { get; init; }
+
+    public string OutputSitemapFile { get; init; }
 
     public PathService(IOptions<AppSettings> options)
     {
         ArgumentNullException.ThrowIfNull(options);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(options.Value.OutputFolder);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(options.Value.RawFolder);
+        var appsettings = options.Value;
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(appsettings.OutputFolderPath);         //it is created in runtime
+        ExceptionHelpers.ThrowIfPathNotExists(appsettings.WorkingFolderPath);           //must exists
 
-        WorkingFolder = options.Value.RawFolder;
+        WorkingFolder = options.Value.WorkingFolderPath;
+        OutputFolder = options.Value.OutputFolderPath;
+        OutputMediaFolder = Path.Combine(OutputFolder, appsettings.OutputFolderMediaName);
 
-        OutputFolder = options.Value.OutputFolder;
-        OutputMediaFolder = Path.Combine(OutputFolder, "media");
+        WorkingJustCopyFolder = Path.Combine(WorkingFolder, appsettings.WorkingJustCopyFolderName);
+        ExceptionHelpers.ThrowIfPathNotExists(WorkingJustCopyFolder);
 
-        OutputSitemap = Path.Combine(OutputFolder, "sitemap.xml");
+        WorkingArticlesFolder = Path.Combine(WorkingFolder, appsettings.WorkingArticlesFolderName);
+        ExceptionHelpers.ThrowIfPathNotExists(WorkingArticlesFolder);
 
-        JustCopyFolder = Path.Combine(WorkingFolder, "justcopyme");
-        ArticlesFolder = Path.Combine(WorkingFolder, "articles");
-        StandalonesFolder = Path.Combine(WorkingFolder, "standalones");
-        CardsFolder = Path.Combine(WorkingFolder, "cards");
+        WorkingStandalonesFolder = Path.Combine(WorkingFolder, appsettings.WorkingStandalonesFolderName);
+        ExceptionHelpers.ThrowIfPathNotExists(WorkingStandalonesFolder);
 
-        TemplatesFolder = Path.Combine(WorkingFolder, "templates");
+        WorkingCardsFolder = Path.Combine(WorkingFolder, appsettings.WorkingCardsFolderName);
+        ExceptionHelpers.ThrowIfPathNotExists(WorkingCardsFolder);
 
-        TemplateMain = Path.Combine(TemplatesFolder, "template-layout.cshtml");
-        TemplateArticle = Path.Combine(TemplatesFolder, "template-article.cshtml");
-        TemplateStandalone = Path.Combine(TemplatesFolder, "template-standalone.cshtml");
-        TemplateSitemap = Path.Combine(TemplatesFolder, "teamplate-sitemap.cshtml");
+        WorkingTemplatesFolder = Path.Combine(WorkingFolder, appsettings.WorkingTemplatesFolderName);
+        ExceptionHelpers.ThrowIfPathNotExists(WorkingTemplatesFolder);
 
-        TemplateCardArticle = Path.Combine(TemplatesFolder, "template-card-article.cshtml");
-        TemplateCardImage = Path.Combine(TemplatesFolder, "template-card-image.cshtml");
-        TemplateCardSearch = Path.Combine(TemplatesFolder, "template-card-search.cshtml");
+
+        TemplateMainFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateMainFilename);
+        ExceptionHelpers.ThrowIfPathNotExists(TemplateMainFile);
+
+        TemplateArticleFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateArticleFilename);
+        ExceptionHelpers.ThrowIfPathNotExists(TemplateArticleFile);
+
+        TemplateStandaloneFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateStandaloneFilename);
+        ExceptionHelpers.ThrowIfPathNotExists(TemplateStandaloneFile);
+
+        TemplateSitemapFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateSitemapFilename);
+        ExceptionHelpers.ThrowIfPathNotExists(TemplateSitemapFile);
+
+
+        TemplateCardArticleFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateCardArticleFilename);
+        ExceptionHelpers.ThrowIfPathNotExists(TemplateCardArticleFile);
+
+        TemplateCardImageFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateCardImageFilename);
+        ExceptionHelpers.ThrowIfPathNotExists(TemplateCardImageFile);
+
+        TemplateCardSearchFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateCardSearchFilename);
+        ExceptionHelpers.ThrowIfPathNotExists(TemplateCardSearchFile);
+
+
+        OutputSitemapFile = Path.Combine(OutputFolder, "sitemap.xml");
 
     }
 
