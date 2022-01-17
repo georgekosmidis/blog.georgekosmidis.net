@@ -16,7 +16,7 @@ This posts assumes some basic knowledge of <a href="https://docs.microsoft.com/e
 <p><strong>Reproducing the behavior</strong></p>
 <p>These are the exact queries that I used to reproduce this behaviour:</p>
 <p><strong>QUERY 1 (weight 1):</strong> (Initial ranking)<br />
-<pre><code class="language-csharp">SELECT * FROM 
+<pre><code class="language-sql">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (1) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
@@ -26,7 +26,7 @@ Results</p>
     3    114
 </code></pre>
 <p><strong>QUERY 2 (weight 0.8):</strong>  (Ranking increases, initial order is preserved)<br />
-<pre><code class="language-csharp">SELECT * FROM 
+<pre><code class="language-sql">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (0.8) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
@@ -36,7 +36,7 @@ Results</p>
     3     146
 </code></pre>
 <p><strong>QUERY 3 (weight 0.2):</strong>  (Ranking increases, initial order is preserved)<br />
-<pre><code class="language-csharp">SELECT * FROM 
+<pre><code class="language-sql">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (0.2) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
@@ -46,7 +46,7 @@ Results</p>
     3    692
 </code></pre>
 <p><strong>QUERY 4 (weight 0.17):</strong> (Ranking decreases, best match is now last, inverted behavior <u>for these terms</u> begin at 0.17)<br />
-<pre><code class="language-csharp">SELECT * FROM 
+<pre><code class="language-sql">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (0.17) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
@@ -56,7 +56,7 @@ Results</p>
     1    802
 </code></pre>
 <p><strong>QUERY 5 (weight 0.16):</strong> (Ranking increases, best match is now second)<br />
-<pre><code class="language-csharp">SELECT * FROM 
+<pre><code class="language-sql">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (0.16) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
@@ -66,7 +66,7 @@ Results</p>
     3    841
 </code></pre>
 <p><strong>QUERY 6 (weight 0.01):</strong>  (Ranking decreases, best match is last again)<br />
-<pre><code class="language-csharp">SELECT * FROM 
+<pre><code class="language-sql">SELECT * FROM 
 CONTAINSTABLE(FullTextTable, FullTextColumn, 'ISABOUT ("weird" weight (0.01) ) ') 
 ORDER BY RANK DESC, [KEY]</code></pre><br />
 Results</p>
@@ -76,7 +76,7 @@ Results</p>
     1     50
 </code></pre>
 <p>This of course causes major problems when you use a custom &#8220;word-breaker&#8221;, creating something like this:<br />
-<pre><code class="language-csharp">CONTAINSTABLE(FullTextTable, FullTextColumn, 
+<pre><code class="language-sql">CONTAINSTABLE(FullTextTable, FullTextColumn, 
       'ISABOUT (
             "wordA wordB wordC" weight (0.8), 
             "wordA*" NEAR "wordB*" NEAR "wordC*" weight (0.6), 

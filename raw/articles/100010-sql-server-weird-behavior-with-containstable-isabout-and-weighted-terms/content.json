@@ -1,8 +1,7 @@
 {
-  "Type": "article",
   "RelativeUrl": "/sql-server-weird-behavior-with-containstable-isabout-and-weighted-terms.html",
   "Title": "SQL Server: Weird behavior with CONTAINSTABLE, ISABOUT and weighted terms",
-  "Description": "<p>I came across the following weird behavior in an ISABOUT query in SQL SERVER, that involves the weight keyword and the final rank of the results. I want to describe this behavior here, just in case someone has a good explanation for it!</p>\n<p>",
+  "Description": "I came across the following weird behavior in an ISABOUT query in SQL SERVER, that involves the weight keyword and the final rank of the results. I want to describe this behavior here, just in case someone has a good explanation for it!",
   "DatePublished": "2013-04-25T13:51:24+02:00",
   "DateModified": "2021-12-26T17:23:53+01:00",
   "RelativeImageUrl": "",

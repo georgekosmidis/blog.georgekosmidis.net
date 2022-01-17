@@ -1,8 +1,7 @@
 {
-  "Type": "article",
   "RelativeUrl": "/swagger-in-asp-net-core-tips-and-tricks.html",
   "Title": "Swagger in ASP.NET Core: Tips & Tricks",
-  "Description": "<p>This post contains a few tips and tricks that can help you transform your swagger UI into an interactive documentation. If you don&#8217;t yet know how to install swagger in ASP.NET Core, this post will help you <a href=\"/get-started-with-swagger-and-asp-net-core/\" rel=\"noopener noreferrer\" target=\"_blank\">Get started with Swagger and ASP.NET Core</a>.</p>\n<p>",
+  "Description": "<p>This post contains a few tips and tricks that can help you transform your swagger UI into an interactive documentation. If you don&#8217;t yet know how to install swagger in ASP.NET Core, this post will help you <a href=\"/get-started-with-swagger-and-asp-net-core/\" rel=\"noopener noreferrer\" target=\"_blank\">Get started with Swagger and ASP.NET Core</a>.</p>",
   "DatePublished": "2020-07-11T15:56:19+02:00",
   "DateModified": "2020-07-17T08:37:08+02:00",
   "RelativeImageUrl": "/media/100370-feature.png",

@@ -1,8 +1,7 @@
 {
-  "Type": "article",
   "RelativeUrl": "/simple-website-stress-tool-with-c-and-apache-http-server-benchmarking-tool.html",
   "Title": "Simple website stress tool with C# and Apache HTTP server benchmarking tool",
-  "Description": "<p>To be honest, I got bored trying to remember all switches and combinations of Apache&#8217;s benchmarking tool! Since I use it sort of rarely, I just wrapped it in a convenient -for me at least- app that I can use without having to remember or read anything!<br />\n",
+  "Description": "<p>To be honest, I got bored trying to remember all switches and combinations of Apache&#8217;s benchmarking tool! Since I use it sort of rarely, I just wrapped it in a convenient -for me at least- app that I can use without having to remember or read anything!</p>",
   "DatePublished": "2014-12-30T08:04:17+01:00",
   "DateModified": "2021-12-26T17:07:39+01:00",
   "RelativeImageUrl": "",

@@ -3,7 +3,7 @@
 <p>Since there is no <code>DROP TRIGGER IF EXISTS</code>, I came up with this:</p>
 <p><script src="https://gist.github.com/georgekosmidis/5df82554e25ba05da7466824f6d3d352.js"></script></p>
 <p>Of course, &#8216;YOUR_TRIGGER_NAME&#8217; could be &#8216;YOUR_FUNCTION_NAME&#8217; or whatever! Just match it with the &#8216;type&#8217;. These are all the possible values of column type:</p>
-<pre>
+<pre><code class="language-plaintext">
 <strong>AF = Aggregate function</strong> (CLR)
 C  = CHECK constraint
 D  = Default or DEFAULT constraint
@@ -28,5 +28,5 @@ TT = Table type
 U = User table
 <strong>V = View</strong>
 X = Extended stored procedure
-</pre>
+</code></pre>
 <p>You can read more about sys.sysobjects here: <a href="http://msdn.microsoft.com/en-us/library/ms177596.aspx" target="_blank" rel="noopener noreferrer">http://msdn.microsoft.com/en-us/library/ms177596.aspx</a></p>

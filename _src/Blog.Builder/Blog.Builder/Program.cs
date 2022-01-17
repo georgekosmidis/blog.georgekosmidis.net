@@ -59,6 +59,7 @@ var serviceProvider = new ServiceCollection()
 //todo: bigger images on tap, is it possible?
 //todo: cards should define the "target" property for <a> tags
 //todo: add commenting system
+//todo: postprocessing: process media and check dimensions (e.g. 100210-actionresult_derives.png)
 
 var websitePreparation = serviceProvider.GetService<IWebsiteProcessor>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));
 websitePreparation.Prepare();

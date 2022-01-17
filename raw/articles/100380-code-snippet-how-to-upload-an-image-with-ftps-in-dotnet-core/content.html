@@ -2,7 +2,52 @@
 <p></p>
 <h2>The sample!</h2>
 <p>I know it is usually the other way around, but I kind of feel this is the most important part of this post! If you want to learn more about all the properties and methods of an instance of <code>FtpWebRequest</code>, keep scrolling!<br />
-<script src="https://gist.github.com/georgekosmidis/3e91fd26f9bb63f9faaa6c072ba8827b.js"></script></p>
+
+<pre><code class="language-csharp">public class SampleFTP {
+    
+    //...
+    
+    public async Task<bool> Upload(IFormFile file)
+    {
+        //Create an FtpWebRequest
+        var request = (FtpWebRequest)WebRequest.Create("ftp://your_ftp_server/and_path/" + file.FileName);
+        //Set the method to UploadFile
+        request.Method = WebRequestMethods.Ftp.UploadFile;
+        //Set the NetworkCredentials
+        request.Credentials = new NetworkCredential("your_username", "your_password");
+
+        //Set buffer length to any value you find appropriate for your use case
+        byte[] buffer = new byte[1024];
+        var stream = file.OpenReadStream();
+        byte[] fileContents;
+        //Copy everything to the 'fileContents' byte array
+        using (var ms = new MemoryStream())
+        {
+            int read;
+            while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                ms.Write(buffer, 0, read);
+            }
+            fileContents = ms.ToArray();
+        }
+
+        //Upload the 'fileContents' byte array 
+        using (Stream requestStream = request.GetRequestStream())
+        {
+            requestStream.Write(fileContents, 0, fileContents.Length);
+        }
+        
+        //Get the response
+        // Some proper handling is needed
+        var response = (FtpWebResponse) request.GetResponse();
+        return response.StatusCode == FtpStatusCode.FileActionOK;
+    }
+    
+    //...
+}</code></pre>
+
+
+</p>
 <h2>Properties of an instance of an <code>FtpWebRequest</code> object.</h2>
 <p>The following is a table containing all properties of an instance of an <code>FtpWebRequest</code> object. In bold you will find the ones mostly used and in italics the properties not supported.</p>
 <div style="width:100%; margin:0; overflow-x:scroll;">

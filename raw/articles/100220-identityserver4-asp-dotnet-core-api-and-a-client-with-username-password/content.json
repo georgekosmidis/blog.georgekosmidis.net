@@ -2,7 +2,7 @@
   "Type": "article",
   "RelativeUrl": "/identityserver4-asp-dotnet-core-api-and-a-client-with-username-password.html",
   "Title": "IdentityServer4, ASP.NET Core API and a client with username/password",
-  "Description": "<p>This is an end-to-end guide on how to quickly setup <a href=\"http://docs.identityserver.io/en/latest/\" target=\"_blank\" rel=\"noopener noreferrer\">IdentityServer4</a>, use it in your ASP.NET Core API for authentication, and finally login to your API from a client by asking a user for her/his username and password. It is divided in three parts that describe respectively the configuration of each one of the following three systems:<br />\n",
+  "Description": "<p>This is an end-to-end guide on how to quickly setup <a href=\"http://docs.identityserver.io/en/latest/\" target=\"_blank\" rel=\"noopener noreferrer\">IdentityServer4</a>, use it in your ASP.NET Core API for authentication, and finally login to your API from a client by asking a user for their username and password. It is divided in three parts that describe respectively the configuration of each one of the following three systems:</p>",
   "DatePublished": "2019-02-08T21:36:59+01:00",
   "DateModified": "2020-07-26T12:59:06+02:00",
   "RelativeImageUrl": "/media/100220-feature.png",

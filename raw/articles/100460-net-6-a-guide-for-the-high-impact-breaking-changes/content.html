@@ -80,7 +80,7 @@ changes are grouped by technology area</p>
 <td>
            The affected APIs had incorrect nullable reference type annotations with build warnings being either absent or incorrect. New build warnings are produced and incorrect build warnings are no longer produced for those APIs. The following list contains the most common APIs that have a breaking change:<br />
 &nbsp;&nbsp;&gt;&nbsp;<code>Methods that override Object.Equals(Object)</code><br />
-&nbsp;&nbsp;&gt;&nbsp;<code>ImmutableArray<T>.Equals(Object)</code><br />
+&nbsp;&nbsp;&gt;&nbsp;<code>ImmutableArray&lt;T&gt;.Equals(Object)</code><br />
 &nbsp;&nbsp;&gt;&nbsp;<code>EntityHandle.Equals(Object)</code><br />
 &nbsp;&nbsp;&gt;&nbsp;<code>GuidHandle.Equals(Object)</code><br />
 &nbsp;&nbsp;&gt;&nbsp;<code>Handle.Equals(Object)</code><br />
@@ -201,6 +201,6 @@ Avoid using optional dependents sharing a table and with no required properties.
 <p>&nbsp;&nbsp;&gt;&nbsp;Make the dependents required. This means that the dependent entity will always have a value after it is queried, even if all its properties are null.<br />
 &nbsp;&nbsp;&gt;&nbsp;Make sure that the dependent contains at least one required property.<br />
 &nbsp;&nbsp;&gt;&nbsp;Map optional dependents to their own table, instead of sharing a table with the principal.
-        </td>
+        </p></td>
 </tr>
 </table>

@@ -1,8 +1,7 @@
 {
-  "Type": "article",
   "RelativeUrl": "/create-and-use-your-first-component-in-blazor.html",
   "Title": "Create and use your first component in Blazor!",
-  "Description": "<p>Blazor, the new client-side UI framework from the ASP.NET team, is definitely making a splash among the developers that were trying to avoid the JavaScript coding experience (or even better the debugging JavaScript experience!). </p>\n<p>",
+  "Description": "<p>Blazor, the new client-side UI framework from the ASP.NET team, is definitely making a splash among the developers that were trying to avoid the JavaScript coding experience (or even better the debugging JavaScript experience!). </p>",
   "DatePublished": "2021-11-10T10:36:44+01:00",
   "DateModified": "2021-12-24T18:21:57+01:00",
   "RelativeImageUrl": "/media/100450-feature.png",

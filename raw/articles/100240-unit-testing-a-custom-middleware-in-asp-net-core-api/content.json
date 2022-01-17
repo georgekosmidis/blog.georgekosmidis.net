@@ -2,7 +2,7 @@
   "Type": "article",
   "RelativeUrl": "/unit-testing-a-custom-middleware-in-asp-net-core-api.html",
   "Title": "Unit testing a custom middleware in ASP.NET Core API",
-  "Description": "<p>Middlewares are a fundamental part of any ASP.NET Core application, introduced from day one. They are executed in the order they are added on every request, and could be considered similar to the <code>HttpHandlers</code> and <code>HttpModules</code> of the classic ASP.NET. Since middlewares can execute code before or after calling the next in the pipeline, they are considered ideal for a ton of various application features, including exception handling, logging, authentication etc.</p>\n<p>",
+  "Description": "<p>Middlewares are a fundamental part of any ASP.NET Core application, introduced from day one. They are executed in the order they are added on every request, and could be considered similar to the <code>HttpHandlers</code> and <code>HttpModules</code> of the classic ASP.NET. Since middlewares can execute code before or after calling the next in the pipeline, they are considered ideal for a ton of various application features, including exception handling, logging, authentication etc.</p>",
   "DatePublished": "2019-08-06T12:24:48+02:00",
   "DateModified": "2020-06-16T12:30:55+02:00",
   "RelativeImageUrl": "",

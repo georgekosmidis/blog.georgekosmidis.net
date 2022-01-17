@@ -1,8 +1,7 @@
 {
-  "Type": "article",
   "RelativeUrl": "/thread-synchronisation-with-semaphoreslim-and-async-await.html",
   "Title": "Thread synchronisation with SemaphoreSlim and async delegate calls",
-  "Description": "<p>Although running a parallel <code>foreach</code> that makes <code>async</code> calls is a pretty usual task, I found my self in a complicated situation, when <code>async</code> <code>delegate</code> calls got in the way!</p>\n<p>",
+  "Description": "<p>Although running a parallel <code>foreach</code> that makes <code>async</code> calls is a pretty usual task, I found my self in a complicated situation, when <code>async</code> <code>delegate</code> calls got in the way!</p>",
   "DatePublished": "2018-02-26T17:56:50+01:00",
   "DateModified": "2021-12-26T17:36:44+01:00",
   "RelativeImageUrl": "",

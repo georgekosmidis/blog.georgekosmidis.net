@@ -1,8 +1,7 @@
 {
-  "Type": "article",
   "RelativeUrl": "/asp-net-mvc-5-authorization-by-default-your-web-app.html",
   "Title": "ASP.NET MVC 5: “Authorization” by default for your web app",
-  "Description": "<p>Securing your MVC app is a tricky business! Although security is a huge topic, one of the problems that you might encounter is that unauthenticated users are allowed by default to execute every action in your web app. This behaviour is potentially unsafe because you have to remember to decorate your actions with the authorize attribute each and every time, and humans are of course prone to errors!</p>\n<p>",
+  "Description": "<p>Securing your MVC app is a tricky business! Although security is a huge topic, one of the problems that you might encounter is that unauthenticated users are allowed by default to execute every action in your web app. This behaviour is potentially unsafe because you have to remember to decorate your actions with the authorize attribute each and every time, and humans are of course prone to errors!</p>",
   "DatePublished": "2014-03-17T10:23:32+01:00",
   "DateModified": "2021-12-26T17:32:20+01:00",
   "RelativeImageUrl": "",

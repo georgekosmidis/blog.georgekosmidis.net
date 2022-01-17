@@ -313,9 +313,9 @@ var responseObject = await _requestServiceFactory
 <h3 id="h3_headers_headersadd_list_string">HeadersAdd(String, List&lt;String&gt;)</h3>
 <p>Adds a header to the request. If a second header with the same name already exists, their values will be aggregated to a List&lt;T&gt;, which will result in the values passes as comma separated in the request.</p>
 <h3 id="h3_headers_headersadd_dictionary">HeadersAdd(Dictionary&lt;String, String&gt;)</h3>
-<p>Adds a collection of headers in the request using a Dictionary<String,String>, where the Key of the Dictionary is the header name and the value is the header value. If a second header with the same name already exists, their values will be aggregated to a List&lt;T&gt;, which will result in the values passes as comma separated in the request.</p>
+<p>Adds a collection of headers in the request using a Dictionary&lt;String,String&gt;, where the Key of the Dictionary is the header name and the value is the header value. If a second header with the same name already exists, their values will be aggregated to a List&lt;T&gt;, which will result in the values passes as comma separated in the request.</p>
 <h3 id="h3_headers_headersadd_dictionary_list">HeadersAdd(Dictionary&lt;String, List&lt;String&gt;&gt;)</h3>
-<p>Adds a collection of headers in the request using a Dictionary<String,List<String>>, where the Key of the Dictionary is the header name and the value is a list of header values. If a second header with the same name already exists, their values will be aggregated to a List&lt;T&gt;, which will result in the values passes as comma separated in the request.</p>
+<p>Adds a collection of headers in the request using a Dictionary&lt;String,List&lt;String&gt;&gt;, where the Key of the Dictionary is the header name and the value is a list of header values. If a second header with the same name already exists, their values will be aggregated to a List&lt;T&gt;, which will result in the values passes as comma separated in the request.</p>
 <h3 id="h3_headers_headersclear">HeadersClear()</h3>
 <p>Clears all headers from the request. Use method chaining to reset headers for an <code>HttpClientService</code>, e.g. <code>httpClientService.HeadersClear().HeadersAdd(...)</code></p>
 <h3 id="h3_headers_headersremove">HeadersRemove(String)</h3>

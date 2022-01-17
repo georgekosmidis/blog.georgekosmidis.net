@@ -11,7 +11,7 @@
 <img src="media/100390-MariaDB-Create.png" alt="MariaDB - Create New Database" /></p>
 <blockquote><p>MySQL case sensitivity depends on the OS, so I would suggest to always use lower case in database and table names.  </p></blockquote>
 <p><a href="/using-litedb-in-an-asp-net-core-api/" rel="noopener noreferrer" target="_blank">It is convenient that <code>LiteDB</code> (and <code>MongoDB</code>) is creating collection on demand</a>, but here we need to create the table ourselves. We are going to use Microsoft&#8217;s example of a weather forecast API as a base for this post, so the only table needed is a table to store the <code>WeatherForcast</code> object. Just had back to <code>HeidiSQL</code>, and run the following script:<br />
-<pre><code class="language-csharp">CREATE TABLE `weatherforecasts` (
+<pre><code class="language-sql">CREATE TABLE `weatherforecasts` (
 	`Id` INT(11) NOT NULL AUTO_INCREMENT,
 	`Date` DATETIME NULL DEFAULT NULL,
 	`TemperatureC` TINYINT(4) NULL DEFAULT NULL,

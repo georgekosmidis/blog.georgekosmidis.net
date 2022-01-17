@@ -22,7 +22,7 @@ namespace ClassLibrary1 {
     }
 }</code></pre></p>
 <p><strong>3. After building the assembly, place the dll somewhere that SQL Server can read it and try the following:</strong><br />
-<pre><code class="language-csharp">--Change the owner of the current database (must be sa and so do you!)
+<pre><code class="language-sql">--Change the owner of the current database (must be sa and so do you!)
 EXEC dbo.sp_changedbowner @loginame = N'sa', @map = false
 GO
 

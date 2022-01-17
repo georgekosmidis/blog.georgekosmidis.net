@@ -1,8 +1,7 @@
 {
-  "Type": "article",
   "RelativeUrl": "/mvc-custom-authorizeattribute-for-custom-authentication.html",
   "Title": "ASP.NET MVC 5: Custom AuthorizeAttribute for custom authentication",
-  "Description": "<p>In a previous <a href=\"/asp-net-mvc-5-authorization-by-default-your-web-app/\">post</a> I wrote about how you <del>can</del> should protect your web app from human errors by enforcing authentication by default.<br />\n",
+  "Description": "<p>In a previous <a href=\"/asp-net-mvc-5-authorization-by-default-your-web-app/\">post</a> I wrote about how you <del>can</del> should protect your web app from human errors by enforcing authentication by default.</p>",
   "DatePublished": "2014-05-17T11:49:58+02:00",
   "DateModified": "2021-12-26T17:45:35+01:00",
   "RelativeImageUrl": "",

@@ -2,7 +2,7 @@
   "Type": "article",
   "RelativeUrl": "/c-calculating-orthodox-and-catholic-easter.html",
   "Title": "C#: Calculating Orthodox and Catholic Easter",
-  "Description": "<p>Some time ago I was called about an online calendar for a company&#8217;s portal. The need was to inform employees about public holidays for the requested year. In Greece, some of those holidays are static meaning they occur the exact same date each year, but some are based on the Orthodox Easter so they move from date to date. There are a lot of online services that can return these information, but I thought I should give it a go and try writing the Orthodox Easter calculation in C#. Saying that, I found the algorithm online and since I was there I also found the Catholic Easter algorithm.<br />\n",
+  "Description": "Some time ago I was called about an online calendar for a company&#8217;s portal. The need was to inform employees about public holidays for the requested year. In Greece, some of those holidays are static meaning they occur the exact same date each year, but some are based on the Orthodox Easter so they move from date to date. There are a lot of online services that can return these information, but I thought I should give it a go and try writing the Orthodox Easter calculation in C#. Saying that, I found the algorithm online and since I was there I also found the Catholic Easter algorithm.",
   "DatePublished": "2013-04-28T23:59:25+02:00",
   "DateModified": "2021-12-26T17:27:50+01:00",
   "RelativeImageUrl": "",

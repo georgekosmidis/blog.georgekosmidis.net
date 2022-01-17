@@ -1,8 +1,7 @@
 {
-  "Type": "article",
   "RelativeUrl": "/csharp-10-whats-new.html",
   "Title": "C# 10 – What’s new!",
-  "Description": "<p>C# 10 is here with new and exciting feature with an opt-in approach. In this guide we will go through some of the most important changes that will make your code cleaner, smaller, faster and will hopefully convince you to upgrade now!</p>\n<p>",
+  "Description": "<p>C# 10 is here with new and exciting feature with an opt-in approach. In this guide we will go through some of the most important changes that will make your code cleaner, smaller, faster and will hopefully convince you to upgrade now!</p>",
   "DatePublished": "2021-11-21T19:28:34+01:00",
   "DateModified": "2022-01-15T13:14:19+01:00",
   "RelativeImageUrl": "/media/100470-feature.png",

@@ -2,4 +2,142 @@
 <p>Keep in mind though, that for bigger numbers (above 100!) you will need <a href="http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic" target="_blank" rel="noopener noreferrer">Arbitrary-precision arithmetic</a>.</p>
 <p>Here is the code and please, if someone knows a faster way or has some suggestions let me now!</p>
 <p></p>
-<p><script src="https://gist.github.com/georgekosmidis/61232f0c82f5d333ba3f6a11c98d6442.js"></script></p>
+
+<p><pre><code class="language-csharp">public class BasicCombinatorics
+{
+
+    /// <summary>
+    /// One object in each position,
+    /// With elementary counting,
+    /// With repetitions,
+    /// With grouping of same objects
+    /// </summary>
+    /// <param name="n">Number of objects</param>
+    /// <param name="ni">Groups of same objects</param>
+    /// <returns>Number of permutations with groups of same objects</returns>
+    public double PermutationsSimilarGroups(int n, List<int> ni)
+    {
+        var p = 1.0d;
+        foreach (var i in ni)
+            p *= Factorial(i);
+
+        return p / Factorial(n);
+    }
+
+    /// <summary>
+    /// One object in each position,
+    /// With elementary counting,
+    /// With repetitions,
+    /// No groups of same objects
+    /// </summary>
+    /// <param name="n">Number of objects</param>
+    /// <param name="k">Number of positions</param>
+    /// <returns>Number of provisions with repetition of n per k</returns>
+    public double ProvisionsReps(int n, int k)
+    {
+        return Math.Pow(n, k);
+    }
+
+    /// <summary>
+    /// One object in each position,
+    /// With elementary counting,
+    /// No repetitions
+    /// </summary>
+    /// <param name="n">Number of objects</param>
+    /// <param name="k">Number of positions</param>
+    /// <returns>Number of simple provisions</returns>
+    public double SimpleProvisions(int n, int k)
+    {
+        return Factorial(n) / Factorial(n - k);
+    }
+
+    /// <summary>
+    /// One object in each position,
+    /// No elementary counting,
+    /// With repetitions
+    /// </summary>
+    /// <param name="n">Number of objects</param>
+    /// <param name="k">Number of positions</param>
+    /// <returns>Number of combinations</returns>
+    public double CombinationsΡeps(int n, int k)
+    {
+        return Factorial(n + k - 1) / (Factorial(k) * Factorial(n - 1));
+    }
+
+    /// <summary>
+    /// One object in each position,
+    /// No elementary counting,
+    /// No repetitions
+    /// </summary>
+    /// <param name="n">Number of objects</param>
+    /// <param name="k">Number of positions</param>
+    /// <returns>Number of simple combinations</returns>
+    public double SimpleCombinations(int n, int k)
+    {
+        return Factorial(n) / (Factorial(k) * Factorial(n - k));
+    }
+
+    /// <summary>
+    /// Many object in each position,
+    /// With same objects
+    /// </summary>
+    /// <param name="n">Number of objects</param>
+    /// <param name="m">Number of positions</param>
+    /// <returns>Number of combinations of same objects</returns>
+    public double SameObjectsInSlots(int n, int m)
+    {
+        return Factorial(m + n - 1) / (Factorial(n) * Factorial(m - 1));
+    }
+
+    /// <summary>
+    /// Many object in each position,
+    /// No same objects,
+    /// With distinguished objects
+    /// </summary>
+    /// <param name="n">Number of objects</param>
+    /// <param name="m">Number of positions</param>
+    /// <returns>Number of combinations of distinguished objects</returns>
+    public double DifObjectsInSlotsBySeries(int n, int m)
+    {
+        return Factorial(m + n - 1) / Factorial(m - 1);
+    }
+
+    /// <summary>
+    /// Many object in each position,
+    /// No same objects,
+    /// No distinguished objects
+    /// </summary>
+    /// <param name="n">Number of objects</param>
+    /// <param name="m">Number of positions</param>
+    /// <returns>Number of combinations</returns>
+    public double DifObjectsInSlots(int n, int m)
+    {
+        return Math.Pow(m, n);
+    }
+
+    /// <summary>
+    /// Factorial of a number
+    /// </summary>
+    /// <param name="n">A number for factorial (n!)</param>
+    /// <returns>n!</returns>
+    public double Factorial(int n)
+    {
+        double result = 1;
+        for (int i = n; i >= 1; i--)
+            result *= i;
+        return result;
+    }
+
+    /// <summary>
+    /// Sum of a number (Σn)
+    /// </summary>
+    /// <param name="n">A number for sum (Σn)</param>
+    /// <returns>Σn</returns>
+    public double Sum(int n)
+    {
+        double result = 0;
+        for (int i = n; i >= 1; i--)
+            result += i;
+        return result;
+    }
+}</code></pre></p>

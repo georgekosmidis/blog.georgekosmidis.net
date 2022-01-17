@@ -1,7 +1,7 @@
 <p>This post contains a few tips and tricks that can help you transform your swagger UI into an interactive documentation. If you don&#8217;t yet know how to install swagger in ASP.NET Core, this post will help you <a href="/get-started-with-swagger-and-asp-net-core/" rel="noopener noreferrer" target="_blank">Get started with Swagger and ASP.NET Core</a>.</p>
 <p></p>
 <h2>How to change the URL of the Swagger UI</h2>
-<p>By default, the Swagger UI can be found at <code>http://localhost:<port>/swagger</code>. To change the path and set, for example, the Swagger UI at the app&#8217;s root, use:<br />
+<p>By default, the Swagger UI can be found at <code>http://localhost:&lt;port&gt;/swagger</code>. To change the path and set, for example, the Swagger UI at the app&#8217;s root, use:<br />
 <pre><code class="language-csharp">app.UseSwaggerUI(c =&gt;
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");

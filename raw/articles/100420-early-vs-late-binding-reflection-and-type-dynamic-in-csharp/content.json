@@ -1,5 +1,4 @@
 {
-  "Type": "article",
   "RelativeUrl": "/early-vs-late-binding-reflection-and-type-dynamic-in-csharp.html",
   "Title": "Early vs Late Binding, reflection, and type dynamic in C#",
   "Description": "<p>Most script languages use late binding and most compiled languages use early binding; C#, although a compiled language and thus an early binding one, has reflection for late binding. In this post we will explore early &#038; late binding in C# with theory and samples. </p>\n<p>",

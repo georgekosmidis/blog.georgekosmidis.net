@@ -1,8 +1,7 @@
 {
-  "Type": "article",
   "RelativeUrl": "/secrets-management-for-asp-net-core-and-azure-devops.html",
   "Title": "Secrets management for ASP.NET Core and Azure DevOps",
-  "Description": "<p>In this post we will discover how to handle <em>appsettings.json</em> secrets (like API keys, passwords etc.) in a .NET app and eventually how to deploy a protected app and let <em>Azure DevOps</em> handle the secret replacement.</p>\n<p>",
+  "Description": "<p>In this post we will discover how to handle <em>appsettings.json</em> secrets (like API keys, passwords etc.) in a .NET app and eventually how to deploy a protected app and let <em>Azure DevOps</em> handle the secret replacement.</p>",
   "DatePublished": "2021-12-05T19:28:04+01:00",
   "DateModified": "2022-01-16T14:21:19+01:00",
   "RelativeImageUrl": "/media/100490-feature.png",
