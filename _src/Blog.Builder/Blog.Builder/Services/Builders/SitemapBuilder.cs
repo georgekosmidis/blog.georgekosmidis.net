@@ -47,6 +47,11 @@ internal class SitemapBuilder : ISitemapBuilder
                                                             sitemap);
 
         var result = _markupMinifier.Minify(sitemapPageHtml);
+        if (result.Errors.Count() > 0)
+        {
+            throw new Exception($"Minification failed with at least one error : {result.Errors.First().Message}");
+        }
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(result.MinifiedContent);
 
         File.WriteAllText(_pathService.OutputSitemapFile, result.MinifiedContent);
     }

@@ -31,14 +31,30 @@ public record class LayoutModelBase : ModelBase
     public List<string> Tags { get; set; } = new List<string>();
 
     /// <summary>
+    /// A text representation for the <see cref="Tags"/> list.
+    /// </summary>
+    public string TagsText => string.Join(", ", Tags);
+
+    /// <summary>
     /// The section list of the current page.
     /// </summary>
-    public List<string> Section { get; set; } = new List<string>();
+    public List<string> Sections { get; set; } = new List<string>();
+
+    /// <summary>
+    /// A text representation for the <see cref="Sections"/> list.
+    /// </summary>
+    public string SectionsText => string.Join(", ", Sections);
+
 
     /// <summary>
     /// Any list of extra headers to be included in the current page.
     /// </summary>
     public List<string> ExtraHeaders { get; } = new List<string>();
+
+    /// <summary>
+    /// A text representation for the <see cref="ExtraHeaders"/> list.
+    /// </summary>
+    public string ExtraHeadersText => string.Join(", ", ExtraHeaders);
 
     /// <summary>
     /// An HTML description of the current page.
@@ -95,7 +111,7 @@ public record class LayoutModelBase : ModelBase
         ExceptionHelpers.ThrowIfNull(DatePublished);
         ExceptionHelpers.ThrowIfNull(DateExpires);
         ExceptionHelpers.ThrowIfNullOrEmpty(Tags);
-        ExceptionHelpers.ThrowIfNull(Section);
+        ExceptionHelpers.ThrowIfNull(Sections);
         ExceptionHelpers.ThrowIfNull(ExtraHeaders);
 
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(Description);

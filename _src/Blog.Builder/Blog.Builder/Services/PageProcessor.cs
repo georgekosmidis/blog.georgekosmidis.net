@@ -46,6 +46,11 @@ internal class PageProcessor : IPageProcessor
 
         //minify and save page
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
+        if (minifier.Errors.Count() > 0)
+        {
+            throw new Exception($"Minification failed with at least one error : {minifier.Errors.First().Message}");
+        }
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
         var savingPath = Path.Combine(_pathService.OutputFolder, Path.GetFileName(builderResult.RelativeUrl));
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
@@ -76,6 +81,11 @@ internal class PageProcessor : IPageProcessor
         //get the entire page html and minify it
         var builderResult = _pageBuilder.Build(pageData);
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
+        if (minifier.Errors.Count() > 0)
+        {
+            throw new Exception($"Minification failed with at least one error : {minifier.Errors.First().Message}");
+        }
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
 
         //save it
         var indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);

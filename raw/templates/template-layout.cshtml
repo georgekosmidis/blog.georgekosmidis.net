@@ -29,14 +29,15 @@
 }
 	<meta property="og:description " content="@Model.PlainTextDescription" />
 	
+    @Model.ExtraHeadersText
 	
 @if ( @Model.TemplateDataModel == "LayoutArticleModel" ) {
 	<meta property="og:article:published_time" content="@Model.DatePublished" />
 	<meta property="og:article:modified_time" content="@Model.DateModified" />
 	<meta property="og:article:expiration_time" content="@Model.DateExpires" />
 	<meta property="og:article:author" content="George Kosmidis" />
-	<meta property="og:article:section" content="@Model.Section" />
-	<meta property="og:article:tag" content="@Model.Tags" />
+	<meta property="og:article:section" content="@Model.SectionsText" />
+	<meta property="og:article:tag" content=" @Model.TagsText" />
 }
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"

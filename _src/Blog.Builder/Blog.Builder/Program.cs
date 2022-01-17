@@ -51,7 +51,6 @@ var serviceProvider = new ServiceCollection()
           )
           .BuildServiceProvider();
 
-//todo: comments
 //todo: lists, like Tags, are not working correctly
 //todo: unique images of additional cards (do not overwrite media)
 //todo: last modified on cards and in the article page
