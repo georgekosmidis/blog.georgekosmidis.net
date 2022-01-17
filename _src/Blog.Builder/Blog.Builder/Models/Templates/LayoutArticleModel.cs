@@ -4,17 +4,25 @@ using System.Text;
 namespace Blog.Builder.Models.Templates;
 
 /// <summary>
-/// Used for an article page (template-article.cshtml)
+/// Used for an article page (template-article.cshtml).
+/// Inherits all members of <see cref="LayoutModelBase"/>.
 /// </summary>
 public record class LayoutArticleModel : LayoutModelBase
 {
-
+    /// <summary>
+    /// The calculated path for the small version of the image.
+    /// The smaller version is automatically created from <see cref="Services.PageProcessor.ProcessPage{T}(string)"/>.
+    /// </summary>
     public string? RelativeImageUrlSmall => RelativeImageUrl is null
                 ? null
                 : (Path.GetDirectoryName(RelativeImageUrl) ?? string.Empty).Replace("\\", "/")
                     + "/"
                     + Path.GetFileNameWithoutExtension(RelativeImageUrl) + "-small" + Path.GetExtension(RelativeImageUrl);
 
+    /// <summary>
+    /// A text representation of a TimeSpan for the modification date.
+    /// See also <see cref="SpanCalculation"/> and <see cref="LayoutModelBase.DateModified"/>.
+    /// </summary>
     public string DateModifiedText
     {
         get
@@ -25,6 +33,10 @@ public record class LayoutArticleModel : LayoutModelBase
         }
     }
 
+    /// <summary>
+    /// A text representation of a TimeSpan for the published date.
+    /// See also <see cref="SpanCalculation"/> and <see cref="LayoutModelBase.DatePublished"/>.
+    /// </summary>
     public string DatePublishedText
     {
         get
@@ -35,13 +47,26 @@ public record class LayoutArticleModel : LayoutModelBase
         }
     }
 
+    /// <summary>
+    /// A description that includes both the published and modification dates, 
+    /// as they are produced by the <see cref="DateModifiedText"/> and <see cref="DatePublishedText"/>.
+    /// </summary>
     public string DatePublishedAndModificationText => DateModifiedText == DatePublishedText
                 ? $"Published {DatePublishedText}"
                 : $"Published {DatePublishedText}, modified {DateModifiedText}";
 
+    /// <summary>
+    /// A description that includes either the published or modification dates if exists, 
+    /// as they are produced by the <see cref="DateModifiedText"/> and <see cref="DatePublishedText"/>.
+    /// </summary>
     public string DatePublishedOrModificationText => DateModifiedText == DatePublishedText ? $"Published {DatePublishedText}" : $"Modified {DateModifiedText}";
 
-    //todo: too many conditions, find me some time to make it smarter or cover it with unit tests
+    /// <summary>
+    /// Calculates a user friendly representation of a <seealso cref="TimeSpan"/> in the formath " x minutes/hours/weeks... ago"
+    /// </summary>
+    /// <remarks>todo: The code suffers from too many ifs, a clearer way must be found.</remarks>
+    /// <param name="span">The <seealso cref="TimeSpan"/> to be described.</param>
+    /// <returns>Returns the calculated string</returns>
     private static string SpanCalculation(TimeSpan span)
     {
         var result = new StringBuilder();
@@ -114,6 +139,10 @@ public record class LayoutArticleModel : LayoutModelBase
         }
     }
 
+    /// <summary>
+    /// Validates what this object knows and throws an exception if something is wrong.
+    /// Check the <see cref="Validate"/> source code for the validations.
+    /// </summary>
     public new void Validate()
     {
         base.Validate();

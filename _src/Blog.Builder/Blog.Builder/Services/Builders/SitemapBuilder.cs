@@ -1,4 +1,5 @@
-﻿using Blog.Builder.Models.Templates;
+﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Models.Templates;
 using Blog.Builder.Services.Interfaces;
 using Blog.Builder.Services.Interfaces.Builders;
 using RazorEngine.Templating;
@@ -6,6 +7,7 @@ using WebMarkupMin.Core;
 
 namespace Blog.Builder.Services.Builders;
 
+/// <inheritdoc/>
 internal class SitemapBuilder : ISitemapBuilder
 {
     private readonly IRazorEngineService _templateEngine;
@@ -34,12 +36,10 @@ internal class SitemapBuilder : ISitemapBuilder
         _markupMinifier = markupMinifier;
     }
 
+    /// <inheritdoc/>
     public void Build()
     {
-        if (sitemap.Urls.Count() == 0)
-        {
-            throw new ArgumentException("Sitemap is empty", nameof(sitemap));
-        }
+        ExceptionHelpers.ThrowIfNullOrEmpty(sitemap.Urls);
 
         var sitemapPageHtml = _templateEngine.RunCompile(_templateProvider.Get<LayoutSitemapModel>(),
                                                             nameof(SitemapBuilder),
@@ -51,6 +51,7 @@ internal class SitemapBuilder : ISitemapBuilder
         File.WriteAllText(_pathService.OutputSitemapFile, result.MinifiedContent);
     }
 
+    /// <inheritdoc/>
     public void Add(string relativeUrl, DateTime dateModified)
     {
         ArgumentNullException.ThrowIfNull(relativeUrl);
@@ -61,6 +62,4 @@ internal class SitemapBuilder : ISitemapBuilder
             sitemap.Add(relativeUrl, dateModified);
         }
     }
-
-
 }

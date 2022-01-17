@@ -6,11 +6,8 @@ using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
 
-/// <summary>
-/// Entry point for the website building. 
-/// Method <see cref="WebsitePreparation.Prepare"/> should be the first thing to call.
-/// </summary>
-internal class WebsitePreparation : IWebsitePreparation
+/// <inheritdoc/>
+internal class WebsitePreparation : IWebsiteProcessor
 {
     private readonly IPathService _pathService;
     private readonly IPageProcessor _pagePreparation;
@@ -53,7 +50,7 @@ internal class WebsitePreparation : IWebsitePreparation
             Paging = new Paging
             {
                 CardsPerPage = _options.CardsPerPage,
-                CardsCount = 0,
+                TotalCardsCount = 0,
                 CurrentPageIndex = 0
             }
         };
@@ -62,7 +59,7 @@ internal class WebsitePreparation : IWebsitePreparation
     /// <summary>
     /// Prepares the output folder located at <see cref="AppSettings.OutputFolderPath"/> by deleting it first 
     /// and then creating all the necessary folders again.
-    /// It will also copy all the <see cref="AppSettings.WorkingJustCopyFolder"/> directly to <see cref="AppSettings.OutputFolderPath"/>.
+    /// It will also copy all the <see cref="AppSettings.WorkingJustCopyFolderName"/> directly to <see cref="AppSettings.OutputFolderPath"/>.
     /// </summary>
     private void PrepareOutputFolders()
     {
@@ -119,7 +116,7 @@ internal class WebsitePreparation : IWebsitePreparation
     {
         var pageIndex = 0;
         var cardsNumber = _cardPreparation.GetCardsNumber(_options.CardsPerPage);
-        layoutIndexModel.Paging.CardsCount = cardsNumber;
+        layoutIndexModel.Paging.TotalCardsCount = cardsNumber;
 
         for (var i = _options.CardsPerPage; i < cardsNumber; i++)
         {
@@ -139,10 +136,7 @@ internal class WebsitePreparation : IWebsitePreparation
         _sitemapBuilder.Build();
     }
 
-    /// <summary>
-    /// Prepares everything needed for the website. 
-    /// Once this method is done, the website is ready at <see cref="AppSettings.OutputFolderPath"/>.
-    /// </summary>
+    /// <inheritdoc/>
     public void Prepare()
     {
         this.PrepareOutputFolders();

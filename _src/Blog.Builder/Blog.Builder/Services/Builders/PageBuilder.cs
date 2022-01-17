@@ -1,4 +1,5 @@
 ﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
 using Blog.Builder.Services.Interfaces;
 using Blog.Builder.Services.Interfaces.Builders;
@@ -7,14 +8,7 @@ using RazorEngine.Templating;
 
 namespace Blog.Builder.Services.Builders;
 
-internal record class PageBuilderResult
-{
-    public string FinalHtml { get; init; } = string.Empty;
-    public string RelativeUrl { get; init; } = string.Empty;
-    public DateTime DateModified { get; init; } = DateTime.MaxValue;
-
-}
-
+/// <inheritdoc/>
 internal class PageBuilder : IPageBuilder
 {
     private readonly IRazorEngineService _templateEngine;
@@ -33,12 +27,7 @@ internal class PageBuilder : IPageBuilder
 
     }
 
-    /// <summary>
-    /// Used directly for index only
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="pageData"></param>
-    /// <returns></returns>
+    /// <inheritdoc/>
     public PageBuilderResult Build<T>(T pageData) where T : LayoutModelBase
     {
         ArgumentNullException.ThrowIfNull(pageData);
@@ -58,6 +47,7 @@ internal class PageBuilder : IPageBuilder
         };
     }
 
+    /// <inheritdoc/>
     public PageBuilderResult Build<T>(string directory) where T : LayoutModelBase
     {
         ExceptionHelpers.ThrowIfPathNotExists(directory);

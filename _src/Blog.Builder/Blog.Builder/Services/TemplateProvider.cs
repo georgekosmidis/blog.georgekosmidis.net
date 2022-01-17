@@ -4,9 +4,7 @@ using Blog.Builder.Services.Interfaces;
 
 namespace Blog.Builder.Services;
 
-/// <summary>
-/// A service that provides the html for the templates.
-/// </summary>
+/// <inheritdoc/>
 internal class TemplateProvider : ITemplateProvider
 {
     /// <summary>
@@ -41,11 +39,7 @@ internal class TemplateProvider : ITemplateProvider
         }
     }
 
-    /// <summary>
-    /// Returns the proper template HTML based on the model <typeparamref name="T"/>.
-    /// </summary>
-    /// <typeparam name="T">The template model to get the equivalent HTML.</typeparam>
-    /// <returns>The HTML of the proper template</returns>
+    /// <inheritdoc/>
     public string Get<T>()
     {
         var template = Templates.First(x => x.Key == typeof(T).Name);

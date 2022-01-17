@@ -26,7 +26,7 @@ var serviceProvider = new ServiceCollection()
           .AddSingleton<IPageProcessor, PageProcessor>()
           .AddSingleton<ICardBuilder, CardBuilder>()
           .AddSingleton<ICardProcessor, CardProcessor>()
-          .AddSingleton<IWebsitePreparation, WebsitePreparation>()
+          .AddSingleton<IWebsiteProcessor, WebsitePreparation>()
           .AddSingleton<IMarkupMinifier>(provider =>
           {
               var settings = new HtmlMinificationSettings()
@@ -61,7 +61,7 @@ var serviceProvider = new ServiceCollection()
 //todo: cards should define the "target" property for <a> tags
 //todo: add commenting system
 
-var websitePreparation = serviceProvider.GetService<IWebsitePreparation>() ?? throw new NullReferenceException(nameof(IWebsitePreparation));
+var websitePreparation = serviceProvider.GetService<IWebsiteProcessor>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));
 websitePreparation.Prepare();
 
 //Meetup events

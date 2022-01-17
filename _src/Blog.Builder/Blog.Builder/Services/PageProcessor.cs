@@ -7,9 +7,7 @@ using WebMarkupMin.Core;
 
 namespace Blog.Builder.Services;
 
-/// <summary>
-/// The service that does page processing
-/// </summary>
+/// <inheritdoc/>
 internal class PageProcessor : IPageProcessor
 {
     private readonly IPathService _pathService;
@@ -38,11 +36,7 @@ internal class PageProcessor : IPageProcessor
         _cardPreparation = cardPreparation;
     }
 
-    /// <summary>
-    /// It processes data for a page that exists in a directory, e.g. standalones or articles.
-    /// </summary>
-    /// <typeparam name="T">The type of the model for the template.</typeparam>
-    /// <param name="directory">The directory where page data lies.</param>
+    /// <inheritdoc/>
     public void ProcessPage<T>(string directory) where T : LayoutModelBase
     {
         ExceptionHelpers.ThrowIfPathNotExists(directory);
@@ -70,11 +64,7 @@ internal class PageProcessor : IPageProcessor
         _sitemapBuilder.Add(builderResult.RelativeUrl, builderResult.DateModified);
     }
 
-    /// <summary>
-    /// Processes data for index pages only (index.html, index-page-2.html etc)
-    /// </summary>
-    /// <param name="pageData"></param>
-    /// <param name="cardsPerPage"></param>
+    /// <inheritdoc/>
     public void ProcessIndex(LayoutIndexModel pageData, int cardsPerPage)
     {
         ArgumentNullException.ThrowIfNull(pageData);
@@ -86,12 +76,12 @@ internal class PageProcessor : IPageProcessor
         //get the entire page html and minify it
         var builderResult = _pageBuilder.Build(pageData);
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
-        
+
         //save it
         var indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);
         var savingPath = Path.Combine(_pathService.OutputFolder, $"index{indexPageNumber}.html");
         File.WriteAllText(savingPath, minifier.MinifiedContent);
-        
+
         //add it to sitemap.xml
         _sitemapBuilder.Add(savingPath, builderResult.DateModified);
     }

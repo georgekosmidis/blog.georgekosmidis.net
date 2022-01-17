@@ -6,6 +6,7 @@ using SixLabors.ImageSharp;
 
 namespace Blog.Builder.Services;
 
+/// <inheritdoc/>
 internal class CardProcessor : ICardProcessor
 {
     private readonly IPathService _pathService;
@@ -21,16 +22,20 @@ internal class CardProcessor : ICardProcessor
         _cardBuilder = cardBuilder;
     }
 
+    /// <inheritdoc/>
     public void ProcessCard(string directory)
     {
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
+        //build and add the card to the card collection
         _cardBuilder.AddCard(directory);
 
         //copy all media associated with this card
         if (Directory.Exists(Path.Combine(directory, "media")))
         {
             Helpers.Copy(Path.Combine(directory, "media"), _pathService.OutputMediaFolder);
+
+            //create smaller versions of the media
             foreach (var file in Directory.GetFiles(Path.Combine(directory, "media")))
             {
                 var ext = Path.GetExtension(file);
@@ -40,17 +45,21 @@ internal class CardProcessor : ICardProcessor
         }
     }
 
-    public void ProcessArticleCard(CardArticleModel cardData, DateTime dateCreated)
+    /// <inheritdoc/>
+    public void ProcessArticleCard(CardArticleModel cardData, DateTime datePublished)
     {
         ArgumentNullException.ThrowIfNull(cardData);
-        _cardBuilder.AddArticleCard(cardData, dateCreated);
+
+        _cardBuilder.AddArticleCard(cardData, datePublished);
     }
 
-    public string GetHtml(int pageIndex, int perPage)
+    /// <inheritdoc/>
+    public string GetHtml(int pageIndex, int cardsPerPage)
     {
-        return _cardBuilder.GetHtml(pageIndex, perPage);
+        return _cardBuilder.GetHtml(pageIndex, cardsPerPage);
     }
 
+    /// <inheritdoc/>
     public int GetCardsNumber(int cardsPerPage)
     {
         return _cardBuilder.GetCardsNumber(cardsPerPage);

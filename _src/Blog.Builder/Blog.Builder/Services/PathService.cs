@@ -5,81 +5,51 @@ using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
 
-/// <summary>
-/// A service that returns all useful paths for the builder.
-/// </summary>
+/// <inheritdoc/>
 internal class PathService : IPathService
 {
-    /// <summary>
-    /// The working folder, the folder that contains standalones, articles etc.
-    /// </summary>
+    /// <inheritdoc/>
     public string WorkingFolder { get; init; }
-    /// <summary>
-    /// The folder that everything will be copied.
-    /// </summary>
+    /// <inheritdoc/>
     public string OutputFolder { get; init; }
-    /// <summary>
-    /// The output folder for the media.
-    /// </summary>
+    /// <inheritdoc/>
     public string OutputMediaFolder { get; init; }
 
-    /// <summary>
-    /// The folder that contains the templates.
-    /// </summary>
+    /// <inheritdoc/>
     public string WorkingTemplatesFolder { get; init; }
-    /// <summary>
-    /// The folder that contains files to be copied without any process.
-    /// </summary>
+    /// <inheritdoc/>
     public string WorkingJustCopyFolder { get; init; }
-    /// <summary>
-    /// The folder that contains the articles.
-    /// </summary>
+    /// <inheritdoc/>
     public string WorkingArticlesFolder { get; init; }
-    /// <summary>
-    /// The folder that contains the standalones, like privacy.html.
-    /// </summary>
+    /// <inheritdoc/>
     public string WorkingStandalonesFolder { get; init; }
-    /// <summary>
-    /// The folder that contains additional cards, sticky or not.
-    /// </summary>
+    /// <inheritdoc/>
     public string WorkingCardsFolder { get; init; }
 
-    /// <summary>
-    /// The main template file, used as a layout.
-    /// </summary>
+    /// <inheritdoc/>
     public string TemplateMainFile { get; init; }
-    /// <summary>
-    /// The template for the articles.
-    /// </summary>
+    /// <inheritdoc/>
     public string TemplateArticleFile { get; init; }
-    /// <summary>
-    /// The tempalte for the sitemap.xml.
-    /// </summary>
+
+    /// <inheritdoc/>
     public string TemplateSitemapFile { get; init; }
-    /// <summary>
-    /// The template for the standalones.
-    /// </summary>
+
+    /// <inheritdoc/>
     public string TemplateStandaloneFile { get; init; }
 
-    /// <summary>
-    /// The tempalte for the article cards.
-    /// </summary>
+    /// <inheritdoc/>
     public string TemplateCardArticleFile { get; init; }
-    /// <summary>
-    /// The template for the image cards.
-    /// </summary>
+    /// <inheritdoc/>
     public string TemplateCardImageFile { get; init; }
-    /// <summary>
-    /// The template for the search cards.
-    /// </summary>
+    /// <inheritdoc/>
     public string TemplateCardSearchFile { get; init; }
-
+    /// <inheritdoc/>
     public string OutputSitemapFile { get; init; }
 
     /// <summary>
     /// Besides DI, it creates and tests the application paths
     /// </summary>
-    /// <param name="options"></param>
+    /// <param name="options">The AppSettings</param>
     public PathService(IOptions<AppSettings> options)
     {
         ArgumentNullException.ThrowIfNull(options);

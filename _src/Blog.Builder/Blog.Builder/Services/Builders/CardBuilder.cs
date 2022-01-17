@@ -1,5 +1,6 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Models;
+using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
 using Blog.Builder.Services.Interfaces;
 using Blog.Builder.Services.Interfaces.Builders;
@@ -9,18 +10,7 @@ using WebMarkupMin.Core;
 
 namespace Blog.Builder.Services.Builders;
 
-internal record class ArticleCardBuilderResult
-{
-    public string CardHtml { get; init; } = string.Empty;
-    public DateTime DateCreated { get; init; }
-}
-internal record class OtherCardBuilderResult
-{
-    public string CardHtml { get; init; } = string.Empty;
-    public int Position { get; init; }
-    public bool IsSticky { get; init; }
-}
-
+/// <inheritdoc/>
 internal class CardBuilder : ICardBuilder
 {
     private readonly IRazorEngineService _templateEngine;
@@ -32,19 +22,22 @@ internal class CardBuilder : ICardBuilder
 
     public CardBuilder(
             IRazorEngineService templateEngine,
-            ITemplateProvider templateProvider,
-            IMarkupMinifier markupMinifier
+            ITemplateProvider templateProvider
             )
     {
         ArgumentNullException.ThrowIfNull(templateEngine);
         ArgumentNullException.ThrowIfNull(templateProvider);
-        ArgumentNullException.ThrowIfNull(markupMinifier);
 
         _templateEngine = templateEngine;
         _templateProvider = templateProvider;
     }
 
-
+    /// <summary>
+    /// Creates the HTML of card based on a type that inherits from <see cref="CardModelBase"/>.
+    /// </summary>
+    /// <typeparam name="T">Any type that inherits from <see cref="CardModelBase"/></typeparam>
+    /// <param name="cardData">The data of the card, necessary for building the HTML of a card.</param>
+    /// <returns></returns>
     private string CreateCardHtml<T>(T cardData) where T : CardModelBase
     {
         ArgumentNullException.ThrowIfNull(cardData);
@@ -58,17 +51,20 @@ internal class CardBuilder : ICardBuilder
 
     }
 
+    /// <inheritdoc/>
     public void AddCard(string directory)
     {
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
+        //Read the card.json and valdiate the data found
         var jsonFileContent = File.ReadAllText(Path.Combine(directory, "card.json"));
         var cardDataBase = JsonConvert.DeserializeObject<CardModelBase>(jsonFileContent);
         ExceptionHelpers.ThrowIfNull(cardDataBase);
         cardDataBase.Validate();
 
-        //is there a way to load the type directly like: 
-        // var cardData = cardDataBase as >>cardDataBase.CardType.Name<<;
+        //Find the correct model for this card.
+        //todo: Is there a way to load the type directly like: 
+        //      var cardData = cardDataBase as >>cardDataBase.CardType.Name<<;
         string cardHtml = cardDataBase.TemplateDataModel switch
         {
             nameof(CardSearchModel) => CreateCardHtml(CardSearchModel.FromBase(cardDataBase)),
@@ -78,6 +74,7 @@ internal class CardBuilder : ICardBuilder
         };
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
 
+        //Add the card to the collection of cards
         lock (__lockObj)
         {
             OtherCards.Add(new OtherCardBuilderResult
@@ -89,7 +86,8 @@ internal class CardBuilder : ICardBuilder
         }
     }
 
-    public void AddArticleCard(CardArticleModel cardData, DateTime dateCreated)
+    /// <inheritdoc/>
+    public void AddArticleCard(CardArticleModel cardData, DateTime datePublished)
     {
         var cardHtml = CreateCardHtml(cardData);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
@@ -99,12 +97,12 @@ internal class CardBuilder : ICardBuilder
             ArticleCards.Add(new ArticleCardBuilderResult
             {
                 CardHtml = cardHtml,
-                DateCreated = dateCreated
+                DateCreated = datePublished
             });
         }
     }
 
-
+    /// <inheritdoc/>
     public string GetHtml(int pageIndex, int cardsPerPage)
     {
         var cards = ArticleCards.OrderByDescending(x => x.DateCreated)
@@ -141,7 +139,7 @@ internal class CardBuilder : ICardBuilder
             throw new Exception($"A request to build a page with just sticky page is not valid. This action should have been avoided by the {nameof(this.GetCardsNumber)} method.");
         }
 
-        //add the sticky cards to their correct position
+        //add the sticky card to their correct position
         foreach (var card in OtherCards.Where(x => x.IsSticky).OrderBy(x => x.Position))
         {
             if (card.Position > cards.Count())
@@ -158,6 +156,7 @@ internal class CardBuilder : ICardBuilder
         return string.Join(string.Empty, cards.ToArray());
     }
 
+    /// <inheritdoc/>
     public int GetCardsNumber(int cardsPerPage)
     {
         var stickyCardsNum = OtherCards.Count(x => x.IsSticky);
