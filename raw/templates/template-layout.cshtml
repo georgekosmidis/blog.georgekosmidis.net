@@ -45,8 +45,8 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css" 
 		integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous" />    
 @if ( @Model.TemplateDataModel == "LayoutArticleModel" ) {
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/default.min.css" 
-		integrity="sha256-CGf39SzxAmEe09Ojoh16/2xTRNleX9wBZcEXVnNqwSM=" crossorigin="anonymous" />		
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@highlightjs/cdn-assets@11.4.0/styles/vs2015.min.css" 
+        integrity="sha256-Pi771++jBrwgeHVYGOa1sjN8idXlrrYSKQVI7+JA54k=" crossorigin="anonymous">	
 }	
 	<title>@Model.Title</title>
     <style>
@@ -88,6 +88,17 @@
 		h1,h2,h3,h4,h5,h6 {
 			font-weight: 300;
 		}
+        h3 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        h4, h5 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        th, strong, b {
+            font-weight: 500;
+        }
 		a {
 			text-decoration: none;
 		}
@@ -329,11 +340,11 @@
 		nonce="@Model.Nonce"
 		></script>
 @if ( @Model.TemplateDataModel == "LayoutArticleModel" ) {
-	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js" 
-		integrity="sha256-ACiuknPSzs3jBPs5Vmxs9LOfqJe75LfS6l7pRNjwsHk=" 
-		crossorigin="anonymous"
-		nonce="@Model.Nonce"
-		></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@highlightjs/cdn-assets@11.4.0/highlight.min.js" 
+            integrity="sha256-GCgWKkl4RE3+M/TNH5d/F80Tz30PQT+Oubq5Q3I5c20=" 
+            crossorigin="anonymous"
+            nonce="@Model.Nonce"
+            ></script>
 	<script nonce="@Model.Nonce">hljs.highlightAll();</script>			
 }	
 	<script nonce="@Model.Nonce">

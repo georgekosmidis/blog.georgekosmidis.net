@@ -8,6 +8,7 @@ internal static class Helpers
 {
     /// <summary>
     /// Copies everything from <paramref name="sourceDir"/> to <paramref name="targetDir"/>.
+    /// Overwrites are not allowed.
     /// </summary>
     /// <param name="sourceDir">The directory to copy everything from.</param>
     /// <param name="targetDir">The directory to copy everything to.</param>
@@ -17,7 +18,7 @@ internal static class Helpers
 
         foreach (var file in Directory.GetFiles(sourceDir))
         {
-            File.Copy(file, Path.Combine(targetDir, Path.GetFileName(file)));
+            File.Copy(file, Path.Combine(targetDir, Path.GetFileName(file)), false);
         }
 
         foreach (var directory in Directory.GetDirectories(sourceDir))
