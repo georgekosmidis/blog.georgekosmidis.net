@@ -21,7 +21,14 @@ ObjectIds are small, <em>likely unique</em>, fast to generate, and ordered. <cod
 
            </code></pre></p>
 <p>Nevertheless, the schema above gave room for some beautiful data like the following image, with some databases and collections ending up having millions of data located in an availability zone probably near you!</p>
-<p><img src="media/100480-mongodb_guid1.png" alt="MongoDB Compass GUID" /><br />
+<p>
+
+<figure class="figure">
+  <img src="/media/100480-mongodb_guid1.png" class="figure-img img-fluid rounded" alt="MongoDB Compass GUID" title="MongoDB Compass GUID" />
+  <figcaption class="figure-caption text-right">MongoDB Compass GUID</figcaption>
+</figure>
+
+<br />
 The capture above is showing a part of <em>MongoDB compass</em> connected to a beta database with partially real but old data, located locally. Far from the previous useless sentence though, mind the blue square because this is how MongoDB stores a GUID. The value you see is actually a <em>base64 encoded</em> string of the GUID value. </p>
 <p>And everything was cool for years, up until I had to manually debug a situation where I had to connect directly to MongoDB to search for a document based on a GUID I knew. No matter how many times I attempted to convert the GUID using various online services to its base64 equivalent, <strong>I always failed because these services were converting the GUID to base64 as string</strong>!</p>
 <p>And there&#8217;s your problem! Encoding a GUID&#8217;s bytes is different than encoding GUID&#8217;s representative string value. </p>

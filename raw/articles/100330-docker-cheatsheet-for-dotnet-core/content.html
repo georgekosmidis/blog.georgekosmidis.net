@@ -174,5 +174,12 @@ COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Name.Of.Your.Project.dll"]</code></pre></p>
 <h2>A cheat with Microsoft Visual Studio</h2>
 <p>If it happens to have a Visual Studio around, just right click on your main project, select &#8216;Add&#8217; and then &#8216;Docker Support&#8230;&#8217;:</p>
-<p><img src="media/100330-docker_support_in_visual_studio.png" alt="Docker Support in Microsoft Visual Studio 2019" />.</p>
+
+<p>
+<figure class="figure">
+  <img src="/media/100330-docker_support_in_visual_studio.png" class="figure-img img-fluid rounded" alt="Docker Support in Microsoft Visual Studio 2019" title="Docker Support in Microsoft Visual Studio 2019" />
+  <figcaption class="figure-caption text-right">Docker Support in Microsoft Visual Studio 2019</figcaption>
+</figure>
+
+</p>
 <p>Usually, for ASP.NET Core, I choose &#8216;Linux&#8217; as Operating System; at the end it comes cheaper if you want to host it, for example, in Azure.</p>

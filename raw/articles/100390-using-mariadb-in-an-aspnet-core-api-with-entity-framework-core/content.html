@@ -8,7 +8,13 @@
 <blockquote><p>If you wish to go into the MySQL world, I would suggest <a href="https://dbeaver.io/" rel="noopener noreferrer" target="_blank">DBeaver Community Edition</a> as management tool, which you can download here: <a href="https://dbeaver.io/download/" rel="noopener noreferrer" target="_blank">https://dbeaver.io/download/</a></p></blockquote>
 <h3>Creating the schema</h3>
 <p>We can use <code>HeidiSQL</code> for this! Double click on the <code>HeidiSQL</code> shortcut, fill in the correct username &#038; password (the ones you gave during installation) and click &#8220;<em>Open</em>&#8220;. Once done, right click on the server&#8217;s entry in the tree on the left (= the topmost one). In its context menu, you have &#8220;<em>Create new > Database</em>&#8221; that you can use to -obviously- create a new database! Follows an image that makes things a bit clearer!<br />
-<img src="media/100390-MariaDB-Create.png" alt="MariaDB - Create New Database" /></p>
+
+<figure class="figure">
+  <img src="/media/100390-MariaDB-Create.png" class="figure-img img-fluid rounded" alt="MariaDB - Create New Database" title="MariaDB - Create New Database" />
+  <figcaption class="figure-caption text-right">MariaDB - Create New Database</figcaption>
+</figure>
+</p>
+
 <blockquote><p>MySQL case sensitivity depends on the OS, so I would suggest to always use lower case in database and table names.  </p></blockquote>
 <p><a href="/using-litedb-in-an-asp-net-core-api/" rel="noopener noreferrer" target="_blank">It is convenient that <code>LiteDB</code> (and <code>MongoDB</code>) is creating collection on demand</a>, but here we need to create the table ourselves. We are going to use Microsoft&#8217;s example of a weather forecast API as a base for this post, so the only table needed is a table to store the <code>WeatherForcast</code> object. Just had back to <code>HeidiSQL</code>, and run the following script:<br />
 <pre><code class="language-sql">CREATE TABLE `weatherforecasts` (

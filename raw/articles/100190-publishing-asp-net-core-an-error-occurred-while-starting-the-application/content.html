@@ -5,14 +5,24 @@
 <blockquote><p>There is <strong>a newer version</strong> of this blog post!<br />
 Visit <a href="/an-error-occurred-while-starting-the-application-process-failure-and-many-more/">/an-error-occurred-while-starting-the-application-process-failure-and-many-more/</a></p></blockquote>/
 <p>It looks like this in your browser:<br />
-<img src="/media/100190-an_error_occured.png" /></p>
+<figure class="figure">
+  <img src="/media/100190-an_error_occured.png" class="figure-img img-fluid rounded" alt="An error occurred while starting the application." title="An error occurred while starting the application." />
+  <figcaption class="figure-caption text-right">An error occurred while starting the application.</figcaption>
+</figure>
+
+</p>
 <p>Besides that one hint, that the error is while starting, it&#8217;s not very descriptive, right?</p>
 <p>Althouth there many things that could go wrong and the proper way is to actually troubleshoot the error, I end up googling about this for over an hour! In my search I found numerous articles but it turned out that for me the solution was simple!<br />
 <!--more--></p>
 <blockquote><p>I forgot to configure the release output path for swagger :/</p></blockquote>
 <p>Probably you already know how to do this, but in case you don&#8217;t remember&#8230;:<br />
 Right click your project, then click <code>Properties</code>, then click the<code>Build</code> tab and at the <code>Output</code> section check the <code>XML documentation file</code>:<br />
-<img src="/media/100190-configure.png" /></p>
+<figure class="figure">
+  <img src="//media/100190-configure.png" class="figure-img img-fluid rounded" alt="An error occurred while starting the application - Configuration" title="An error occurred while starting the application - Configuration" />
+  <figcaption class="figure-caption text-right">An error occurred while starting the application - Configuration</figcaption>
+</figure>
+
+</p>
 <p>And if configuring swagger wasn’t the solution, you can either check one of the links below, or just <a href="https://scottsauber.com/2017/04/10/how-to-troubleshoot-an-error-occurred-while-starting-the-application-in-asp-net-core-on-iis/" rel="noopener noreferrer" target="_blank">troubleshoot your app</a>.</p>
 <ul>
 <li><a href="https://docs.microsoft.com/el-gr/aspnet/core/host-and-deploy/azure-iis-errors-reference?view=aspnetcore-2.1" rel="noopener noreferrer" target="_blank">Microsoft Docs: Common errors reference for Azure App Service and IIS with ASP.NET Core</a></li>

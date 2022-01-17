@@ -23,7 +23,13 @@
 <h2>Step 1. Getting started &#8211; An oversimplified component</h2>
 <p>As we &#8216;ve seen already, a Blazor component is nothing more than a file that contains both HTML markup and the equivalent logic, which makes it rather intuitive on how to to create one; just create a new file with <code>.razor</code> as extension and throw in some logic, for example the code from above. </p>
 <p>The following image illustrates exactly that:<br />
-<img src="media/100450-create_component-2.png" alt="Create a razor component in Visual Studio" /></p>
+
+<figure class="figure">
+  <img src="/media/100450-create_component-2.png" class="figure-img img-fluid rounded" alt="Create a razor component in Visual Studio" title="Create a razor component in Visual Studio" />
+  <figcaption class="figure-caption text-right">Create a razor component in Visual Studio</figcaption>
+</figure>
+
+</p>
 <p>This oversimplified approach with the rather useless counter is good enough to underline the simplicity of creating a component. They are nothing more than an attempt to isolated code that we would write in any usual razor page. After all, Blazor is nothing more than a rendered tree of components.</p>
 <p>As a next step, let&#8217;s try to create something more complicated that could potentially be useful for others, like for example a weather component that we will name <em>WeatherWidget</em>. </p>
 <p>The requirements for our new component will be the following:</p>
@@ -36,9 +42,23 @@
 <p>Let&#8217;s go!</p>
 <h2>Step 2. Creating an assembly for our component</h2>
 <p>Since we want to reuse our component, and potentially create a Nuget package out of it, we need a different assembly for our code. The first step that actually creates that assembly is rather easy since Visual Studio templates are there for us. Let&#8217;s start a new instance of Visual Studio, create a new project and select <code>Razor Class Library</code> for the template, as illustrated in the following image.</p>
-<p><img src="media/100450-RazorClassLibrary.png" alt="Create a new Razor Class Library" /></p>
+<p>
+
+<figure class="figure">
+  <img src="/media/100450-RazorClassLibrary.png" class="figure-img img-fluid rounded" alt="Create a new Razor Class Library" title="Create a new Razor Class Library" />
+  <figcaption class="figure-caption text-right">Create a new Razor Class Library</figcaption>
+</figure>
+
+</p>
 <p>What we will get after following the wizard is a working component and with it an example on how JavaScript functionality can be wrapped in a .NET class for easy consumption &#8211; something that we will not need here but its a nice future topic. Creating a <em>Blazor Server app</em> is not part of this guide but components cannot run on their own! Let&#8217;s also add a Blazor App by right clicking on our solution, selecting <em>New Project</em> and then a <em>Blazor Server App</em> to end up with this in your visual studio:</p>
-<p><img src="media/100450-BlazorStartingSolution.png" alt="Blazor Starting Solution" /></p>
+<p>
+
+<figure class="figure">
+  <img src="/media/100450-BlazorStartingSolution.png" class="figure-img img-fluid rounded" alt="Blazor Starting Solution" title="Blazor Starting Solution" />
+  <figcaption class="figure-caption text-right">Blazor Starting Solution</figcaption>
+</figure>
+
+</p>
 <blockquote><p>When doing cross-origin requests, the remote endpoint must enable cross-origin resource sharing (CORS). Up until now, <em>OpenWeatherMap</em> hasn&#8217;t done so, so the component we are building can only be available for server-side apps.</p></blockquote>
 <p>Finally, we need to add a project reference of the library to our new App and a <code>using</code> statement. We do that with the old and classic &#8220;Add a project reference&#8221; way, and then by adding a <code>@using WeatherWidget</code> statement in the razor page we wish to render the current weather (for this post, it&#8217;s <code>Pages/Index.razor</code>):</p>
 <p><pre><code class="language-csharp">@page "/"
@@ -56,13 +76,28 @@ Welcome to your new app.
 &lt;SurveyPrompt Title="How is Blazor working for you?" /&gt;
 </code></pre></p>
 <p>If everything worked and we run our app, we should see the following:</p>
-<p><img src="media/100450-NewBlazorComponentRun.png" alt="New Blazor Component" /></p>
+<p>
+
+<figure class="figure">
+  <img src="/media/100450-NewBlazorComponentRun.png" class="figure-img img-fluid rounded" alt="New Blazor Component" title="New Blazor Component" />
+  <figcaption class="figure-caption text-right">New Blazor Component</figcaption>
+</figure>
+
+</p>
 <blockquote><p><strong>Take really good care of your namespaces and folders</strong>, they need to match! Also find a unique namespace for your component that is not included in your main project. For example don&#8217;t use <code>WeatherWidget</code> as a namespace for your component and <code>Something.WeatherWidget.SampleApp</code> for your sample app, they need either differ completely or to have the same start, e.g. <code>Blazor.WeatherWidget</code> and <code>Blazor.WeatherWidget.SampleApp</code>. Namespace problems are the worst in Blazor since the errors produced by Visual Studio are irrelevant and misleading. Check for example this issue: <a href="https://github.com/dotnet/aspnetcore/issues/13090" rel="noopener" target="_blank">https://github.com/dotnet/aspnetcore/issues/13090</a></p></blockquote>
 <p>Now that we have a skeleton running, let&#8217;s move away from Blazor for a 2-3 steps and implement our weather service (I know it&#8217;s sad but we have too!).</p>
 <h2>Step 3. Requesting weather data</h2>
 <p>There are of course many online services to retrieve weather data from, so feel free to choose whichever you want. I chose <a href="https://openweathermap.org/api" rel="noopener" target="_blank">Open Weather Map</a> just because I found their API to be really easy to use and additionally they offer 1M free calls per month &#8211; more than enough to develop and test this thing!</p>
 <p>First things first, in order to get your 1 million free requests your need to have an account! Visit <a href="https://home.openweathermap.org/users/sign_up" rel="noopener" target="_blank">https://home.openweathermap.org/users/sign_up</a> and complete the sign up process. When you validate your email, return to the <em>Open Weather Map</em>, login and navigate to the &#8220;<a href="https://home.openweathermap.org/api_keys" rel="noopener" target="_blank">My API Keys</a>&#8221; screen as seen below:</p>
-<p><img src="media/100450-OpenWeatherMap.png" alt="Open Weather Map" /></p>
+<p>
+
+<figure class="figure">
+  <img src="/media/100450-OpenWeatherMap.png" class="figure-img img-fluid rounded" alt="Open Weather Map" title="Open Weather Map" />
+  <figcaption class="figure-caption text-right">Open Weather Map</figcaption>
+</figure>
+
+
+</p>
 <p>When you land in this screen you will already see a default key. This works immediately but it is usually suggested to create a new key per usage and never reuse the same everywhere.</p>
 <blockquote><p>Worth noting here, that you will have to wait a couple of hours until the key is ready. This is something that <em>Open Weather Maps</em> needs to workout; eventual consistency is one thing but two hours delay is kind of a deal breaker&#8230; I only knew&#8230;</p></blockquote>
 <h2>Step 3. Creating the models</h2>
@@ -238,7 +273,14 @@ Welcome to your new app.
         public int Cod { get; set; }
     }</code></pre></p>
 <p>Easy right? Copy-pasting again will fit them nicely in our solution:<br />
-<img src="media/100450-VS_OpenWeatherMap_Models.png" alt="Visual Studio, OpenWeatherMap, Models" /></p>
+
+
+<figure class="figure">
+  <img src="/media/100450-VS_OpenWeatherMap_Models.png" class="figure-img img-fluid rounded" alt="Visual Studio, OpenWeatherMap, Models" title="Visual Studio, OpenWeatherMap, Models" />
+  <figcaption class="figure-caption text-right">Visual Studio, OpenWeatherMap, Models</figcaption>
+</figure>
+
+</p>
 <blockquote><p>You can also convert JSON to classes from within Visual Studio by first copying the JSON and going to <code>Edit</code> -> <code>Paste Special</code> -> <code>Paste JSON as classes</code></p></blockquote>
 <blockquote><p>Read more about <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/project-structure?view=aspnetcore-5.0" rel="noopener" target="_blank">ASP.NET Core Blazor project structure</a></p></blockquote>
 <h2>Step 4. Creating a service to pull data</h2>
@@ -338,7 +380,15 @@ else
     }
 }</code></pre></p>
 <p>Which will produce the following result:<br />
-<img src="media/100450-NewBlazorComponentLoading.gif" alt="New Blazor Component Loading" /></p>
+
+Visual Studio, OpenWeatherMap, Models
+
+<figure class="figure">
+  <img src="/media/100450-NewBlazorComponentLoading.gif" class="figure-img img-fluid rounded" alt="New Blazor Component Loading" title="New Blazor Component Loading" />
+  <figcaption class="figure-caption text-right">New Blazor Component Loading</figcaption>
+</figure>
+
+</p>
 <p>From now on its downhill for a nice looking component, which can include as many properties as the component developer wishes; for this post though we will leave it here.</p>
 <blockquote><p>If you want to get a taste of what it can look like visit <a href="https://blazor-weatherwidget.azurewebsites.net/" rel="noopener" target="_blank">https://blazor-weatherwidget.azurewebsites.net/</a> or check my bootstrap approach here: <a href="https://github.com/georgekosmidis/Blazor.WeatherWidget/blob/main/Blazor.WeatherWidget/WeatherWidget.razor" rel="noopener" target="_blank">https://github.com/georgekosmidis/Blazor.WeatherWidget/blob/main/Blazor.WeatherWidget/WeatherWidget.razor</a></p></blockquote>
 <h2>Step 6. Allow end users to change the city</h2>
@@ -386,7 +436,13 @@ else
 }
 </code></pre></p>
 <p>Which will give us the following result:<br />
-<img src="media/100450-BlazorWebComponentNewCity.gif" alt="Blazor Web Component New City" /></p>
+
+<figure class="figure">
+  <img src="/media/100450-BlazorWebComponentNewCity.gif" class="figure-img img-fluid rounded" alt="Blazor Web Component New City" title="Blazor Web Component New City" />
+  <figcaption class="figure-caption text-right">Blazor Web Component New City</figcaption>
+</figure>
+
+</p>
 <h2>Step 7. Expose more features</h2>
 <p>What we have up to here is a nice component built specifically for our app and nothing more, because any component that wishes a general availability future should offer parameterization to the full extend! Having said that, a potential developer that wishes to use our component will have to get it as an assembly (or even better as Nuget package), add a using and then add the <code>&lt;WeatherWidget /&gt; </code> tag wherever they wish to present weather to their end users. But they get nothing more than a stiff, unattracted piece of HTML. There is no way to set the default city, the template is hardcoded, the buttons, everything&#8230;</p>
 <p>Let&#8217;s attack one by one these issues:</p>

@@ -25,9 +25,20 @@
 <p>So we are done with that and we can safely push our code to a public (or private) repo; the secrets are safe. But what about if we have (and we should) CI/CD set up, and we are expecting our pipeline to automatically deliver every new version without having to manually change files.</p>
 <p>Enters the <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/file-transform?view=azure-devops" rel="noopener" target="_blank">File Transform Task</a>, which you need to add in your <code>yml</code> file. Assuming prior knowledge in <em>Azure DevOps</em>, I will skip the entire process and cut right to the chase: Once you find the task, choose <code>JSON</code> as the <em>File Format</em> and <code>/**/appsettings.*.json</code> as <em>Target Files</em>. This will instruct the task to recursively search your files  for anything that matches the <em>Target Files</em> pattern and make adjustments to the contents of those files. </p>
 <blockquote><p>The section &#8220;<em>Steps to setup Azure DevOps</em>&#8221; in <a href="/publish-a-containerized-dotnet-core-app-using-docker-azure-devops-azure-container-registry-and-azure-app-service/" rel="noopener" target="_blank">this blog post</a>, describes in more details how to create and edit a pipeline.</p></blockquote>
-<p><img src="media/100490-FileTransform.gif" alt="Azure Pipelines, File Transform" /></p>
+<p>
+<figure class="figure">
+  <img src="/media/100490-FileTransform.gif" class="figure-img img-fluid rounded" alt="Azure Pipelines, File Transform" title="Azure Pipelines, File Transform" />
+  <figcaption class="figure-caption text-right">Azure Pipelines, File Transform</figcaption>
+</figure>
+</p>
 <p>Almost ready! Up until now we prepared our pipeline for the secret replacement, but we also need to add the key to be replaced. This is done in a similar way as with the <code>dotnet user-secrets</code> set of commands, with the difference that we use <em>Variables</em> instead. Since we are already in the <em>Pipeline Edit</em> form, find the <em>Variables</em> button in the upper right corner and add a new variable with the key in the format <code>WeatherWidgetSettings.OpenWeatherApiKey</code> (mind the <code>.</code> here instead of the <code>:</code>):</p>
-<p><img src="media/100490-AzureDevOps-Variables.gif" alt="Azure DevOps - Pipelines" /></p>
+<p>
+<figure class="figure">
+  <img src="/media/100490-AzureDevOps-Variables.gif" class="figure-img img-fluid rounded" alt="Azure DevOps - Pipelines" title="Azure DevOps - Pipelines" />
+  <figcaption class="figure-caption text-right">Azure DevOps - Pipelines</figcaption>
+</figure>
+
+</p>
 <p>Run your pipeline and enjoy! </p>
 <blockquote><p>In case you want to see a complete working <code>yml</code>, you can check the one of the mentioned <em>Blazor Component</em>: <a href="https://github.com/georgekosmidis/Blazor.WeatherWidget/blob/main/azure-pipelines-release-samplepage.yml" rel="noopener" target="_blank">ttps://github.com/georgekosmidis/Blazor.WeatherWidget/blob/main/azure-pipelines-release-samplepage.yml</a>.</p></blockquote>
 <h2>Conclusion</h2>

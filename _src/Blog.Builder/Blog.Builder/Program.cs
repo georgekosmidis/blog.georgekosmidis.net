@@ -55,7 +55,6 @@ var serviceProvider = new ServiceCollection()
 //todo: unique images of additional cards (do not overwrite media)
 //todo: include meetup and sessionize events
 //todo: bigger images on tap, is it possible?
-//todo: cards should define the "target" property for <a> tags
 //todo: add commenting system
 //todo: postprocessing: process media and check dimensions (e.g. 100210-actionresult_derives.png)
 //todo: fix style of some articles, example: http://blog/net-6-a-guide-for-the-high-impact-breaking-changes.html

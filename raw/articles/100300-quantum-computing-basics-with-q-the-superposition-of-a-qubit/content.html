@@ -7,13 +7,32 @@ The phrase above, found in Microsoft Docs, captures today&#8217;s problems with 
 <h3>What is Quantum Superposition</h3>
 <p>Imagine two colliding waves in the sea; sometimes they perfectly add to make a bigger wave, sometimes they completely cancel each other out, but often it’s just a combination of both somewhere in between. This constructive or destructive interference of waves is known as superposition in classical physics.</p>
 <p>In Quantum mechanics though, superposition can be a bit weirder!</p>
-<p><img src="media/100300-800px-Schrodingers_cat.svg.png" alt="A cat, with a Geiger counter, and a bit of poison in a sealed box. Quantum mechanics says that after a while, the cat is both alive and dead. A person looking into the box will either find the cat alive or dead, however it is assumed to be both alive and dead before you look into the box." /></p>
+
+<p>
+
+<figure class="figure">
+  <img src="/media/100300-800px-Schrodingers_cat.svg.png" class="figure-img img-fluid rounded" alt="A cat, with a Geiger counter, and a bit of poison in a sealed box. Quantum mechanics says that after a while, the cat is both alive and dead. A person looking into the box will either find the cat alive or dead, however it is assumed to be both alive and dead before you look into the box." title="A cat, with a Geiger counter, and a bit of poison in a sealed box. Quantum mechanics says that after a while, the cat is both alive and dead. A person looking into the box will either find the cat alive or dead, however it is assumed to be both alive and dead before you look into the box." />
+  <figcaption class="figure-caption text-right">A cat, with a Geiger counter, and a bit of poison in a sealed box. Quantum mechanics says that after a while, the cat is both alive and dead. A person looking into the box will either find the cat alive or dead, however it is assumed to be both alive and dead before you look into the box.</figcaption>
+</figure>
+
+</p>
+
 <p>Particles that exist in different states (for example in different positions or moving at different speeds, etc) are thought of as existing across all the possible states at the same time! Yes, a particle in superposition can exist in two places at the same time and/or move at different speeds simultaneously. This &#8220;unnatural&#8221; state of matter, practically impossible for a human brain to comprehend, it’s one of the weirdest realities of quantum physics.</p>
 <blockquote><p>The famous thought experiment, <a href="https://en.wikipedia.org/wiki/Schr%C3%B6dinger%27s_cat" target="_blank" rel="noopener noreferrer">Schrödinger&#8217;s cat</a>, was an attempt to illustrate the problems of <a href="https://en.wikipedia.org/wiki/Copenhagen_interpretation" target="_blank" rel="noopener noreferrer">Copenhagen interpretation</a> of quantum mechanics by applying quantum mechanics to everyday objects. <a href="https://en.wikipedia.org/wiki/Copenhagen_interpretation" target="_blank" rel="noopener noreferrer">Copenhagen interpretation</a>, devised somewhere around 1926, was stating that physical systems, in general, do not have a state until measured.</p></blockquote>
 <p>However, this weird behavior becomes human-friendly once a measurement of a particle is made; when for example we check its position, no matter how we checked it, the superposition is lost and the particle exists in one known state.</p>
 <h3>What is Quantum entanglement</h3>
 <p>Quantum entanglement that Einstein described as &#8220;spooky action over distance&#8221;, is a relationship between fundamental particle properties that persist over distance without requiring transmission of information.</p>
-<p><img src="media/100300-EntanglementGloves_OBrien_1K.gif" alt="JAMES O'BRIEN FOR QUANTA MAGAZINE" /></p>
+
+<p>
+
+<figure class="figure">
+  <img src="/media/100300-EntanglementGloves_OBrien_1K.gif" class="figure-img img-fluid rounded" alt="JAMES O'BRIEN FOR QUANTA MAGAZINE" title="JAMES O'BRIEN FOR QUANTA MAGAZINE" />
+  <figcaption class="figure-caption text-right">JAMES O'BRIEN FOR QUANTA MAGAZINE</figcaption>
+</figure>
+
+</p>
+
+
 <p>Imagine for example, that we put each member of a pair of gloves in boxes (somehow without seeing them) and mail one of them to the opposite side of the earth. Whoever is the recipient should be able, by looking inside her/his box, to determine the properties of the glove that we still have with us in our box. If she/he states &#8220;it&#8217;s blue&#8221; and we open our box our glove will be blue. Simple and not that spooky at all, right? But what about, if the recipient throws the box in green paint affecting the glove&#8217;s color. Will that make my glove change color too? In the particle world, yes. My glove will instantly be green&#8230;!</p>
 <p>In other words, measurements of physical properties such as position, momentum, spin, and polarization performed on entangled particles are found to be perfectly correlated, even when the particles are separated by a large distance. Measurements on one particle, affect the entangled system as a whole.</p>
 <h2>Quantum programming with Q#</h2>
@@ -32,7 +51,13 @@ The phrase above, found in Microsoft Docs, captures today&#8217;s problems with 
 <li>Select <strong>Create</strong></li>
 </ul>
 <p>And that&#8217;s it! We can now run our app and get the familiar greetings:<br />
-<img src="media/100300-quantum_hello_world.png" alt="Hello quantum world!" /></p>
+
+<figure class="figure">
+  <img src="/media/100300-quantum_hello_world.png" class="figure-img img-fluid rounded" alt="Hello quantum world!" title="Hello quantum world!" />
+  <figcaption class="figure-caption text-right">Hello quantum world!</figcaption>
+</figure>
+
+</p>
 <h3>Randomly select an atom in the Universe</h3>
 <p>That is, if all atoms in the universe had an index! What we really going to create is a random number generator with an upper limit bigger than the number of the atoms in the universe. This, not so impressive feat, will perfectly demonstrate the very basics of working with <code>Qubits</code>. This is just a blog post after all, not the <a href="https://docs.microsoft.com/en-us/quantum/" rel="noopener noreferrer" target="_blank">full documentation</a>! </p>
 <blockquote><p>The <code>Int</code> in Q# is a 64-bit signed integer, where <code>BigInt</code> is a signed integer of arbitrary size and it&#8217;s based on <code><a href="https://docs.microsoft.com/en-us/dotnet/api/system.numerics.biginteger" rel="noopener noreferrer" target="_blank">BigInteger</a></code>. Read more about the <a href="https://docs.microsoft.com/en-us/quantum/language/type-model" rel="noopener noreferrer" target="_blank">The Type Model</a>. </p></blockquote>
