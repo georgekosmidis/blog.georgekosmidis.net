@@ -51,15 +51,14 @@ var serviceProvider = new ServiceCollection()
           )
           .BuildServiceProvider();
 
-//todo: lists, like Tags, are not working correctly
+//todo: add a link to the startpage in article pages. where should I put it?
 //todo: unique images of additional cards (do not overwrite media)
-//todo: last modified on cards and in the article page
 //todo: include meetup and sessionize events
-//todo: postprocessing of articles (fix html, add highlightjs markers)
 //todo: bigger images on tap, is it possible?
 //todo: cards should define the "target" property for <a> tags
 //todo: add commenting system
 //todo: postprocessing: process media and check dimensions (e.g. 100210-actionresult_derives.png)
+//todo: fix style of some articles, example: http://blog/net-6-a-guide-for-the-high-impact-breaking-changes.html
 
 var websitePreparation = serviceProvider.GetService<IWebsiteProcessor>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));
 websitePreparation.Prepare();

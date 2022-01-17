@@ -26,6 +26,11 @@ public record class CardModelBase : ModelBase
     public string? Link { get; set; }
 
     /// <summary>
+    /// The target for the link. Defaults to "_blank";
+    /// </summary>
+    public string? LinkTarget { get; set; } = "_blank";
+
+    /// <summary>
     /// The url for the image of the card. Can be empty if the card is a <see cref="CardSearchModel"/>.
     /// </summary>
     public string? ImageUrl { get; set; }

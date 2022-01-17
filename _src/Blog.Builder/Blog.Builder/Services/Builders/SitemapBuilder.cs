@@ -49,7 +49,9 @@ internal class SitemapBuilder : ISitemapBuilder
         var result = _markupMinifier.Minify(sitemapPageHtml);
         if (result.Errors.Count() > 0)
         {
-            throw new Exception($"Minification failed with at least one error : {result.Errors.First().Message}");
+            throw new Exception($"Minification failed with at least one error:" +
+                $"{Environment.NewLine}{result.Errors.First().Message}" +
+                $"{Environment.NewLine}{result.Errors.First().SourceFragment}");
         }
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(result.MinifiedContent);
 

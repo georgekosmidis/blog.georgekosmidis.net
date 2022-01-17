@@ -56,12 +56,12 @@ internal class PageBuilder : IPageBuilder
         var pageData = JsonConvert.DeserializeObject<T>(jsonFileContent);
         ExceptionHelpers.ThrowIfNull(pageData);
 
-        //first prepare the body of the page
+        //First prepare the body of the page
         pageData.Body = File.ReadAllText(Path.Combine(directory, "content.html"));
         pageData.TemplateDataModel = typeof(T).Name;
         var innerPartHtml = Build(pageData);
 
-        //then prepare the entire page
+        //Then prepare the entire page
         pageData.Body = innerPartHtml.FinalHtml;
         var completePageHtml = Build(pageData as LayoutModelBase);
 
@@ -75,6 +75,7 @@ internal class PageBuilder : IPageBuilder
                 Description = pageData.Description,
                 ImageUrl = pageData.RelativeImageUrl,
                 Link = pageData.RelativeUrl,
+                LinkTarget = "_top",
                 IsSticky = false,
                 Position = -1,
                 Footer = (pageData as LayoutArticleModel)?.DatePublishedOrModificationText ?? string.Empty,

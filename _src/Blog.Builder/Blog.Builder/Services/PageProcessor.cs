@@ -48,7 +48,9 @@ internal class PageProcessor : IPageProcessor
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
         if (minifier.Errors.Count() > 0)
         {
-            throw new Exception($"Minification failed with at least one error : {minifier.Errors.First().Message}");
+            throw new Exception($"Minification failed with at least one error:" +
+                $"{Environment.NewLine}{minifier.Errors.First().Message}" +
+                $"{Environment.NewLine}{minifier.Errors.First().SourceFragment}");
         }
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
         var savingPath = Path.Combine(_pathService.OutputFolder, Path.GetFileName(builderResult.RelativeUrl));
@@ -83,7 +85,9 @@ internal class PageProcessor : IPageProcessor
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
         if (minifier.Errors.Count() > 0)
         {
-            throw new Exception($"Minification failed with at least one error : {minifier.Errors.First().Message}");
+            throw new Exception($"Minification failed with at least one error:" +
+                $"{Environment.NewLine}{minifier.Errors.First().Message}" +
+                $"{Environment.NewLine}{minifier.Errors.First().SourceFragment}");
         }
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
 

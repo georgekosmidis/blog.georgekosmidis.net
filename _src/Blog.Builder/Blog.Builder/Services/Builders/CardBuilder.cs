@@ -47,7 +47,6 @@ internal class CardBuilder : ICardBuilder
                                         Guid.NewGuid().ToString(),
                                         typeof(T),
                                         cardData);
-
     }
 
     /// <inheritdoc/>
@@ -122,7 +121,7 @@ internal class CardBuilder : ICardBuilder
             }
         }
 
-        //select the cards that will play a role in the paging,
+        //Select the cards that will play a role in the paging,
         // sticky cards will appear in every page anyway so they can be excluded
         if (stickyCardsNum >= cardsPerPage)
         {
@@ -131,14 +130,14 @@ internal class CardBuilder : ICardBuilder
         }
         cards = cards.Skip(pageIndex * (cardsPerPage - stickyCardsNum)).Take(cardsPerPage - stickyCardsNum).ToList();
 
-        //don't create pages with just sticky cards, it makes no sense
+        //Don't create pages with just sticky cards, it makes no sense
         // this action should have been avoided from GetCardsNumber method
         if (cards.Count == 0)
         {
             throw new Exception($"A request to build a page with just sticky page is not valid. This action should have been avoided by the {nameof(this.GetCardsNumber)} method.");
         }
 
-        //add the sticky card to their correct position
+        //Add the sticky card to their correct position
         foreach (var card in OtherCards.Where(x => x.IsSticky).OrderBy(x => x.Position))
         {
             if (card.Position > cards.Count())
@@ -151,7 +150,7 @@ internal class CardBuilder : ICardBuilder
             }
         }
 
-        //return the html
+        //Return the html
         return string.Join(string.Empty, cards.ToArray());
     }
 
@@ -165,21 +164,21 @@ internal class CardBuilder : ICardBuilder
                 $"check property {nameof(CardModelBase.IsSticky)} in all additional cards).");
         }
 
-        //calculate the number of pages withouth the sticky cards,
+        //Calculate the number of pages withouth the sticky cards,
         // they will present in each page anyway
         var totalPages = Math.Ceiling(ArticleCards.Count / (decimal)(cardsPerPage - stickyCardsNum));
 
-        //return the number of article cards
+        //Return the number of article cards
         // plus the number of additional cards that are not sticky
         // plus the sticky cards that will exist in every page
         var totalCount = ArticleCards.Count
                             + OtherCards.Count(x => !x.IsSticky)
                             + OtherCards.Count(x => x.IsSticky) * (int)totalPages;
 
-        //if last page contains just the sticky cards, then do not create a page just for that
+        //If last page contains just the sticky cards, then do not create a page just for that
         if (totalCount % cardsPerPage <= stickyCardsNum)
         {
-            totalCount = totalCount - totalCount % cardsPerPage;
+            totalCount -= totalCount % cardsPerPage;
         }
 
         return totalCount;
