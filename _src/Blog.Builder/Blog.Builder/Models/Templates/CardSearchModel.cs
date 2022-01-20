@@ -16,7 +16,9 @@ public record class CardSearchModel : CardModelBase
     {
         return new CardSearchModel
         {
-            TemplateDataModel = parent.TemplateDataModel
+            TemplateDataModel = parent.TemplateDataModel,
+            Position = parent.Position,
+            IsSticky = parent.IsSticky
         };
     }
 

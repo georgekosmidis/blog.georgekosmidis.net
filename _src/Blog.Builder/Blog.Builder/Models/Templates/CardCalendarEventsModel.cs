@@ -1,5 +1,4 @@
-﻿using Blog.Builder.Exceptions;
-using Blog.Builder.Models.Crawlers;
+﻿using Blog.Builder.Models.Crawlers;
 
 namespace Blog.Builder.Models.Templates;
 
@@ -27,7 +26,9 @@ public record class CardCalendarEventsModel : CardModelBase
             TemplateDataModel = parent.TemplateDataModel,
             ImageUrl = parent.ImageUrl,
             Title = parent.Title,
-            Link = parent.Link
+            Link = parent.Link,
+            Position = parent.Position,
+            IsSticky = parent.IsSticky
         };
     }
 

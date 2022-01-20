@@ -5,7 +5,6 @@ using Blog.Builder.Models;
 using Blog.Builder.Services;
 using Blog.Builder.Services.Builders;
 using Blog.Builder.Services.Crawlers;
-using Geko.HttpClientService;
 using Geko.HttpClientService.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +31,7 @@ var serviceProvider = new ServiceCollection()
           .AddSingleton<ICardProcessor, CardProcessor>()
           .AddSingleton<IWebsiteProcessor, WebsitePreparation>()
           .AddSingleton<IMeetupEventCrawler, MeetupEventCrawler>()
-          //.AddSingleton<IMeetupEventCrawler, MeetupEventCrawler>()
+          .AddSingleton<IFileEventCrawler, FileEventCrawler>()
           .AddSingleton<IMarkupMinifier>(provider =>
           {
               var settings = new HtmlMinificationSettings()

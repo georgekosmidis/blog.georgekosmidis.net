@@ -131,6 +131,35 @@
 			}				
 		}			
     </style>
+    <script nonce="@Model.Nonce">
+        const RegionalDateTimeFormat = function( datetime ) {
+            //thanks: https://stackoverflow.com/questions/2388115/get-locale-short-date-format-using-javascript
+
+            if(Object.prototype.toString.call(datetime) !== '[object Date]') {
+                throw "Argument 'datetime' of method 'RegionalDateTimeFormat' is not an object Date!";
+            }
+            var optionsDate = {
+                weekday: "short",
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            };
+
+            //undefined: expected output varies according to local timezone and default locale
+            document.write( datetime.toLocaleDateString(undefined, optionsDate) );
+
+            if(datetime.getHours() != 0) {
+                var optionsTime = {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZoneName: "short" 
+                };
+                document.write( " <strong>@@</strong> " );
+                //undefined: expected output varies according to local timezone and default locale
+                document.write( datetime.toLocaleTimeString(undefined, optionsTime) );
+            }
+        }
+    </script>
 </head>
 
 <body class="bg-light">
@@ -348,23 +377,23 @@
 	<script nonce="@Model.Nonce">hljs.highlightAll();</script>			
 }	
 	<script nonce="@Model.Nonce">
-	window.cookieconsent.initialise({
-	  "palette": {
-		"popup": {
-		  "background": "#343c66",
-		  "text": "#cfcfe8"
-		},
-		"button": {
-		  "background": "#f71559"
-		}
-	  },
-	  "showLink": false,
-	  "theme": "classic",
-	  "content": {
-		"message": "Cookie Warning! My blog uses Google Analytics so Google knows you are here. Maybe others too, including FBI, CIA, NASA, ESA, IIS and other acronyms. If you don't like it, you must unfortunately go :(",
-		"dismiss": "It's just code, I 'll stay!"
-	  }
-	});
+        window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+            "background": "#343c66",
+            "text": "#cfcfe8"
+            },
+            "button": {
+            "background": "#f71559"
+            }
+        },
+        "showLink": false,
+        "theme": "classic",
+        "content": {
+            "message": "Cookie Warning! My blog uses Google Analytics so Google knows you are here. Maybe others too, including FBI, CIA, NASA, ESA, IIS and other acronyms. If you don't like it, you must unfortunately go :(",
+            "dismiss": "It's just code, I 'll stay!"
+        }
+        });
 	</script>	
 </body>
 

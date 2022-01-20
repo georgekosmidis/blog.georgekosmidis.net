@@ -8,7 +8,7 @@ namespace Blog.Builder.Services.Crawlers;
 /// <inheritdoc/>
 internal class FileEventCrawler : IFileEventCrawler
 {
-   
+
     public FileEventCrawler() { }
 
     /// <inheritdoc/>
@@ -21,7 +21,12 @@ internal class FileEventCrawler : IFileEventCrawler
         //Read the card.json and valdiate the data found
         foreach (var dir in Directory.GetDirectories(directory))
         {
-            var jsonFileContent = File.ReadAllText(Path.Combine(dir, "event.json"));
+            var eventFile = Path.Combine(dir, "event.json");
+            if (!File.Exists(eventFile))
+            {
+                continue;
+            }
+            var jsonFileContent = File.ReadAllText(eventFile);
             var calendarEventData = JsonConvert.DeserializeObject<CalendarEvent>(jsonFileContent);
 
             ExceptionHelpers.ThrowIfNull(calendarEventData);

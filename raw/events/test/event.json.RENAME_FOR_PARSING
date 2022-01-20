@@ -1,8 +1,8 @@
 {
 	"Organizer": "Munich .NET Meetup",
-	"OrganizerLink": "https://georgekosmidis.net",
+	"OrganizerUrl": "https://georgekosmidis.net",
 	"Title" : "title",
     "DateTime" : "2022-01-18",
     "Place" : "Online",
-    "EventLink" : "https://google.com"
+    "Url" : "https://google.com"
 }

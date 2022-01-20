@@ -109,7 +109,7 @@ internal class PathService : IPathService
         TemplateCardCalendarEventsFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateCardCalendarEventsFilename);
         ExceptionHelpers.ThrowIfPathNotExists(TemplateCardCalendarEventsFile);
 
-        
+
 
         OutputSitemapFile = Path.Combine(OutputFolder, "sitemap.xml");
 

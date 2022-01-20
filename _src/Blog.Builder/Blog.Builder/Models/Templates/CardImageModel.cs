@@ -20,7 +20,9 @@ public record class CardImageModel : CardModelBase
             TemplateDataModel = parent.TemplateDataModel,
             ImageUrl = parent.ImageUrl,
             Title = parent.Title,
-            Link = parent.Link
+            Link = parent.Link,
+            Position = parent.Position,
+            IsSticky = parent.IsSticky
         };
     }
 

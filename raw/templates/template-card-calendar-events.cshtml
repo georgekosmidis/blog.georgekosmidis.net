@@ -25,7 +25,13 @@
 								</svg>
 							</div>
 							<div class="col-md-11 px-1 my-auto d-flex">
-								<small>@evnt.DateTime.ToString("f")</small>
+								<small>
+									<script nonce="@Model.Nonce">
+										RegionalDateTimeFormat( 
+											new Date("@evnt.DateTime.ToString("o")") 
+										);
+									</script>
+								</small>
 							</div>
 						</div>
 						<div class="row ps-1">

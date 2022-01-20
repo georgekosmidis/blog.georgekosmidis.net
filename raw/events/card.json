@@ -1,11 +1,11 @@
 {
-  "TemplateDataModel": "CardImageModel",
+  "TemplateDataModel": "CardCalendarEventsModel",
   "Title": "My next events!",
   "Description": "",
   "Footer": "",
   "Link": "",
   "LinkTarget": "",
   "ImageUrl": "",
-  "Position": 3,
+  "Position": 2,
   "IsSticky": true
 }

@@ -17,6 +17,7 @@ internal class WebsitePreparation : IWebsiteProcessor
     private readonly ICardProcessor _cardPreparation;
     private readonly ISitemapBuilder _sitemapBuilder;
     private readonly IMeetupEventCrawler _meetupEventCrawler;
+    private readonly IFileEventCrawler _fileEventCrawler;
     private readonly AppSettings _options;
     private readonly LayoutIndexModel layoutIndexModel;
 
@@ -28,12 +29,15 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// <param name="pageProcessor">The service that processes full pages (like index.html and privacy.html).</param>
     /// <param name="cardProcessor">The service that processes all cards.</param>
     /// <param name="sitemapBuilder">The service that builds the sitemap.xml.</param>
+    /// <param name="meetupEventCrawler">The service that searches for meetup.com events.</param>
+    /// <param name="fileEventCrawler">The service that searches for file based events in <see cref="AppSettings.WorkingEventsFolderName"/></param>
     /// <param name="options">The AppSettings</param>
     public WebsitePreparation(IPathService pathService,
                             IPageProcessor pageProcessor,
                             ICardProcessor cardProcessor,
                             ISitemapBuilder sitemapBuilder,
                             IMeetupEventCrawler meetupEventCrawler,
+                            IFileEventCrawler fileEventCrawler,
                             IOptions<AppSettings> options)
     {
         _pathService = pathService;
@@ -41,6 +45,7 @@ internal class WebsitePreparation : IWebsiteProcessor
         _cardPreparation = cardProcessor;
         _sitemapBuilder = sitemapBuilder;
         _meetupEventCrawler = meetupEventCrawler;
+        _fileEventCrawler = fileEventCrawler;
         _options = options.Value;
 
         //todo: use appsettings for this values
@@ -122,12 +127,19 @@ internal class WebsitePreparation : IWebsiteProcessor
         cardDataBase.Validate();
 
         //todo: use appsettings for this values
-        cardDataBase.CalendarEvents = await _meetupEventCrawler.GetAsync("Munich .NET Meetup",
+        var calendarEvents = (await _meetupEventCrawler.GetAsync("Munich .NET Meetup",
                         new Uri("https://www.meetup.com/munich-dotnet-meetup/"),
-                        new Uri("https://www.meetup.com/munich-dotnet-meetup/events/ical/"));
+                        new Uri("https://www.meetup.com/munich-dotnet-meetup/events/ical/"))
+        ).ToList();
+
+        calendarEvents.AddRange(
+            _fileEventCrawler.Get(_pathService.WorkingEventsFolder)
+        );
+
+        cardDataBase.CalendarEvents = calendarEvents;
 
         //only add the card if there are events to show
-        if(cardDataBase.CalendarEvents.Count() > 0)
+        if (cardDataBase.CalendarEvents.Count() > 0)
         {
             _cardPreparation.ProcessCalendarEventCard(cardDataBase);
         }
