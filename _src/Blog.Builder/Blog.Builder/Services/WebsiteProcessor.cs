@@ -1,8 +1,11 @@
-﻿using Blog.Builder.Models;
+﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Interfaces;
+using Blog.Builder.Interfaces.Builders;
+using Blog.Builder.Interfaces.Crawlers;
+using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
-using Blog.Builder.Services.Interfaces;
-using Blog.Builder.Services.Interfaces.Builders;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace Blog.Builder.Services;
 
@@ -13,6 +16,7 @@ internal class WebsitePreparation : IWebsiteProcessor
     private readonly IPageProcessor _pagePreparation;
     private readonly ICardProcessor _cardPreparation;
     private readonly ISitemapBuilder _sitemapBuilder;
+    private readonly IMeetupEventCrawler _meetupEventCrawler;
     private readonly AppSettings _options;
     private readonly LayoutIndexModel layoutIndexModel;
 
@@ -29,12 +33,14 @@ internal class WebsitePreparation : IWebsiteProcessor
                             IPageProcessor pageProcessor,
                             ICardProcessor cardProcessor,
                             ISitemapBuilder sitemapBuilder,
+                            IMeetupEventCrawler meetupEventCrawler,
                             IOptions<AppSettings> options)
     {
         _pathService = pathService;
         _pagePreparation = pageProcessor;
         _cardPreparation = cardProcessor;
         _sitemapBuilder = sitemapBuilder;
+        _meetupEventCrawler = meetupEventCrawler;
         _options = options.Value;
 
         //todo: use appsettings for this values
@@ -108,6 +114,25 @@ internal class WebsitePreparation : IWebsiteProcessor
         }
     }
 
+    private async Task PrepareCalendarEventsAsync()
+    {
+        var jsonFileContent = File.ReadAllText(Path.Combine(_pathService.WorkingEventsFolder, "card.json"));
+        var cardDataBase = JsonConvert.DeserializeObject<CardCalendarEventsModel>(jsonFileContent);
+        ExceptionHelpers.ThrowIfNull(cardDataBase);
+        cardDataBase.Validate();
+
+        //todo: use appsettings for this values
+        cardDataBase.CalendarEvents = await _meetupEventCrawler.GetAsync("Munich .NET Meetup",
+                        new Uri("https://www.meetup.com/munich-dotnet-meetup/"),
+                        new Uri("https://www.meetup.com/munich-dotnet-meetup/events/ical/"));
+
+        //only add the card if there are events to show
+        if(cardDataBase.CalendarEvents.Count() > 0)
+        {
+            _cardPreparation.ProcessCalendarEventCard(cardDataBase);
+        }
+    }
+
     /// <summary>
     /// Prepares all the index pages (like index.html, index-page-2.html etc) 
     /// and copies it to <see cref="AppSettings.OutputFolderPath"/>.
@@ -137,12 +162,13 @@ internal class WebsitePreparation : IWebsiteProcessor
     }
 
     /// <inheritdoc/>
-    public void Prepare()
+    public async Task PrepareAsync()
     {
         this.PrepareOutputFolders();
         this.PrepareStandalones();
         this.PrepareArticles();
         this.PrepareAdditionalCards();
+        await this.PrepareCalendarEventsAsync();
         this.PrepareIndex();//todo: must be called after PrepareArticles and PrepareAdditionalCards, check that
         this.PrepareSitemap();
     }

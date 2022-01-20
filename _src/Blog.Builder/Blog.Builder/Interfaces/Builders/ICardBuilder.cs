@@ -1,6 +1,6 @@
 ﻿using Blog.Builder.Models.Templates;
 
-namespace Blog.Builder.Services.Interfaces.Builders;
+namespace Blog.Builder.Interfaces.Builders;
 
 /// <summary>
 /// The service that builds cards.
@@ -21,6 +21,14 @@ internal interface ICardBuilder
     /// </summary>
     /// <param name="directory">The directory that contains all necessary information for the card.</param>
     void AddCard(string directory);
+
+    /// <summary>
+    /// Adds a card to the collection of cards. 
+    /// The cardData of type <typeparamref name="T"/> that inherit from <see cref="CardModelBase"/>, must be passed.
+    /// </summary>
+    /// <typeparam name="T">A card type that inherits from <see cref="CardModelBase"/.></typeparam>
+    /// <param name="cardData">The data of the card.</param>
+    void AddCard<T>(T cardData) where T : CardModelBase;
 
     /// <summary>
     /// Builds the HTML of the requested index page.

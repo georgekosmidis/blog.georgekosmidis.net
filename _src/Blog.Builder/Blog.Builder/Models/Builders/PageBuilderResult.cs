@@ -8,11 +8,11 @@ internal record class PageBuilderResult
     /// <summary>
     /// The final HTML that was build for this page.
     /// </summary>
-    public string FinalHtml { get; init; } = string.Empty;
+    public string FinalHtml { get; init; } = default!;
     /// <summary>
     /// The relative URL of this page.
     /// </summary>
-    public string RelativeUrl { get; init; } = string.Empty;
+    public string RelativeUrl { get; init; } = default!;
     /// <summary>
     /// The date this page was last modified.
     /// </summary>

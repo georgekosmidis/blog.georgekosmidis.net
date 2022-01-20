@@ -1,8 +1,12 @@
-﻿using Blog.Builder.Models;
+﻿using Blog.Builder.Interfaces;
+using Blog.Builder.Interfaces.Builders;
+using Blog.Builder.Interfaces.Crawlers;
+using Blog.Builder.Models;
 using Blog.Builder.Services;
 using Blog.Builder.Services.Builders;
-using Blog.Builder.Services.Interfaces;
-using Blog.Builder.Services.Interfaces.Builders;
+using Blog.Builder.Services.Crawlers;
+using Geko.HttpClientService;
+using Geko.HttpClientService.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RazorEngine.Configuration;
@@ -12,11 +16,11 @@ using WebMarkupMin.Core;
 
 var serviceProvider = new ServiceCollection()
           .AddLogging()
+          .AddHttpClientService()
           .AddSingleton<IRazorEngineService>(provider =>
           {
               var configuration = new TemplateServiceConfiguration();
               configuration.EncodedStringFactory = new RawStringFactory();
-              configuration.AllowMissingPropertiesOnDynamic = true;
               return RazorEngineService.Create(configuration);
           })
           .AddSingleton<ITemplateProvider, TemplateProvider>()
@@ -27,6 +31,8 @@ var serviceProvider = new ServiceCollection()
           .AddSingleton<ICardBuilder, CardBuilder>()
           .AddSingleton<ICardProcessor, CardProcessor>()
           .AddSingleton<IWebsiteProcessor, WebsitePreparation>()
+          .AddSingleton<IMeetupEventCrawler, MeetupEventCrawler>()
+          //.AddSingleton<IMeetupEventCrawler, MeetupEventCrawler>()
           .AddSingleton<IMarkupMinifier>(provider =>
           {
               var settings = new HtmlMinificationSettings()
@@ -51,14 +57,25 @@ var serviceProvider = new ServiceCollection()
           )
           .BuildServiceProvider();
 
+
+//var httpService = serviceProvider.GetService<IHttpClientServiceFactory>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));
+//new MeetupEventCrawler(httpService)
+//        .GetAsync("Munich .NET Meetup", 
+//                new Uri("https://www.meetup.com/munich-dotnet-meetup/"), 
+//                new Uri("https://www.meetup.com/munich-dotnet-meetup/events/ical/"))
+//        .GetAwaiter()
+//        .GetResult();
+
+//todo: add sub-templates to article pages
 //todo: add a link to the startpage in article pages. where should I put it?
 //todo: include meetup and sessionize events
 //todo: bigger images on tap, is it possible?
 //todo: add commenting system
 //todo: fix style of some articles, example: http://blog/net-6-a-guide-for-the-high-impact-breaking-changes.html
+//todo: there are too many additions that you have to do to add a new template
 
 var websitePreparation = serviceProvider.GetService<IWebsiteProcessor>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));
-websitePreparation.Prepare();
+await websitePreparation.PrepareAsync();
 
 //Meetup events
 //    var httpClientService = HttpClientServiceFactory.Instance.CreateHttpClientService();

@@ -1,6 +1,6 @@
 ﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Interfaces;
 using Blog.Builder.Models.Templates;
-using Blog.Builder.Services.Interfaces;
 
 namespace Blog.Builder.Services;
 
@@ -31,6 +31,7 @@ internal class TemplateProvider : ITemplateProvider
             { nameof(CardArticleModel), File.ReadAllText(pathService.TemplateCardArticleFile) },
             { nameof(CardImageModel), File.ReadAllText(pathService.TemplateCardImageFile) },
             { nameof(CardSearchModel), File.ReadAllText(pathService.TemplateCardSearchFile) },
+            { nameof(CardCalendarEventsModel), File.ReadAllText(pathService.TemplateCardCalendarEventsFile) },
         };
 
         foreach (var (model, template) in Templates)

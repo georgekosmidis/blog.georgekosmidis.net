@@ -1,7 +1,7 @@
 ﻿using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
 
-namespace Blog.Builder.Services.Interfaces.Builders;
+namespace Blog.Builder.Interfaces.Builders;
 
 /// <summary>
 /// The service that builds the pages.

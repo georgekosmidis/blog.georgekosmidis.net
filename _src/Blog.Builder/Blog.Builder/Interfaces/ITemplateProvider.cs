@@ -1,4 +1,4 @@
-﻿namespace Blog.Builder.Services.Interfaces;
+﻿namespace Blog.Builder.Interfaces;
 
 /// <summary>
 /// A service that provides the html for the templates.

@@ -1,7 +1,7 @@
 ﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Interfaces;
+using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Models.Templates;
-using Blog.Builder.Services.Interfaces;
-using Blog.Builder.Services.Interfaces.Builders;
 using RazorEngine.Templating;
 using WebMarkupMin.Core;
 

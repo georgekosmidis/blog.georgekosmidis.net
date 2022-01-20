@@ -1,4 +1,4 @@
-﻿namespace Blog.Builder.Services.Interfaces.Builders;
+﻿namespace Blog.Builder.Interfaces.Builders;
 
 /// <summary>
 /// The service that builds the sitmap.xml

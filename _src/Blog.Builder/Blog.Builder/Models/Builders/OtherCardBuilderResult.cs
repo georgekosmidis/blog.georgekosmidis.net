@@ -8,7 +8,7 @@ internal record class OtherCardBuilderResult
     /// <summary>
     /// The HTML of the card.
     /// </summary>
-    public string CardHtml { get; init; } = string.Empty;
+    public string CardHtml { get; init; } = default!;
 
     //The position of the card in the grid.
     public int Position { get; init; }

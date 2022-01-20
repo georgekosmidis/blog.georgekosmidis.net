@@ -8,7 +8,7 @@ internal record class ArticleCardBuilderResult
     /// <summary>
     /// The card HTML.
     /// </summary>
-    public string CardHtml { get; init; } = string.Empty;
+    public string CardHtml { get; init; } = default!;
 
     /// <summary>
     /// The datetime this article was created (for ordering).

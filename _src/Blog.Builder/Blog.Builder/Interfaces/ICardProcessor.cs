@@ -1,6 +1,6 @@
 ﻿using Blog.Builder.Models.Templates;
 
-namespace Blog.Builder.Services.Interfaces;
+namespace Blog.Builder.Interfaces;
 
 /// <summary>
 /// The service that does the card processing
@@ -14,7 +14,7 @@ internal interface ICardProcessor
     void ProcessCard(string directory);
 
     /// <summary>
-    /// Processes article cards
+    /// Processes article cards.
     /// </summary>
     /// <param name="cardData">A <see cref="CardArticleModel"/> that contains all necessary information for an article.</param>
     /// <param name="datePublished">The date this article has been published</param>
@@ -34,4 +34,10 @@ internal interface ICardProcessor
     /// <param name="cardsPerPage">THe number of cards per page.</param>
     /// <returns>The HTML to be used as body in the main template.</returns>
     string GetHtml(int pageIndex, int cardsPerPage);
+
+    /// <summary>
+    /// Calls the event crawlers to collect events, and then calls the build 
+    /// </summary>
+    /// <param name="cardData"></param>
+    void ProcessCalendarEventCard(CardCalendarEventsModel cardData);
 }

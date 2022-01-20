@@ -1,4 +1,4 @@
-﻿namespace Blog.Builder.Services.Interfaces;
+﻿namespace Blog.Builder.Interfaces;
 
 /// <summary>
 /// A service that returns all useful paths for the builder.
@@ -24,6 +24,11 @@ internal interface IPathService
     /// The tempalte for the article cards.
     /// </summary>
     string TemplateCardArticleFile { get; init; }
+
+    /// <summary>
+    /// The template for the calendar cards
+    /// </summary>
+    string TemplateCardCalendarEventsFile { get; init; }
 
     /// <summary>
     /// The template for the image cards.
@@ -69,6 +74,11 @@ internal interface IPathService
     /// The folder that contains the articles.
     /// </summary>
     string WorkingArticlesFolder { get; init; }
+
+    /// <summary>
+    /// The folder that contains information about the events.
+    /// </summary>
+    string WorkingEventsFolder { get; init; }
 
     /// <summary>
     /// The folder that contains the standalones, like privacy.html.

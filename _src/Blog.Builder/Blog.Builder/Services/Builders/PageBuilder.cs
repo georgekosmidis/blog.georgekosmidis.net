@@ -1,8 +1,8 @@
 ﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Interfaces;
+using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
-using Blog.Builder.Services.Interfaces;
-using Blog.Builder.Services.Interfaces.Builders;
 using Newtonsoft.Json;
 using RazorEngine.Templating;
 

@@ -1,6 +1,6 @@
 ﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Interfaces;
 using Blog.Builder.Models;
-using Blog.Builder.Services.Interfaces;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
@@ -25,6 +25,8 @@ internal class PathService : IPathService
     public string WorkingStandalonesFolder { get; init; }
     /// <inheritdoc/>
     public string WorkingCardsFolder { get; init; }
+    /// <inheritdoc/>
+    public string WorkingEventsFolder { get; init; }
 
     /// <inheritdoc/>
     public string TemplateMainFile { get; init; }
@@ -44,7 +46,10 @@ internal class PathService : IPathService
     /// <inheritdoc/>
     public string TemplateCardSearchFile { get; init; }
     /// <inheritdoc/>
+    public string TemplateCardCalendarEventsFile { get; init; }
+    /// <inheritdoc/>
     public string OutputSitemapFile { get; init; }
+
 
     /// <summary>
     /// Besides DI, it creates and tests the application paths
@@ -76,6 +81,8 @@ internal class PathService : IPathService
         WorkingTemplatesFolder = Path.Combine(WorkingFolder, appsettings.WorkingTemplatesFolderName);
         ExceptionHelpers.ThrowIfPathNotExists(WorkingTemplatesFolder);
 
+        WorkingEventsFolder = Path.Combine(WorkingFolder, appsettings.WorkingEventsFolderName);
+        ExceptionHelpers.ThrowIfPathNotExists(WorkingEventsFolder);
 
         TemplateMainFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateMainFilename);
         ExceptionHelpers.ThrowIfPathNotExists(TemplateMainFile);
@@ -99,6 +106,10 @@ internal class PathService : IPathService
         TemplateCardSearchFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateCardSearchFilename);
         ExceptionHelpers.ThrowIfPathNotExists(TemplateCardSearchFile);
 
+        TemplateCardCalendarEventsFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateCardCalendarEventsFilename);
+        ExceptionHelpers.ThrowIfPathNotExists(TemplateCardCalendarEventsFile);
+
+        
 
         OutputSitemapFile = Path.Combine(OutputFolder, "sitemap.xml");
 

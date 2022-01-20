@@ -1,6 +1,6 @@
 ﻿using Blog.Builder.Models.Templates;
 
-namespace Blog.Builder.Services.Interfaces;
+namespace Blog.Builder.Interfaces;
 
 /// <summary>
 /// The service that does page processing

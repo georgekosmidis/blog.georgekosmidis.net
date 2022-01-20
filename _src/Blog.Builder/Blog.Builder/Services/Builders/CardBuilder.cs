@@ -1,9 +1,9 @@
 ﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Interfaces;
+using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Models;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
-using Blog.Builder.Services.Interfaces;
-using Blog.Builder.Services.Interfaces.Builders;
 using Newtonsoft.Json;
 using RazorEngine.Templating;
 
@@ -36,7 +36,7 @@ internal class CardBuilder : ICardBuilder
     /// </summary>
     /// <typeparam name="T">Any type that inherits from <see cref="CardModelBase"/></typeparam>
     /// <param name="cardData">The data of the card, necessary for building the HTML of a card.</param>
-    /// <returns></returns>
+    /// <returns>The HTML of the card.</returns>
     private string CreateCardHtml<T>(T cardData) where T : CardModelBase
     {
         ArgumentNullException.ThrowIfNull(cardData);
@@ -47,6 +47,26 @@ internal class CardBuilder : ICardBuilder
                                         Guid.NewGuid().ToString(),
                                         typeof(T),
                                         cardData);
+    }
+
+    /// <inheritdoc/>
+    public void AddCard<T>(T cardDataBase) where T : CardModelBase
+    {
+        ExceptionHelpers.ThrowIfNull(cardDataBase);
+
+        string cardHtml = CreateCardHtml(cardDataBase);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
+
+        //Add the card to the collection of cards
+        lock (__lockObj)
+        {
+            OtherCards.Add(new OtherCardBuilderResult
+            {
+                CardHtml = cardHtml,
+                Position = cardDataBase.Position,
+                IsSticky = cardDataBase.IsSticky
+            });
+        }
     }
 
     /// <inheritdoc/>
@@ -63,25 +83,22 @@ internal class CardBuilder : ICardBuilder
         //Find the correct model for this card.
         //todo: Is there a way to load the type directly like: 
         //      var cardData = cardDataBase as >>cardDataBase.CardType.Name<<;
-        string cardHtml = cardDataBase.TemplateDataModel switch
+        switch (cardDataBase.TemplateDataModel)
         {
-            nameof(CardSearchModel) => CreateCardHtml(CardSearchModel.FromBase(cardDataBase)),
-            nameof(CardImageModel) => CreateCardHtml(CardImageModel.FromBase(cardDataBase)),
-            nameof(CardArticleModel) => throw new Exception($"{AddCard} cannot be used with {nameof(CardArticleModel)}, use {AddArticleCard} instead."),
-            _ => throw new Exception($"{cardDataBase.TemplateDataModel} switch is missing."),
+            case nameof(CardSearchModel):
+                this.AddCard(CardSearchModel.FromBase(cardDataBase));
+                break;
+            case nameof(CardImageModel):
+                this.AddCard(CardImageModel.FromBase(cardDataBase));
+                break;
+            case nameof(CardArticleModel):
+                throw new Exception($"Method {nameof(AddCard)} cannot be used with {nameof(CardArticleModel)}, use {nameof(AddArticleCard)} instead.");
+            case nameof(CardCalendarEventsModel):
+                throw new Exception($"Method {nameof(AddCard)} cannot be used with {nameof(CardArticleModel)}, use generic {nameof(AddCard)} instead.");
+            default:
+                throw new Exception($"{cardDataBase.TemplateDataModel} switch is missing.");
         };
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
 
-        //Add the card to the collection of cards
-        lock (__lockObj)
-        {
-            OtherCards.Add(new OtherCardBuilderResult
-            {
-                CardHtml = cardHtml,
-                Position = cardDataBase.Position,
-                IsSticky = cardDataBase.IsSticky
-            });
-        }
     }
 
     /// <inheritdoc/>
