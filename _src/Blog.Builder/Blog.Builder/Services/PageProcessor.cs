@@ -1,8 +1,10 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
+using Blog.Builder.Models;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SixLabors.ImageSharp;
 using WebMarkupMin.Core;
@@ -12,30 +14,29 @@ namespace Blog.Builder.Services;
 /// <inheritdoc/>
 internal class PageProcessor : IPageProcessor
 {
-    private readonly IPathService _pathService;
     private readonly ISitemapBuilder _sitemapBuilder;
     private readonly IMarkupMinifier _markupMinifier;
     private readonly IPageBuilder _pageBuilder;
     private readonly ICardProcessor _cardProcessor;
+    private readonly AppSettings appSettings;
 
-
-    public PageProcessor(IPathService pathService,
-                        ISitemapBuilder sitemapBuilder,
+    public PageProcessor(ISitemapBuilder sitemapBuilder,
                         IMarkupMinifier markupMinifier,
                         IPageBuilder pageBuilder,
-                        ICardProcessor cardProcessor)
+                        ICardProcessor cardProcessor,
+                        IOptions<AppSettings> options)
     {
-        ArgumentNullException.ThrowIfNull(pathService);
         ArgumentNullException.ThrowIfNull(sitemapBuilder);
         ArgumentNullException.ThrowIfNull(markupMinifier);
         ArgumentNullException.ThrowIfNull(pageBuilder);
         ArgumentNullException.ThrowIfNull(cardProcessor);
+        ArgumentNullException.ThrowIfNull(options);
 
-        _pathService = pathService;
         _sitemapBuilder = sitemapBuilder;
         _markupMinifier = markupMinifier;
         _pageBuilder = pageBuilder;
         _cardProcessor = cardProcessor;
+        appSettings = options.Value;
     }
 
     //todo: introduce caching
@@ -112,18 +113,26 @@ internal class PageProcessor : IPageProcessor
                 $"{Environment.NewLine}{minifier.Errors.First().SourceFragment}");
         }
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
-        var savingPath = Path.Combine(_pathService.OutputFolder, Path.GetFileName(builderResult.RelativeUrl));
+        var savingPath = Path.Combine(appSettings.OutputFolderPath, Path.GetFileName(builderResult.RelativeUrl));
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //copy all media associated with this page
-        if (Directory.Exists(Path.Combine(directory, "media")))
+        if (Directory.Exists(Path.Combine(directory, appSettings.MediaFolderName)))
         {
-            Helpers.Copy(Path.Combine(directory, "media"), _pathService.OutputMediaFolder);
-            foreach (var file in Directory.GetFiles(Path.Combine(directory, "media")))
+            Helpers.Copy(
+                    Path.Combine(directory, appSettings.MediaFolderName),
+                    Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName)
+            );
+
+            foreach (var file in Directory.GetFiles(Path.Combine(directory, appSettings.MediaFolderName)))
             {
                 var ext = Path.GetExtension(file);
                 var name = Path.GetFileNameWithoutExtension(file);
-                Helpers.ResizeImage(file, Path.Combine(_pathService.OutputMediaFolder, name + "-small" + ext), new Size(500, 10000));//stop at 500 width, who cares about height
+
+                Helpers.ResizeImage(file, 
+                    Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName, name + "-small" + ext), 
+                    new Size(500, 10000)
+                );//stop at 500 width, who cares about height
             }
         }
 
@@ -153,7 +162,7 @@ internal class PageProcessor : IPageProcessor
 
         //save it
         var indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);
-        var savingPath = Path.Combine(_pathService.OutputFolder, $"index{indexPageNumber}.html");
+        var savingPath = Path.Combine(appSettings.OutputFolderPath, $"index{indexPageNumber}.html");
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //add it to sitemap.xml

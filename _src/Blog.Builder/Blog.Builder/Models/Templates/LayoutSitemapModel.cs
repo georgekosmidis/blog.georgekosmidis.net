@@ -7,6 +7,10 @@ namespace Blog.Builder.Models.Templates;
 /// </summary>
 public record class LayoutSitemapModel : ModelBase
 {
+    /// <summary>
+    /// Constructor.
+    /// Sets the <see cref="ModelBase.TemplateDataModel"/> to nameof <see cref="LayoutSitemapModel"/>.
+    /// </summary>
     public LayoutSitemapModel()
     {
         TemplateDataModel = nameof(LayoutSitemapModel);

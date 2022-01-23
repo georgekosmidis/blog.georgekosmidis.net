@@ -18,7 +18,7 @@ internal record class AppSettings
     /// <summary>
     /// The name of the media folder in the output directory.
     /// </summary>
-    public string OutputFolderMediaName { get; init; } = default!;
+    public string MediaFolderName { get; init; } = default!;
 
     /// <summary>
     /// The name of the folder that holds all tempaltes.

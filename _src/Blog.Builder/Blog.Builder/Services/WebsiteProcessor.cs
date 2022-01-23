@@ -10,33 +10,30 @@ namespace Blog.Builder.Services;
 /// <inheritdoc/>
 internal class WebsitePreparation : IWebsiteProcessor
 {
-    private readonly IPathService _pathService;
     private readonly IPageProcessor _pageProcessor;
     private readonly ICardProcessor _cardProcessor;
     private readonly ISitemapBuilder _sitemapBuilder;
-    private readonly AppSettings _options;
+    private readonly AppSettings appSettings;
     private readonly LayoutIndexModel layoutIndexModel;
 
     /// <summary>
     /// Besides DI, it creates and hold the basic information for the index pages. 
     /// See <seealso cref="LayoutIndexModel"/>.
     /// </summary>
-    /// <param name="pathService">The service that build and checks all the paths.</param>
     /// <param name="pageProcessor">The service that processes full pages (like index.html and privacy.html).</param>
     /// <param name="cardProcessor">The service that processes all cards.</param>
     /// <param name="sitemapBuilder">The service that builds the sitemap.xml.</param>
     /// <param name="options">The AppSettings</param>
-    public WebsitePreparation(IPathService pathService,
+    public WebsitePreparation(
                             IPageProcessor pageProcessor,
                             ICardProcessor cardProcessor,
                             ISitemapBuilder sitemapBuilder,
                             IOptions<AppSettings> options)
     {
-        _pathService = pathService;
         _pageProcessor = pageProcessor;
         _cardProcessor = cardProcessor;
         _sitemapBuilder = sitemapBuilder;
-        _options = options.Value;
+        appSettings = options.Value;
 
         //todo: use appsettings for this values
         layoutIndexModel = new LayoutIndexModel
@@ -50,7 +47,7 @@ internal class WebsitePreparation : IWebsiteProcessor
             RelativeImageUrl = "/media/me.jpg",
             Paging = new Paging
             {
-                CardsPerPage = _options.CardsPerPage,
+                CardsPerPage = appSettings.CardsPerPage,
                 TotalCardsCount = 0,
                 CurrentPageIndex = 0
             }
@@ -64,10 +61,15 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// </summary>
     private void PrepareOutputFolders()
     {
-        Directory.Delete(_pathService.OutputFolder, true);
-        Directory.CreateDirectory(_pathService.OutputFolder);
-        Directory.CreateDirectory(_pathService.OutputMediaFolder);
-        Helpers.Copy(_pathService.WorkingJustCopyFolder, _pathService.OutputFolder);
+        Directory.Delete(appSettings.OutputFolderPath, true);
+        Directory.CreateDirectory(appSettings.OutputFolderPath);
+        Directory.CreateDirectory(
+            Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName)
+        );
+        Helpers.Copy(
+            Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingJustCopyFolderName), 
+            appSettings.OutputFolderPath
+        );
     }
 
     /// <summary>
@@ -77,7 +79,9 @@ internal class WebsitePreparation : IWebsiteProcessor
     private void PrepareStandalones()
     {
 
-        var standalonesDirectory = Directory.GetDirectories(_pathService.WorkingStandalonesFolder);
+        var standalonesDirectory = Directory.GetDirectories(
+            Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingStandalonesFolderName)
+        );
         foreach (var directory in standalonesDirectory)
         {
             _pageProcessor.ProcessPage<LayoutStandaloneModel>(directory);
@@ -90,7 +94,9 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// </summary>
     private void PrepareArticles()
     {
-        var articleDirectories = Directory.GetDirectories(_pathService.WorkingArticlesFolder);
+        var articleDirectories = Directory.GetDirectories(
+            Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingArticlesFolderName)
+        );
         foreach (var directory in articleDirectories)
         {
             _pageProcessor.ProcessPage<LayoutArticleModel>(directory);
@@ -103,7 +109,9 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// </summary>
     private async Task PrepareAdditionalCardsAsync()
     {
-        var cardsDirectory = Directory.GetDirectories(_pathService.WorkingCardsFolder);
+        var cardsDirectory = Directory.GetDirectories(
+            Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingCardsFolderName)
+        );
         foreach (var directory in cardsDirectory)
         {
             await _cardProcessor.ProcessCardAsync(directory);
@@ -117,15 +125,15 @@ internal class WebsitePreparation : IWebsiteProcessor
     private void PrepareIndex()
     {
         var pageIndex = 0;
-        var cardsNumber = _cardProcessor.GetCardsNumber(_options.CardsPerPage);
+        var cardsNumber = _cardProcessor.GetCardsNumber(appSettings.CardsPerPage);
         layoutIndexModel.Paging.TotalCardsCount = cardsNumber;
 
-        for (var i = _options.CardsPerPage; i < cardsNumber; i++)
+        for (var i = appSettings.CardsPerPage; i < cardsNumber; i++)
         {
-            if (i % _options.CardsPerPage == 0 || i == cardsNumber - 1)
+            if (i % appSettings.CardsPerPage == 0 || i == cardsNumber - 1)
             {
                 layoutIndexModel.Paging.CurrentPageIndex = pageIndex++;
-                _pageProcessor.ProcessIndex(layoutIndexModel, _options.CardsPerPage);
+                _pageProcessor.ProcessIndex(layoutIndexModel, appSettings.CardsPerPage);
             }
         }
     }

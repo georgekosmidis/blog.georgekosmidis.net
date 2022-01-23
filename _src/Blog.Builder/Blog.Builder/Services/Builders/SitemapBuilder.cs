@@ -2,7 +2,9 @@
 using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.RazorEngineServices;
+using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
+using Microsoft.Extensions.Options;
 using WebMarkupMin.Core;
 
 namespace Blog.Builder.Services.Builders;
@@ -11,33 +13,33 @@ namespace Blog.Builder.Services.Builders;
 internal class SitemapBuilder : ISitemapBuilder
 {
     private readonly IRazorEngineWrapperService _templateEngine;
-    private readonly IPathService _pathService;
-    private static readonly LayoutSitemapModel sitemap = new LayoutSitemapModel();
+    private static readonly LayoutSitemapModel sitemapModel = new LayoutSitemapModel();
     private readonly IMarkupMinifier _markupMinifier;
+    private readonly AppSettings appSettings;
 
     private readonly object __lockObj = new object();
 
     public SitemapBuilder(
-            IPathService pathService,
             IRazorEngineWrapperService templateService,
-            IMarkupMinifier markupMinifier
+            IMarkupMinifier markupMinifier,
+            IOptions<AppSettings> options
             )
     {
-        ArgumentNullException.ThrowIfNull(pathService);
         ArgumentNullException.ThrowIfNull(templateService);
         ArgumentNullException.ThrowIfNull(markupMinifier);
+        ArgumentNullException.ThrowIfNull(options);
 
         _templateEngine = templateService;
-        _pathService = pathService;
         _markupMinifier = markupMinifier;
+        appSettings = options.Value;
     }
 
     /// <inheritdoc/>
     public void Build()
     {
-        ExceptionHelpers.ThrowIfNullOrEmpty(sitemap.Urls);
+        ExceptionHelpers.ThrowIfNullOrEmpty(sitemapModel.Urls);
 
-        var sitemapPageHtml = _templateEngine.RunCompile(sitemap);
+        var sitemapPageHtml = _templateEngine.RunCompile(sitemapModel);
 
         var result = _markupMinifier.Minify(sitemapPageHtml);
         if (result.Errors.Count() > 0)
@@ -48,7 +50,8 @@ internal class SitemapBuilder : ISitemapBuilder
         }
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(result.MinifiedContent);
 
-        File.WriteAllText(_pathService.OutputSitemapFile, result.MinifiedContent);
+        var sitemap = Path.Combine(appSettings.OutputFolderPath, "sitemap.xml");
+        File.WriteAllText(sitemap, result.MinifiedContent);
     }
 
     /// <inheritdoc/>
@@ -59,7 +62,7 @@ internal class SitemapBuilder : ISitemapBuilder
 
         lock (__lockObj)
         {
-            sitemap.Add(relativeUrl, dateModified);
+            sitemapModel.Add(relativeUrl, dateModified);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Interfaces;
+using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
+using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services;
 
@@ -16,27 +18,30 @@ internal class TemplateProvider : ITemplateProvider
     /// <summary>
     /// Besides DI, it registers all template htmls in a dictionary with key being the name of the model for that dictionary.
     /// </summary>
-    /// <param name="pathService">The service that build and checks all the paths.</param>
-    public TemplateProvider(IPathService pathService)
+    /// <param name="options">The options that hold the app settings.</param>
+    public TemplateProvider(IOptions<AppSettings> options)
     {
-        ArgumentNullException.ThrowIfNull(pathService);
+        ArgumentNullException.ThrowIfNull(options);
+        
+        var appSettings = options.Value;
+        var workingTemplatesFolder = Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingTemplatesFolderName);
 
         Templates = new Dictionary<string, string>()
         {
-            { nameof(LayoutIndexModel), pathService.TempalteIndexFile },
-            { nameof(LayoutModelBase), pathService.TemplateMainFile },
-            { nameof(LayoutArticleModel), pathService.TemplateArticleFile },
-            { nameof(LayoutStandaloneModel), pathService.TemplateStandaloneFile },
-            { nameof(LayoutSitemapModel), pathService.TemplateSitemapFile },
-            { nameof(CardArticleModel), pathService.TemplateCardArticleFile },
-            { nameof(CardImageModel), pathService.TemplateCardImageFile },
-            { nameof(CardSearchModel), pathService.TemplateCardSearchFile },
-            { nameof(CardCalendarEventsModel), pathService.TemplateCardCalendarEventsFile },
+            { nameof(LayoutIndexModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateIndexFilename) },
+            { nameof(LayoutModelBase), Path.Combine(workingTemplatesFolder, appSettings.TemplateMainFilename) },
+            { nameof(LayoutArticleModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateArticleFilename) },
+            { nameof(LayoutStandaloneModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateStandaloneFilename) },
+            { nameof(LayoutSitemapModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateSitemapFilename) },
+            { nameof(CardArticleModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateCardArticleFilename) },
+            { nameof(CardImageModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateCardImageFilename) },
+            { nameof(CardSearchModel),Path.Combine(workingTemplatesFolder, appSettings.TemplateCardSearchFilename) },
+            { nameof(CardCalendarEventsModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateCardCalendarEventsFilename) },
         };
 
-        foreach (var (model, template) in Templates)
+        foreach (var (model, path) in Templates)
         {
-            ExceptionHelpers.ThrowIfNullOrWhiteSpace(template, model);
+            ExceptionHelpers.ThrowIfPathNotExists(path, model);
         }
     }
 
@@ -56,7 +61,6 @@ internal class TemplateProvider : ITemplateProvider
     public string GetPath<T>()
     {
         var path = Templates.First(x => x.Key == typeof(T).Name);
-        ExceptionHelpers.ThrowIfPathNotExists(path.Value);
         return path.Value;
     }
 
@@ -64,7 +68,6 @@ internal class TemplateProvider : ITemplateProvider
     public string GetPath(string nameOfType)
     {
         var path = Templates.First(x => x.Key == nameOfType);
-        ExceptionHelpers.ThrowIfPathNotExists(path.Value);
         return path.Value;
     }
 }

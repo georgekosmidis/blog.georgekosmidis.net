@@ -5,6 +5,7 @@ using Blog.Builder.Interfaces.Crawlers;
 using Blog.Builder.Models;
 using Blog.Builder.Models.Crawlers;
 using Blog.Builder.Models.Templates;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SixLabors.ImageSharp;
 
@@ -13,25 +14,25 @@ namespace Blog.Builder.Services;
 /// <inheritdoc/>
 internal class CardProcessor : ICardProcessor
 {
-    private readonly IPathService _pathService;
     private readonly ICardBuilder _cardBuilder;
     private readonly IMeetupEventCrawler _meetupEventCrawler;
     private readonly IFileEventCrawler _fileEventCrawler;
+    private readonly AppSettings appSettings;
 
-    public CardProcessor(IPathService pathService,
-                        ICardBuilder cardBuilder,
+    public CardProcessor(ICardBuilder cardBuilder,
                         IMeetupEventCrawler meetupEventCrawler,
-                        IFileEventCrawler fileEventCrawler)
+                        IFileEventCrawler fileEventCrawler,
+                        IOptions<AppSettings> options)
     {
-        ArgumentNullException.ThrowIfNull(pathService);
         ArgumentNullException.ThrowIfNull(cardBuilder);
         ArgumentNullException.ThrowIfNull(meetupEventCrawler);
         ArgumentNullException.ThrowIfNull(fileEventCrawler);
+        ArgumentNullException.ThrowIfNull(options);
 
-        _pathService = pathService;
         _cardBuilder = cardBuilder;
         _meetupEventCrawler = meetupEventCrawler;
         _fileEventCrawler = fileEventCrawler;
+        appSettings = options.Value;
     }
 
     /// <summary>
@@ -83,14 +84,20 @@ internal class CardProcessor : ICardProcessor
         //copy all media associated with this card
         if (Directory.Exists(Path.Combine(directory, "media")))
         {
-            Helpers.Copy(Path.Combine(directory, "media"), _pathService.OutputMediaFolder);
+            Helpers.Copy(
+                    Path.Combine(directory, appSettings.MediaFolderName),
+                    Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName)
+            );
 
             //create smaller versions of the media
             foreach (var file in Directory.GetFiles(Path.Combine(directory, "media")))
             {
                 var ext = Path.GetExtension(file);
                 var name = Path.GetFileNameWithoutExtension(file);
-                Helpers.ResizeImage(file, Path.Combine(_pathService.OutputMediaFolder, name + "-small" + ext), new Size(300, 10000));//stop at 300 width, who cares about height
+                Helpers.ResizeImage(file,
+                    Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName, name + "-small" + ext),
+                    new Size(300, 10000)
+                );//stop at 300 width, who cares about height 
             }
         }
     }
@@ -108,7 +115,9 @@ internal class CardProcessor : ICardProcessor
         ).ToList();
 
         calendarEvents.AddRange(
-            _fileEventCrawler.Get(_pathService.WorkingEventsFolder)
+            _fileEventCrawler.Get( 
+                Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingEventsFolderName)
+            )
         );
 
         return calendarEvents;
