@@ -108,7 +108,6 @@ internal class CardProcessor : ICardProcessor
     /// <returns>A list of <see cref="CalendarEvent"/>.</returns>
     private async Task<IList<CalendarEvent>> GetCalendarEvents()
     {
-        //todo: use appsettings for this values
         var calendarEvents = (await _meetupEventCrawler.GetAsync("Munich .NET Meetup",
                         new Uri("https://www.meetup.com/munich-dotnet-meetup/"),
                         new Uri("https://www.meetup.com/munich-dotnet-meetup/events/ical/"))

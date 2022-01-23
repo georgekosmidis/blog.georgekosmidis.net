@@ -10,6 +10,11 @@ namespace Blog.Builder.Models.Templates;
 public record class LayoutModelBase : ModelBase
 {
     /// <summary>
+    /// The URL of the blog
+    /// </summary>
+    public string BlogUrl { get; set; } = default!;
+
+    /// <summary>
     /// The HTML for the right column.
     /// Default is empty.
     /// </summary>
@@ -39,7 +44,7 @@ public record class LayoutModelBase : ModelBase
     /// <summary>
     /// The tags of the current page.
     /// </summary>
-    public List<string> Tags { get; set; } = new List<string>();
+    public IEnumerable<string> Tags { get; set; } = new List<string>();
 
     /// <summary>
     /// A text representation for the <see cref="Tags"/> list.
@@ -49,7 +54,7 @@ public record class LayoutModelBase : ModelBase
     /// <summary>
     /// The section list of the current page.
     /// </summary>
-    public List<string> Sections { get; set; } = new List<string>();
+    public IEnumerable<string> Sections { get; set; } = new List<string>();
 
     /// <summary>
     /// A text representation for the <see cref="Sections"/> list.
@@ -59,7 +64,7 @@ public record class LayoutModelBase : ModelBase
     /// <summary>
     /// Any list of extra headers to be included in the current page.
     /// </summary>
-    public List<string> ExtraHeaders { get; } = new List<string>();
+    public IEnumerable<string> ExtraHeaders { get; } = new List<string>();
 
     /// <summary>
     /// A text representation for the <see cref="ExtraHeaders"/> list.

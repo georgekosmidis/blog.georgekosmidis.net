@@ -2,8 +2,10 @@
 using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.RazorEngineServices;
+using Blog.Builder.Models;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Blog.Builder.Services.Builders;
@@ -13,14 +15,17 @@ internal class PageBuilder : IPageBuilder
 {
     private readonly IRazorEngineWrapperService _templateEngine;
     private readonly ICardProcessor _cardPreparation;
+    private readonly AppSettings appSettings;
 
-    public PageBuilder(IRazorEngineWrapperService templateService, ICardProcessor cardPreparation)
+    public PageBuilder(IRazorEngineWrapperService templateService, ICardProcessor cardPreparation, IOptions<AppSettings> options)
     {
         ArgumentNullException.ThrowIfNull(templateService);
         ArgumentNullException.ThrowIfNull(cardPreparation);
+        ArgumentNullException.ThrowIfNull(options);
 
         _templateEngine = templateService;
         _cardPreparation = cardPreparation;
+        appSettings = options.Value;
 
     }
 

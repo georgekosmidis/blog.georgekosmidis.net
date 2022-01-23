@@ -35,16 +35,16 @@ internal class WebsitePreparation : IWebsiteProcessor
         _sitemapBuilder = sitemapBuilder;
         appSettings = options.Value;
 
-        //todo: use appsettings for this values
         layoutIndexModel = new LayoutIndexModel
         {
             DatePublished = DateTime.Now,
             DateModified = DateTime.Now,
-            Description = "Microsoft MVP | Cloud Solutions Architect | .NET Software Engineer | Organizer of Munich .NET Meetup | Speaker",
-            Tags = new List<string> { "C#", "CSharp", "dotnet", "ML.NET", "Q#", "Microsoft MVP" },
-            Title = "George Kosmidis",
+            Description = appSettings.BlogDescription,
+            Tags = appSettings.BlogTags,
+            Title = appSettings.BlogTitle,
+            BlogUrl = appSettings.BlogUrl,
             RelativeUrl = "/",
-            RelativeImageUrl = "/media/me.jpg",
+            RelativeImageUrl = appSettings.BlogImage,
             Paging = new Paging
             {
                 CardsPerPage = appSettings.CardsPerPage,

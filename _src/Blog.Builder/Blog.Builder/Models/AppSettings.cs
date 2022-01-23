@@ -100,5 +100,30 @@ internal record class AppSettings
     /// </summary>
     public int CardsPerPage { get; init; } = 9;
 
+    /// <summary>
+    /// The blog title, displayed in index pages.
+    /// </summary>
+    public string BlogTitle { get; init; } = default!;
+
+    /// <summary>
+    /// The blog description, displayed in index pages.
+    /// </summary>
+    public string BlogDescription { get; init; } = default!;
+
+    /// <summary>
+    /// The blog tags, displayed in index pages.
+    /// </summary>
+    public List<string> BlogTags { get; init; } = new List<string>();
+
+    /// <summary>
+    /// The blog base url.
+    /// </summary>
+    public string BlogUrl { get; init; } = default!;
+
+    /// <summary>
+    /// The blog image
+    /// </summary>
+    public string BlogImage { get; init; } = default!;
+
 }
 

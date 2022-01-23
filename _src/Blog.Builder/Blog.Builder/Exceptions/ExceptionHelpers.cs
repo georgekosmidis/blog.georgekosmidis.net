@@ -50,7 +50,7 @@ internal static class ExceptionHelpers
 
         if (!argument.Any())
         {
-            Throw($"{paramName} doesn't has any items.");
+            Throw($"{paramName} don't has any items.");
         }
     }
 

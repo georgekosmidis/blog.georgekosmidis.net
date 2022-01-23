@@ -60,13 +60,10 @@ var serviceProvider = new ServiceCollection()
 //        .GetAwaiter()
 //        .GetResult();
 
-//todo: add sub-templates to article pages
 //todo: add a link to the startpage in article pages. where should I put it?
-//todo: include meetup and sessionize events
 //todo: bigger images on tap, is it possible?
 //todo: add commenting system
 //todo: fix style of some articles, example: http://blog/net-6-a-guide-for-the-high-impact-breaking-changes.html
-//todo: there are too many additions that you have to do to add a new template
 
 var websitePreparation = serviceProvider.GetService<IWebsiteProcessor>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));
 await websitePreparation.PrepareAsync();
