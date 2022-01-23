@@ -29,6 +29,7 @@ public record class LayoutIndexModel : LayoutModelBase
         ExceptionHelpers.ThrowIfNull(Paging);
         ExceptionHelpers.ThrowIfNull(Paging.CurrentPageIndex);
         ExceptionHelpers.ThrowIfNull(Paging.TotalCardsCount);
+        ExceptionHelpers.ThrowIfNullOrEmpty(CardsHtml);
 
         if (TemplateDataModel != nameof(LayoutIndexModel))
         {

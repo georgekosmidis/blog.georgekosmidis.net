@@ -23,15 +23,15 @@ internal class TemplateProvider : ITemplateProvider
 
         Templates = new Dictionary<string, string>()
         {
-            { nameof(LayoutIndexModel), File.ReadAllText(pathService.TemplateMainFile) },
-            { nameof(LayoutModelBase), File.ReadAllText(pathService.TemplateMainFile) },
-            { nameof(LayoutArticleModel), File.ReadAllText(pathService.TemplateArticleFile) },
-            { nameof(LayoutStandaloneModel), File.ReadAllText(pathService.TemplateStandaloneFile) },
-            { nameof(LayoutSitemapModel), File.ReadAllText(pathService.TemplateSitemapFile) },
-            { nameof(CardArticleModel), File.ReadAllText(pathService.TemplateCardArticleFile) },
-            { nameof(CardImageModel), File.ReadAllText(pathService.TemplateCardImageFile) },
-            { nameof(CardSearchModel), File.ReadAllText(pathService.TemplateCardSearchFile) },
-            { nameof(CardCalendarEventsModel), File.ReadAllText(pathService.TemplateCardCalendarEventsFile) },
+            { nameof(LayoutIndexModel), pathService.TempalteIndexFile },
+            { nameof(LayoutModelBase), pathService.TemplateMainFile },
+            { nameof(LayoutArticleModel), pathService.TemplateArticleFile },
+            { nameof(LayoutStandaloneModel), pathService.TemplateStandaloneFile },
+            { nameof(LayoutSitemapModel), pathService.TemplateSitemapFile },
+            { nameof(CardArticleModel), pathService.TemplateCardArticleFile },
+            { nameof(CardImageModel), pathService.TemplateCardImageFile },
+            { nameof(CardSearchModel), pathService.TemplateCardSearchFile },
+            { nameof(CardCalendarEventsModel), pathService.TemplateCardCalendarEventsFile },
         };
 
         foreach (var (model, template) in Templates)
@@ -41,9 +41,30 @@ internal class TemplateProvider : ITemplateProvider
     }
 
     /// <inheritdoc/>
-    public string Get<T>()
+    public string GetHtml<T>()
     {
-        var template = Templates.First(x => x.Key == typeof(T).Name);
-        return template.Value;
+        return File.ReadAllText(this.GetPath<T>());
+    }
+
+    /// <inheritdoc/>
+    public string GetHtml(string nameOfType)
+    {
+        return File.ReadAllText(this.GetPath(nameOfType));
+    }
+
+    /// <inheritdoc/>
+    public string GetPath<T>()
+    {
+        var path = Templates.First(x => x.Key == typeof(T).Name);
+        ExceptionHelpers.ThrowIfPathNotExists(path.Value);
+        return path.Value;
+    }
+
+    /// <inheritdoc/>
+    public string GetPath(string nameOfType)
+    {
+        var path = Templates.First(x => x.Key == nameOfType);
+        ExceptionHelpers.ThrowIfPathNotExists(path.Value);
+        return path.Value;
     }
 }

@@ -18,7 +18,8 @@ public record class CardSearchModel : CardModelBase
         {
             TemplateDataModel = parent.TemplateDataModel,
             Position = parent.Position,
-            IsSticky = parent.IsSticky
+            IsSticky = parent.IsSticky,
+            RightColumnPosition = parent.RightColumnPosition,
         };
     }
 

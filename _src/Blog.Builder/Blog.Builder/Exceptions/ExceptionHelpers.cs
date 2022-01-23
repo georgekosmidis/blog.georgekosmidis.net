@@ -44,7 +44,7 @@ internal static class ExceptionHelpers
     /// <typeparam name="T"></typeparam>
     /// <param name="argument">The reference type argument to validate as a non-empty list.</param>
     /// <param name="paramName">The name of the parameter with which argument corresponds.</param>
-    public static void ThrowIfNullOrEmpty<T>([NotNull] ICollection<T>? argument, [CallerArgumentExpression("argument")] string? paramName = null)
+    public static void ThrowIfNullOrEmpty<T>([NotNull] IEnumerable<T>? argument, [CallerArgumentExpression("argument")] string? paramName = null)
     {
         ThrowIfNull(argument, paramName);
 

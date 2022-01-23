@@ -1,7 +1,9 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
+using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
+using Newtonsoft.Json;
 using SixLabors.ImageSharp;
 using WebMarkupMin.Core;
 
@@ -14,26 +16,82 @@ internal class PageProcessor : IPageProcessor
     private readonly ISitemapBuilder _sitemapBuilder;
     private readonly IMarkupMinifier _markupMinifier;
     private readonly IPageBuilder _pageBuilder;
-    private readonly ICardProcessor _cardPreparation;
+    private readonly ICardProcessor _cardProcessor;
 
 
     public PageProcessor(IPathService pathService,
                         ISitemapBuilder sitemapBuilder,
                         IMarkupMinifier markupMinifier,
                         IPageBuilder pageBuilder,
-                        ICardProcessor cardPreparation)
+                        ICardProcessor cardProcessor)
     {
         ArgumentNullException.ThrowIfNull(pathService);
         ArgumentNullException.ThrowIfNull(sitemapBuilder);
         ArgumentNullException.ThrowIfNull(markupMinifier);
         ArgumentNullException.ThrowIfNull(pageBuilder);
-        ArgumentNullException.ThrowIfNull(cardPreparation);
+        ArgumentNullException.ThrowIfNull(cardProcessor);
 
         _pathService = pathService;
         _sitemapBuilder = sitemapBuilder;
         _markupMinifier = markupMinifier;
         _pageBuilder = pageBuilder;
-        _cardPreparation = cardPreparation;
+        _cardProcessor = cardProcessor;
+    }
+
+    //todo: introduce caching
+    private T GetPageModelData<T>(string jsonPath) where T : LayoutModelBase
+    {
+        ExceptionHelpers.ThrowIfPathNotExists(jsonPath);
+
+        var json = File.ReadAllText(jsonPath);
+        var data = JsonConvert.DeserializeObject<T>(json);
+        ExceptionHelpers.ThrowIfNull(data);
+
+        return data;
+    }
+
+    private PageBuilderResult GetBuilderResult<T>(string directory) where T : LayoutModelBase
+    {
+        ExceptionHelpers.ThrowIfPathNotExists(directory);
+
+        //read json and html from the folder
+        var jsonFileContent = Path.Combine(directory, "content.json");
+
+        var pageData = this.GetPageModelData<T>(jsonFileContent);
+        ExceptionHelpers.ThrowIfNull(pageData);
+
+        var pageHtml = File.ReadAllText(Path.Combine(directory, "content.html"));
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(pageHtml);
+
+        //get the right column cards, if any
+        var rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
+
+        //get the inner layout build
+        var internalHtml = _pageBuilder.BuildInternalLayout(pageData, pageHtml, rightColumnCards);
+
+        //get the outer layout build
+        var builderResult = _pageBuilder.BuildMainLayout(pageData, internalHtml);
+
+        //done!
+        return builderResult;
+    }
+
+    private PageBuilderResult GetBuilderResult<T>(T pageData, IEnumerable<string> pageCards) where T : LayoutModelBase
+    {
+        ExceptionHelpers.ThrowIfNull(pageData);
+        ExceptionHelpers.ThrowIfNullOrEmpty(pageCards);
+
+        //get the right column cards, if any
+        var rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
+
+        //get the inner layout build
+        var internalHtml = _pageBuilder.BuildInternalLayout(pageData, pageCards, rightColumnCards);
+
+        //get the outer layout build
+        var builderResult = _pageBuilder.BuildMainLayout(pageData, internalHtml);
+
+        //done!
+        return builderResult;
     }
 
     /// <inheritdoc/>
@@ -41,14 +99,15 @@ internal class PageProcessor : IPageProcessor
     {
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
-        //get the result from the builder
-        var builderResult = _pageBuilder.Build<T>(directory);
+        //get the builder result
+        var builderResult = GetBuilderResult<T>(directory);
 
         //minify and save page
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
         if (minifier.Errors.Count() > 0)
         {
-            throw new Exception($"Minification failed with at least one error:" +
+            //todo: add all errors
+            throw new Exception($"Minification failed with at least one error: " +
                 $"{Environment.NewLine}{minifier.Errors.First().Message}" +
                 $"{Environment.NewLine}{minifier.Errors.First().SourceFragment}");
         }
@@ -68,6 +127,7 @@ internal class PageProcessor : IPageProcessor
             }
         }
 
+        //add the page to the sitemap builder
         _sitemapBuilder.Add(builderResult.RelativeUrl, builderResult.DateModified);
     }
 
@@ -76,12 +136,12 @@ internal class PageProcessor : IPageProcessor
     {
         ArgumentNullException.ThrowIfNull(pageData);
 
-        //get the html for the cards and validate the data
-        pageData.Body = _cardPreparation.GetHtml(pageData.Paging.CurrentPageIndex, cardsPerPage);
-        pageData.Validate();
+        //Get all the cards html for the main page
+        var cards = _cardProcessor.GetBodyCardsHtml(pageData.Paging.CurrentPageIndex, cardsPerPage);
 
-        //get the entire page html and minify it
-        var builderResult = _pageBuilder.Build(pageData);
+        //build the page
+        var builderResult = this.GetBuilderResult(pageData, cards);
+
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
         if (minifier.Errors.Count() > 0)
         {

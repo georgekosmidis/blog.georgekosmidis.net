@@ -38,10 +38,5 @@ public abstract record class ModelBase
     {
         ExceptionHelpers.ThrowIfNull(this.Nonce);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.TemplateDataModel);
-
-        if (TemplateDataModel == nameof(ModelBase))
-        {
-            throw new Exception($"{nameof(TemplateDataModel)} cannot be of base type {nameof(ModelBase)}.");
-        }
     }
 }

@@ -32,6 +32,8 @@ internal class PathService : IPathService
     public string TemplateMainFile { get; init; }
     /// <inheritdoc/>
     public string TemplateArticleFile { get; init; }
+    /// <inheritdoc/>
+    public string TempalteIndexFile { get; init; }
 
     /// <inheritdoc/>
     public string TemplateSitemapFile { get; init; }
@@ -86,6 +88,9 @@ internal class PathService : IPathService
 
         TemplateMainFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateMainFilename);
         ExceptionHelpers.ThrowIfPathNotExists(TemplateMainFile);
+
+        TempalteIndexFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateIndexFilename);
+        ExceptionHelpers.ThrowIfPathNotExists(TempalteIndexFile);
 
         TemplateArticleFile = Path.Combine(WorkingTemplatesFolder, appsettings.TemplateArticleFilename);
         ExceptionHelpers.ThrowIfPathNotExists(TemplateArticleFile);

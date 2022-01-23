@@ -7,5 +7,6 @@
   "LinkTarget": "",
   "ImageUrl": "",
   "Position": 2,
-  "IsSticky": true
+  "IsSticky": true,
+  "RightColumnPosition" : 2
 }

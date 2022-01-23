@@ -1,13 +1,12 @@
-<div class="col-md-6 col-lg-4 mb-4">
-	<div class="card shadow">
+
+<div class="card shadow">
 @if ( !string.IsNullOrWhiteSpace(@Model.ImageUrl) ) {
-		<img src="@Model.ImageUrl" class="bd-placeholder-img card-img-top shadow" alt="@Model.Title" />
+	<img src="@Model.ImageUrl" class="bd-placeholder-img card-img-top shadow" alt="@Model.Title" />
 }
-		<div class="card-body">
-			<h2 class="card-title">@Model.Title</h2>
-			<p class="card-text">@Model.Description</p>
-			<div class="card-text text-end"><small class="text-muted">@Model.Footer</small></div>
-			<a href="@Model.Link" target="@Model.LinkTarget" class="stretched-link"></a>
-		</div>
+	<div class="card-body">
+		<h2 class="card-title">@Model.Title</h2>
+		<p class="card-text">@Model.Description</p>
+		<div class="card-text text-end"><small class="text-muted">@Model.Footer</small></div>
+		<a href="@Model.Link" target="@Model.LinkTarget" class="stretched-link"></a>
 	</div>
 </div>

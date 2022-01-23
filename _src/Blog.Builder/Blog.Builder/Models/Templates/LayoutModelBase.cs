@@ -10,6 +10,17 @@ namespace Blog.Builder.Models.Templates;
 public record class LayoutModelBase : ModelBase
 {
     /// <summary>
+    /// The HTML for the right column.
+    /// Default is empty.
+    /// </summary>
+    public IEnumerable<string> RightColumnCards { get; set; } = new List<string>();
+
+    /// <summary>
+    /// The HTML of the cards to be parsed
+    /// </summary>
+    public IEnumerable<string> CardsHtml { get; set; } = new List<string>();
+
+    /// <summary>
     /// The paging information for this layout. 
     /// Currently it is used only by index pages.
     /// </summary>
@@ -44,7 +55,6 @@ public record class LayoutModelBase : ModelBase
     /// A text representation for the <see cref="Sections"/> list.
     /// </summary>
     public string SectionsText => string.Join(", ", Sections);
-
 
     /// <summary>
     /// Any list of extra headers to be included in the current page.
@@ -118,7 +128,6 @@ public record class LayoutModelBase : ModelBase
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(PlainTextDescription);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(Title);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(RelativeUrl);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Body);
 
     }
 

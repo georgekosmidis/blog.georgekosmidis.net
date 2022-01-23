@@ -1,34 +1,27 @@
 ﻿using Blog.Builder.Exceptions;
-using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
+using Blog.Builder.Interfaces.RazorEngineServices;
 using Blog.Builder.Models;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
-using Newtonsoft.Json;
-using RazorEngine.Templating;
 
 namespace Blog.Builder.Services.Builders;
 
+//todo: honour single responsibility
 /// <inheritdoc/>
 internal class CardBuilder : ICardBuilder
 {
-    private readonly IRazorEngineService _templateEngine;
-    private readonly ITemplateProvider _templateProvider;
+    private readonly IRazorEngineWrapperService _templateEngine;
     private static readonly List<ArticleCardBuilderResult> ArticleCards = new List<ArticleCardBuilderResult>();
     private static readonly List<OtherCardBuilderResult> OtherCards = new List<OtherCardBuilderResult>();
 
     private readonly object __lockObj = new object();
 
-    public CardBuilder(
-            IRazorEngineService templateEngine,
-            ITemplateProvider templateProvider
-            )
+    public CardBuilder(IRazorEngineWrapperService templateEngine)
     {
         ArgumentNullException.ThrowIfNull(templateEngine);
-        ArgumentNullException.ThrowIfNull(templateProvider);
 
         _templateEngine = templateEngine;
-        _templateProvider = templateProvider;
     }
 
     /// <summary>
@@ -42,11 +35,7 @@ internal class CardBuilder : ICardBuilder
         ArgumentNullException.ThrowIfNull(cardData);
         cardData.Validate();
 
-        return _templateEngine.RunCompile(
-                                        _templateProvider.Get<T>(),
-                                        Guid.NewGuid().ToString(),
-                                        typeof(T),
-                                        cardData);
+        return _templateEngine.RunCompile(cardData);
     }
 
     /// <inheritdoc/>
@@ -64,41 +53,10 @@ internal class CardBuilder : ICardBuilder
             {
                 CardHtml = cardHtml,
                 Position = cardDataBase.Position,
-                IsSticky = cardDataBase.IsSticky
+                IsSticky = cardDataBase.IsSticky,
+                RightColumnPosition = cardDataBase.RightColumnPosition
             });
         }
-    }
-
-    /// <inheritdoc/>
-    public void AddCard(string directory)
-    {
-        ExceptionHelpers.ThrowIfPathNotExists(directory);
-
-        //Read the card.json and valdiate the data found
-        var jsonFileContent = File.ReadAllText(Path.Combine(directory, "card.json"));
-        var cardDataBase = JsonConvert.DeserializeObject<CardModelBase>(jsonFileContent);
-        ExceptionHelpers.ThrowIfNull(cardDataBase);
-        cardDataBase.Validate();
-
-        //Find the correct model for this card.
-        //todo: Is there a way to load the type directly like: 
-        //      var cardData = cardDataBase as >>cardDataBase.CardType.Name<<;
-        switch (cardDataBase.TemplateDataModel)
-        {
-            case nameof(CardSearchModel):
-                this.AddCard(CardSearchModel.FromBase(cardDataBase));
-                break;
-            case nameof(CardImageModel):
-                this.AddCard(CardImageModel.FromBase(cardDataBase));
-                break;
-            case nameof(CardArticleModel):
-                throw new Exception($"Method {nameof(AddCard)} cannot be used with {nameof(CardArticleModel)}, use {nameof(AddArticleCard)} instead.");
-            case nameof(CardCalendarEventsModel):
-                throw new Exception($"Method {nameof(AddCard)} cannot be used with {nameof(CardArticleModel)}, use generic {nameof(AddCard)} instead.");
-            default:
-                throw new Exception($"{cardDataBase.TemplateDataModel} switch is missing.");
-        };
-
     }
 
     /// <inheritdoc/>
@@ -118,7 +76,18 @@ internal class CardBuilder : ICardBuilder
     }
 
     /// <inheritdoc/>
-    public string GetHtml(int pageIndex, int cardsPerPage)
+    public IEnumerable<string> GetRightColumnCardsHtml()
+    {
+        var cards = OtherCards
+                             .Where(x => x.RightColumnPosition > -1)
+                             .OrderBy(x => x.RightColumnPosition)
+                             .Select(x => x.CardHtml);
+
+        return cards;
+    }
+
+    /// <inheritdoc/>
+    public IEnumerable<string> GetBodyCardsHtml(int pageIndex, int cardsPerPage)
     {
         var cards = ArticleCards.OrderByDescending(x => x.DateCreated)
                                 .Select(x => x.CardHtml)
@@ -168,7 +137,7 @@ internal class CardBuilder : ICardBuilder
         }
 
         //Return the html
-        return string.Join(string.Empty, cards.ToArray());
+        return cards;
     }
 
     /// <inheritdoc/>

@@ -1,4 +1,6 @@
-﻿namespace Blog.Builder.Models.Templates;
+﻿using Blog.Builder.Exceptions;
+
+namespace Blog.Builder.Models.Templates;
 
 /// <summary>
 /// Used for the standalones, e.g. privacy.html (template-standalone.cshtml).
@@ -13,6 +15,8 @@ public record class LayoutStandaloneModel : LayoutModelBase
     public new void Validate()
     {
         base.Validate();
+
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Body);
 
         if (TemplateDataModel != nameof(LayoutStandaloneModel))
         {

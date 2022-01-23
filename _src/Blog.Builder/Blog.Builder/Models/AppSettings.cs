@@ -56,6 +56,11 @@ internal record class AppSettings
     public string TemplateMainFilename { get; init; } = default!;
 
     /// <summary>
+    /// The filename of the index page.
+    /// </summary>
+    public string TemplateIndexFilename { get; init; } = default!;
+
+    /// <summary>
     /// The filename of the article template
     /// </summary>
     public string TemplateArticleFilename { get; init; } = default!;

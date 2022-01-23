@@ -22,7 +22,8 @@ public record class CardImageModel : CardModelBase
             Title = parent.Title,
             Link = parent.Link,
             Position = parent.Position,
-            IsSticky = parent.IsSticky
+            IsSticky = parent.IsSticky,
+            RightColumnPosition = parent.RightColumnPosition,
         };
     }
 

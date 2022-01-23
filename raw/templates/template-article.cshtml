@@ -1,4 +1,5 @@
-			
+@using Blog.Builder.Models.Templates;
+
 <div class="container">
 	<div class="row mx-auto article-google-engine-top">
 		<div class="col pb-4">
@@ -39,23 +40,12 @@
 		</div>
 		<div class="col-lg-4">
 			<div class="container px-0 mx-0">
-				<div class="row mx-auto article-google-engine-left ">
-					<div class="col pb-4">
-						<div class="card text-center bg-transparent border-0" style="height:33px">
-							<script async src="https://cse.google.com/cse.js?cx=c67a1214306f44e87" nonce="@Model.Nonce"></script>
-							<div class="gcse-searchbox-only"></div>
-						</div>
+				@foreach(var card in @Model.RightColumnCards){
+					<div class="col mb-4">
+					@card
 					</div>
-				</div>
-				<div class="row mx-auto">
-					<div class="col pb-4">							
-						<div class="card"> 
-							<img src="/media/mvp-small.png" class="bd-placeholder-img card-img-top" alt="Microsoft MVP - George Kosmidis"> 
-							<a href="https://mvp.microsoft.com/en-us/PublicProfile/5004591" class="stretched-link" rel="noopener"></a> 
-						</div>	
-					</div>						
-				</div>
-			</div>			
-		</div>		
-	</div>			
+				}
+			</div>
+		</div>
+	</div>
 </div>

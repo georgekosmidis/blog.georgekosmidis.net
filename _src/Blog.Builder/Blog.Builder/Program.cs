@@ -1,27 +1,23 @@
 ﻿using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.Crawlers;
+using Blog.Builder.Interfaces.RazorEngineServices;
 using Blog.Builder.Models;
 using Blog.Builder.Services;
 using Blog.Builder.Services.Builders;
 using Blog.Builder.Services.Crawlers;
+using Blog.Builder.Services.RazorEngineServices;
 using Geko.HttpClientService.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RazorEngine.Configuration;
 using RazorEngine.Templating;
-using RazorEngine.Text;
 using WebMarkupMin.Core;
 
 var serviceProvider = new ServiceCollection()
           .AddLogging()
           .AddHttpClientService()
-          .AddSingleton<IRazorEngineService>(provider =>
-          {
-              var configuration = new TemplateServiceConfiguration();
-              configuration.EncodedStringFactory = new RawStringFactory();
-              return RazorEngineService.Create(configuration);
-          })
+          .AddSingleton<IRazorEngineWrapperService, RazorEngineWrapperService>()
+          .AddSingleton<ITemplateManager, TemplateManager>()
           .AddSingleton<ITemplateProvider, TemplateProvider>()
           .AddSingleton<ISitemapBuilder, SitemapBuilder>()
           .AddSingleton<IPageBuilder, PageBuilder>()

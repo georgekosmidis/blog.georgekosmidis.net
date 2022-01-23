@@ -1,43 +1,70 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
+using Blog.Builder.Interfaces.RazorEngineServices;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
 using Newtonsoft.Json;
-using RazorEngine.Templating;
 
 namespace Blog.Builder.Services.Builders;
 
 /// <inheritdoc/>
 internal class PageBuilder : IPageBuilder
 {
-    private readonly IRazorEngineService _templateEngine;
-    private readonly ITemplateProvider _templateProvider;
+    private readonly IRazorEngineWrapperService _templateEngine;
     private readonly ICardProcessor _cardPreparation;
 
-    public PageBuilder(IRazorEngineService templateService, ITemplateProvider templateProvider, ICardProcessor cardPreparation)
+    public PageBuilder(IRazorEngineWrapperService templateService, ICardProcessor cardPreparation)
     {
         ArgumentNullException.ThrowIfNull(templateService);
-        ArgumentNullException.ThrowIfNull(templateProvider);
         ArgumentNullException.ThrowIfNull(cardPreparation);
 
         _templateEngine = templateService;
-        _templateProvider = templateProvider;
         _cardPreparation = cardPreparation;
 
     }
 
     /// <inheritdoc/>
-    public PageBuilderResult Build<T>(T pageData) where T : LayoutModelBase
+    public string BuildInternalLayout<T>(T pageData, string bodyHtml, IEnumerable<string> rightColumnCards) where T : LayoutModelBase
     {
-        ArgumentNullException.ThrowIfNull(pageData);
+        ExceptionHelpers.ThrowIfNull(pageData);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(bodyHtml);
+
+        pageData.RightColumnCards = rightColumnCards;
+        pageData.Body = bodyHtml;
+        pageData.TemplateDataModel = typeof(T).Name;
+        var innerPartResult = Build(pageData);
+
+        ExceptionHelpers.ThrowIfNull(pageData);
+
+        return innerPartResult.FinalHtml;
+    }
+
+    /// <inheritdoc/>
+    public string BuildInternalLayout<T>(T pageData, IEnumerable<string> bodyCards, IEnumerable<string> rightColumnCards) where T : LayoutModelBase
+    {
+        ExceptionHelpers.ThrowIfNull(pageData);
+        ExceptionHelpers.ThrowIfNullOrEmpty(bodyCards);
+
+        //First prepare the body of the page
+        // (Right column is in the inner layouts, not the main layout)
+        pageData.RightColumnCards = rightColumnCards;
+        pageData.CardsHtml = bodyCards;
+        pageData.TemplateDataModel = typeof(T).Name;
+        var innerPartResult = Build(pageData);
+
+        ExceptionHelpers.ThrowIfNull(pageData);
+
+        return innerPartResult.FinalHtml;
+    }
+
+    /// <inheritdoc/>
+    private PageBuilderResult Build<T>(T pageData) where T : LayoutModelBase
+    {
+        ExceptionHelpers.ThrowIfNull(pageData);
         pageData.Validate();
 
-        var finalHtml = _templateEngine.RunCompile(
-                                                _templateProvider.Get<T>(),
-                                                Guid.NewGuid().ToString(),
-                                                typeof(T),
-                                                pageData);
+        var finalHtml = _templateEngine.RunCompile(pageData);
 
         return new PageBuilderResult
         {
@@ -48,24 +75,13 @@ internal class PageBuilder : IPageBuilder
     }
 
     /// <inheritdoc/>
-    public PageBuilderResult Build<T>(string directory) where T : LayoutModelBase
+    public PageBuilderResult BuildMainLayout<T>(T pageData, string bodyHtml) where T : LayoutModelBase
     {
-        ExceptionHelpers.ThrowIfPathNotExists(directory);
-
-        var jsonFileContent = File.ReadAllText(Path.Combine(directory, "content.json"));
-        var pageData = JsonConvert.DeserializeObject<T>(jsonFileContent);
-        ExceptionHelpers.ThrowIfNull(pageData);
-
-        //First prepare the body of the page
-        pageData.Body = File.ReadAllText(Path.Combine(directory, "content.html"));
-        pageData.TemplateDataModel = typeof(T).Name;
-        var innerPartHtml = Build(pageData);
-
-        //Then prepare the entire page
-        pageData.Body = innerPartHtml.FinalHtml;
-        var completePageHtml = Build(pageData as LayoutModelBase);
+        pageData.Body = bodyHtml;
+        var mainBuilderResult = Build(pageData as LayoutModelBase);
 
         //At the end, add a card for this article
+        //todo: not here
         if (pageData.TemplateDataModel == nameof(LayoutArticleModel))
         {
             _cardPreparation.ProcessArticleCard(new CardArticleModel
@@ -82,7 +98,7 @@ internal class PageBuilder : IPageBuilder
             }, pageData.DatePublished);
         }
 
-        return completePageHtml;
+        return mainBuilderResult;
     }
 
 }

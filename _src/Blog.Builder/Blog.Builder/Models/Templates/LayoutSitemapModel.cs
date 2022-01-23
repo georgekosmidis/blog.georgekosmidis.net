@@ -1,10 +1,17 @@
-﻿namespace Blog.Builder.Models.Templates;
+﻿using Blog.Builder.Exceptions;
+
+namespace Blog.Builder.Models.Templates;
 
 /// <summary>
 /// Used for the sitemap.xml (template-sitemap.cshtml)
 /// </summary>
-public class LayoutSitemapModel
+public record class LayoutSitemapModel : ModelBase
 {
+    public LayoutSitemapModel()
+    {
+        TemplateDataModel = nameof(LayoutSitemapModel);
+    }
+
     /// <summary>
     /// A list of URLs which the sitemap.xml will include.
     /// </summary>
@@ -18,6 +25,22 @@ public class LayoutSitemapModel
     public void Add(string relativeUrl, DateTime dateModified)
     {
         Urls.Add(new Url { RelativeUrl = relativeUrl, DateModified = dateModified });
+    }
+
+    /// <summary>
+    /// Validates what this object knows and throws an exception if something is wrong.
+    /// Check the <see cref="Validate"/> source code for the validations.
+    /// </summary>
+    public new void Validate()
+    {
+        base.Validate();
+
+        ExceptionHelpers.ThrowIfNullOrEmpty(Urls);
+
+        if (TemplateDataModel != nameof(LayoutSitemapModel))
+        {
+            throw new Exception($"{nameof(TemplateDataModel)} must be {nameof(LayoutSitemapModel)} for the type {nameof(LayoutSitemapModel)}.");
+        }
     }
 }
 

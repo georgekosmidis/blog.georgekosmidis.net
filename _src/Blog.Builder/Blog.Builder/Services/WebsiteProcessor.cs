@@ -1,11 +1,9 @@
-﻿using Blog.Builder.Exceptions;
-using Blog.Builder.Interfaces;
+﻿using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.Crawlers;
 using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace Blog.Builder.Services;
 
@@ -13,11 +11,9 @@ namespace Blog.Builder.Services;
 internal class WebsitePreparation : IWebsiteProcessor
 {
     private readonly IPathService _pathService;
-    private readonly IPageProcessor _pagePreparation;
-    private readonly ICardProcessor _cardPreparation;
+    private readonly IPageProcessor _pageProcessor;
+    private readonly ICardProcessor _cardProcessor;
     private readonly ISitemapBuilder _sitemapBuilder;
-    private readonly IMeetupEventCrawler _meetupEventCrawler;
-    private readonly IFileEventCrawler _fileEventCrawler;
     private readonly AppSettings _options;
     private readonly LayoutIndexModel layoutIndexModel;
 
@@ -29,23 +25,17 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// <param name="pageProcessor">The service that processes full pages (like index.html and privacy.html).</param>
     /// <param name="cardProcessor">The service that processes all cards.</param>
     /// <param name="sitemapBuilder">The service that builds the sitemap.xml.</param>
-    /// <param name="meetupEventCrawler">The service that searches for meetup.com events.</param>
-    /// <param name="fileEventCrawler">The service that searches for file based events in <see cref="AppSettings.WorkingEventsFolderName"/></param>
     /// <param name="options">The AppSettings</param>
     public WebsitePreparation(IPathService pathService,
                             IPageProcessor pageProcessor,
                             ICardProcessor cardProcessor,
                             ISitemapBuilder sitemapBuilder,
-                            IMeetupEventCrawler meetupEventCrawler,
-                            IFileEventCrawler fileEventCrawler,
                             IOptions<AppSettings> options)
     {
         _pathService = pathService;
-        _pagePreparation = pageProcessor;
-        _cardPreparation = cardProcessor;
+        _pageProcessor = pageProcessor;
+        _cardProcessor = cardProcessor;
         _sitemapBuilder = sitemapBuilder;
-        _meetupEventCrawler = meetupEventCrawler;
-        _fileEventCrawler = fileEventCrawler;
         _options = options.Value;
 
         //todo: use appsettings for this values
@@ -86,10 +76,11 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// </summary>
     private void PrepareStandalones()
     {
+
         var standalonesDirectory = Directory.GetDirectories(_pathService.WorkingStandalonesFolder);
         foreach (var directory in standalonesDirectory)
         {
-            _pagePreparation.ProcessPage<LayoutStandaloneModel>(directory);
+            _pageProcessor.ProcessPage<LayoutStandaloneModel>(directory);
         }
     }
 
@@ -102,7 +93,7 @@ internal class WebsitePreparation : IWebsiteProcessor
         var articleDirectories = Directory.GetDirectories(_pathService.WorkingArticlesFolder);
         foreach (var directory in articleDirectories)
         {
-            _pagePreparation.ProcessPage<LayoutArticleModel>(directory);
+            _pageProcessor.ProcessPage<LayoutArticleModel>(directory);
         }
     }
 
@@ -110,38 +101,12 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// Prepares all the additional cards for the index pages.
     /// Additional cards are scanned from <see cref="AppSettings.WorkingCardsFolderName"/>.
     /// </summary>
-    private void PrepareAdditionalCards()
+    private async Task PrepareAdditionalCardsAsync()
     {
         var cardsDirectory = Directory.GetDirectories(_pathService.WorkingCardsFolder);
         foreach (var directory in cardsDirectory)
         {
-            _cardPreparation.ProcessCard(directory);
-        }
-    }
-
-    private async Task PrepareCalendarEventsAsync()
-    {
-        var jsonFileContent = File.ReadAllText(Path.Combine(_pathService.WorkingEventsFolder, "card.json"));
-        var cardDataBase = JsonConvert.DeserializeObject<CardCalendarEventsModel>(jsonFileContent);
-        ExceptionHelpers.ThrowIfNull(cardDataBase);
-        cardDataBase.Validate();
-
-        //todo: use appsettings for this values
-        var calendarEvents = (await _meetupEventCrawler.GetAsync("Munich .NET Meetup",
-                        new Uri("https://www.meetup.com/munich-dotnet-meetup/"),
-                        new Uri("https://www.meetup.com/munich-dotnet-meetup/events/ical/"))
-        ).ToList();
-
-        calendarEvents.AddRange(
-            _fileEventCrawler.Get(_pathService.WorkingEventsFolder)
-        );
-
-        cardDataBase.CalendarEvents = calendarEvents;
-
-        //only add the card if there are events to show
-        if (cardDataBase.CalendarEvents.Count() > 0)
-        {
-            _cardPreparation.ProcessCalendarEventCard(cardDataBase);
+            await _cardProcessor.ProcessCardAsync(directory);
         }
     }
 
@@ -152,7 +117,7 @@ internal class WebsitePreparation : IWebsiteProcessor
     private void PrepareIndex()
     {
         var pageIndex = 0;
-        var cardsNumber = _cardPreparation.GetCardsNumber(_options.CardsPerPage);
+        var cardsNumber = _cardProcessor.GetCardsNumber(_options.CardsPerPage);
         layoutIndexModel.Paging.TotalCardsCount = cardsNumber;
 
         for (var i = _options.CardsPerPage; i < cardsNumber; i++)
@@ -160,7 +125,7 @@ internal class WebsitePreparation : IWebsiteProcessor
             if (i % _options.CardsPerPage == 0 || i == cardsNumber - 1)
             {
                 layoutIndexModel.Paging.CurrentPageIndex = pageIndex++;
-                _pagePreparation.ProcessIndex(layoutIndexModel, _options.CardsPerPage);
+                _pageProcessor.ProcessIndex(layoutIndexModel, _options.CardsPerPage);
             }
         }
     }
@@ -177,11 +142,10 @@ internal class WebsitePreparation : IWebsiteProcessor
     public async Task PrepareAsync()
     {
         this.PrepareOutputFolders();
+        await this.PrepareAdditionalCardsAsync(); //todo: enforce PrepareAdditionalCards before PrepareArticles
         this.PrepareStandalones();
         this.PrepareArticles();
-        this.PrepareAdditionalCards();
-        await this.PrepareCalendarEventsAsync();
-        this.PrepareIndex();//todo: must be called after PrepareArticles and PrepareAdditionalCards, check that
+        this.PrepareIndex();//todo: enforce PrepareIndex before PrepareArticles and PrepareAdditionalCards
         this.PrepareSitemap();
     }
 }

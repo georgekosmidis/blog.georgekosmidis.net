@@ -151,6 +151,7 @@ public record class LayoutArticleModel : LayoutModelBase
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(DateModifiedText);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(DatePublishedText);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(DatePublishedAndModificationText);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Body);
 
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(DatePublishedOrModificationText);
 

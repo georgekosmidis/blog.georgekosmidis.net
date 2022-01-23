@@ -46,6 +46,12 @@ public record class CardModelBase : ModelBase
     public bool IsSticky { get; set; }
 
     /// <summary>
+    /// The position of the card in the pages that have a right column.
+    /// -1 means do not add.
+    /// </summary>
+    public int RightColumnPosition { get; set; } = -1;
+
+    /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.
     /// Check the <see cref="Validate"/> source code for the validations.
     /// </summary>

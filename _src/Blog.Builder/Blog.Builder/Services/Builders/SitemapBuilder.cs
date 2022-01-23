@@ -1,8 +1,8 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
+using Blog.Builder.Interfaces.RazorEngineServices;
 using Blog.Builder.Models.Templates;
-using RazorEngine.Templating;
 using WebMarkupMin.Core;
 
 namespace Blog.Builder.Services.Builders;
@@ -10,9 +10,8 @@ namespace Blog.Builder.Services.Builders;
 /// <inheritdoc/>
 internal class SitemapBuilder : ISitemapBuilder
 {
-    private readonly IRazorEngineService _templateEngine;
+    private readonly IRazorEngineWrapperService _templateEngine;
     private readonly IPathService _pathService;
-    private readonly ITemplateProvider _templateProvider;
     private static readonly LayoutSitemapModel sitemap = new LayoutSitemapModel();
     private readonly IMarkupMinifier _markupMinifier;
 
@@ -20,19 +19,16 @@ internal class SitemapBuilder : ISitemapBuilder
 
     public SitemapBuilder(
             IPathService pathService,
-            IRazorEngineService templateService,
-            ITemplateProvider templateProvider,
+            IRazorEngineWrapperService templateService,
             IMarkupMinifier markupMinifier
             )
     {
         ArgumentNullException.ThrowIfNull(pathService);
         ArgumentNullException.ThrowIfNull(templateService);
-        ArgumentNullException.ThrowIfNull(templateProvider);
         ArgumentNullException.ThrowIfNull(markupMinifier);
 
         _templateEngine = templateService;
         _pathService = pathService;
-        _templateProvider = templateProvider;
         _markupMinifier = markupMinifier;
     }
 
@@ -41,10 +37,7 @@ internal class SitemapBuilder : ISitemapBuilder
     {
         ExceptionHelpers.ThrowIfNullOrEmpty(sitemap.Urls);
 
-        var sitemapPageHtml = _templateEngine.RunCompile(_templateProvider.Get<LayoutSitemapModel>(),
-                                                            nameof(SitemapBuilder),
-                                                            typeof(LayoutSitemapModel),
-                                                            sitemap);
+        var sitemapPageHtml = _templateEngine.RunCompile(sitemap);
 
         var result = _markupMinifier.Minify(sitemapPageHtml);
         if (result.Errors.Count() > 0)

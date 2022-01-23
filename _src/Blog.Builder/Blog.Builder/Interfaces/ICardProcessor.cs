@@ -11,7 +11,7 @@ internal interface ICardProcessor
     /// Processes the data of a card (not article card).
     /// </summary>
     /// <param name="directory">The directory in which all necessary files exist.</param>
-    void ProcessCard(string directory);
+    Task ProcessCardAsync(string directory);
 
     /// <summary>
     /// Processes article cards.
@@ -32,12 +32,13 @@ internal interface ICardProcessor
     /// </summary>
     /// <param name="pageIndex">The index of the page (e.g. 2 for index-page-3.html)</param>
     /// <param name="cardsPerPage">THe number of cards per page.</param>
-    /// <returns>The HTML to be used as body in the main template.</returns>
-    string GetHtml(int pageIndex, int cardsPerPage);
+    /// <returns>A list of the HTML of the cards in ascending order.</returns>
+    IEnumerable<string> GetBodyCardsHtml(int pageIndex, int cardsPerPage);
 
     /// <summary>
-    /// Calls the event crawlers to collect events, and then calls the build 
+    /// Compiles the HTML for the right column.
     /// </summary>
-    /// <param name="cardData"></param>
-    void ProcessCalendarEventCard(CardCalendarEventsModel cardData);
+    /// <returns>A list of the HTML of the cards in ascending order.</returns>
+    IEnumerable<string> GetRightColumnCardsHtml();
+
 }

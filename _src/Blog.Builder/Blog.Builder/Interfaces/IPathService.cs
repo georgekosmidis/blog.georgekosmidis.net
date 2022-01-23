@@ -16,6 +16,11 @@ internal interface IPathService
     string TemplateMainFile { get; init; }
 
     /// <summary>
+    /// The template for the index pages.
+    /// </summary>
+    string TempalteIndexFile { get; init; }
+
+    /// <summary>
     /// The template for the standalones.
     /// </summary>
     string TemplateStandaloneFile { get; init; }
