@@ -22,7 +22,7 @@ The builder is actually a ```Console App```, which you can use as a step in ```A
 An example is coming up!
 
 ## Templating
-Although templating should be the last thing to check because the default ones work great, there are some mandatory changes you should make in the [template-layout.cshtml](https://github.com/georgekosmidis/Blog/blob/main/raw/templates/template-layout.cshtml) because it contains my social media links! In some future version these will be parameterized in the ```appsettings.json```, but for now just go in there and change them!
+Although templating should be the last thing to check because the default ones work great, there are some mandatory changes you should make in the [template-layout.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-layout.cshtml) because it contains my social media links! In some future version these will be parameterized in the ```appsettings.json```, but for now just go in there and change them!
 
 Besides these mandatory changes, you can use the rest of the templates as is or change them to meet your requirements:
 
@@ -34,17 +34,17 @@ Besides these mandatory changes, you can use the rest of the templates as is or 
 4. cookieconsent v3.1.1 - https://www.osano.com/cookieconsent
 
 ### Main templates:
-- [template-layout.cshtml](https://github.com/georgekosmidis/Blog/blob/main/raw/templates/template-layout.cshtml), is the main layout template. All other templates are build and then used as a body for this template.
-- [template-index.cshtml](https://github.com/georgekosmidis/Blog/blob/main/raw/templates/template-index.cshtml), this is the body of the index templates. Not much going on here because of the masonry card system that leaves no space for other stuff. The cards are a combination of the article cards and other cards as described later on.
-- [template-article.cshtml](https://github.com/georgekosmidis/Blog/blob/main/raw/templates/template-article.cshtml), this is the body of an article page. In the right hand column there is a list of cards that have been selected as ```RightColumnPosition``` from their ```card.json```. Check [Additional Cards](#Additional_Cards) in this guide for more information.
-- [template-standalone.cshtml](https://github.com/georgekosmidis/Blog/blob/main/raw/templates/template-standalone.cshtml), this is the template of a standalone page, e.g. the privacy.html
-- [template-sitemap.cshtml](https://github.com/georgekosmidis/Blog/blob/main/raw/templates/template-sitemap.cshtml), this is the template that builds the ```sitemap.xml```. 
+- [template-layout.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-layout.cshtml), is the main layout template. All other templates are build and then used as a body for this template.
+- [template-index.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-index.cshtml), this is the body of the index templates. Not much going on here because of the masonry card system that leaves no space for other stuff. The cards are a combination of the article cards and other cards as described later on.
+- [template-article.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-article.cshtml), this is the body of an article page. In the right hand column there is a list of cards that have been selected as ```RightColumnPosition``` from their ```card.json```. Check [Additional Cards](#Additional_Cards) in this guide for more information.
+- [template-standalone.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-standalone.cshtml), this is the template of a standalone page, e.g. the privacy.html
+- [template-sitemap.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-sitemap.cshtml), this is the template that builds the ```sitemap.xml```. 
 
 ### Card templates
-- [template-card-article.cshtml](https://github.com/georgekosmidis/Blog/blob/main/raw/templates/template-card-article.cshtml), this is the card for an article, which contains the title of the article, a description, the publishing date and optionally a featuring image.
-- [template-card-calendar-events.cshtml](https://github.com/georgekosmidis/Blog/blob/main/raw/templates/template-card-calendar-events.cshtml), this is the calendar events card, which can be used to automatically retrieve and display the next usegroup events or conferences that I (you) will participate. 
-- [template-card-image.cshtml](https://github.com/georgekosmidis/Blog/blob/main/raw/templates/template-card-image.cshtml), this is a simple image card with a link. For example, in my blog I use it to display my MVP award with a link towards mvp.microsoft.com.
-- [template-card-search.cshtml](https://github.com/georgekosmidis/Blog/blob/main/raw/templates/template-card-search.cshtml), this is a search engine for the site. Since it is a static website, this is using google. If you want to use this you should register with google and change the ```cx``` parameter.
+- [template-card-article.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-card-article.cshtml), this is the card for an article, which contains the title of the article, a description, the publishing date and optionally a featuring image.
+- [template-card-calendar-events.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-card-calendar-events.cshtml), this is the calendar events card, which can be used to automatically retrieve and display the next usegroup events or conferences that I (you) will participate. 
+- [template-card-image.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-card-image.cshtml), this is a simple image card with a link. For example, in my blog I use it to display my MVP award with a link towards mvp.microsoft.com.
+- [template-card-search.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-card-search.cshtml), this is a search engine for the site. Since it is a static website, this is using google. If you want to use this you should register with google and change the ```cx``` parameter.
 
 ## Index Page
 The template that comes with this solution presents the articles as [Bootstrap Cards](https://getbootstrap.com/docs/5.1/components/card/) which are laid out using [Masonry](https://masonry.desandro.com/); you can find a guide for both of them in the [Bootstrap and Masonry](https://getbootstrap.com/docs/5.0/examples/masonry/) bootstrap page. Besides the articles card, additional cards can be added by following the guide that follows later in this page: [Additional Cards](#Additional_Cards)
@@ -55,7 +55,7 @@ The name of the produced index is ```index.html``` and the rest are named follow
 
 ## Writing a new article
 Everything is done from the file system using ```HTML```, ```Razor``` and ```JSON``` files, so you can use your favorite HTML editor! 
-The process includes creating a folder in the [articles](https://github.com/georgekosmidis/Blog/tree/main/raw/articles) folder and then creating a file named ```content.html``` to write the body of your article using ```HTML```, ```Razor```, ```highlightjs``` and ```Bootstrap``` styling. 
+The process includes creating a folder in the [articles](https://github.com/georgekosmidis/Blog/tree/main/working/articles) folder and then creating a file named ```content.html``` to write the body of your article using ```HTML```, ```Razor```, ```highlightjs``` and ```Bootstrap``` styling. 
 
 Once done you should then create a ```content.json``` file for the article metadata with the following properties:
 
@@ -69,7 +69,7 @@ Once done you should then create a ```content.json``` file for the article metad
 | RelativeImageUrl | This is the relative URL of the feature image, in the ```media``` folder, e.g. /media/unique-name-feature-image.png |
 | Tags | This is an arry of tags describing this article. They will be used in the ```og:article:tag```  meta tag |
 
-Although you can find many examples in the [articles](https://github.com/georgekosmidis/Blog/tree/main/raw/articles) folder, here is one: 
+Although you can find many examples in the [articles](https://github.com/georgekosmidis/Blog/tree/main/working/articles) folder, here is one: 
 
 ```json
 {
@@ -93,18 +93,18 @@ And at the end, if your new article contains media, create a folder named ```med
 
 > It's a nice idea all paths to be relative!
 
-> You can find many articles as examples here: https://github.com/georgekosmidis/Blog/tree/main/raw/articles. *Numbering is not mandatory (like the 100490 in ```100490-secrets-management-for-asp-net-core-and-azure-devops```), but it makes my life easier in finding them in Windows Explorer*
+> You can find many articles as examples here: https://github.com/georgekosmidis/Blog/tree/main/working/articles. *Numbering is not mandatory (like the 100490 in ```100490-secrets-management-for-asp-net-core-and-azure-devops```), but it makes my life easier in finding them in Windows Explorer*
 
 ## Adding a "standalone" page
-In case you want to add a static page like ```privacy.html``` it's fairly simple and very similar with the articles. Just visit the [standalones](https://github.com/georgekosmidis/Blog/tree/main/raw/standalones) folder, add a new folder and in there add the ```content.html```, the ```content.json``` and optionally the ```media``` folder.  The [standalones](https://github.com/georgekosmidis/Blog/tree/main/raw/standalones) folder already contains an example!
+In case you want to add a static page like ```privacy.html``` it's fairly simple and very similar with the articles. Just visit the [standalones](https://github.com/georgekosmidis/Blog/tree/main/working/standalones) folder, add a new folder and in there add the ```content.html```, the ```content.json``` and optionally the ```media``` folder.  The [standalones](https://github.com/georgekosmidis/Blog/tree/main/working/standalones) folder already contains an example!
 
 ## The "Just Copy Me" folder
-This a special folder that its contents will be copied directly to the output folder. Usefull for configs, additional media, etc. Check mine for an example: [justcopyme](https://github.com/georgekosmidis/Blog/tree/main/raw/justcopyme)
+This a special folder that its contents will be copied directly to the output folder. Usefull for configs, additional media, etc. Check mine for an example: [justcopyme](https://github.com/georgekosmidis/Blog/tree/main/working/justcopyme)
 
 ## Additional Cards
 The builder will automatically create a card for the UI for each article added, but it is a common need to add more than article cards.
 
-To add a new card, create a new folder in the [cards](https://github.com/georgekosmidis/Blog/tree/main/raw/cards) folder with whatever name you wish and add in there a ```card.json``` with the following information:
+To add a new card, create a new folder in the [cards](https://github.com/georgekosmidis/Blog/tree/main/working/cards) folder with whatever name you wish and add in there a ```card.json``` with the following information:
 
 | Property | Description |
 | ----------- | ----------- |
@@ -119,7 +119,7 @@ To add a new card, create a new folder in the [cards](https://github.com/georgek
 | IsSticky | The position 0 of the previous hypothetical image card applies only to the first page of index. The next paged indexes (e.g. ```index-page-2.html```) will not have it unless this ```IsSticky``` is set to ```true```. So a bit simpler, if you want the image card to be in the position 0 of every paged index this should be ```true```. If set to ```false``` the hypothetical image card will only appear in ```index.html```. |
 | RightColumnPosition | This card should also appear in the right column of the templates that support it. If you don't want to have this card anywhere else, add -1 here. |
 
-And here is an example, although you can find more in the [cards](https://github.com/georgekosmidis/Blog/tree/main/raw/cards) folder:
+And here is an example, although you can find more in the [cards](https://github.com/georgekosmidis/Blog/tree/main/working/cards) folder:
 ```json
 {
   "TemplateDataModel": "CardImageModel",
@@ -136,9 +136,9 @@ And here is an example, although you can find more in the [cards](https://github
 ```
 
 ### Calendar Event Card
-This is a special card that code-wise depends on external services (specifically meetup.com), and also on events described as json files. The folder for this card is at [cards/events](https://github.com/georgekosmidis/Blog/tree/main/raw/cards/events). A ```card.json``` describes the produced card the exact same way as in the additional cards above, but the additional events are described in folders within the [cards/events](https://github.com/georgekosmidis/Blog/tree/main/raw/cards/events) folder. 
+This is a special card that code-wise depends on external services (specifically meetup.com), and also on events described as json files. The folder for this card is at [cards/events](https://github.com/georgekosmidis/Blog/tree/main/working/cards/events). A ```card.json``` describes the produced card the exact same way as in the additional cards above, but the additional events are described in folders within the [cards/events](https://github.com/georgekosmidis/Blog/tree/main/working/cards/events) folder. 
 
-If you want to add an event, just add a folder in the [cards/events](https://github.com/georgekosmidis/Blog/tree/main/raw/cards/events) folder and in there add an ```event.json``` with the following information:
+If you want to add an event, just add a folder in the [cards/events](https://github.com/georgekosmidis/Blog/tree/main/working/cards/events) folder and in there add an ```event.json``` with the following information:
 
 | Property | Description |
 | ----------- | ----------- |
@@ -163,4 +163,5 @@ An example for an event.json file is the following:
 ```
 
 ## That's it!
-If you have any comments just reach out! You can find my social media handlers here: https://georgekosmidis.net
+The entire thing is output it by default to [_output](https://github.com/georgekosmidis/Blog/tree/main/_output) but you can change that from the ```appsettings.json```.
+If you have any comments just reach out! You can find my social media handlers here: https://georgekosmidis.net. 
