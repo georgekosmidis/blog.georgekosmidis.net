@@ -51,24 +51,9 @@ var serviceProvider = new ServiceCollection()
           )
           .BuildServiceProvider();
 
-
-//var httpService = serviceProvider.GetService<IHttpClientServiceFactory>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));
-//new MeetupEventCrawler(httpService)
-//        .GetAsync("Munich .NET Meetup", 
-//                new Uri("https://www.meetup.com/munich-dotnet-meetup/"), 
-//                new Uri("https://www.meetup.com/munich-dotnet-meetup/events/ical/"))
-//        .GetAwaiter()
-//        .GetResult();
-
 //todo: clean template models, it seems its way too complicated now
 //todo: bigger images on tap, is it possible?
 //todo: add commenting system
-//todo: fix style of some articles, example: http://blog/net-6-a-guide-for-the-high-impact-breaking-changes.html
 
 var websitePreparation = serviceProvider.GetService<IWebsiteProcessor>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));
 await websitePreparation.PrepareAsync();
-
-//Meetup events
-//    var httpClientService = HttpClientServiceFactory.Instance.CreateHttpClientService();
-//var iCalMeetup = await httpClientService.GetAsync("https://www.meetup.com/munich-dotnet-meetup/events/ical/");
-//var iCalSessionize = await httpClientService.GetAsync("https://sessionize.com/calendar/3a2660e0e9bd49cf853a35956e110a80");

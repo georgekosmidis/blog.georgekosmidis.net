@@ -119,11 +119,13 @@ internal class PageProcessor : IPageProcessor
         //copy all media associated with this page
         if (Directory.Exists(Path.Combine(directory, appSettings.MediaFolderName)))
         {
+            //copy original
             Helpers.Copy(
                     Path.Combine(directory, appSettings.MediaFolderName),
                     Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName)
             );
 
+            //create and copy a smaller version
             foreach (var file in Directory.GetFiles(Path.Combine(directory, appSettings.MediaFolderName)))
             {
                 var ext = Path.GetExtension(file);

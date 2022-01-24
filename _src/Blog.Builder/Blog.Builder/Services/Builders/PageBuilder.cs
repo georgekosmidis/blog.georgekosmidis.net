@@ -15,18 +15,14 @@ internal class PageBuilder : IPageBuilder
 {
     private readonly IRazorEngineWrapperService _templateEngine;
     private readonly ICardProcessor _cardPreparation;
-    private readonly AppSettings appSettings;
 
-    public PageBuilder(IRazorEngineWrapperService templateService, ICardProcessor cardPreparation, IOptions<AppSettings> options)
+    public PageBuilder(IRazorEngineWrapperService templateService, ICardProcessor cardPreparation)
     {
         ArgumentNullException.ThrowIfNull(templateService);
         ArgumentNullException.ThrowIfNull(cardPreparation);
-        ArgumentNullException.ThrowIfNull(options);
 
         _templateEngine = templateService;
         _cardPreparation = cardPreparation;
-        appSettings = options.Value;
-
     }
 
     /// <inheritdoc/>
@@ -86,7 +82,7 @@ internal class PageBuilder : IPageBuilder
         var mainBuilderResult = Build(pageData as LayoutModelBase);
 
         //At the end, add a card for this article
-        //todo: not here
+        //todo: should that be here?
         if (pageData.TemplateDataModel == nameof(LayoutArticleModel))
         {
             _cardPreparation.ProcessArticleCard(new CardArticleModel

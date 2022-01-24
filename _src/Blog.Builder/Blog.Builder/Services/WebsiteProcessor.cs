@@ -1,6 +1,5 @@
 ﻿using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
-using Blog.Builder.Interfaces.Crawlers;
 using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
 using Microsoft.Extensions.Options;
@@ -15,6 +14,8 @@ internal class WebsitePreparation : IWebsiteProcessor
     private readonly ISitemapBuilder _sitemapBuilder;
     private readonly AppSettings appSettings;
     private readonly LayoutIndexModel layoutIndexModel;
+    private bool additionalCardsPrepared = false;
+    private bool articlesPrepared = false;
 
     /// <summary>
     /// Besides DI, it creates and hold the basic information for the index pages. 
@@ -76,7 +77,7 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// Prepares all the standalone pages (like privacy.html).
     /// Standalones are scanned from <see cref="AppSettings.WorkingStandalonesFolderName"/>.
     /// </summary>
-    private void PrepareStandalones()
+    private void PrepareStandalonePages()
     {
 
         var standalonesDirectory = Directory.GetDirectories(
@@ -92,8 +93,12 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// Prepares all the article pages and the article cards for the index pages.
     /// Articles are scanned from <see cref="AppSettings.WorkingArticlesFolderName"/>.
     /// </summary>
-    private void PrepareArticles()
+    private void PrepareArticlePages()
     {
+        if (!additionalCardsPrepared)
+        {
+            throw new Exception($"Method {nameof(PrepareArticlePages)} must be called after method {nameof(PrepareAdditionalCardsAsync)}.");
+        }
         var articleDirectories = Directory.GetDirectories(
             Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingArticlesFolderName)
         );
@@ -101,6 +106,8 @@ internal class WebsitePreparation : IWebsiteProcessor
         {
             _pageProcessor.ProcessPage<LayoutArticleModel>(directory);
         }
+
+        articlesPrepared = true;
     }
 
     /// <summary>
@@ -116,14 +123,19 @@ internal class WebsitePreparation : IWebsiteProcessor
         {
             await _cardProcessor.ProcessCardAsync(directory);
         }
+        additionalCardsPrepared = true;
     }
 
     /// <summary>
     /// Prepares all the index pages (like index.html, index-page-2.html etc) 
     /// and copies it to <see cref="AppSettings.OutputFolderPath"/>.
     /// </summary>
-    private void PrepareIndex()
+    private void PrepareIndexPages()
     {
+        if (!additionalCardsPrepared || !articlesPrepared)
+        {
+            throw new Exception($"Method {nameof(PrepareIndexPages)} must be called after methods {nameof(PrepareAdditionalCardsAsync)} and {nameof(PrepareArticlePages)}.");
+        }
         var pageIndex = 0;
         var cardsNumber = _cardProcessor.GetCardsNumber(appSettings.CardsPerPage);
         layoutIndexModel.Paging.TotalCardsCount = cardsNumber;
@@ -150,10 +162,10 @@ internal class WebsitePreparation : IWebsiteProcessor
     public async Task PrepareAsync()
     {
         this.PrepareOutputFolders();
-        await this.PrepareAdditionalCardsAsync(); //todo: enforce PrepareAdditionalCards before PrepareArticles
-        this.PrepareStandalones();
-        this.PrepareArticles();
-        this.PrepareIndex();//todo: enforce PrepareIndex before PrepareArticles and PrepareAdditionalCards
+        await this.PrepareAdditionalCardsAsync(); 
+        this.PrepareStandalonePages();
+        this.PrepareArticlePages();
+        this.PrepareIndexPages();
         this.PrepareSitemap();
     }
 }
