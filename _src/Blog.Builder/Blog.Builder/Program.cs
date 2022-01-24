@@ -60,7 +60,7 @@ var serviceProvider = new ServiceCollection()
 //        .GetAwaiter()
 //        .GetResult();
 
-//todo: add a link to the startpage in article pages. where should I put it?
+//todo: clean template models, it seems its way too complicated now
 //todo: bigger images on tap, is it possible?
 //todo: add commenting system
 //todo: fix style of some articles, example: http://blog/net-6-a-guide-for-the-high-impact-breaking-changes.html

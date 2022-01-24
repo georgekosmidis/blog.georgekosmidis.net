@@ -465,7 +465,7 @@ public string CurrentCity { get; set; } = "Munich, DE";</code></p>
 @using Blazor.WeatherWidget.Models;
 
 @inject IWeatherService service;
-    &lt;!-- That's our default tempate --&gt;
+    &lt;!-- That´s our default tempate --&gt;
 
 @{
     RenderFragment defaultTemplate =
@@ -548,7 +548,7 @@ else
 @using Blazor.WeatherWidget.Models;
 
 @inject IWeatherService service;
-    &lt;!-- That's our default tempate --&gt;
+&lt;!-- That´s our default tempate --&gt;
 
 @{
     RenderFragment defaultTemplate =
@@ -624,7 +624,7 @@ else
 &lt;!-- Using a custom template --&gt;
 &lt;WeatherWidget @bind-CurrentCity="@myCityBinding"&gt;
     &lt;CustomTemplate&gt;
-        That's the temperature  in @myCityBinding: &lt;strong&gt;@Math.Round(context.Main.Temperature, 1)&nbsp;°C&lt;/strong&gt;
+        That´s the temperature  in @myCityBinding: &lt;strong&gt;@Math.Round(context.Main.Temperature, 1)&nbsp;°C&lt;/strong&gt;
         &lt;br /&gt;
         &lt;input value="@myCity" @oninput="@((e) =&gt; { myCity = (string)e.Value; })"&gt;
         &lt;button class="btn btn-info" type="button" @onclick="OnSearchNewCity"&gt;Search for a new temperature!&lt;/button&gt;

@@ -88,8 +88,9 @@ public record class LayoutModelBase : ModelBase
 
     /// <summary>
     /// The date the information on this page expires.
+    /// Default is <see cref="DateTime.MaxValue"/>.
     /// </summary>
-    public DateTime DateExpires { get; } = default!;
+    public DateTime DateExpires { get; } = DateTime.MaxValue;
 
     /// <summary>
     /// The path to the main image of this page.
