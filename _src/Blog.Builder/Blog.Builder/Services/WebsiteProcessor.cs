@@ -58,30 +58,30 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// <summary>
     /// Prepares the output folder located at <see cref="AppSettings.OutputFolderPath"/> by deleting it first 
     /// and then creating all the necessary folders again.
-    /// It will also copy all the <see cref="AppSettings.WorkingJustCopyFolderName"/> directly to <see cref="AppSettings.OutputFolderPath"/>.
+    /// It will also copy all the <see cref="Consts.WorkingJustCopyFolderName"/> directly to <see cref="AppSettings.OutputFolderPath"/>.
     /// </summary>
     private void PrepareOutputFolders()
     {
         Directory.Delete(appSettings.OutputFolderPath, true);
         Directory.CreateDirectory(appSettings.OutputFolderPath);
         Directory.CreateDirectory(
-            Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName)
+            Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName)
         );
         Helpers.Copy(
-            Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingJustCopyFolderName), 
+            Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingJustCopyFolderName), 
             appSettings.OutputFolderPath
         );
     }
 
     /// <summary>
     /// Prepares all the standalone pages (like privacy.html).
-    /// Standalones are scanned from <see cref="AppSettings.WorkingStandalonesFolderName"/>.
+    /// Standalones are scanned from <see cref="Consts.WorkingStandalonesFolderName"/>.
     /// </summary>
     private void PrepareStandalonePages()
     {
 
         var standalonesDirectory = Directory.GetDirectories(
-            Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingStandalonesFolderName)
+            Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingStandalonesFolderName)
         );
         foreach (var directory in standalonesDirectory)
         {
@@ -91,7 +91,7 @@ internal class WebsitePreparation : IWebsiteProcessor
 
     /// <summary>
     /// Prepares all the article pages and the article cards for the index pages.
-    /// Articles are scanned from <see cref="AppSettings.WorkingArticlesFolderName"/>.
+    /// Articles are scanned from <see cref="Consts.WorkingArticlesFolderName"/>.
     /// </summary>
     private void PrepareArticlePages()
     {
@@ -100,7 +100,7 @@ internal class WebsitePreparation : IWebsiteProcessor
             throw new Exception($"Method {nameof(PrepareArticlePages)} must be called after method {nameof(PrepareAdditionalCardsAsync)}.");
         }
         var articleDirectories = Directory.GetDirectories(
-            Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingArticlesFolderName)
+            Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingArticlesFolderName)
         );
         foreach (var directory in articleDirectories)
         {
@@ -112,12 +112,12 @@ internal class WebsitePreparation : IWebsiteProcessor
 
     /// <summary>
     /// Prepares all the additional cards for the index pages.
-    /// Additional cards are scanned from <see cref="AppSettings.WorkingCardsFolderName"/>.
+    /// Additional cards are scanned from <see cref="Consts.WorkingCardsFolderName"/>.
     /// </summary>
     private async Task PrepareAdditionalCardsAsync()
     {
         var cardsDirectory = Directory.GetDirectories(
-            Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingCardsFolderName)
+            Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingCardsFolderName)
         );
         foreach (var directory in cardsDirectory)
         {

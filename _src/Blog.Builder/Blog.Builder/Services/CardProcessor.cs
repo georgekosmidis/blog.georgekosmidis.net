@@ -85,8 +85,8 @@ internal class CardProcessor : ICardProcessor
         if (Directory.Exists(Path.Combine(directory, "media")))
         {
             Helpers.Copy(
-                    Path.Combine(directory, appSettings.MediaFolderName),
-                    Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName)
+                    Path.Combine(directory, Consts.MediaFolderName),
+                    Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName)
             );
 
             //create smaller versions of the media
@@ -95,7 +95,7 @@ internal class CardProcessor : ICardProcessor
                 var ext = Path.GetExtension(file);
                 var name = Path.GetFileNameWithoutExtension(file);
                 Helpers.ResizeImage(file,
-                    Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName, name + "-small" + ext),
+                    Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName, name + "-small" + ext),
                     new Size(300, 10000)
                 );//stop at 300 width, who cares about height 
             }
@@ -115,7 +115,7 @@ internal class CardProcessor : ICardProcessor
 
         calendarEvents.AddRange(
             _fileEventCrawler.Get( 
-                Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingEventsFolderName)
+                Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingEventsFolderName)
             )
         );
 

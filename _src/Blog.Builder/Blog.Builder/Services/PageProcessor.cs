@@ -117,22 +117,22 @@ internal class PageProcessor : IPageProcessor
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //copy all media associated with this page
-        if (Directory.Exists(Path.Combine(directory, appSettings.MediaFolderName)))
+        if (Directory.Exists(Path.Combine(directory, Consts.MediaFolderName)))
         {
             //copy original
             Helpers.Copy(
-                    Path.Combine(directory, appSettings.MediaFolderName),
-                    Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName)
+                    Path.Combine(directory, Consts.MediaFolderName),
+                    Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName)
             );
 
             //create and copy a smaller version
-            foreach (var file in Directory.GetFiles(Path.Combine(directory, appSettings.MediaFolderName)))
+            foreach (var file in Directory.GetFiles(Path.Combine(directory, Consts.MediaFolderName)))
             {
                 var ext = Path.GetExtension(file);
                 var name = Path.GetFileNameWithoutExtension(file);
 
                 Helpers.ResizeImage(file, 
-                    Path.Combine(appSettings.OutputFolderPath, appSettings.MediaFolderName, name + "-small" + ext), 
+                    Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName, name + "-small" + ext), 
                     new Size(500, 10000)
                 );//stop at 500 width, who cares about height
             }

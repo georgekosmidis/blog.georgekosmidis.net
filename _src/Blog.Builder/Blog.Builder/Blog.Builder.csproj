@@ -40,12 +40,4 @@
     <Folder Include="_output\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="appsettings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>appsettings.json</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
 </Project>

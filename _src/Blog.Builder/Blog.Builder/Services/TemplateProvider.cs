@@ -24,19 +24,19 @@ internal class TemplateProvider : ITemplateProvider
         ArgumentNullException.ThrowIfNull(options);
         
         var appSettings = options.Value;
-        var workingTemplatesFolder = Path.Combine(appSettings.WorkingFolderPath, appSettings.WorkingTemplatesFolderName);
+        var workingTemplatesFolder = Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingTemplatesFolderName);
 
         Templates = new Dictionary<string, string>()
         {
-            { nameof(LayoutIndexModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateIndexFilename) },
-            { nameof(LayoutModelBase), Path.Combine(workingTemplatesFolder, appSettings.TemplateMainFilename) },
-            { nameof(LayoutArticleModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateArticleFilename) },
-            { nameof(LayoutStandaloneModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateStandaloneFilename) },
-            { nameof(LayoutSitemapModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateSitemapFilename) },
-            { nameof(CardArticleModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateCardArticleFilename) },
-            { nameof(CardImageModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateCardImageFilename) },
-            { nameof(CardSearchModel),Path.Combine(workingTemplatesFolder, appSettings.TemplateCardSearchFilename) },
-            { nameof(CardCalendarEventsModel), Path.Combine(workingTemplatesFolder, appSettings.TemplateCardCalendarEventsFilename) },
+            { nameof(LayoutIndexModel), Path.Combine(workingTemplatesFolder, Consts.TemplateIndexFilename) },
+            { nameof(LayoutModelBase), Path.Combine(workingTemplatesFolder, Consts.TemplateMainFilename) },
+            { nameof(LayoutArticleModel), Path.Combine(workingTemplatesFolder, Consts.TemplateArticleFilename) },
+            { nameof(LayoutStandaloneModel), Path.Combine(workingTemplatesFolder, Consts.TemplateStandaloneFilename) },
+            { nameof(LayoutSitemapModel), Path.Combine(workingTemplatesFolder, Consts.TemplateSitemapFilename) },
+            { nameof(CardArticleModel), Path.Combine(workingTemplatesFolder, Consts.TemplateCardArticleFilename) },
+            { nameof(CardImageModel), Path.Combine(workingTemplatesFolder, Consts.TemplateCardImageFilename) },
+            { nameof(CardSearchModel),Path.Combine(workingTemplatesFolder, Consts.TemplateCardSearchFilename) },
+            { nameof(CardCalendarEventsModel), Path.Combine(workingTemplatesFolder, Consts.TemplateCardCalendarEventsFilename) },
         };
 
         foreach (var (model, path) in Templates)
