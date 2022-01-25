@@ -21,7 +21,7 @@ internal class FileEventCrawler : IFileEventCrawler
         //Read the card.json and valdiate the data found
         foreach (var dir in Directory.GetDirectories(directory))
         {
-            var eventFile = Path.Combine(dir, "event.json");
+            var eventFile = Path.Combine(dir, Consts.EventJsonFilename);
             if (!File.Exists(eventFile))
             {
                 continue;

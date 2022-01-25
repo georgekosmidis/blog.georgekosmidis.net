@@ -68,7 +68,7 @@ internal class WebsitePreparation : IWebsiteProcessor
             Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName)
         );
         Helpers.Copy(
-            Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingJustCopyFolderName), 
+            Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingJustCopyFolderName),
             appSettings.OutputFolderPath
         );
     }
@@ -162,7 +162,7 @@ internal class WebsitePreparation : IWebsiteProcessor
     public async Task PrepareAsync()
     {
         this.PrepareOutputFolders();
-        await this.PrepareAdditionalCardsAsync(); 
+        await this.PrepareAdditionalCardsAsync();
         this.PrepareStandalonePages();
         this.PrepareArticlePages();
         this.PrepareIndexPages();

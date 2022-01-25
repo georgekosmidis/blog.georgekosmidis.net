@@ -129,14 +129,7 @@ public record class LayoutArticleModel : LayoutModelBase
             }
         }
 
-        if (result.Length == 0)
-        {
-            return "a few seconds ago";
-        }
-        else
-        {
-            return result.Append(" ago").ToString();
-        }
+        return result.Length == 0 ? "a few seconds ago" : result.Append(" ago").ToString();
     }
 
     /// <summary>

@@ -2,16 +2,13 @@
 using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.RazorEngineServices;
-using Blog.Builder.Models;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace Blog.Builder.Services.Builders;
 
 /// <inheritdoc/>
-internal class PageBuilder : IPageBuilder
+internal class PageBuilder : IPageBuilder, IDisposable
 {
     private readonly IRazorEngineWrapperService _templateEngine;
     private readonly ICardProcessor _cardPreparation;
@@ -102,4 +99,8 @@ internal class PageBuilder : IPageBuilder
         return mainBuilderResult;
     }
 
+    public void Dispose()
+    {
+        _templateEngine.Dispose();
+    }
 }

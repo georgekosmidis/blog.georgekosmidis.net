@@ -40,7 +40,7 @@ internal class PageProcessor : IPageProcessor
     }
 
     //todo: introduce caching
-    private T GetPageModelData<T>(string jsonPath) where T : LayoutModelBase
+    private static T GetPageModelData<T>(string jsonPath) where T : LayoutModelBase
     {
         ExceptionHelpers.ThrowIfPathNotExists(jsonPath);
 
@@ -58,7 +58,7 @@ internal class PageProcessor : IPageProcessor
         //read json and html from the folder
         var jsonFileContent = Path.Combine(directory, "content.json");
 
-        var pageData = this.GetPageModelData<T>(jsonFileContent);
+        var pageData = GetPageModelData<T>(jsonFileContent);
         ExceptionHelpers.ThrowIfNull(pageData);
 
         var pageHtml = File.ReadAllText(Path.Combine(directory, "content.html"));
@@ -105,7 +105,7 @@ internal class PageProcessor : IPageProcessor
 
         //minify and save page
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
-        if (minifier.Errors.Count() > 0)
+        if (minifier.Errors.Count > 0)
         {
             //todo: add all errors
             throw new Exception($"Minification failed with at least one error: " +
@@ -131,8 +131,8 @@ internal class PageProcessor : IPageProcessor
                 var ext = Path.GetExtension(file);
                 var name = Path.GetFileNameWithoutExtension(file);
 
-                Helpers.ResizeImage(file, 
-                    Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName, name + "-small" + ext), 
+                Helpers.ResizeImage(file,
+                    Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName, name + "-small" + ext),
                     new Size(500, 10000)
                 );//stop at 500 width, who cares about height
             }
@@ -154,7 +154,7 @@ internal class PageProcessor : IPageProcessor
         var builderResult = this.GetBuilderResult(pageData, cards);
 
         var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
-        if (minifier.Errors.Count() > 0)
+        if (minifier.Errors.Count > 0)
         {
             throw new Exception($"Minification failed with at least one error:" +
                 $"{Environment.NewLine}{minifier.Errors.First().Message}" +

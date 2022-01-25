@@ -40,7 +40,7 @@ internal class CardProcessor : ICardProcessor
     /// </summary>
     /// <param name="jsonPath">The path to a valid JSON.</param>
     /// <returns>A <see cref="CardModelBase"/> with the data from the JSON file.</returns>
-    private CardModelBase GetCardModelData(string jsonPath)
+    private static CardModelBase GetCardModelData(string jsonPath)
     {
         ExceptionHelpers.ThrowIfPathNotExists(jsonPath);
 
@@ -58,8 +58,8 @@ internal class CardProcessor : ICardProcessor
     {
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
-        var jsonFileContent = Path.Combine(directory, "card.json");
-        var cardDataBase = this.GetCardModelData(jsonFileContent);
+        var jsonFileContent = Path.Combine(directory, Consts.CardJsonFilename);
+        var cardDataBase = GetCardModelData(jsonFileContent);
 
         //Find the correct model for this card.
         switch (cardDataBase.TemplateDataModel)
@@ -90,7 +90,7 @@ internal class CardProcessor : ICardProcessor
             );
 
             //create smaller versions of the media
-            foreach (var file in Directory.GetFiles(Path.Combine(directory, "media")))
+            foreach (var file in Directory.GetFiles(Path.Combine(directory, Consts.MediaFolderName)))
             {
                 var ext = Path.GetExtension(file);
                 var name = Path.GetFileNameWithoutExtension(file);
@@ -103,7 +103,7 @@ internal class CardProcessor : ICardProcessor
     }
 
     /// <summary>
-    /// Retrieves all calendar events from meetup.com but also from a file repo located at <see cref="AppSettings.WorkingEventsFolderName"/>.
+    /// Retrieves all calendar events from meetup.com but also from a file repo located at <see cref="Consts.WorkingEventsFolderName"/>.
     /// </summary>
     /// <returns>A list of <see cref="CalendarEvent"/>.</returns>
     private async Task<IList<CalendarEvent>> GetCalendarEvents()
@@ -114,7 +114,7 @@ internal class CardProcessor : ICardProcessor
         ).ToList();
 
         calendarEvents.AddRange(
-            _fileEventCrawler.Get( 
+            _fileEventCrawler.Get(
                 Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingEventsFolderName)
             )
         );

@@ -1,4 +1,4 @@
-# A static website builder (a blog) written in .NET 6 with nullables enabled.
+# A static dev blog builder, written in .NET 6 with nullables enabled
 It started as my **nullables enabled playground** with .NET 6, but it evolved as my **static blog builder**! So yes, this repo is used to automatically build my very own blog, that you can fing at https://blog.georgekosmidis.net :)
 
 Unfortunatelly right now it's not too generic and although this is something I want for a future version, for now I guess you can only fork it and create your own blog. 
@@ -27,7 +27,6 @@ Although templating should be the last thing to check because the default ones w
 Besides these mandatory changes, you can use the rest of the templates as is or change them to meet your requirements:
 
 ### Current template dependencies
-
 1. Bootstrap v5.1.3 - https://getbootstrap.com/
 2. Masonry v4.2.2 - https://masonry.desandro.com/
 3. highlightjs v11.4.0 - https://highlightjs.org/
@@ -37,7 +36,7 @@ Besides these mandatory changes, you can use the rest of the templates as is or 
 - [template-layout.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-layout.cshtml), is the main layout template. All other templates are build and then used as a body for this template.
 - [template-index.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-index.cshtml), this is the body of the index templates. Not much going on here because of the masonry card system that leaves no space for other stuff. The cards are a combination of the article cards and other cards as described later on.
 - [template-article.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-article.cshtml), this is the body of an article page. In the right hand column there is a list of cards that have been selected as ```RightColumnPosition``` from their ```card.json```. Check [Additional Cards](#Additional_Cards) in this guide for more information.
-- [template-standalone.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-standalone.cshtml), this is the template of a standalone page, e.g. the privacy.html
+- [template-standalone.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-standalone.cshtml), this is the template of a standalone page, e.g. the privacy.html.
 - [template-sitemap.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-sitemap.cshtml), this is the template that builds the ```sitemap.xml```. 
 
 ### Card templates
@@ -47,7 +46,7 @@ Besides these mandatory changes, you can use the rest of the templates as is or 
 - [template-card-search.cshtml](https://github.com/georgekosmidis/Blog/blob/main/working/templates/template-card-search.cshtml), this is a search engine for the site. Since it is a static website, this is using google. If you want to use this you should register with google and change the ```cx``` parameter.
 
 ## Index Page
-The template that comes with this solution presents the articles as [Bootstrap Cards](https://getbootstrap.com/docs/5.1/components/card/) which are laid out using [Masonry](https://masonry.desandro.com/); you can find a guide for both of them in the [Bootstrap and Masonry](https://getbootstrap.com/docs/5.0/examples/masonry/) bootstrap page. Besides the articles card, additional cards can be added by following the guide that follows later in this page: [Additional Cards](#Additional_Cards)
+The template that comes with this solution presents the articles as [Bootstrap Cards](https://getbootstrap.com/docs/5.1/components/card/) which are laid out using [Masonry](https://masonry.desandro.com/); you can find a guide for both of them in the [Bootstrap and Masonry](https://getbootstrap.com/docs/5.0/examples/masonry/) bootstrap page. Besides the articles card, additional cards can be added by following the guide that follows later in this page: [Additional Cards](#Additional_Cards).
 
 Not all of the cards are displayed in the index page. The index page is paged into several depending on the property ```CardsPerPage``` that can be found in the [appsettings.json](https://github.com/georgekosmidis/Blog/blob/main/_src/Blog.Builder/Blog.Builder/appsettings.json). Extra attention have to be paid for the *sticky* cards, cards that appear in every paged index page. Check the properties of the ```card.json``` from the [Additional Cards](#Additional_Cards) section. 
 
@@ -61,13 +60,13 @@ Once done you should then create a ```content.json``` file for the article metad
 
 | Property | Description |
 | ----------- | ----------- |
-| RelativeUrl | This is the relative url that will be created for this article, e.g. /csharp10.html |
-| Title | This is the title of the article. It will also be the title  of the page (```<title></title>```), the ```og.title``` meta tag and the tile of the card in the index page (check https://getbootstrap.com/docs/4.0/components/card/#titles-text-and-links)  |
-| Description | This is the description of the article. It will also be the meta description (```<meta name="description" content="" />```), the ```og:description```, and the card in the index page. HTML is stripped for the meta tags. Check https://getbootstrap.com/docs/4.0/components/card/#titles-text-and-links  |,
-| DatePublished | This is the published date of the article, in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) format |
-| DateModified | This is the modified date of the article in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) format |
-| RelativeImageUrl | This is the relative URL of the feature image, in the ```media``` folder, e.g. /media/unique-name-feature-image.png |
-| Tags | This is an arry of tags describing this article. They will be used in the ```og:article:tag```  meta tag |
+| RelativeUrl | This is the relative url that will be created for this article, e.g. /csharp10.html. |
+| Title | This is the title of the article. It will also be the title  of the page (```<title></title>```), the ```og.title``` meta tag and the tile of the card in the index page (check https://getbootstrap.com/docs/4.0/components/card/#titles-text-and-links).  |
+| Description | This is the description of the article. It will also be the meta description (```<meta name="description" content="" />```), the ```og:description```, and the card in the index page. HTML is stripped for the meta tags. Check https://getbootstrap.com/docs/4.0/components/card/#titles-text-and-links. |,
+| DatePublished | This is the published date of the article, in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
+| DateModified | This is the modified date of the article in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
+| RelativeImageUrl | This is the relative URL of the feature image, in the ```media``` folder, e.g. /media/unique-name-feature-image.png. |
+| Tags | This is an arry of tags describing this article. They will be used in the ```og:article:tag```  meta tag. |
 
 Although you can find many examples in the [articles](https://github.com/georgekosmidis/Blog/tree/main/working/articles) folder, here is one: 
 
@@ -93,13 +92,13 @@ And at the end, if your new article contains media, create a folder named ```med
 
 > It's a nice idea all paths to be relative!
 
-> You can find many articles as examples here: https://github.com/georgekosmidis/Blog/tree/main/working/articles. *Numbering is not mandatory (like the 100490 in ```100490-secrets-management-for-asp-net-core-and-azure-devops```), but it makes my life easier in finding them in Windows Explorer*
+> You can find many articles as examples here: https://github.com/georgekosmidis/Blog/tree/main/working/articles. *Numbering is not mandatory (like the 100490 in ```100490-secrets-management-for-asp-net-core-and-azure-devops```), but it makes my life easier in finding them in Windows Explorer*.
 
 ## Adding a "standalone" page
 In case you want to add a static page like ```privacy.html``` it's fairly simple and very similar with the articles. Just visit the [standalones](https://github.com/georgekosmidis/Blog/tree/main/working/standalones) folder, add a new folder and in there add the ```content.html```, the ```content.json``` and optionally the ```media``` folder.  The [standalones](https://github.com/georgekosmidis/Blog/tree/main/working/standalones) folder already contains an example!
 
 ## The "Just Copy Me" folder
-This a special folder that its contents will be copied directly to the output folder. Usefull for configs, additional media, etc. Check mine for an example: [justcopyme](https://github.com/georgekosmidis/Blog/tree/main/working/justcopyme)
+This a special folder that its contents will be copied directly to the output folder. Usefull for configs, additional media, etc. Check mine for an example: [justcopyme](https://github.com/georgekosmidis/Blog/tree/main/working/justcopyme).
 
 ## Additional Cards
 The builder will automatically create a card for the UI for each article added, but it is a common need to add more than article cards.
@@ -161,6 +160,22 @@ An example for an event.json file is the following:
     "Url" : "https://google.com"
 }
 ```
+
+## Commenting System
+User commenting and interaction is super important but unfortunatelly I haven't found something I like yet. Since this is a static build, the only solution would be an online commenting system but it seems there is nothing good enough! In case you have a favorite one, feel free to change the templates and add it. 
+
+Just as a sample, follows a list of online commenting systems that you can choose from (the order is random):
+
+| Commenting System | Description |
+| ----------- | ----------- |
+| [Disqus](https://disqus.com/) | It's popular but not lightweight at all. | 
+| [Hyvor Talk](https://talk.hyvor.com/) | Same as Disqus, packed with features but it's just too much. | 
+| [Commento](https://commento.io/) | This one focuses a lot on privacy but it's kind of expensive. Nevertheles, a good candidate. | 
+| [Staticman](https://averagelinuxuser.com/staticman-comments/) | Staticman is interesting as it is using Github for comments and builds a static HTML for comments, but it requires write access to my repo, which is not something I am willing to give. Good approach though, that sparks ideas. | 
+| [ReplyBox](https://getreplybox.com/) | Again privacy oritented, simple commenting system but I couldn't find a way to backup my comments and the developer never answers! | 
+| [GitTalk](https://gitalk.github.io/) | Gitalk is a modern comment component based on GitHub Issue and Preact. It's very interesting but unfortunatelly you have to have your Github API secret in public view, which is not cool at all. | 
+| [Twitter](https://developer.twitter.com/en) | Having twitter for a commenting system is an interesting idea, but this is a dev oriented blog and twitter offers just a few characters per comment. Anyway, interesting idea, you just need a [developer account](https://developer.twitter.com/en). |
+
 
 ## That's it!
 The entire thing is output it by default to [_output](https://github.com/georgekosmidis/Blog/tree/main/_output) but you can change that from the ```appsettings.json```.

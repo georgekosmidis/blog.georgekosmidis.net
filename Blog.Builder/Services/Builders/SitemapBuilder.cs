@@ -1,5 +1,4 @@
 ﻿using Blog.Builder.Exceptions;
-using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.RazorEngineServices;
 using Blog.Builder.Models;
@@ -10,14 +9,14 @@ using WebMarkupMin.Core;
 namespace Blog.Builder.Services.Builders;
 
 /// <inheritdoc/>
-internal class SitemapBuilder : ISitemapBuilder
+internal class SitemapBuilder : ISitemapBuilder, IDisposable
 {
     private readonly IRazorEngineWrapperService _templateEngine;
-    private static readonly LayoutSitemapModel sitemapModel = new LayoutSitemapModel();
+    private static readonly LayoutSitemapModel sitemapModel = new();
     private readonly IMarkupMinifier _markupMinifier;
     private readonly AppSettings appSettings;
 
-    private readonly object __lockObj = new object();
+    private readonly object __lockObj = new();
 
     public SitemapBuilder(
             IRazorEngineWrapperService templateService,
@@ -42,7 +41,7 @@ internal class SitemapBuilder : ISitemapBuilder
         var sitemapPageHtml = _templateEngine.RunCompile(sitemapModel);
 
         var result = _markupMinifier.Minify(sitemapPageHtml);
-        if (result.Errors.Count() > 0)
+        if (result.Errors.Count > 0)
         {
             throw new Exception($"Minification failed with at least one error:" +
                 $"{Environment.NewLine}{result.Errors.First().Message}" +
@@ -50,7 +49,7 @@ internal class SitemapBuilder : ISitemapBuilder
         }
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(result.MinifiedContent);
 
-        var sitemap = Path.Combine(appSettings.OutputFolderPath, "sitemap.xml");
+        var sitemap = Path.Combine(appSettings.OutputFolderPath, Consts.GoogleSitemap);
         File.WriteAllText(sitemap, result.MinifiedContent);
     }
 
@@ -64,5 +63,11 @@ internal class SitemapBuilder : ISitemapBuilder
         {
             sitemapModel.Add(relativeUrl, dateModified);
         }
+    }
+
+
+    public void Dispose()
+    {
+        _templateEngine.Dispose();
     }
 }

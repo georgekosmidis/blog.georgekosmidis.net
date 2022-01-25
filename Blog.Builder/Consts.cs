@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Blog.Builder;
+﻿namespace Blog.Builder;
 
 /// <summary>
 /// Constants used through out the system.
@@ -45,7 +39,7 @@ public static class Consts
     /// The name of the folder that holds information about the events, along with its card.json.
     /// It's a static and not constant because <see cref="Path.DirectorySeparatorChar"/> is a static and not const!
     /// </summary>
-    public static string WorkingEventsFolderName = $"{WorkingCardsFolderName}{Path.DirectorySeparatorChar}events";
+    public static readonly string WorkingEventsFolderName = $"{WorkingCardsFolderName}{Path.DirectorySeparatorChar}events";
 
     /// <summary>
     /// The filename of the main template, the layout.
@@ -92,4 +86,23 @@ public static class Consts
     /// </summary>
     public const string TemplateCardCalendarEventsFilename = "template-card-calendar-events.cshtml";
 
+    /// <summary>
+    /// The filename of the json file that describes an event.
+    /// </summary>
+    public const string EventJsonFilename = "event.json";
+
+    /// <summary>
+    /// THe filename of the json file that describes a card.
+    /// </summary>
+    public const string CardJsonFilename = "card.json";
+
+    /// <summary>
+    /// The filename of the json file that describes a content (article or standalone).
+    /// </summary>
+    public const string ContentJsonFilename = "content.json";
+
+    /// <summary>
+    /// The filename of the google sitemap.
+    /// </summary>
+    public const string GoogleSitemap = "sitemap.xml";
 }

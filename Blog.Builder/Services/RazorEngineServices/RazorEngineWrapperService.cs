@@ -1,5 +1,4 @@
 ﻿using Blog.Builder.Exceptions;
-using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.RazorEngineServices;
 using Blog.Builder.Models.Templates;
 using RazorEngine.Configuration;
@@ -13,19 +12,14 @@ namespace Blog.Builder.Services.RazorEngineServices;
 internal class RazorEngineWrapperService : IRazorEngineWrapperService, IDisposable
 {
     private readonly IRazorEngineService razorEngineService;
-    private readonly ITemplateProvider _templateProvider;
 
     /// <summary>
     /// Creates an instance of a <see cref="RazorEngineService"/> and keeps in a private field.
     /// </summary>
     /// <param name="templateManager">The <see cref="ITemplateManager"/> that will be used with this instance of <see cref="RazorEngineService"/></param>
-    /// <param name="templateProvider">The template provider that hosts paths and html of all templates. See <see cref="TemplateProvider"/>.</param>
-    public RazorEngineWrapperService(ITemplateManager templateManager, ITemplateProvider templateProvider)
+    public RazorEngineWrapperService(ITemplateManager templateManager)
     {
         ArgumentNullException.ThrowIfNull(templateManager);
-        ArgumentNullException.ThrowIfNull(templateProvider);
-
-        _templateProvider = templateProvider;
 
         var config = new TemplateServiceConfiguration();
         config.EncodedStringFactory = new RawStringFactory();

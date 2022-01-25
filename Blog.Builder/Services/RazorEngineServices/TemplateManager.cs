@@ -11,7 +11,7 @@ namespace Blog.Builder.Services.RazorEngineServices;
 internal class TemplateManager : ITemplateManager
 {
     private readonly ITemplateProvider _templateProvider;
-    private readonly ConcurrentDictionary<ITemplateKey, ITemplateSource> _dynamicTemplates = new ConcurrentDictionary<ITemplateKey, ITemplateSource>();
+    private readonly ConcurrentDictionary<ITemplateKey, ITemplateSource> _dynamicTemplates = new();
     /// <summary>
     /// Custom Template Manager for the <see cref="RazorEngine"/>.
     /// </summary>

@@ -9,13 +9,13 @@ namespace Blog.Builder.Services.Builders;
 
 //todo: honour single responsibility
 /// <inheritdoc/>
-internal class CardBuilder : ICardBuilder
+internal class CardBuilder : ICardBuilder, IDisposable
 {
     private readonly IRazorEngineWrapperService _templateEngine;
-    private static readonly List<ArticleCardBuilderResult> ArticleCards = new List<ArticleCardBuilderResult>();
-    private static readonly List<OtherCardBuilderResult> OtherCards = new List<OtherCardBuilderResult>();
+    private static readonly List<ArticleCardBuilderResult> ArticleCards = new();
+    private static readonly List<OtherCardBuilderResult> OtherCards = new();
 
-    private readonly object __lockObj = new object();
+    private readonly object __lockObj = new();
 
     public CardBuilder(IRazorEngineWrapperService templateEngine)
     {
@@ -97,7 +97,7 @@ internal class CardBuilder : ICardBuilder
         //add the none-sticky cards to their correct position
         foreach (var card in OtherCards.Where(x => !x.IsSticky).OrderBy(x => x.Position))
         {
-            if (card.Position > cards.Count())
+            if (card.Position > cards.Count)
             {
                 cards.Add(card.CardHtml);
             }
@@ -126,7 +126,7 @@ internal class CardBuilder : ICardBuilder
         //Add the sticky card to their correct position
         foreach (var card in OtherCards.Where(x => x.IsSticky).OrderBy(x => x.Position))
         {
-            if (card.Position > cards.Count())
+            if (card.Position > cards.Count)
             {
                 cards.Add(card.CardHtml);
             }
@@ -168,5 +168,10 @@ internal class CardBuilder : ICardBuilder
         }
 
         return totalCount;
+    }
+
+    public void Dispose()
+    {
+        _templateEngine.Dispose();
     }
 }
