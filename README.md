@@ -3,7 +3,7 @@ It started as my **nullables enabled playground** with .NET 6, but it evolved as
 
 Unfortunatelly right now it's not too generic and although this is something I want for a future version, for now I guess you can only fork it and create your own blog. 
 
-Follows a rough description but if you decide to use it, reach out for any help: https://georgekosmidis.net.
+Follows, a rough description but if you decide to use it, reach out for any help: https://georgekosmidis.net.
 
 > The solution follows fail-fast and throws an ```Exception``` when something is not as it should. This is by design because I wouldn't want to go forward and automatically publish my blog unless the process completed smoothly and with no errors at all. If you find that an error is forgiven, please [let me know](https://georgekosmidis.net) and I will immediately throw an exception :) 
 
