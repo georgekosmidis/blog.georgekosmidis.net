@@ -1,4 +1,4 @@
-# A static dev blog builder, written in .NET 6 with nullables enabled
+# A static developer's blog builder, written in .NET 6 as my learning playground for nullables enabled
 It started as my **nullables enabled playground** with .NET 6, but it evolved as my **static blog builder**! So yes, this repo is used to automatically build my very own blog, that you can fing at https://blog.georgekosmidis.net :)
 
 Unfortunatelly right now it's not too generic and although this is something I want for a future version, for now I guess you can only fork it and create your own blog. 
