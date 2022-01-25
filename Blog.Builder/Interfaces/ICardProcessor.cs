@@ -5,7 +5,7 @@ namespace Blog.Builder.Interfaces;
 /// <summary>
 /// The service that does the card processing
 /// </summary>
-internal interface ICardProcessor
+internal interface ICardProcessor : IDisposable
 {
     /// <summary>
     /// Processes the data of a card (not article card).

@@ -6,13 +6,8 @@ namespace Blog.Builder.Interfaces.RazorEngineServices;
 /// <summary>
 /// A wrapper for the <see cref="IRazorEngineService"/>.
 /// </summary>
-internal interface IRazorEngineWrapperService
+internal interface IRazorEngineWrapperService : IDisposable
 {
-    /// <summary>
-    /// Disposes the instance of the <see cref="IRazorEngineService"/>.
-    /// </summary>
-    void Dispose();
-
     /// <summary>
     /// Compiles and returns the html for the requested template
     /// </summary>

@@ -168,4 +168,11 @@ internal class WebsitePreparation : IWebsiteProcessor
         this.PrepareIndexPages();
         this.PrepareSitemap();
     }
+
+    public void Dispose()
+    {
+        _pageProcessor.Dispose();
+        _sitemapBuilder.Dispose();
+        _cardProcessor.Dispose();
+    }
 }

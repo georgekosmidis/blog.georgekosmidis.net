@@ -9,7 +9,7 @@ using WebMarkupMin.Core;
 namespace Blog.Builder.Services.Builders;
 
 /// <inheritdoc/>
-internal class SitemapBuilder : ISitemapBuilder, IDisposable
+internal class SitemapBuilder : ISitemapBuilder
 {
     private readonly IRazorEngineWrapperService _templateEngine;
     private static readonly LayoutSitemapModel sitemapModel = new();
@@ -64,7 +64,6 @@ internal class SitemapBuilder : ISitemapBuilder, IDisposable
             sitemapModel.Add(relativeUrl, dateModified);
         }
     }
-
 
     public void Dispose()
     {

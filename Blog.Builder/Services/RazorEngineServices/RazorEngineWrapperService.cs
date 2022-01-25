@@ -36,6 +36,16 @@ internal class RazorEngineWrapperService : IRazorEngineWrapperService, IDisposab
         razorEngineService.Dispose();
     }
 
+    /// <summary>
+    /// It is super important to release unmanaged resources from RazorEngine, 
+    ///  so we can't just wait from the devs not to forget the dispose.
+    /// The undeterministic way below, is better than nothing!
+    /// </summary>
+    ~RazorEngineWrapperService()
+    {
+        this.Dispose();
+    }
+
     /// <inheritdoc/>
     public string RunCompile<T>(T data) where T : ModelBase
     {

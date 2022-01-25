@@ -6,7 +6,7 @@ namespace Blog.Builder.Interfaces;
 /// Entry point for the website building. 
 /// Method <see cref="WebsitePreparation.PrepareAsync"/> should be the first thing to call.
 /// </summary>
-internal interface IWebsiteProcessor
+internal interface IWebsiteProcessor : IDisposable
 {
     /// <summary>
     /// Prepares everything needed for the website. 

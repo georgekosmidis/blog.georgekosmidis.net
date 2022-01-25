@@ -5,7 +5,7 @@ namespace Blog.Builder.Interfaces;
 /// <summary>
 /// The service that does page processing
 /// </summary>
-internal interface IPageProcessor
+internal interface IPageProcessor : IDisposable
 {
     /// <summary>
     /// It processes data for a page that exists in a directory, e.g. standalones or articles.

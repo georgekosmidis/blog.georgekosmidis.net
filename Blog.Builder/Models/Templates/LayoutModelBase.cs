@@ -10,6 +10,12 @@ namespace Blog.Builder.Models.Templates;
 public record class LayoutModelBase : ModelBase
 {
     /// <summary>
+    /// The github repo URL of this article.
+    /// </summary>
+    public string GithubUrl { get; set; } = default!;
+
+
+    /// <summary>
     /// The URL of the blog
     /// </summary>
     public string BlogUrl { get; set; } = default!;

@@ -1,4 +1,5 @@
-﻿using Blog.Builder.Interfaces;
+﻿using Blog.Builder;
+using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.Crawlers;
 using Blog.Builder.Interfaces.RazorEngineServices;
@@ -45,7 +46,7 @@ var serviceProvider = new ServiceCollection()
           .Configure<AppSettings>(
                 new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", optional: false)
+                    .AddJsonFile(Consts.AppSettingsFilename, optional: false)
                     .AddEnvironmentVariables()
                     .Build()
           )
@@ -57,3 +58,4 @@ var serviceProvider = new ServiceCollection()
 
 var websitePreparation = serviceProvider.GetService<IWebsiteProcessor>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));
 await websitePreparation.PrepareAsync();
+websitePreparation.Dispose();

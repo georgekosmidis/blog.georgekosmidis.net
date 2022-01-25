@@ -5,7 +5,7 @@ namespace Blog.Builder.Interfaces.Builders;
 /// <summary>
 /// The service that builds cards.
 /// </summary>
-internal interface ICardBuilder
+internal interface ICardBuilder : IDisposable
 {
     /// <summary>
     /// Adds an article card to the collection of cards

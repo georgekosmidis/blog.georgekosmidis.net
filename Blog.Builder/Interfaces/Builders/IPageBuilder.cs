@@ -6,7 +6,7 @@ namespace Blog.Builder.Interfaces.Builders;
 /// <summary>
 /// The service that builds the pages.
 /// </summary>
-internal interface IPageBuilder
+internal interface IPageBuilder : IDisposable
 {
 
     /// <summary>

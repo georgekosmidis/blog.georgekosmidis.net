@@ -45,5 +45,24 @@ internal record class AppSettings
     /// </summary>
     public string BlogImage { get; init; } = default!;
 
+    /// <summary>
+    /// The name of the meetup.com usergroup that its events will be crawled.
+    /// </summary>
+    public string MeetupUserGroupName { get; init; } = default!;
+
+    /// <summary>
+    /// The URL of the meetup.com usergroup.
+    /// </summary>
+    public string MeetupUserGroupUrl { get; init; } = default!;
+
+    /// <summary>
+    /// The URL of the ICal of the meetup.com usergroup.
+    /// </summary>
+    public string MeetupUserGroupIcalUrl { get; init; } = default!;
+
+    /// <summary>
+    /// The root URL of the project repo in GitHub.
+    /// </summary>
+    public string GithubProjectRoot { get; init; } = default!;
 }
 

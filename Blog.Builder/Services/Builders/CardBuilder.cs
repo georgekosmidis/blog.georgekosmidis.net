@@ -9,7 +9,7 @@ namespace Blog.Builder.Services.Builders;
 
 //todo: honour single responsibility
 /// <inheritdoc/>
-internal class CardBuilder : ICardBuilder, IDisposable
+internal class CardBuilder : ICardBuilder
 {
     private readonly IRazorEngineWrapperService _templateEngine;
     private static readonly List<ArticleCardBuilderResult> ArticleCards = new();

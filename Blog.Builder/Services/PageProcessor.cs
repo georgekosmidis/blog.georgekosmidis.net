@@ -56,16 +56,19 @@ internal class PageProcessor : IPageProcessor
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
         //read json and html from the folder
-        var jsonFileContent = Path.Combine(directory, "content.json");
+        var jsonFileContent = Path.Combine(directory, Consts.ContentJsonFilename);
 
         var pageData = GetPageModelData<T>(jsonFileContent);
         ExceptionHelpers.ThrowIfNull(pageData);
 
-        var pageHtml = File.ReadAllText(Path.Combine(directory, "content.html"));
+        var pageHtml = File.ReadAllText(Path.Combine(directory, Consts.ContentHtmlFilename));
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(pageHtml);
 
-        //get the right column cards, if any
-        var rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
+        //add the GitHub repo
+        pageData.GithubUrl = $"{appSettings.GithubProjectRoot}/Workables/content.html";
+
+         //get the right column cards, if any
+         var rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
 
         //get the inner layout build
         var internalHtml = _pageBuilder.BuildInternalLayout(pageData, pageHtml, rightColumnCards);
@@ -134,7 +137,7 @@ internal class PageProcessor : IPageProcessor
                 Helpers.ResizeImage(file,
                     Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName, name + "-small" + ext),
                     new Size(500, 10000)
-                );//stop at 500 width, who cares about height
+                );//stop at 500 width, who cares about height :)
             }
         }
 
@@ -169,5 +172,12 @@ internal class PageProcessor : IPageProcessor
 
         //add it to sitemap.xml
         _sitemapBuilder.Add(savingPath, builderResult.DateModified);
+    }
+
+    public void Dispose()
+    {
+        _sitemapBuilder.Dispose();
+        _pageBuilder.Dispose();
+        _cardProcessor.Dispose();
     }
 }

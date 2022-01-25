@@ -108,10 +108,19 @@ internal class CardProcessor : ICardProcessor
     /// <returns>A list of <see cref="CalendarEvent"/>.</returns>
     private async Task<IList<CalendarEvent>> GetCalendarEvents()
     {
-        var calendarEvents = (await _meetupEventCrawler.GetAsync("Munich .NET Meetup",
-                        new Uri("https://www.meetup.com/munich-dotnet-meetup/"),
-                        new Uri("https://www.meetup.com/munich-dotnet-meetup/events/ical/"))
-        ).ToList();
+        List<CalendarEvent> calendarEvents = new();
+
+        if( !string.IsNullOrWhiteSpace(appSettings.MeetupUserGroupName))
+        {
+            ExceptionHelpers.ThrowIfNullOrWhiteSpace(appSettings.MeetupUserGroupIcalUrl);
+            ExceptionHelpers.ThrowIfNullOrWhiteSpace(appSettings.MeetupUserGroupUrl);
+
+            calendarEvents.AddRange(
+                await _meetupEventCrawler.GetAsync(appSettings.MeetupUserGroupName,
+                                                    new Uri(appSettings.MeetupUserGroupUrl),
+                                                    new Uri(appSettings.MeetupUserGroupIcalUrl))
+            );
+        }
 
         calendarEvents.AddRange(
             _fileEventCrawler.Get(
@@ -147,4 +156,9 @@ internal class CardProcessor : ICardProcessor
         return _cardBuilder.GetCardsNumber(cardsPerPage);
     }
 
+    public void Dispose()
+    {
+        _cardBuilder.Dispose();
+
+    }
 }

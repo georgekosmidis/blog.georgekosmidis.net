@@ -8,7 +8,7 @@ using Blog.Builder.Models.Templates;
 namespace Blog.Builder.Services.Builders;
 
 /// <inheritdoc/>
-internal class PageBuilder : IPageBuilder, IDisposable
+internal class PageBuilder : IPageBuilder
 {
     private readonly IRazorEngineWrapperService _templateEngine;
     private readonly ICardProcessor _cardPreparation;

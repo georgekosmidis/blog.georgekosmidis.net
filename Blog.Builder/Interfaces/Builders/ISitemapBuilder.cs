@@ -3,7 +3,7 @@
 /// <summary>
 /// The service that builds the sitmap.xml
 /// </summary>
-internal interface ISitemapBuilder
+internal interface ISitemapBuilder : IDisposable
 {
     /// <summary>
     /// Adds a URL to the sitemap collection.

@@ -102,7 +102,17 @@ public static class Consts
     public const string ContentJsonFilename = "content.json";
 
     /// <summary>
+    /// The filename of the HTML for an article or a standalone
+    /// </summary>
+    public const string ContentHtmlFilename = "content.html";
+
+    /// <summary>
     /// The filename of the google sitemap.
     /// </summary>
     public const string GoogleSitemap = "sitemap.xml";
+
+    /// <summary>
+    /// The name of the appsettings file.
+    /// </summary>
+    public const string AppSettingsFilename = "appsettings.json";
 }
