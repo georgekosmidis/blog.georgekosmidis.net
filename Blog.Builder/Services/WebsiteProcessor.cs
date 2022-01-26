@@ -43,15 +43,8 @@ internal class WebsitePreparation : IWebsiteProcessor
             Description = appSettings.BlogDescription,
             Tags = appSettings.BlogTags,
             Title = appSettings.BlogTitle,
-            BlogUrl = appSettings.BlogUrl,
             RelativeUrl = "/",
-            RelativeImageUrl = appSettings.BlogImage,
-            Paging = new Paging
-            {
-                CardsPerPage = appSettings.CardsPerPage,
-                TotalCardsCount = 0,
-                CurrentPageIndex = 0
-            }
+            RelativeImageUrl = appSettings.BlogImage
         };
     }
 

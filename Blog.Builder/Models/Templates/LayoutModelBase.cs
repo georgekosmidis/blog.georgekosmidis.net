@@ -14,7 +14,6 @@ public record class LayoutModelBase : ModelBase
     /// </summary>
     public string GithubUrl { get; set; } = default!;
 
-
     /// <summary>
     /// The URL of the blog
     /// </summary>

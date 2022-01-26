@@ -40,13 +40,20 @@ internal class PageProcessor : IPageProcessor
     }
 
     //todo: introduce caching
-    private static T GetPageModelData<T>(string jsonPath) where T : LayoutModelBase
+    private T GetPageModelData<T>(string jsonPath) where T : LayoutModelBase
     {
         ExceptionHelpers.ThrowIfPathNotExists(jsonPath);
 
         var json = File.ReadAllText(jsonPath);
         var data = JsonConvert.DeserializeObject<T>(json);
         ExceptionHelpers.ThrowIfNull(data);
+
+        //enrich with standard properites
+        data.BlogUrl = appSettings.BlogUrl;
+        data.Paging = new Paging
+        {
+            CardsPerPage = appSettings.CardsPerPage
+        };
 
         return data;
     }
