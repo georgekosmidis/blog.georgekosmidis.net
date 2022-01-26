@@ -66,7 +66,7 @@ internal class PageProcessor : IPageProcessor
 
         //add the GitHub repo
         var articleFolderName = Path.GetFileName(directory.Trim(Path.DirectorySeparatorChar));
-        pageData.GithubUrl = $"{appSettings.GithubWorkablesFolderUrl}/{Consts.WorkingArticlesFolderName}/{articleFolderName}/{Consts.ContentHtmlFilename}".Replace("//", "/");
+        pageData.GithubUrl = $"{appSettings.GithubWorkablesFolderUrl}/{Consts.WorkingArticlesFolderName}/{articleFolderName}/{Consts.ContentHtmlFilename}";
 
         //get the right column cards, if any
         var rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
