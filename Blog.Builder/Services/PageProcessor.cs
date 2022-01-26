@@ -65,10 +65,11 @@ internal class PageProcessor : IPageProcessor
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(pageHtml);
 
         //add the GitHub repo
-        pageData.GithubUrl = $"{appSettings.GithubProjectRoot}/Workables/content.html";
+        var articleFolderName = Path.GetFileName(directory.Trim(Path.DirectorySeparatorChar));
+        pageData.GithubUrl = $"{appSettings.GithubWorkablesFolderUrl}/{Consts.WorkingArticlesFolderName}/{articleFolderName}/{Consts.ContentHtmlFilename}".Replace("//", "/");
 
-         //get the right column cards, if any
-         var rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
+        //get the right column cards, if any
+        var rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
 
         //get the inner layout build
         var internalHtml = _pageBuilder.BuildInternalLayout(pageData, pageHtml, rightColumnCards);

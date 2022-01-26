@@ -61,8 +61,8 @@ internal record class AppSettings
     public string MeetupUserGroupIcalUrl { get; init; } = default!;
 
     /// <summary>
-    /// The root URL of the project repo in GitHub.
+    /// The URL of the workables folder in the Github repo.
     /// </summary>
-    public string GithubProjectRoot { get; init; } = default!;
+    public string GithubWorkablesFolderUrl { get; init; } = default!;
 }
 
