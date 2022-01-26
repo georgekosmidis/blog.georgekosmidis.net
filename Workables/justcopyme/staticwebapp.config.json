@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "route": "/media/*",
+      "headers": {
+        "cache-control": "must-revalidate, max-age=2628000"
+      }
+    },
+    {
+      "route": "/findme.html",
+      "redirect": "https://georgekosmidis.net/",
+      "statusCode": 302
+    },
+    {
+      "route": "/index.html",
+      "redirect": "/",
+      "statusCode": 301
+    }
+  ]
+}

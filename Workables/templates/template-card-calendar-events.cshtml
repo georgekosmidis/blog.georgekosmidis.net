@@ -1,6 +1,38 @@
+<script nonce="@Model.Nonce">
+	const RegionalDateTimeFormat = function( datetime ) {
+		//thanks: https://stackoverflow.com/questions/2388115/get-locale-short-date-format-using-javascript
+
+		if(Object.prototype.toString.call(datetime) !== '[object Date]') {
+			throw "Argument 'datetime' of method 'RegionalDateTimeFormat' is not an object Date!";
+		}
+		var optionsDate = {
+			weekday: "short",
+			year: "numeric",
+			month: "short",
+			day: "numeric"
+		};
+
+		//undefined: expected output varies according to local timezone and default locale
+		document.write( datetime.toLocaleDateString(undefined, optionsDate) );
+
+		if(datetime.getHours() != 0) {
+			var optionsTime = {
+				hour: "2-digit",
+				minute: "2-digit",
+				timeZoneName: "short" 
+			};
+			document.write( " <strong>@@</strong> " );
+			//undefined: expected output varies according to local timezone and default locale
+			document.write( datetime.toLocaleTimeString(undefined, optionsTime) );
+		}
+	}
+</script>
+@{
+	var attrTitle = @Model.Title.Replace("\"", "");
+}
 <div class="card shadow">
 @if ( !string.IsNullOrWhiteSpace(@Model.ImageUrl) ) {
-	<img src="@Model.ImageUrl" class="bd-placeholder-img card-img-top" alt="@Model.Title" />
+	<img src="@Model.ImageUrl" class="bd-placeholder-img card-img-top" alt="attrTitle" />
 }
 	<h2 class="card-title card-header">@Model.Title</h2>
 	<div class="card-body">
@@ -10,10 +42,11 @@
 		<div class="list-group">
 			@foreach( var evnt in @Model.CalendarEvents )
 			{
+				var eventAttrTitle = @Model.Title.Replace("\"", "");
 				<div class="container p-1">
 					<div class="row">
 						<div class="col-md-12 mb-1">
-							<a href="@evnt.Url" target="_blank" title="@evnt.Title" rel="noopener"><strong>@evnt.Title</strong></a>
+							<a href="@evnt.Url" target="_blank" title="@eventAttrTitle" rel="noopener"><strong>@evnt.Title</strong></a>
 						</div>
 					</div>
 					<div class="row ps-1">
@@ -25,6 +58,7 @@
 						</div>
 						<div class="col-md-11 px-1 my-auto d-flex">
 							<small>
+								<!-- Method RegionalDateTimeFormat is in template-layout.cshtml -->
 								<script nonce="@Model.Nonce">
 									RegionalDateTimeFormat( 
 										new Date("@evnt.DateTime.ToString("o")") 

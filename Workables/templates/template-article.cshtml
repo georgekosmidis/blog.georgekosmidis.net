@@ -52,7 +52,12 @@
 				<div class="row">
 					<div class="col pb-2">
 						<div class="text-black-50 text-center">
-						  <small>by <a href="https://georgekosmidis.net" rel="noopener">George Kosmidis</a> / @Model.DatePublishedAndModificationText</small>
+							@{
+								var articleDate = Model.DateModifiedText == Model.DatePublishedText
+										? $"Published {Model.DatePublishedText}"
+										: $"Published {Model.DatePublishedText}, modified {Model.DateModifiedText}";
+							}
+						  <small>by <a href="https://georgekosmidis.net" rel="noopener">George Kosmidis</a> / @articleDate</small>
 						</div>
 					</div>  
 				</div>	

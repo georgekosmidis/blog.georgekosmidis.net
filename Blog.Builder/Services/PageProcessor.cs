@@ -50,10 +50,6 @@ internal class PageProcessor : IPageProcessor
 
         //enrich with standard properites
         data.BlogUrl = appSettings.BlogUrl;
-        data.Paging = new Paging
-        {
-            CardsPerPage = appSettings.CardsPerPage
-        };
 
         return data;
     }

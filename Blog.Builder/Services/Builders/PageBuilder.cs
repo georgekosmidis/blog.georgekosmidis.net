@@ -82,17 +82,22 @@ internal class PageBuilder : IPageBuilder
         //todo: should that be here?
         if (pageData.TemplateDataModel == nameof(LayoutArticleModel))
         {
+            var articleData = (pageData as LayoutArticleModel);
+            ExceptionHelpers.ThrowIfNull(articleData);
+
+            var footer = articleData.DateModifiedText == articleData.DatePublishedText ? $"Published {articleData.DatePublishedText}" : $"Modified {articleData.DateModifiedText}";
+
             _cardPreparation.ProcessArticleCard(new CardArticleModel
             {
                 TemplateDataModel = nameof(CardArticleModel),
-                Title = pageData.Title,
-                Description = pageData.Description,
-                ImageUrl = pageData.RelativeImageUrl,
+                Title = articleData.Title,
+                Description = articleData.Description,
+                ImageUrl = articleData.RelativeImageUrl,
                 Link = pageData.RelativeUrl,
                 LinkTarget = "_top",
                 IsSticky = false,
                 Position = -1,
-                Footer = (pageData as LayoutArticleModel)?.DatePublishedOrModificationText ?? string.Empty,
+                Footer = footer,
             }, pageData.DatePublished);
         }
 

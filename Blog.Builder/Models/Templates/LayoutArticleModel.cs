@@ -48,20 +48,6 @@ public record class LayoutArticleModel : LayoutModelBase
     }
 
     /// <summary>
-    /// A description that includes both the published and modification dates, 
-    /// as they are produced by the <see cref="DateModifiedText"/> and <see cref="DatePublishedText"/>.
-    /// </summary>
-    public string DatePublishedAndModificationText => DateModifiedText == DatePublishedText
-                ? $"Published {DatePublishedText}"
-                : $"Published {DatePublishedText}, modified {DateModifiedText}";
-
-    /// <summary>
-    /// A description that includes either the published or modification dates if exists, 
-    /// as they are produced by the <see cref="DateModifiedText"/> and <see cref="DatePublishedText"/>.
-    /// </summary>
-    public string DatePublishedOrModificationText => DateModifiedText == DatePublishedText ? $"Published {DatePublishedText}" : $"Modified {DateModifiedText}";
-
-    /// <summary>
     /// Calculates a user friendly representation of a <seealso cref="TimeSpan"/> in the formath " x minutes/hours/weeks... ago"
     /// </summary>
     /// <remarks>todo: The code suffers from too many ifs, a clearer way must be found.</remarks>
@@ -143,10 +129,7 @@ public record class LayoutArticleModel : LayoutModelBase
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(RelativeImageUrlSmall);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(DateModifiedText);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(DatePublishedText);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(DatePublishedAndModificationText);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(Body);
-
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(DatePublishedOrModificationText);
 
         if (TemplateDataModel != nameof(LayoutArticleModel))
         {

@@ -4,8 +4,9 @@
 <html lang="en" prefix="og: https://ogp.me/ns#">
 
 <head>
-	<base href="@Model.BlogUrl" />
     <meta charset="utf-8" />
+	<base href="@Model.BlogUrl" />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="@Model.PlainTextDescription" />
 	<meta name="author" content="George Kosmidis" />	
@@ -40,6 +41,7 @@ else {
 	<meta property="og:article:published_time" content="@Model.DatePublished" />
 	<meta property="og:article:modified_time" content="@Model.DateModified" />
 	<meta property="og:article:expiration_time" content="@Model.DateExpires" />
+    <!-- todo: author should be part of the article model -->
 	<meta property="og:article:author" content="George Kosmidis" />
 	<meta property="og:article:section" content="@Model.SectionsText" />
 	<meta property="og:article:tag" content=" @Model.TagsText" />
@@ -141,35 +143,7 @@ else {
 			}				
 		}			
     </style>
-    <script nonce="@Model.Nonce">
-        const RegionalDateTimeFormat = function( datetime ) {
-            //thanks: https://stackoverflow.com/questions/2388115/get-locale-short-date-format-using-javascript
 
-            if(Object.prototype.toString.call(datetime) !== '[object Date]') {
-                throw "Argument 'datetime' of method 'RegionalDateTimeFormat' is not an object Date!";
-            }
-            var optionsDate = {
-                weekday: "short",
-                year: "numeric",
-                month: "short",
-                day: "numeric"
-            };
-
-            //undefined: expected output varies according to local timezone and default locale
-            document.write( datetime.toLocaleDateString(undefined, optionsDate) );
-
-            if(datetime.getHours() != 0) {
-                var optionsTime = {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    timeZoneName: "short" 
-                };
-                document.write( " <strong>@@</strong> " );
-                //undefined: expected output varies according to local timezone and default locale
-                document.write( datetime.toLocaleTimeString(undefined, optionsTime) );
-            }
-        }
-    </script>
 </head>
 
 <body class="bg-light">
@@ -188,9 +162,7 @@ else {
                         <div class="row">
                             <div class="col">
                                 <h1 class="display-5 text-center">George Kosmidis</h1>
-                                <small class="d-block text-center">Microsoft MVP | Cloud Solutions Architect | .NET
-                                    Software Engineer |
-                                    Organizer of Munich .NET Meetup | Speaker</small>
+                                <small class="d-block text-center">@Model.PlainTextDescription</small>
                             </div>
                         </div>
                         <div class="row mt-4">
