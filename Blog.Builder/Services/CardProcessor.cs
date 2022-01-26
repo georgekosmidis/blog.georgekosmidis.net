@@ -110,7 +110,7 @@ internal class CardProcessor : ICardProcessor
     {
         List<CalendarEvent> calendarEvents = new();
 
-        if( !string.IsNullOrWhiteSpace(appSettings.MeetupUserGroupName))
+        if (!string.IsNullOrWhiteSpace(appSettings.MeetupUserGroupName))
         {
             ExceptionHelpers.ThrowIfNullOrWhiteSpace(appSettings.MeetupUserGroupIcalUrl);
             ExceptionHelpers.ThrowIfNullOrWhiteSpace(appSettings.MeetupUserGroupUrl);

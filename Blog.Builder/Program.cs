@@ -15,42 +15,42 @@ using RazorEngine.Templating;
 using WebMarkupMin.Core;
 
 var serviceProvider = new ServiceCollection()
-          .AddLogging()
-          .AddHttpClientService()
-          .AddSingleton<IRazorEngineWrapperService, RazorEngineWrapperService>()
-          .AddSingleton<ITemplateManager, TemplateManager>()
-          .AddSingleton<ITemplateProvider, TemplateProvider>()
-          .AddSingleton<ISitemapBuilder, SitemapBuilder>()
-          .AddSingleton<IPageBuilder, PageBuilder>()
-          .AddSingleton<IPageProcessor, PageProcessor>()
-          .AddSingleton<ICardBuilder, CardBuilder>()
-          .AddSingleton<ICardProcessor, CardProcessor>()
-          .AddSingleton<IWebsiteProcessor, WebsitePreparation>()
-          .AddSingleton<IMeetupEventCrawler, MeetupEventCrawler>()
-          .AddSingleton<IFileEventCrawler, FileEventCrawler>()
-          .AddSingleton<IMarkupMinifier>(provider =>
-          {
-              var settings = new HtmlMinificationSettings()
-              {
-                  AttributeQuotesRemovalMode = HtmlAttributeQuotesRemovalMode.Html5,
-                  CollapseBooleanAttributes = true,
-                  MinifyEmbeddedCssCode = true,
-                  MinifyEmbeddedJsCode = true,
-                  RemoveHtmlComments = true,
-                  RemoveOptionalEndTags = false,
-                  WhitespaceMinificationMode = WhitespaceMinificationMode.Safe
-              };
-              return new HtmlMinifier(settings);
-          })
-          .AddOptions()
-          .Configure<AppSettings>(
-                new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile(Consts.AppSettingsFilename, optional: false)
-                    .AddEnvironmentVariables()
-                    .Build()
-          )
-          .BuildServiceProvider();
+        .AddLogging()
+        .AddHttpClientService()
+        .AddSingleton<IRazorEngineWrapperService, RazorEngineWrapperService>()
+        .AddSingleton<ITemplateManager, TemplateManager>()
+        .AddSingleton<ITemplateProvider, TemplateProvider>()
+        .AddSingleton<ISitemapBuilder, SitemapBuilder>()
+        .AddSingleton<IPageBuilder, PageBuilder>()
+        .AddSingleton<IPageProcessor, PageProcessor>()
+        .AddSingleton<ICardBuilder, CardBuilder>()
+        .AddSingleton<ICardProcessor, CardProcessor>()
+        .AddSingleton<IWebsiteProcessor, WebsitePreparation>()
+        .AddSingleton<IMeetupEventCrawler, MeetupEventCrawler>()
+        .AddSingleton<IFileEventCrawler, FileEventCrawler>()
+        .AddSingleton<IMarkupMinifier>(provider =>
+        {
+            var settings = new HtmlMinificationSettings()
+            {
+                AttributeQuotesRemovalMode = HtmlAttributeQuotesRemovalMode.Html5,
+                CollapseBooleanAttributes = true,
+                MinifyEmbeddedCssCode = true,
+                MinifyEmbeddedJsCode = true,
+                RemoveHtmlComments = true,
+                RemoveOptionalEndTags = false,
+                WhitespaceMinificationMode = WhitespaceMinificationMode.Safe
+            };
+            return new HtmlMinifier(settings);
+        })
+        .AddOptions()
+        .Configure<AppSettings>(
+            new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(Consts.AppSettingsFilename, optional: false)
+                .AddEnvironmentVariables()
+                .Build()
+        )
+        .BuildServiceProvider();
 
 //todo: clean template models, it seems its way too complicated now
 //todo: bigger images on tap, is it possible?
