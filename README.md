@@ -7,6 +7,8 @@ Follows, a rough description but if you decide to use it, reach out for any help
 
 > The solution follows fail-fast and throws an ```Exception``` when something is not as it should. This is by design because I wouldn't want to go forward and automatically publish my blog unless the process completed smoothly and with no errors at all. If you find that an error is forgiven, please [let me know](https://georgekosmidis.net) and I will immediately throw an exception :) 
 
+![Sample of blog.georgekosmidis.net](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)
+
 ## Short description of features
 1. A templating system based on ```Razor Engine``` and ```Bootstrap```.
 1. Article and additional pages can be simple ```HTML``` with ```Bootstrap``` and ```highlightjs```.
@@ -16,6 +18,9 @@ Follows, a rough description but if you decide to use it, reach out for any help
 1. There are additional card templates, like image cards and events cards.
 1. There are can be additional pages like a privacy page.
 1. SEO was in mind during building, with ```Open Graph``` tags and ```sitemap.xml``` build automatically in the root of the website. 
+
+![Sample of blog.georgekosmidis.net](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)
+
 
 ## There is no UI!
 The builder is actually a ```Console App```, which you can use as a step in ```Azure DevOps``` and automate the build and publishing of your static website.
