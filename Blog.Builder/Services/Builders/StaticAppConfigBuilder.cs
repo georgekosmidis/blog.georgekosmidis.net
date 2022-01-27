@@ -39,7 +39,7 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
         //add route for the format /YYYY/MM/DD/slang-title/
         var routeDT = new RouteRedirect()
         {
-            Route = $"/{datePublished.Year}/{datePublished.Month.ToString("00")}/{datePublished.Day.ToString("00")}*{filenameWithoutExtension}*",
+            Route = $"/{datePublished.Year}/{datePublished.Month.ToString("00")}/{datePublished.Day.ToString("00")}/{filenameWithoutExtension}*",
             Redirect = relativeUrl,
             StatusCode = 301
         };
