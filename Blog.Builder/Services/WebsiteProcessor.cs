@@ -1,4 +1,5 @@
-﻿using Blog.Builder.Interfaces;
+﻿using Blog.Builder.Exceptions;
+using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
@@ -12,6 +13,7 @@ internal class WebsitePreparation : IWebsiteProcessor
     private readonly IPageProcessor _pageProcessor;
     private readonly ICardProcessor _cardProcessor;
     private readonly ISitemapBuilder _sitemapBuilder;
+    private readonly IStaticAppConfigBuilder _staticAppConfigBuilder;
     private readonly AppSettings appSettings;
     private readonly LayoutIndexModel layoutIndexModel;
     private bool additionalCardsPrepared = false;
@@ -24,16 +26,25 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// <param name="pageProcessor">The service that processes full pages (like index.html and privacy.html).</param>
     /// <param name="cardProcessor">The service that processes all cards.</param>
     /// <param name="sitemapBuilder">The service that builds the sitemap.xml.</param>
+    /// <param name="staticAppConfigBuilder">The service that builds the staticwebapp.config.json.</param>
     /// <param name="options">The AppSettings</param>
     public WebsitePreparation(
                             IPageProcessor pageProcessor,
                             ICardProcessor cardProcessor,
                             ISitemapBuilder sitemapBuilder,
+                            IStaticAppConfigBuilder staticAppConfigBuilder,
                             IOptions<AppSettings> options)
     {
+        ExceptionHelpers.ThrowIfNull(pageProcessor);
+        ExceptionHelpers.ThrowIfNull(cardProcessor);
+        ExceptionHelpers.ThrowIfNull(sitemapBuilder);
+        ExceptionHelpers.ThrowIfNull(staticAppConfigBuilder);
+        ExceptionHelpers.ThrowIfNull(options);
+
         _pageProcessor = pageProcessor;
         _cardProcessor = cardProcessor;
         _sitemapBuilder = sitemapBuilder;
+        _staticAppConfigBuilder = staticAppConfigBuilder;
         appSettings = options.Value;
 
         layoutIndexModel = new LayoutIndexModel
@@ -150,13 +161,6 @@ internal class WebsitePreparation : IWebsiteProcessor
         }
     }
 
-    /// <summary>
-    /// Prepares the google site map and copies it to <see cref="AppSettings.OutputFolderPath"/>.
-    /// </summary>
-    private void PrepareSitemap()
-    {
-        _sitemapBuilder.Build();
-    }
 
     /// <inheritdoc/>
     public async Task PrepareAsync()
@@ -166,7 +170,8 @@ internal class WebsitePreparation : IWebsiteProcessor
         this.PrepareStandalonePages();
         this.PrepareArticlePages();
         this.PrepareIndexPages();
-        this.PrepareSitemap();
+        _sitemapBuilder.Build();
+        _staticAppConfigBuilder.Build();
     }
 
     public void Dispose()

@@ -143,6 +143,15 @@ else {
 			}				
 		}			
     </style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3071108-41" nonce="@Model.Nonce"></script>
+<script nonce="@Model.Nonce">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3071108-41');
+</script>
 
 </head>
 
@@ -232,7 +241,7 @@ else {
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             @{
-                
+                //previous page
                 var disabled = "";
                 var previousLink = $"/index-page-{@Model.Paging.CurrentPageIndex}.html";
                 if (@Model.Paging.CurrentPageIndex == 0)
@@ -245,10 +254,29 @@ else {
                 }
                 
                 <li class="page-item @disabled">
-                <a class="page-link" href="@previousLink">Previous</a>
-                </li>;
+                    <a class="page-link" href="@previousLink">Previous</a>
+                </li>
 
-                for (var i = 0; i < @Model.Paging.PageCount; i++)
+                //sliding window for paging:
+                var windowSize = 5;
+                var startPage = 0;
+                var endPage = startPage + windowSize;
+                if( @Model.Paging.CurrentPageIndex > windowSize / 2 ) {
+                    startPage = @Model.Paging.CurrentPageIndex - (int)Math.Floor(windowSize / 2d);
+                    endPage = @Model.Paging.CurrentPageIndex + (int)Math.Ceiling(windowSize / 2d);
+                    endPage = Math.Min(@Model.Paging.PageCount, endPage);
+
+                    if( endPage - startPage <= windowSize ) {
+                        startPage = endPage - windowSize;
+                    }
+                }
+
+                //if start is hidden, show three dots to go there
+                if(startPage > 0) {
+                     <li class="page-item"><a class="page-link" href="/index.html">...</a></li>
+                }
+
+                for (var i = startPage; i < endPage; i++)
                 {
                     var active = "";
                     var currentLink = $"/index-page-{i + 1}.html";
@@ -264,6 +292,12 @@ else {
                     <li class="page-item @active"><a class="page-link" href="@currentLink">@(i + 1)</a></li>
                 }
 
+                //if end is hidden, show three dots to go there
+                if(endPage < Model.Paging.PageCount) {
+                     <li class="page-item"><a class="page-link" href="/index-page-@(Model.Paging.PageCount).html">...</a></li>
+                }
+
+                //next page
                 disabled = "";
                 var nextLink = $"/index-page-{@Model.Paging.CurrentPageIndex + 2}.html";
                 if (@Model.Paging.CurrentPageIndex == @Model.Paging.PageCount - 1)

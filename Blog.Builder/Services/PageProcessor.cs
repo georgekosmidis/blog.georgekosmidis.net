@@ -18,24 +18,28 @@ internal class PageProcessor : IPageProcessor
     private readonly IMarkupMinifier _markupMinifier;
     private readonly IPageBuilder _pageBuilder;
     private readonly ICardProcessor _cardProcessor;
+    private readonly IStaticAppConfigBuilder _staticAppConfigBuilder;
     private readonly AppSettings appSettings;
 
     public PageProcessor(ISitemapBuilder sitemapBuilder,
                         IMarkupMinifier markupMinifier,
                         IPageBuilder pageBuilder,
                         ICardProcessor cardProcessor,
+                        IStaticAppConfigBuilder staticAppConfigBuilder,
                         IOptions<AppSettings> options)
     {
         ArgumentNullException.ThrowIfNull(sitemapBuilder);
         ArgumentNullException.ThrowIfNull(markupMinifier);
         ArgumentNullException.ThrowIfNull(pageBuilder);
         ArgumentNullException.ThrowIfNull(cardProcessor);
+        ArgumentNullException.ThrowIfNull(staticAppConfigBuilder);
         ArgumentNullException.ThrowIfNull(options);
 
         _sitemapBuilder = sitemapBuilder;
         _markupMinifier = markupMinifier;
         _pageBuilder = pageBuilder;
         _cardProcessor = cardProcessor;
+        _staticAppConfigBuilder = staticAppConfigBuilder;
         appSettings = options.Value;
     }
 
@@ -66,6 +70,9 @@ internal class PageProcessor : IPageProcessor
 
         var pageHtml = File.ReadAllText(Path.Combine(directory, Consts.ContentHtmlFilename));
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(pageHtml);
+
+        //add azure static web app routes
+        _staticAppConfigBuilder.Add(pageData.RelativeUrl, pageData.DatePublished);
 
         //add the GitHub repo
         var articleFolderName = Path.GetFileName(directory.Trim(Path.DirectorySeparatorChar));

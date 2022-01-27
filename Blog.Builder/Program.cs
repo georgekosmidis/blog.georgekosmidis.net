@@ -28,6 +28,7 @@ var serviceProvider = new ServiceCollection()
         .AddSingleton<IWebsiteProcessor, WebsitePreparation>()
         .AddSingleton<IMeetupEventCrawler, MeetupEventCrawler>()
         .AddSingleton<IFileEventCrawler, FileEventCrawler>()
+        .AddSingleton<IStaticAppConfigBuilder, StaticAppConfigBuilder>()
         .AddSingleton<IMarkupMinifier>(provider =>
         {
             var settings = new HtmlMinificationSettings()
@@ -55,9 +56,7 @@ var serviceProvider = new ServiceCollection()
 //todo: clean template models, it seems its way too complicated now
 //todo: bigger images on tap, is it possible?
 //todo: add commenting system
-//todo: analytics
 //todo: paging in mobile, events in mobile
-//todo: web.config doesnt redirect in static web app
 //todo: custom 404, etc
 
 var websitePreparation = serviceProvider.GetService<IWebsiteProcessor>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));

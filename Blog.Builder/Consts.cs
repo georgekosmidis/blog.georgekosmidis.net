@@ -115,4 +115,11 @@ public static class Consts
     /// The name of the appsettings file.
     /// </summary>
     public const string AppSettingsFilename = "appsettings.json";
+
+    /// <summary>
+    /// The name of the Static Web App config.
+    /// For more information, please visit: https://docs.microsoft.com/en-us/azure/static-web-apps/configuration
+    /// </summary>
+    public const string StaticWebAppFilename = "staticwebapp.config.json";
+
 }

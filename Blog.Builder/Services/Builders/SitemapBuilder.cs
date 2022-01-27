@@ -16,8 +16,6 @@ internal class SitemapBuilder : ISitemapBuilder
     private readonly IMarkupMinifier _markupMinifier;
     private readonly AppSettings appSettings;
 
-    private readonly object __lockObj = new();
-
     public SitemapBuilder(
             IRazorEngineWrapperService templateService,
             IMarkupMinifier markupMinifier,
@@ -59,10 +57,7 @@ internal class SitemapBuilder : ISitemapBuilder
         ArgumentNullException.ThrowIfNull(relativeUrl);
         ArgumentNullException.ThrowIfNull(dateModified);
 
-        lock (__lockObj)
-        {
-            sitemapModel.Add(relativeUrl, dateModified);
-        }
+        sitemapModel.Add(relativeUrl, dateModified);
     }
 
     public void Dispose()

@@ -15,8 +15,6 @@ internal class CardBuilder : ICardBuilder
     private static readonly List<ArticleCardBuilderResult> ArticleCards = new();
     private static readonly List<OtherCardBuilderResult> OtherCards = new();
 
-    private readonly object __lockObj = new();
-
     public CardBuilder(IRazorEngineWrapperService templateEngine)
     {
         ArgumentNullException.ThrowIfNull(templateEngine);
@@ -47,16 +45,13 @@ internal class CardBuilder : ICardBuilder
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
 
         //Add the card to the collection of cards
-        lock (__lockObj)
+        OtherCards.Add(new OtherCardBuilderResult
         {
-            OtherCards.Add(new OtherCardBuilderResult
-            {
-                CardHtml = cardHtml,
-                Position = cardDataBase.Position,
-                IsSticky = cardDataBase.IsSticky,
-                RightColumnPosition = cardDataBase.RightColumnPosition
-            });
-        }
+            CardHtml = cardHtml,
+            Position = cardDataBase.Position,
+            IsSticky = cardDataBase.IsSticky,
+            RightColumnPosition = cardDataBase.RightColumnPosition
+        });
     }
 
     /// <inheritdoc/>
@@ -65,14 +60,11 @@ internal class CardBuilder : ICardBuilder
         var cardHtml = CreateCardHtml(cardData);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
 
-        lock (__lockObj)
+        ArticleCards.Add(new ArticleCardBuilderResult
         {
-            ArticleCards.Add(new ArticleCardBuilderResult
-            {
-                CardHtml = cardHtml,
-                DateCreated = datePublished
-            });
-        }
+            CardHtml = cardHtml,
+            DateCreated = datePublished
+        });
     }
 
     /// <inheritdoc/>
