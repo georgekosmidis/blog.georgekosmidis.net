@@ -33,22 +33,22 @@ Besides these mandatory changes, you can use the rest of the templates as is or 
 4. cookieconsent v3.1.1 - https://www.osano.com/cookieconsent
 
 ### Main templates:
-- [template-layout.cshtml](blob/main/workables/templates/template-layout.cshtml), is the main layout template. All other templates are build and then used as a body for this template.
-- [template-index.cshtml](blob/main/workables/templates/template-index.cshtml), this is the body of the index templates. Not much going on here because of the masonry card system that leaves no space for other stuff. The cards are a combination of the article cards and other cards as described later on.
-- [template-article.cshtml](blob/main/workables/templates/template-article.cshtml), this is the body of an article page. In the right hand column there is a list of cards that have been selected as ```RightColumnPosition``` from their ```card.json```. Check [Additional Cards](#additional-cards) in this guide for more information.
-- [template-standalone.cshtml](blob/main/workables/templates/template-standalone.cshtml), this is the template of a standalone page, e.g. the privacy.html.
-- [template-sitemap.cshtml](blob/main/workables/templates/template-sitemap.cshtml), this is the template that builds the ```sitemap.xml```. 
+- [template-layout.cshtml](workables/templates/template-layout.cshtml), is the main layout template. All other templates are build and then used as a body for this template.
+- [template-index.cshtml](workables/templates/template-index.cshtml), this is the body of the index templates. Not much going on here because of the masonry card system that leaves no space for other stuff. The cards are a combination of the article cards and other cards as described later on.
+- [template-article.cshtml](workables/templates/template-article.cshtml), this is the body of an article page. In the right hand column there is a list of cards that have been selected as ```RightColumnPosition``` from their ```card.json```. Check [Additional Cards](#additional-cards) in this guide for more information.
+- [template-standalone.cshtml](workables/templates/template-standalone.cshtml), this is the template of a standalone page, e.g. the privacy.html.
+- [template-sitemap.cshtml](workables/templates/template-sitemap.cshtml), this is the template that builds the ```sitemap.xml```. 
 
 ### Card templates
-- [template-card-article.cshtml](blob/main/workables/templates/template-card-article.cshtml), this is the card for an article, which contains the title of the article, a description, the publishing date and optionally a featuring image.
-- [template-card-calendar-events.cshtml](blob/main/workables/templates/template-card-calendar-events.cshtml), this is the calendar events card, which can be used to automatically retrieve and display the next usegroup events or conferences that I (you) will participate. 
-- [template-card-image.cshtml](blob/main/workables/templates/template-card-image.cshtml), this is a simple image card with a link. For example, in my blog I use it to display my MVP award with a link towards mvp.microsoft.com.
-- [template-card-search.cshtml](blob/main/workables/templates/template-card-search.cshtml), this is a search engine for the site. Since it is a static website, this is using google. If you want to use this you should register with google and change the ```cx``` parameter.
+- [template-card-article.cshtml](workables/templates/template-card-article.cshtml), this is the card for an article, which contains the title of the article, a description, the publishing date and optionally a featuring image.
+- [template-card-calendar-events.cshtml](workables/templates/template-card-calendar-events.cshtml), this is the calendar events card, which can be used to automatically retrieve and display the next usegroup events or conferences that I (you) will participate. 
+- [template-card-image.cshtml](workables/templates/template-card-image.cshtml), this is a simple image card with a link. For example, in my blog I use it to display my MVP award with a link towards mvp.microsoft.com.
+- [template-card-search.cshtml](workables/templates/template-card-search.cshtml), this is a search engine for the site. Since it is a static website, this is using google. If you want to use this you should register with google and change the ```cx``` parameter.
 
 ## Index Page
 The template that comes with this solution presents the articles as [Bootstrap Cards](https://getbootstrap.com/docs/5.1/components/card/) which are laid out using [Masonry](https://masonry.desandro.com/); you can find a guide for both of them in the [Bootstrap and Masonry](https://getbootstrap.com/docs/5.0/examples/masonry/) bootstrap page. Besides the articles card, additional cards can be added by following the guide that follows later in this page: [Additional Cards](#additional-cards).
 
-Not all of the cards are displayed in the index page. The index page is paged into several depending on the property ```CardsPerPage``` that can be found in the [appsettings.json](blob/main/_src/Blog.Builder/Blog.Builder/appsettings.json). Extra attention have to be paid for the *sticky* cards, cards that appear in every paged index page. Check the properties of the ```card.json``` from the [Additional Cards](#additional-cards) section. 
+Not all of the cards are displayed in the index page. The index page is paged into several depending on the property ```CardsPerPage``` that can be found in the [appsettings.json](_src/Blog.Builder/Blog.Builder/appsettings.json). Extra attention have to be paid for the *sticky* cards, cards that appear in every paged index page. Check the properties of the ```card.json``` from the [Additional Cards](#additional-cards) section. 
 
 The name of the produced index is ```index.html``` and the rest are named following the pattern ```index-page-{PAGE_NUMBER}.html```. A paging is added at the end of each index page.
 
