@@ -74,10 +74,19 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
             Route = $"/*.html",
             Headers = new Dictionary<string, string>
             {
-               { "cache-control", "must-revalidate, max-age=86400" }//86400 seconds = 1 day
+               { "cache-control", "must-revalidate, max-age=3600" }//86400 seconds = 1 hour
             }
         };
         Routes.Add(JsonConvert.SerializeObject(routeHtml));
+
+        //add cache for HTML
+        var routeRoot = new RouteRedirect()
+        {
+            Route = $"/index.html",
+            Redirect = "/",
+            StatusCode = 301
+        };
+        Routes.Add(JsonConvert.SerializeObject(routeRoot));
 
         //Save the routes
         var staticWebAppConfigContent = $"{{\"routes\":[{string.Join(',', Routes.ToArray())}]}}";
