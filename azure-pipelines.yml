@@ -28,7 +28,11 @@ steps:
   displayName: Publish
   inputs:
     command: 'publish'
+    publishWebProjects: false
+    projects: '_src/Blog.Builder.sln'
     arguments: '--configuration Release --output ../../build'
+    zipAfterPublish: false
+    modifyOutputPath: false
     
 
 - task: AzureStaticWebApp@0
