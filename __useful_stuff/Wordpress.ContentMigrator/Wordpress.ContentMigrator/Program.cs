@@ -58,9 +58,6 @@ foreach (var item in blogPostsResponse.BodyAsType.Items.OrderBy(x => x.DatePubli
     item.ContentHtml = Regex.Replace(item.ContentHtml, "<p>The post <a href=(.+) first appeared on(.+)Kosmidis</a>.</p>", string.Empty);
     item.ContentHtml = Regex.Replace(item.ContentHtml, "<img src=\"https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png\" alt=\"🙂\"[^>]*>", string.Empty);
 
-    //TODO: replace smilies with :)
-    //TODO: two gists escape, probably because they are in the description
-
     var key = item.Id.Split('=')[1];
     var slang = item.Url.Trim('/').Split('/').Last();
     var relativeUrl = "/" + slang + ".html";
