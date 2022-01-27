@@ -22,7 +22,7 @@ The builder is actually a ```Console App```, which you can use as a step in ```A
 For now though, I am building locally and pushing the changes, so an ```Azure DevOps Pipeline``` is waking up, picks up the ```_output``` folder and pushes it to an ```Azure Static Web App```. 
 
 ## Templating
-Although templating should be the last thing to check because the default ones work great, there are some mandatory changes you should make in the [template-layout.cshtml](blob/main/working/templates/template-layout.cshtml) because it contains my social media links! In some future version these will be parameterized in the ```appsettings.json```, but for now just go in there and change them!
+Although templating should be the last thing to check because the default ones work great, there are some mandatory changes you should make in the [template-layout.cshtml](working/templates/template-layout.cshtml) because it contains my social media links! In some future version these will be parameterized in the ```appsettings.json```, but for now just go in there and change them!
 
 Besides these mandatory changes, you can use the rest of the templates as is or change them to meet your requirements:
 
