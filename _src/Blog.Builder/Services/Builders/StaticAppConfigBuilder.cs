@@ -79,7 +79,7 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
         };
         Routes.Add(JsonConvert.SerializeObject(routeHtml));
 
-        //add cache for HTML
+        //add redirect for HTML
         var routeRoot = new RouteRedirect()
         {
             Route = $"/index.html*",
