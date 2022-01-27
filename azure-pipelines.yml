@@ -14,8 +14,8 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '/_src/Blog.Builder.sln'
-    arguments: '--configuration Release --output /_last_build'
+    projects: '_src/Blog.Builder.sln'
+    arguments: '--configuration Release --output ../_last_build'
 
 - task: AzureStaticWebApp@0
   inputs:
