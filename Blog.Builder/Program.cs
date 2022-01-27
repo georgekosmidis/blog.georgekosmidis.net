@@ -56,7 +56,7 @@ var serviceProvider = new ServiceCollection()
 //todo: clean template models, it seems its way too complicated now
 //todo: bigger images on tap, is it possible?
 //todo: add commenting system
-//todo: paging in mobile, events in mobile
+//todo: events in mobile
 //todo: custom 404, etc
 
 var websitePreparation = serviceProvider.GetService<IWebsiteProcessor>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));

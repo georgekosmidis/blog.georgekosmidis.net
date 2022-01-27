@@ -182,7 +182,7 @@ internal class PageProcessor : IPageProcessor
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //add it to sitemap.xml
-        _sitemapBuilder.Add(savingPath, builderResult.DateModified);
+        _sitemapBuilder.Add($"/index{indexPageNumber}.html", builderResult.DateModified);
     }
 
     public void Dispose()
