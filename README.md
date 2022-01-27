@@ -48,13 +48,13 @@ Besides these mandatory changes, you can use the rest of the templates as is or 
 ## Index Page
 The template that comes with this solution presents the articles as [Bootstrap Cards](https://getbootstrap.com/docs/5.1/components/card/) which are laid out using [Masonry](https://masonry.desandro.com/); you can find a guide for both of them in the [Bootstrap and Masonry](https://getbootstrap.com/docs/5.0/examples/masonry/) bootstrap page. Besides the articles card, additional cards can be added by following the guide that follows later in this page: [Additional Cards](#additional-cards).
 
-Not all of the cards are displayed in the index page. The index page is paged into several depending on the property ```CardsPerPage``` that can be found in the [appsettings.json](_src/Blog.Builder/Blog.Builder/appsettings.json). Extra attention have to be paid for the *sticky* cards, cards that appear in every paged index page. Check the properties of the ```card.json``` from the [Additional Cards](#additional-cards) section. 
+Not all of the cards are displayed in the index page. The index page is paged into several depending on the property ```CardsPerPage``` that can be found in the [appsettings.json](_src/Blog.Builder/appsettings.json). Extra attention have to be paid for the *sticky* cards, cards that appear in every paged index page. Check the properties of the ```card.json``` from the [Additional Cards](#additional-cards) section. 
 
 The name of the produced index is ```index.html``` and the rest are named following the pattern ```index-page-{PAGE_NUMBER}.html```. A paging is added at the end of each index page.
 
 ## Writing a new article
 Everything is done from the file system using ```HTML```, ```Razor``` and ```JSON``` files, so you can use your favorite HTML editor! 
-The process includes creating a folder in the [articles](tree/main/workables/articles) folder and then creating a file named ```content.html``` to write the body of your article using ```HTML```, ```Razor```, ```highlightjs``` and ```Bootstrap``` styling. 
+The process includes creating a folder in the [articles](workables/articles) folder and then creating a file named ```content.html``` to write the body of your article using ```HTML```, ```Razor```, ```highlightjs``` and ```Bootstrap``` styling. 
 
 Once done you should then create a ```content.json``` file for the article metadata with the following properties:
 
@@ -68,7 +68,7 @@ Once done you should then create a ```content.json``` file for the article metad
 | RelativeImageUrl | This is the relative URL of the feature image, in the ```media``` folder, e.g. /media/unique-name-feature-image.png. |
 | Tags | This is an arry of tags describing this article. They will be used in the ```og:article:tag```  meta tag. |
 
-Although you can find many examples in the [articles](tree/main/workables/articles) folder, here is one: 
+Although you can find many examples in the [articles](workables/articles) folder, here is one: 
 
 ```json
 {
@@ -92,18 +92,18 @@ And at the end, if your new article contains media, create a folder named ```med
 
 > It's a nice idea all paths to be relative!
 
-> You can find many articles as examples here: tree/main/workables/articles. *Numbering is not mandatory (like the 100490 in ```100490-secrets-management-for-asp-net-core-and-azure-devops```), but it makes my life easier in finding them in Windows Explorer*.
+> You can find many articles as examples here: workables/articles. *Numbering is not mandatory (like the 100490 in ```100490-secrets-management-for-asp-net-core-and-azure-devops```), but it makes my life easier in finding them in Windows Explorer*.
 
 ## Adding a "standalone" page
-In case you want to add a static page like ```privacy.html``` it's fairly simple and very similar with the articles. Just visit the [standalones](tree/main/workables/standalones) folder, add a new folder and in there add the ```content.html```, the ```content.json``` and optionally the ```media``` folder.  The [standalones](tree/main/workables/standalones) folder already contains an example!
+In case you want to add a static page like ```privacy.html``` it's fairly simple and very similar with the articles. Just visit the [standalones](workables/standalones) folder, add a new folder and in there add the ```content.html```, the ```content.json``` and optionally the ```media``` folder.  The [standalones](workables/standalones) folder already contains an example!
 
 ## The "Just Copy Me" folder
-This a special folder that its contents will be copied directly to the output folder. Usefull for configs, additional media, etc. Check mine for an example: [justcopyme](tree/main/workables/justcopyme).
+This a special folder that its contents will be copied directly to the output folder. Usefull for configs, additional media, etc. Check mine for an example: [justcopyme](workables/justcopyme).
 
 ## Additional Cards
 The builder will automatically create a card for the UI for each article added, but it is a common need to add more than article cards.
 
-To add a new card, create a new folder in the [cards](tree/main/workables/cards) folder with whatever name you wish and add in there a ```card.json``` with the following information:
+To add a new card, create a new folder in the [cards](workables/cards) folder with whatever name you wish and add in there a ```card.json``` with the following information:
 
 | Property | Description |
 | ----------- | ----------- |
@@ -118,7 +118,7 @@ To add a new card, create a new folder in the [cards](tree/main/workables/cards)
 | IsSticky | The position 0 of the previous hypothetical image card applies only to the first page of index. The next paged indexes (e.g. ```index-page-2.html```) will not have it unless this ```IsSticky``` is set to ```true```. So a bit simpler, if you want the image card to be in the position 0 of every paged index this should be ```true```. If set to ```false``` the hypothetical image card will only appear in ```index.html```. |
 | RightColumnPosition | This card should also appear in the right column of the templates that support it. If you don't want to have this card anywhere else, add -1 here. |
 
-And here is an example, although you can find more in the [cards](tree/main/workables/cards) folder:
+And here is an example, although you can find more in the [cards](workables/cards) folder:
 ```json
 {
   "TemplateDataModel": "CardImageModel",
@@ -135,9 +135,9 @@ And here is an example, although you can find more in the [cards](tree/main/work
 ```
 
 ### Calendar Event Card
-This is a special card that code-wise depends on external services (specifically meetup.com), and also on events described as json files. The folder for this card is at [cards/events](tree/main/workables/cards/events). A ```card.json``` describes the produced card the exact same way as in the additional cards above, but the additional events are described in folders within the [cards/events](tree/main/workables/cards/events) folder. 
+This is a special card that code-wise depends on external services (specifically meetup.com), and also on events described as json files. The folder for this card is at [cards/events](workables/cards/events). A ```card.json``` describes the produced card the exact same way as in the additional cards above, but the additional events are described in folders within the [cards/events](workables/cards/events) folder. 
 
-If you want to add an event, just add a folder in the [cards/events](tree/main/workables/cards/events) folder and in there add an ```event.json``` with the following information:
+If you want to add an event, just add a folder in the [cards/events](workables/cards/events) folder and in there add an ```event.json``` with the following information:
 
 | Property | Description |
 | ----------- | ----------- |
@@ -177,8 +177,8 @@ Just as a sample, follows a list of online commenting systems that you can choos
 | [Twitter](https://developer.twitter.com/en) | Having twitter for a commenting system is an interesting idea, but this is a dev oriented blog and twitter offers just a few characters per comment. Anyway, interesting idea, you just need a [developer account](https://developer.twitter.com/en). |
 
 ## Migrating from WordPress
-There is a solution in the folder ```_src``` named ```Wordpress.ContentMigrator``` that can help you exactly with that, by producing the contents of the folder [Workables\articles](tree/main/Workables/articles). The only requirement is to add a plugin that returns the wordpress XML feed in a JSON format (I used https://wordpress.org/plugins/jsonfeed/ but there are a ton!).
+There is a solution in the folder ```_src``` named ```Wordpress.ContentMigrator``` that can help you exactly with that, by producing the contents of the folder [Workables\articles](Workables/articles). The only requirement is to add a plugin that returns the wordpress XML feed in a JSON format (I used https://wordpress.org/plugins/jsonfeed/ but there are a ton!).
 
 ## That's it!
-The entire thing is output it by default to [_output](tree/main/_output) but you can change that from the ```appsettings.json```.
+The entire thing is output it by default to [_output](_output) but you can change that from the [appsettings.json](_src/Blog.Builder/appsettings.json).
 If you have any comments just reach out! You can find my social media handlers here: https://georgekosmidis.net. 
