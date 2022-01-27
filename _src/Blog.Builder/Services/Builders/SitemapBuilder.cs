@@ -36,19 +36,21 @@ internal class SitemapBuilder : ISitemapBuilder
     {
         ExceptionHelpers.ThrowIfNullOrEmpty(sitemapModel.Urls);
 
-        var sitemapPageHtml = _templateEngine.RunCompile(sitemapModel);
+        var sitemapPageXml = _templateEngine.RunCompile(sitemapModel);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(sitemapPageXml);
 
-        var result = _markupMinifier.Minify(sitemapPageHtml);
-        if (result.Errors.Count > 0)
-        {
-            throw new Exception($"Minification failed with at least one error:" +
-                $"{Environment.NewLine}{result.Errors.First().Message}" +
-                $"{Environment.NewLine}{result.Errors.First().SourceFragment}");
-        }
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(result.MinifiedContent);
+        //minification as it is, removes quotes and renders the sitemap invalid.
+        //var result = _markupMinifier.Minify(sitemapPageHtml);
+        //if (result.Errors.Count > 0)
+        //{
+        //    throw new Exception($"Minification failed with at least one error:" +
+        //        $"{Environment.NewLine}{result.Errors.First().Message}" +
+        //        $"{Environment.NewLine}{result.Errors.First().SourceFragment}");
+        //}
+        //ExceptionHelpers.ThrowIfNullOrWhiteSpace(result.MinifiedContent);
 
         var sitemap = Path.Combine(appSettings.OutputFolderPath, Consts.GoogleSitemap);
-        File.WriteAllText(sitemap, result.MinifiedContent);
+        File.WriteAllText(sitemap, sitemapPageXml);
     }
 
     /// <inheritdoc/>

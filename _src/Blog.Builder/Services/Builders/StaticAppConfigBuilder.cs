@@ -82,7 +82,7 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
         //add cache for HTML
         var routeRoot = new RouteRedirect()
         {
-            Route = $"/index.html",
+            Route = $"/index.html*",
             Redirect = "/",
             StatusCode = 301
         };
