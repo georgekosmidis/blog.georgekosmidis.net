@@ -19,7 +19,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'run'
-    projects: 'src/Blog.Builder/Blog.Builder.csproj'
+    projects: '_src/Blog.Builder/Blog.Builder.csproj'
 
 - task: AzureStaticWebApp@0
   displayName: Publish
