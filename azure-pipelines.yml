@@ -21,7 +21,7 @@ steps:
   displayName: Build all solutions
   inputs:
     command: 'build'
-    projects: '/**/*.sln'
+    projects: '/src/*.sln'
 
 
 - task: AzureStaticWebApp@0
