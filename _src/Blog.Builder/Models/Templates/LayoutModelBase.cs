@@ -10,6 +10,11 @@ namespace Blog.Builder.Models.Templates;
 public record class LayoutModelBase : ModelBase
 {
     /// <summary>
+    /// Last Build UTC
+    /// </summary>
+    public DateTime LastBuild { get; set; } = DateTime.UtcNow;
+
+    /// <summary>
     /// The github repo URL of this article.
     /// </summary>
     public string GithubUrl { get; set; } = default!;

@@ -14,14 +14,6 @@ namespace Blog.Builder.Services.Builders;
 internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
 {
     public static readonly List<string> Routes = new();
-    private readonly AppSettings appSettings;
-
-    public StaticAppConfigBuilder(IOptions<AppSettings> options)
-    {
-        ExceptionHelpers.ThrowIfNull(options);
-
-        appSettings = options.Value;
-    }
 
     /// <summary>
     /// Registers the routes to redirect old wordpress routes.
@@ -39,7 +31,7 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
         //add route for the format /YYYY/MM/DD/slang-title/
         var routeDT = new RouteRedirect()
         {
-            Route = $"/{datePublished.Year}/{datePublished.Month.ToString("00")}/{datePublished.Day.ToString("00")}/{filenameWithoutExtension}*",
+            Route = $"/{datePublished.Year}/{datePublished.Month:00}/{datePublished.Day:00}/{filenameWithoutExtension}*",
             Redirect = relativeUrl,
             StatusCode = 301
         };

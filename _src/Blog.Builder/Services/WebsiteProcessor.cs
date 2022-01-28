@@ -69,9 +69,9 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// <summary>
     /// Prepares the output folder located at <see cref="Consts.OutputFolderPath"/> by deleting it first 
     /// and then creating all the necessary folders again.
-    /// It will also copy all the <see cref="Consts.WorkingJustCopyFolderName"/> directly to <see cref="AppSettings.OutputFolderPath"/>.
+    /// It will also copy all the <see cref="Consts.WorkingJustCopyFolderName"/> directly to <see cref="Consts.OutputFolderPath"/>.
     /// </summary>
-    private void PrepareOutputFolders()
+    private static void PrepareOutputFolders()
     {
         Directory.Delete(Consts.OutputFolderPath, true);
         Directory.CreateDirectory(Consts.OutputFolderPath);
@@ -165,7 +165,7 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// <inheritdoc/>
     public async Task PrepareAsync()
     {
-        this.PrepareOutputFolders();
+        PrepareOutputFolders();
         await this.PrepareAdditionalCardsAsync();
         this.PrepareStandalonePages();
         this.PrepareArticlePages();

@@ -15,7 +15,7 @@ dotnet publish _src/Blog.Builder.sln -c Release -o $tmpFolder
 Set-Location -Path $tmpFolder
 
 #Execute the builder with the two relative paths
-.\Blog.Builder.exe --workables ..\workables --output ..\_output
+dotnet Blog.Builder.dll --workables ..\workables --output ..\_output
 
 #Go back and cleanup
 Set-Location $cl 
