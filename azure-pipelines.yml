@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 variables:
   tmpFolder: 'tmp'
@@ -37,9 +37,7 @@ steps:
     modifyOutputPath: false
 
 - task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-- task: PowerShell@2
+  displayName: Running Builder
   inputs:
     targetType: 'inline'
     script: |
