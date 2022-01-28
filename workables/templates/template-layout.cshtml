@@ -250,7 +250,7 @@ else {
                 }
                 if (@Model.Paging.CurrentPageIndex <= 1)
                 {
-                    previousLink = $"/index.html";
+                    previousLink = $"/";//index html
                 }
                 
                 <li class="page-item @disabled">
@@ -273,7 +273,7 @@ else {
 
                 //if start is hidden, show three dots to go there
                 if(startPage > 0) {
-                     <li class="page-item"><a class="page-link" href="/index.html">...</a></li>
+                     <li class="page-item"><a class="page-link" href="/">...</a></li>
                 }
 
                 for (var i = startPage; i < endPage; i++)
@@ -282,7 +282,7 @@ else {
                     var currentLink = $"/index-page-{i + 1}.html";
                     if (i == 0)
                     {
-                        currentLink = $"/index.html";
+                        currentLink = $"/";
                     }
                     if (i == @Model.Paging.CurrentPageIndex)
                     {
