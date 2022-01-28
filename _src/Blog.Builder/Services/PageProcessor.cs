@@ -127,7 +127,7 @@ internal class PageProcessor : IPageProcessor
                 $"{Environment.NewLine}{minifier.Errors.First().SourceFragment}");
         }
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
-        var savingPath = Path.Combine(appSettings.OutputFolderPath, Path.GetFileName(builderResult.RelativeUrl));
+        var savingPath = Path.Combine(Consts.OutputFolderPath, Path.GetFileName(builderResult.RelativeUrl));
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //copy all media associated with this page
@@ -136,7 +136,7 @@ internal class PageProcessor : IPageProcessor
             //copy original
             Helpers.Copy(
                     Path.Combine(directory, Consts.MediaFolderName),
-                    Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName)
+                    Path.Combine(Consts.OutputFolderPath, Consts.MediaFolderName)
             );
 
             //create and copy a smaller version
@@ -146,7 +146,7 @@ internal class PageProcessor : IPageProcessor
                 var name = Path.GetFileNameWithoutExtension(file);
 
                 Helpers.ResizeImage(file,
-                    Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName, name + "-small" + ext),
+                    Path.Combine(Consts.OutputFolderPath, Consts.MediaFolderName, name + "-small" + ext),
                     new Size(500, 10000)
                 );//stop at 500 width, who cares about height :)
             }
@@ -178,7 +178,7 @@ internal class PageProcessor : IPageProcessor
 
         //save it
         var indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);
-        var savingPath = Path.Combine(appSettings.OutputFolderPath, $"index{indexPageNumber}.html");
+        var savingPath = Path.Combine(Consts.OutputFolderPath, $"index{indexPageNumber}.html");
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //add it to sitemap.xml

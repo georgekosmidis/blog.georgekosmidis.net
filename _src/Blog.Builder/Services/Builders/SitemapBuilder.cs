@@ -49,7 +49,7 @@ internal class SitemapBuilder : ISitemapBuilder
         //}
         //ExceptionHelpers.ThrowIfNullOrWhiteSpace(result.MinifiedContent);
 
-        var sitemap = Path.Combine(appSettings.OutputFolderPath, Consts.GoogleSitemap);
+        var sitemap = Path.Combine(Consts.OutputFolderPath, Consts.GoogleSitemap);
         File.WriteAllText(sitemap, sitemapPageXml);
     }
 

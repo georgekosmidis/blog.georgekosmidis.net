@@ -24,7 +24,7 @@ internal class TemplateProvider : ITemplateProvider
         ArgumentNullException.ThrowIfNull(options);
 
         var appSettings = options.Value;
-        var workingTemplatesFolder = Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingTemplatesFolderName);
+        var workingTemplatesFolder = Path.Combine(Consts.WorkingFolderPath, Consts.WorkingTemplatesFolderName);
 
         Templates = new Dictionary<string, string>()
         {

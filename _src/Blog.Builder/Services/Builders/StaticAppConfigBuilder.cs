@@ -90,7 +90,7 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
 
         //Save the routes
         var staticWebAppConfigContent = $"{{\"routes\":[{string.Join(',', Routes.ToArray())}]}}";
-        var staticWebAppConfigFile = Path.Combine(appSettings.OutputFolderPath, Consts.StaticWebAppFilename);
+        var staticWebAppConfigFile = Path.Combine(Consts.OutputFolderPath, Consts.StaticWebAppFilename);
 
         File.WriteAllText(staticWebAppConfigFile, staticWebAppConfigContent);
 

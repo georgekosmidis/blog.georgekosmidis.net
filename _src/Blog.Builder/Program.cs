@@ -1,4 +1,5 @@
 ﻿using Blog.Builder;
+using Blog.Builder.Exceptions;
 using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.Crawlers;
@@ -11,6 +12,7 @@ using Blog.Builder.Services.RazorEngineServices;
 using Geko.HttpClientService.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using RazorEngine.Templating;
 using WebMarkupMin.Core;
 
@@ -52,6 +54,32 @@ var serviceProvider = new ServiceCollection()
                 .Build()
         )
         .BuildServiceProvider();
+
+if (args.Length > 0)
+{
+    if (!args.Contains("--workables") || !args.Contains("--output"))
+    {
+        throw new ArgumentException("Two arguments are required: '--workables' and '--output'!");
+    }
+
+    if (args[0] == "--workables")
+    {
+        Consts.WorkingFolderPath = args[1];
+        Consts.OutputFolderPath = args[3];
+    }
+    else
+    {
+        Consts.OutputFolderPath = args[1];
+        Consts.WorkingFolderPath = args[3];
+    }
+}
+//else
+//{
+//    var appSettings = serviceProvider.GetService<IOptions<AppSettings>>();
+//    ExceptionHelpers.ThrowIfNull(appSettings);
+//    Consts.WorkingFolderPath = appSettings.Value.WorkingFolderPath;
+//    Consts.OutputFolderPath = appSettings.Value.OutputFolderPath;
+//}
 
 //todo: clean template models, it seems its way too complicated now
 //todo: bigger images on tap, is it possible?

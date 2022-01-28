@@ -67,20 +67,20 @@ internal class WebsitePreparation : IWebsiteProcessor
     }
 
     /// <summary>
-    /// Prepares the output folder located at <see cref="AppSettings.OutputFolderPath"/> by deleting it first 
+    /// Prepares the output folder located at <see cref="Consts.OutputFolderPath"/> by deleting it first 
     /// and then creating all the necessary folders again.
     /// It will also copy all the <see cref="Consts.WorkingJustCopyFolderName"/> directly to <see cref="AppSettings.OutputFolderPath"/>.
     /// </summary>
     private void PrepareOutputFolders()
     {
-        Directory.Delete(appSettings.OutputFolderPath, true);
-        Directory.CreateDirectory(appSettings.OutputFolderPath);
+        Directory.Delete(Consts.OutputFolderPath, true);
+        Directory.CreateDirectory(Consts.OutputFolderPath);
         Directory.CreateDirectory(
-            Path.Combine(appSettings.OutputFolderPath, Consts.MediaFolderName)
+            Path.Combine(Consts.OutputFolderPath, Consts.MediaFolderName)
         );
         Helpers.Copy(
-            Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingJustCopyFolderName),
-            appSettings.OutputFolderPath
+            Path.Combine(Consts.WorkingFolderPath, Consts.WorkingJustCopyFolderName),
+            Consts.OutputFolderPath
         );
     }
 
@@ -92,7 +92,7 @@ internal class WebsitePreparation : IWebsiteProcessor
     {
 
         var standalonesDirectory = Directory.GetDirectories(
-            Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingStandalonesFolderName)
+            Path.Combine(Consts.WorkingFolderPath, Consts.WorkingStandalonesFolderName)
         );
         foreach (var directory in standalonesDirectory)
         {
@@ -111,7 +111,7 @@ internal class WebsitePreparation : IWebsiteProcessor
             throw new Exception($"Method {nameof(PrepareArticlePages)} must be called after method {nameof(PrepareAdditionalCardsAsync)}.");
         }
         var articleDirectories = Directory.GetDirectories(
-            Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingArticlesFolderName)
+            Path.Combine(Consts.WorkingFolderPath, Consts.WorkingArticlesFolderName)
         );
         foreach (var directory in articleDirectories)
         {
@@ -128,7 +128,7 @@ internal class WebsitePreparation : IWebsiteProcessor
     private async Task PrepareAdditionalCardsAsync()
     {
         var cardsDirectory = Directory.GetDirectories(
-            Path.Combine(appSettings.WorkingFolderPath, Consts.WorkingCardsFolderName)
+            Path.Combine(Consts.WorkingFolderPath, Consts.WorkingCardsFolderName)
         );
         foreach (var directory in cardsDirectory)
         {
@@ -139,7 +139,7 @@ internal class WebsitePreparation : IWebsiteProcessor
 
     /// <summary>
     /// Prepares all the index pages (like index.html, index-page-2.html etc) 
-    /// and copies it to <see cref="AppSettings.OutputFolderPath"/>.
+    /// and copies it to <see cref="Consts.OutputFolderPath"/>.
     /// </summary>
     private void PrepareIndexPages()
     {

@@ -6,6 +6,16 @@
 public static class Consts
 {
     /// <summary>
+    /// The working folder, the folder that contains standalones, articles etc.
+    /// </summary>
+    public static string WorkingFolderPath { get; set; } = default!;
+
+    /// <summary>
+    /// The folder that everything will be copied at the end of the process.
+    /// </summary>
+    public static string OutputFolderPath { get; set; } = default!;
+
+    /// <summary>
     /// The name of the media folder in the output directory.
     /// </summary>
     public const string MediaFolderName = "media";
