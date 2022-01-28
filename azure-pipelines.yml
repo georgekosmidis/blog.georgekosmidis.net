@@ -42,7 +42,7 @@ steps:
     targetType: 'inline'
     script: |
       Set-Location -Path $(tmpFolder)
-      .\Blog.Builder.exe --workables ..\workables --output ..\_output
+      & '.\Blog.Builder.exe --workables ..\workables --output ..\_output'
     failOnStderr: true
     showWarnings: true
 
