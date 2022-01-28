@@ -42,7 +42,7 @@ steps:
     targetType: 'inline'
     script: |
       Set-Location -Path $(tmpFolder)
-      & 'dotnet Blog.Builder.dll' --workables ..\workables --output ..\_output
+      dotnet Blog.Builder.dll --workables ..\workables --output ..\_output
     failOnStderr: true
     showWarnings: true
 
