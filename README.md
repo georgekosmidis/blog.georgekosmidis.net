@@ -3,8 +3,6 @@ It started as my **nullables enabled playground** with .NET 6, but it evolved as
 
 Feel free to fork the solution and create your own! Contact [me](https://georgekosmidis.net) for any questions or additional support, like deploying for free as an Azure Static Web App (_I am faster if you use [twitter](https://twitter.com/intent/tweet?text=I%20have%20a%20question%20about%20your%20blog%20builder,%20George&url=https://github.com/georgekosmidis/blog.georgekosmidis.net&via=georgekosmidis) :)_ )
 
-Follows, a rough description but if you decide to use it, reach out for any help: https://georgekosmidis.net.
-
 > The solution follows fail-fast and throws an ```Exception``` when something is not as it should. This is by design because I wouldn't want to go forward and automatically publish my blog unless the process completed smoothly and with no errors at all. If you find that an error is forgiven, please [let me know](https://georgekosmidis.net) and I will immediately throw an exception :) 
 
 [![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)
