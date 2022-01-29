@@ -1,7 +1,7 @@
 # A static developer's blog builder, written in .NET 6 as my learning playground for nullables enabled
 It started as my **nullables enabled playground** with .NET 6, but it evolved as my **static blog builder**! So yes, this repo is used to automatically build my very own blog, that you can fing at https://blog.georgekosmidis.net :)
 
-Unfortunatelly right now it's not too generic and although this is something I want for a future version, for now I guess you can only fork it and create your own blog. 
+Feel free to fork the solution and create your own! Contact [me](https://georgekosmidis.net) for any questions or additional support, like deploying for free as an Azure Static Web App (I am faster if you use [twitter](https://twitter.com/intent/tweet?text=I%20have%20a%20question%20about%20your%20blog%20builder,%20George&url=https://github.com/georgekosmidis/blog.georgekosmidis.net&via=georgekosmidis) :) )
 
 Follows, a rough description but if you decide to use it, reach out for any help: https://georgekosmidis.net.
 
@@ -44,7 +44,7 @@ Follows, a rough description but if you decide to use it, reach out for any help
 [![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)
 
 ## There is no UI!
-The builder is actually a ```Console App```, which you can use as a pipeline step in ```Azure DevOps``` and automate the build and publishing of your static website.
+The builder is actually a ```Console App```, which you can use as a pipeline step in ```Azure DevOps``` and automate the build and publishing of your static website. If you want to build your site locally, either open the [_src/Blog.Builder.sln](_src/Blog.Builder.sln) solution and run it or just run the [/build.ps1](/build.ps1) powershell.
 
 ### The yml file
 The [azure-pipelines.yml](/azure-pipelines.yml) contains the following steps:
