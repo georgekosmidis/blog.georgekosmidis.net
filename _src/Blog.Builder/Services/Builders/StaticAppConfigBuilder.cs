@@ -57,6 +57,16 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
 
     public void Build()
     {
+
+        //add redirect for HTML
+        var routeRoot = new RouteRedirect()
+        {
+            Route = $"/index.html*",
+            Redirect = "/",
+            StatusCode = 301
+        };
+        Routes.Add(JsonConvert.SerializeObject(routeRoot));
+
         //add cache for media
         var routeMedia = new RouteHeaders()
         {
@@ -78,15 +88,6 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
             }
         };
         Routes.Add(JsonConvert.SerializeObject(routeHtml));
-
-        //add redirect for HTML
-        var routeRoot = new RouteRedirect()
-        {
-            Route = $"/index.html*",
-            Redirect = appSettings.BlogUrl,
-            StatusCode = 301
-        };
-        Routes.Add(JsonConvert.SerializeObject(routeRoot));
 
         //Save the routes
         var staticWebAppConfigContent = $"{{\"routes\":[{string.Join(',', Routes.ToArray())}]}}";
