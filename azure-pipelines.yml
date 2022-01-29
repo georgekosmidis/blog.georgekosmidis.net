@@ -11,9 +11,6 @@ schedules:
     - main
   always: true
 
-trigger:
-- main
-
 pool:
   vmImage: ubuntu-latest
 
