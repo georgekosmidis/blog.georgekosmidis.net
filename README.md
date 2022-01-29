@@ -7,9 +7,30 @@ Follows, a rough description but if you decide to use it, reach out for any help
 
 > The solution follows fail-fast and throws an ```Exception``` when something is not as it should. This is by design because I wouldn't want to go forward and automatically publish my blog unless the process completed smoothly and with no errors at all. If you find that an error is forgiven, please [let me know](https://georgekosmidis.net) and I will immediately throw an exception :) 
 
-[![Sample of blog.georgekosmidis.net](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)](https://blog.georgekosmidis.net)
+[![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)
+
+## Table of Contens
+* [Short description of features](#short-description-of-features)
+* [Lighthouse report of the index page](#lighthouse-report of-the-index-page)
+* [There is no UI!](#there-is-no-ui-)
+    * [The yml file](#the-yml-file)
+    * [Folder Structure](#folder-structure)
+* [Templating](#templating)
+    * [Current template dependencies](#current-template-dependencies)
+    * [Main templates:](#main-templates)
+    * [Card templates](#card-templates)
+* [Index Page](#index-page)
+* [Writing a new article](#writing-a-new-article)
+* [Adding a "standalone" page](#adding-a--standalone--page)
+* [The "Just Copy Me" folder](#the--just-copy-me--folder)
+* [Additional Cards](#additional-cards)
+    * [Calendar Event Card](#calendar-event-card)
+* [Commenting System](#commenting-system)
+* [Migrating from WordPress](#migrating-from-wordpress)
+* [That's it!](#that-s-it-)
 
 ## Short description of features
+1. Fast and minimied, loads in milliseconds (Check the lighthouse report below) 
 1. A templating system based on ```Razor Engine``` and ```Bootstrap```.
 1. Article and additional pages can be simple ```HTML``` with ```Bootstrap``` and ```highlightjs```.
 1. There are different templates for every page group (e.g. article pages, index pages etc).
@@ -19,7 +40,8 @@ Follows, a rough description but if you decide to use it, reach out for any help
 1. There are can be additional pages like a privacy page.
 1. SEO was in mind during building, with ```Open Graph``` tags and ```sitemap.xml``` build automatically in the root of the website. 
 
-[![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://blog.georgekosmidis.net)
+## Lighthouse report of the start page
+[![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)
 
 ## There is no UI!
 The builder is actually a ```Console App```, which you can use as a pipeline step in ```Azure DevOps``` and automate the build and publishing of your static website.
