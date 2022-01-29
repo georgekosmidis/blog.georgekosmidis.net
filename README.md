@@ -11,7 +11,7 @@ Follows, a rough description but if you decide to use it, reach out for any help
 
 ## Table of Contens
 * [Short description of features](#short-description-of-features)
-* [Lighthouse report of the index page](#lighthouse-report of-the-index-page)
+* [Lighthouse report of the index page](#lighthouse-report-of-the-index-page)
 * [There is no UI!](#there-is-no-ui-)
     * [The yml file](#the-yml-file)
     * [Folder Structure](#folder-structure)
@@ -40,7 +40,7 @@ Follows, a rough description but if you decide to use it, reach out for any help
 1. There are can be additional pages like a privacy page.
 1. SEO was in mind during building, with ```Open Graph``` tags and ```sitemap.xml``` build automatically in the root of the website. 
 
-## Lighthouse report of the start page
+## Lighthouse report of the index page
 [![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)
 
 ## There is no UI!
