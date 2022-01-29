@@ -46,7 +46,7 @@ internal class MeetupEventCrawler : IMeetupEventCrawler
                 Organizer = ogranizer,
                 OrganizerUrl = organizerUrl.ToString(),
                 Title = evnt.Summary,
-                DateTime = evnt.Start.Value,
+                DateTime = evnt.Start.AsUtc,
                 Place = evnt.Location,
                 Url = evnt.Url.ToString(),
 
