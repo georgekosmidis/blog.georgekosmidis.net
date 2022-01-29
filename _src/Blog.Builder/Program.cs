@@ -17,6 +17,7 @@ using WebMarkupMin.Core;
 var serviceProvider = new ServiceCollection()
         .AddLogging()
         .AddHttpClientService()
+        .AddSingleton<ILogger, Logger>()
         .AddSingleton<IRazorEngineWrapperService, RazorEngineWrapperService>()
         .AddSingleton<ITemplateManager, TemplateManager>()
         .AddSingleton<ITemplateProvider, TemplateProvider>()
@@ -76,8 +77,6 @@ if (args.Length > 0)
 //todo: bigger images on tap, is it possible?
 //todo: add commenting system
 //todo: custom 404, etc
-//todo: schedule cron for pipelines
-//todo: update readme.md
 
 var websitePreparation = serviceProvider.GetService<IWebsiteProcessor>() ?? throw new NullReferenceException(nameof(IWebsiteProcessor));
 await websitePreparation.PrepareAsync();

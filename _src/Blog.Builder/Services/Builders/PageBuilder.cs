@@ -12,14 +12,16 @@ internal class PageBuilder : IPageBuilder
 {
     private readonly IRazorEngineWrapperService _templateEngine;
     private readonly ICardProcessor _cardPreparation;
+    private readonly ILogger _logger;
 
-    public PageBuilder(IRazorEngineWrapperService templateService, ICardProcessor cardPreparation)
+    public PageBuilder(IRazorEngineWrapperService templateService, ICardProcessor cardPreparation, ILogger logger)
     {
         ArgumentNullException.ThrowIfNull(templateService);
         ArgumentNullException.ThrowIfNull(cardPreparation);
 
         _templateEngine = templateService;
         _cardPreparation = cardPreparation;
+        _logger = logger;
     }
 
     /// <inheritdoc/>
@@ -35,6 +37,7 @@ internal class PageBuilder : IPageBuilder
 
         ExceptionHelpers.ThrowIfNull(pageData);
 
+        _logger.Log($"Processing of {pageData.RelativeUrl} done!");
         return innerPartResult.FinalHtml;
     }
 
@@ -53,6 +56,7 @@ internal class PageBuilder : IPageBuilder
 
         ExceptionHelpers.ThrowIfNull(pageData);
 
+        _logger.Log($"Processing of {pageData.RelativeUrl}, page {pageData.Paging.CurrentPageIndex + 1} done!");
         return innerPartResult.FinalHtml;
     }
 
