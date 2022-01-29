@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 schedules:
-- cron: "15 12 * * *"
+- cron: "25 12 * * *"
   displayName: Daily midnight build
   branches:
     include:
