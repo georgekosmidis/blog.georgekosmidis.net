@@ -1,10 +1,7 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.RazorEngineServices;
-using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
-using Microsoft.Extensions.Options;
-using WebMarkupMin.Core;
 
 namespace Blog.Builder.Services.Builders;
 

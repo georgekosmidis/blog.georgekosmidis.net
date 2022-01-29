@@ -14,6 +14,14 @@ namespace Blog.Builder.Services.Builders;
 internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
 {
     public static readonly List<string> Routes = new();
+    private readonly AppSettings appSettings;
+
+    public StaticAppConfigBuilder(IOptions<AppSettings> options)
+    {
+        ExceptionHelpers.ThrowIfNull(options),
+
+        appSettings = options.Value;
+    }
 
     /// <summary>
     /// Registers the routes to redirect old wordpress routes.
@@ -74,8 +82,8 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
         //add redirect for HTML
         var routeRoot = new RouteRedirect()
         {
-            Route = $"index.html*",
-            Redirect = "/",
+            Route = $"/index.html*",
+            Redirect = appSettings.BlogUrl,
             StatusCode = 301
         };
         Routes.Add(JsonConvert.SerializeObject(routeRoot));

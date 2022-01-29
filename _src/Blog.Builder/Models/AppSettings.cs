@@ -25,10 +25,26 @@ internal record class AppSettings
     /// </summary>
     public List<string> BlogTags { get; init; } = new List<string>();
 
+    private string blogUrl = default!;
+
     /// <summary>
     /// The blog base url.
     /// </summary>
-    public string BlogUrl { get; init; } = default!;
+    public string BlogUrl
+    {
+        get
+        {
+#if RELEASE
+            //ugly hack because I always forget to change the appsettings blogUrl
+            if (blogUrl != "https://blog.georgekosmidis.net")
+            {
+                throw new Exception("You forgot to change the BlogUrl from the appsettings, AGAIN!");
+            }
+#endif
+            return blogUrl;
+        }
+        init => blogUrl = value;
+    }
 
     /// <summary>
     /// The blog image

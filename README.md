@@ -22,9 +22,49 @@ Follows, a rough description but if you decide to use it, reach out for any help
 [![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://blog.georgekosmidis.net)
 
 ## There is no UI!
-The builder is actually a ```Console App```, which you can use as a step in ```Azure DevOps``` and automate the build and publishing of your static website.
-For now though, I am building locally and pushing the changes, so an ```Azure DevOps Pipeline``` is waking up, picks up the ```_output``` folder and pushes it to an ```Azure Static Web App```. 
+The builder is actually a ```Console App```, which you can use as a pipeline step in ```Azure DevOps``` and automate the build and publishing of your static website.
 
+### The yml file
+The [azure-pipelines.yml](/azure-pipelines.yml) contains the following steps:
+
+1. ```task: UseDotNet@2``` - Use .NET 6
+ Changes the version of .NET to .NET 6 for the subsequent tasks
+1. ```task: DotNetCoreCLI@2``` - Build all solutions
+ Builds all solutions to create fresh assemblies and to check that everything builds correctly
+1. ```task: DotNetCoreCLI@2``` Publishing to ```$(tmpFolder)```
+ Publishes the solution to the $(tmpFolder) defined as a variable at the beggining of the script
+1. ```task: PowerShell@2``` - Running Builder
+ Runs the builder with powershell by passing the two mandatory arguments: The location of the ```workables``` and the location of the ```_output```
+1. ```task: AzureStaticWebApp@0``` - Pushing to Azure
+ Does what it describes, pushes the contents of the ```_output``` folder to an ```Azure Static Web App.```
+ 
+> The footer of the website contains a DateTime with the last build
+ 
+### Folder Structure
+
+- [_output](/_output)
+ This is where the final HTML goes after the builder runs. The contents are picked up by a pipeline step and pushed to an (yours) ```Azure Static Web App.```
+- [_readme](/_readme)
+ Nothing special, just the mediaof this README
+- [_src](/_src)
+ Contains source code of the following solutions
+   - [_src/Blog.Builder.sln](/_src/Blog.Builder.sln)
+  This is the blog builder.
+   - [_src/Wordpress.ContentMigrator.sln](/_src/Wordpress.ContentMigrator.sln)
+  This is a helper solution I used to migrate my content from Wordpress. More on that in the [Migrating from WordPress](#migrating-from-wordpress) section.
+- [workables](/workables)
+ I don't even know if this is an existing word, but it means that in this folder you should find everything you want to for everyday(?) work with your blog.
+   - [workables/articles](/workables/articles)
+    Contains your precious blog posts. More on that in the [Writing a new article](#writing-a-new-article) section.
+   - [workables/cards](/workables/cards)
+    Contains all the additional cards of the blog, since each article already is also a card. More on that in the [Additional Cards](#additional-cards) section.
+   - [workables/justcopyme](/workables/justcopyme)
+    If you want anything copied unprocessed in the final HTML build, just put it here. More on that in the [The "Just Copy Me" folder](#the-just-copy-me-folder) section.
+   - [workables/standalones](/workables/standalones)
+    Contains standalone pages, like privacy.html. More on that in the [Adding a "standalone" page](#adding-a-standalone-page) section.
+   - [workables/templates](/workables/templates)
+    Contains all the available razor templates. More on that in the [Templating](#templating) section.
+ 
 ## Templating
 Although templating should be the last thing to check because the default ones work great, there are some mandatory changes you should make in the [template-layout.cshtml](workables/templates/template-layout.cshtml) because it contains my social media links! In some future version these will be parameterized in the ```appsettings.json```, but for now just go in there and change them!
 
@@ -184,5 +224,5 @@ Just as a sample, follows a list of online commenting systems that you can choos
 There is a solution in the folder ```_src``` named ```Wordpress.ContentMigrator``` that can help you exactly with that, by producing the contents of the folder [Workables\articles](Workables/articles). The only requirement is to add a plugin that returns the wordpress XML feed in a JSON format (I used https://wordpress.org/plugins/jsonfeed/ but there are a ton!).
 
 ## That's it!
-The entire thing is output it by default to [_output](_output) but you can change that from the [appsettings.json](_src/Blog.Builder/appsettings.json).
+You made it so far, I am surprised :) Maybe I should do a shorter version!
 If you have any comments just reach out! You can find my social media handlers here: https://georgekosmidis.net. 
