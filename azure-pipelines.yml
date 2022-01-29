@@ -3,15 +3,13 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger:
-- main
-
 schedules:
-- cron: "25 11 * * *"
+- cron: "30 11 * * *"
   displayName: Daily midnight build
   branches:
     include:
     - main
+  always: true
 
 pool:
   vmImage: ubuntu-latest
