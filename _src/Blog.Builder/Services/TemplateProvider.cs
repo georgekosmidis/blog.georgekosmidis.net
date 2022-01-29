@@ -24,19 +24,19 @@ internal class TemplateProvider : ITemplateProvider
         ArgumentNullException.ThrowIfNull(options);
 
         var appSettings = options.Value;
-        var workingTemplatesFolder = Path.Combine(Consts.WorkingFolderPath, Consts.WorkingTemplatesFolderName);
+        var workingTemplatesFolder = Path.Combine(Globals.WorkingFolderPath, Globals.WorkingTemplatesFolderName);
 
         Templates = new Dictionary<string, string>()
         {
-            { nameof(LayoutIndexModel), Path.Combine(workingTemplatesFolder, Consts.TemplateIndexFilename) },
-            { nameof(LayoutModelBase), Path.Combine(workingTemplatesFolder, Consts.TemplateMainFilename) },
-            { nameof(LayoutArticleModel), Path.Combine(workingTemplatesFolder, Consts.TemplateArticleFilename) },
-            { nameof(LayoutStandaloneModel), Path.Combine(workingTemplatesFolder, Consts.TemplateStandaloneFilename) },
-            { nameof(LayoutSitemapModel), Path.Combine(workingTemplatesFolder, Consts.TemplateSitemapFilename) },
-            { nameof(CardArticleModel), Path.Combine(workingTemplatesFolder, Consts.TemplateCardArticleFilename) },
-            { nameof(CardImageModel), Path.Combine(workingTemplatesFolder, Consts.TemplateCardImageFilename) },
-            { nameof(CardSearchModel),Path.Combine(workingTemplatesFolder, Consts.TemplateCardSearchFilename) },
-            { nameof(CardCalendarEventsModel), Path.Combine(workingTemplatesFolder, Consts.TemplateCardCalendarEventsFilename) },
+            { nameof(LayoutIndexModel), Path.Combine(workingTemplatesFolder, Globals.TemplateIndexFilename) },
+            { nameof(LayoutModelBase), Path.Combine(workingTemplatesFolder, Globals.TemplateMainFilename) },
+            { nameof(LayoutArticleModel), Path.Combine(workingTemplatesFolder, Globals.TemplateArticleFilename) },
+            { nameof(LayoutStandaloneModel), Path.Combine(workingTemplatesFolder, Globals.TemplateStandaloneFilename) },
+            { nameof(LayoutSitemapModel), Path.Combine(workingTemplatesFolder, Globals.TemplateSitemapFilename) },
+            { nameof(CardArticleModel), Path.Combine(workingTemplatesFolder, Globals.TemplateCardArticleFilename) },
+            { nameof(CardImageModel), Path.Combine(workingTemplatesFolder, Globals.TemplateCardImageFilename) },
+            { nameof(CardSearchModel),Path.Combine(workingTemplatesFolder, Globals.TemplateCardSearchFilename) },
+            { nameof(CardCalendarEventsModel), Path.Combine(workingTemplatesFolder, Globals.TemplateCardCalendarEventsFilename) },
         };
 
         foreach (var (model, path) in Templates)

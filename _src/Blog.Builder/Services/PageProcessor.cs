@@ -63,12 +63,12 @@ internal class PageProcessor : IPageProcessor
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
         //read json and html from the folder
-        var jsonFileContent = Path.Combine(directory, Consts.ContentJsonFilename);
+        var jsonFileContent = Path.Combine(directory, Globals.ContentJsonFilename);
 
         var pageData = GetPageModelData<T>(jsonFileContent);
         ExceptionHelpers.ThrowIfNull(pageData);
 
-        var pageHtml = File.ReadAllText(Path.Combine(directory, Consts.ContentHtmlFilename));
+        var pageHtml = File.ReadAllText(Path.Combine(directory, Globals.ContentHtmlFilename));
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(pageHtml);
 
         //add azure static web app routes
@@ -76,7 +76,7 @@ internal class PageProcessor : IPageProcessor
 
         //add the GitHub repo
         var articleFolderName = Path.GetFileName(directory.Trim(Path.DirectorySeparatorChar));
-        pageData.GithubUrl = $"{appSettings.GithubWorkablesFolderUrl}/{Consts.WorkingArticlesFolderName}/{articleFolderName}/{Consts.ContentHtmlFilename}";
+        pageData.GithubUrl = $"{appSettings.GithubWorkablesFolderUrl}/{Globals.WorkingArticlesFolderName}/{articleFolderName}/{Globals.ContentHtmlFilename}";
 
         //get the right column cards, if any
         var rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
@@ -127,26 +127,26 @@ internal class PageProcessor : IPageProcessor
                 $"{Environment.NewLine}{minifier.Errors.First().SourceFragment}");
         }
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
-        var savingPath = Path.Combine(Consts.OutputFolderPath, Path.GetFileName(builderResult.RelativeUrl));
+        var savingPath = Path.Combine(Globals.OutputFolderPath, Path.GetFileName(builderResult.RelativeUrl));
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //copy all media associated with this page
-        if (Directory.Exists(Path.Combine(directory, Consts.MediaFolderName)))
+        if (Directory.Exists(Path.Combine(directory, Globals.MediaFolderName)))
         {
             //copy original
             Helpers.Copy(
-                    Path.Combine(directory, Consts.MediaFolderName),
-                    Path.Combine(Consts.OutputFolderPath, Consts.MediaFolderName)
+                    Path.Combine(directory, Globals.MediaFolderName),
+                    Path.Combine(Globals.OutputFolderPath, Globals.MediaFolderName)
             );
 
             //create and copy a smaller version
-            foreach (var file in Directory.GetFiles(Path.Combine(directory, Consts.MediaFolderName)))
+            foreach (var file in Directory.GetFiles(Path.Combine(directory, Globals.MediaFolderName)))
             {
                 var ext = Path.GetExtension(file);
                 var name = Path.GetFileNameWithoutExtension(file);
 
                 Helpers.ResizeImage(file,
-                    Path.Combine(Consts.OutputFolderPath, Consts.MediaFolderName, name + "-small" + ext),
+                    Path.Combine(Globals.OutputFolderPath, Globals.MediaFolderName, name + "-small" + ext),
                     new Size(500, 10000)
                 );//stop at 500 width, who cares about height :)
             }
@@ -178,7 +178,7 @@ internal class PageProcessor : IPageProcessor
 
         //save it
         var indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);
-        var savingPath = Path.Combine(Consts.OutputFolderPath, $"index{indexPageNumber}.html");
+        var savingPath = Path.Combine(Globals.OutputFolderPath, $"index{indexPageNumber}.html");
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //add it to sitemap.xml

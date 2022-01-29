@@ -18,7 +18,7 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
 
     public StaticAppConfigBuilder(IOptions<AppSettings> options)
     {
-        ExceptionHelpers.ThrowIfNull(options),
+        ExceptionHelpers.ThrowIfNull(options);
 
         appSettings = options.Value;
     }
@@ -60,7 +60,7 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
         //add cache for media
         var routeMedia = new RouteHeaders()
         {
-            Route = $"/{Consts.MediaFolderName}*",
+            Route = $"/{Globals.MediaFolderName}*",
             Headers = new Dictionary<string, string>
             {
                { "cache-control", "must-revalidate, max-age=2628000" }//2628000 seconds = 1 month
@@ -90,7 +90,7 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
 
         //Save the routes
         var staticWebAppConfigContent = $"{{\"routes\":[{string.Join(',', Routes.ToArray())}]}}";
-        var staticWebAppConfigFile = Path.Combine(Consts.OutputFolderPath, Consts.StaticWebAppFilename);
+        var staticWebAppConfigFile = Path.Combine(Globals.OutputFolderPath, Globals.StaticWebAppFilename);
 
         File.WriteAllText(staticWebAppConfigFile, staticWebAppConfigContent);
 

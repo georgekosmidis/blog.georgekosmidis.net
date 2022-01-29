@@ -10,7 +10,7 @@ internal interface IWebsiteProcessor : IDisposable
 {
     /// <summary>
     /// Prepares everything needed for the website. 
-    /// Once this method is done, the website is ready at <see cref="Consts.OutputFolderPath"/>.
+    /// Once this method is done, the website is ready at <see cref="Globals.OutputFolderPath"/>.
     /// </summary>
     Task PrepareAsync();
 }

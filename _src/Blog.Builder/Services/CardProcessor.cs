@@ -58,7 +58,7 @@ internal class CardProcessor : ICardProcessor
     {
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
-        var jsonFileContent = Path.Combine(directory, Consts.CardJsonFilename);
+        var jsonFileContent = Path.Combine(directory, Globals.CardJsonFilename);
         var cardDataBase = GetCardModelData(jsonFileContent);
 
         //Find the correct model for this card.
@@ -85,17 +85,17 @@ internal class CardProcessor : ICardProcessor
         if (Directory.Exists(Path.Combine(directory, "media")))
         {
             Helpers.Copy(
-                    Path.Combine(directory, Consts.MediaFolderName),
-                    Path.Combine(Consts.OutputFolderPath, Consts.MediaFolderName)
+                    Path.Combine(directory, Globals.MediaFolderName),
+                    Path.Combine(Globals.OutputFolderPath, Globals.MediaFolderName)
             );
 
             //create smaller versions of the media
-            foreach (var file in Directory.GetFiles(Path.Combine(directory, Consts.MediaFolderName)))
+            foreach (var file in Directory.GetFiles(Path.Combine(directory, Globals.MediaFolderName)))
             {
                 var ext = Path.GetExtension(file);
                 var name = Path.GetFileNameWithoutExtension(file);
                 Helpers.ResizeImage(file,
-                    Path.Combine(Consts.OutputFolderPath, Consts.MediaFolderName, name + "-small" + ext),
+                    Path.Combine(Globals.OutputFolderPath, Globals.MediaFolderName, name + "-small" + ext),
                     new Size(300, 10000)
                 );//stop at 300 width, who cares about height 
             }
@@ -103,7 +103,7 @@ internal class CardProcessor : ICardProcessor
     }
 
     /// <summary>
-    /// Retrieves all calendar events from meetup.com but also from a file repo located at <see cref="Consts.WorkingEventsFolderName"/>.
+    /// Retrieves all calendar events from meetup.com but also from a file repo located at <see cref="Globals.WorkingEventsFolderName"/>.
     /// </summary>
     /// <returns>A list of <see cref="CalendarEvent"/>.</returns>
     private async Task<IList<CalendarEvent>> GetCalendarEvents()
@@ -124,7 +124,7 @@ internal class CardProcessor : ICardProcessor
 
         calendarEvents.AddRange(
             _fileEventCrawler.Get(
-                Path.Combine(Consts.WorkingFolderPath, Consts.WorkingEventsFolderName)
+                Path.Combine(Globals.WorkingFolderPath, Globals.WorkingEventsFolderName)
             )
         );
 

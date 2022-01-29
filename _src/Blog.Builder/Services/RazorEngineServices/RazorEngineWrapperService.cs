@@ -34,6 +34,8 @@ internal class RazorEngineWrapperService : IRazorEngineWrapperService, IDisposab
     public void Dispose()
     {
         razorEngineService.Dispose();
+        //If the dev decies to call dispose, destructor is not necessary 
+        GC.SuppressFinalize(this);
     }
 
     /// <summary>

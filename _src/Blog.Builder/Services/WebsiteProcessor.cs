@@ -67,32 +67,32 @@ internal class WebsitePreparation : IWebsiteProcessor
     }
 
     /// <summary>
-    /// Prepares the output folder located at <see cref="Consts.OutputFolderPath"/> by deleting it first 
+    /// Prepares the output folder located at <see cref="Globals.OutputFolderPath"/> by deleting it first 
     /// and then creating all the necessary folders again.
-    /// It will also copy all the <see cref="Consts.WorkingJustCopyFolderName"/> directly to <see cref="Consts.OutputFolderPath"/>.
+    /// It will also copy all the <see cref="Globals.WorkingJustCopyFolderName"/> directly to <see cref="Globals.OutputFolderPath"/>.
     /// </summary>
     private static void PrepareOutputFolders()
     {
-        Directory.Delete(Consts.OutputFolderPath, true);
-        Directory.CreateDirectory(Consts.OutputFolderPath);
+        Directory.Delete(Globals.OutputFolderPath, true);
+        Directory.CreateDirectory(Globals.OutputFolderPath);
         Directory.CreateDirectory(
-            Path.Combine(Consts.OutputFolderPath, Consts.MediaFolderName)
+            Path.Combine(Globals.OutputFolderPath, Globals.MediaFolderName)
         );
         Helpers.Copy(
-            Path.Combine(Consts.WorkingFolderPath, Consts.WorkingJustCopyFolderName),
-            Consts.OutputFolderPath
+            Path.Combine(Globals.WorkingFolderPath, Globals.WorkingJustCopyFolderName),
+            Globals.OutputFolderPath
         );
     }
 
     /// <summary>
     /// Prepares all the standalone pages (like privacy.html).
-    /// Standalones are scanned from <see cref="Consts.WorkingStandalonesFolderName"/>.
+    /// Standalones are scanned from <see cref="Globals.WorkingStandalonesFolderName"/>.
     /// </summary>
     private void PrepareStandalonePages()
     {
 
         var standalonesDirectory = Directory.GetDirectories(
-            Path.Combine(Consts.WorkingFolderPath, Consts.WorkingStandalonesFolderName)
+            Path.Combine(Globals.WorkingFolderPath, Globals.WorkingStandalonesFolderName)
         );
         foreach (var directory in standalonesDirectory)
         {
@@ -102,7 +102,7 @@ internal class WebsitePreparation : IWebsiteProcessor
 
     /// <summary>
     /// Prepares all the article pages and the article cards for the index pages.
-    /// Articles are scanned from <see cref="Consts.WorkingArticlesFolderName"/>.
+    /// Articles are scanned from <see cref="Globals.WorkingArticlesFolderName"/>.
     /// </summary>
     private void PrepareArticlePages()
     {
@@ -111,7 +111,7 @@ internal class WebsitePreparation : IWebsiteProcessor
             throw new Exception($"Method {nameof(PrepareArticlePages)} must be called after method {nameof(PrepareAdditionalCardsAsync)}.");
         }
         var articleDirectories = Directory.GetDirectories(
-            Path.Combine(Consts.WorkingFolderPath, Consts.WorkingArticlesFolderName)
+            Path.Combine(Globals.WorkingFolderPath, Globals.WorkingArticlesFolderName)
         );
         foreach (var directory in articleDirectories)
         {
@@ -123,12 +123,12 @@ internal class WebsitePreparation : IWebsiteProcessor
 
     /// <summary>
     /// Prepares all the additional cards for the index pages.
-    /// Additional cards are scanned from <see cref="Consts.WorkingCardsFolderName"/>.
+    /// Additional cards are scanned from <see cref="Globals.WorkingCardsFolderName"/>.
     /// </summary>
     private async Task PrepareAdditionalCardsAsync()
     {
         var cardsDirectory = Directory.GetDirectories(
-            Path.Combine(Consts.WorkingFolderPath, Consts.WorkingCardsFolderName)
+            Path.Combine(Globals.WorkingFolderPath, Globals.WorkingCardsFolderName)
         );
         foreach (var directory in cardsDirectory)
         {
@@ -139,7 +139,7 @@ internal class WebsitePreparation : IWebsiteProcessor
 
     /// <summary>
     /// Prepares all the index pages (like index.html, index-page-2.html etc) 
-    /// and copies it to <see cref="Consts.OutputFolderPath"/>.
+    /// and copies it to <see cref="Globals.OutputFolderPath"/>.
     /// </summary>
     private void PrepareIndexPages()
     {

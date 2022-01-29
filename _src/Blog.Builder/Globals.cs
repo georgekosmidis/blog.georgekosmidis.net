@@ -1,9 +1,9 @@
 ﻿namespace Blog.Builder;
 
 /// <summary>
-/// Constants used through out the system.
+/// Constants and variables used through out the system.
 /// </summary>
-public static class Consts
+public static class Globals
 {
     /// <summary>
     /// The working folder, the folder that contains standalones, articles etc.

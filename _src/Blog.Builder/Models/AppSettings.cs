@@ -25,6 +25,7 @@ internal record class AppSettings
     /// </summary>
     public List<string> BlogTags { get; init; } = new List<string>();
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0032:Use auto property", Justification = "It's needed only for RELEASE, DEBUG can't see the requirement.")]
     private string blogUrl = default!;
 
     /// <summary>

@@ -47,7 +47,7 @@ var serviceProvider = new ServiceCollection()
         .Configure<AppSettings>(
             new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(Consts.AppSettingsFilename, optional: false)
+                .AddJsonFile(Globals.AppSettingsFilename, optional: false)
                 .AddEnvironmentVariables()
                 .Build()
         )
@@ -62,13 +62,13 @@ if (args.Length > 0)
 
     if (args[0] == "--workables")
     {
-        Consts.WorkingFolderPath = args[1];
-        Consts.OutputFolderPath = args[3];
+        Globals.WorkingFolderPath = args[1];
+        Globals.OutputFolderPath = args[3];
     }
     else
     {
-        Consts.OutputFolderPath = args[1];
-        Consts.WorkingFolderPath = args[3];
+        Globals.OutputFolderPath = args[1];
+        Globals.WorkingFolderPath = args[3];
     }
 }
 

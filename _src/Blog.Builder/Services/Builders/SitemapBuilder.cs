@@ -26,7 +26,7 @@ internal class SitemapBuilder : ISitemapBuilder
         var sitemapPageXml = _templateEngine.RunCompile(sitemapModel);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(sitemapPageXml);
 
-        var sitemap = Path.Combine(Consts.OutputFolderPath, Consts.GoogleSitemap);
+        var sitemap = Path.Combine(Globals.OutputFolderPath, Globals.GoogleSitemap);
         File.WriteAllText(sitemap, sitemapPageXml);
     }
 
