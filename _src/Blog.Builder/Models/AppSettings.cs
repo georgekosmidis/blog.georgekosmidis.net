@@ -37,7 +37,7 @@ internal record class AppSettings
         {
 #if RELEASE
             //ugly hack because I always forget to change the appsettings blogUrl
-            if (blogUrl != "https://blog.georgekosmidis.net")
+            if (blogUrl != default && blogUrl != "https://blog.georgekosmidis.net")
             {
                 throw new Exception("You forgot to change the BlogUrl from the appsettings, AGAIN!");
             }
