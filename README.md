@@ -27,7 +27,7 @@ Feel free to fork the solution and create your own! Contact [me](https://georgek
 * [Commenting System](#commenting-system)
 * [Migrating from WordPress](#migrating-from-wordpress)
 * [That's it!](#that-s-it-)
-* [And that is how my blog looks like!](#that-s-it-) 
+* [And that is how my blog looks like!](#and-that-is-how-my-blog-looks-like) 
 
 ## Short description of features
 1. Completely **free**, builds and deploys automatically with ```Azure DevOps``` to an ```Azure Static Web App```.
