@@ -5,7 +5,7 @@ Feel free to fork the solution and create your own! Contact [me](https://georgek
 
 > The solution follows fail-fast and throws an ```Exception``` when something is not as it should. This is by design because I wouldn't want to go forward and automatically publish my blog unless the process completed smoothly and with no errors at all. If you find that an error is forgiven, please [let me know](https://georgekosmidis.net) and I will immediately throw an exception :) 
 
-[![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)
+[![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)
 
 ## Table of Contens
 * [Short description of features](#short-description-of-features)
@@ -39,7 +39,7 @@ Feel free to fork the solution and create your own! Contact [me](https://georgek
 1. SEO was in mind during building, with ```Open Graph``` tags and ```sitemap.xml``` build automatically in the root of the website. 
 
 ## Lighthouse report of the index page
-[![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)
+[![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)
 
 ## There is no UI!
 The builder is actually a ```Console App```, which you can use as a pipeline step in ```Azure DevOps``` and automate the build and publishing of your static website. If you want to build your site locally, either open the [_src/Blog.Builder.sln](_src/Blog.Builder.sln) solution and run it or just run the [/build.ps1](/build.ps1) powershell.
