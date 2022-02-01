@@ -245,4 +245,6 @@ There is a solution in the folder ```_src``` named ```Wordpress.ContentMigrator`
 ## That's it!
 You made it so far, I am surprised :) Maybe I should do a shorter version!
 If you have any comments just reach out! You can find my social media handlers here: https://georgekosmidis.net. 
-[![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)
+
+## And that is how my blog looks like!!
+[![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://blog.georgekosmidis.net)
