@@ -9,8 +9,8 @@ Feel free to fork the solution and create your own! Contact [me](https://georgek
 [![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)
 
 ## Table of Contens
-* [Short description of features](#short-description-of-features)
 * [Lighthouse report of the index page](#lighthouse-report-of-the-index-page)
+* [Short description of features](#short-description-of-features)
 * [There is no UI!](#there-is-no-ui-)
     * [The yml file](#the-yml-file)
     * [Folder Structure](#folder-structure)
@@ -39,9 +39,6 @@ Feel free to fork the solution and create your own! Contact [me](https://georgek
 9. There are additional card templates, like image cards and events cards.
 10. There are can be additional pages like a privacy page.
 11. SEO was in mind during building, with ```Open Graph``` tags and ```sitemap.xml``` build automatically in the root of the website. 
-
-## But the end result can be quite good :)
-[![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)
 
 ## There is no UI!
 The builder is actually a ```Console App```, which you can use as a pipeline step in ```Azure DevOps``` and automate the build and publishing of your static website. If you want to build your site locally, either open the [_src/Blog.Builder.sln](_src/Blog.Builder.sln) solution and run it or just run the [/build.ps1](/build.ps1) powershell.
@@ -248,3 +245,4 @@ There is a solution in the folder ```_src``` named ```Wordpress.ContentMigrator`
 ## That's it!
 You made it so far, I am surprised :) Maybe I should do a shorter version!
 If you have any comments just reach out! You can find my social media handlers here: https://georgekosmidis.net. 
+[![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)
