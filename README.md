@@ -5,6 +5,7 @@ Feel free to fork the solution and create your own! Contact [me](https://georgek
 
 > The solution follows fail-fast and throws an ```Exception``` when something is not as it should. This is by design because I wouldn't want to go forward and automatically publish my blog unless the process completed smoothly and with no errors at all. If you find that an error is forgiven, please [let me know](https://georgekosmidis.net) and I will immediately throw an exception :) 
 
+## Lighthouse report of the index page
 [![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)
 
 ## Table of Contens
@@ -28,17 +29,18 @@ Feel free to fork the solution and create your own! Contact [me](https://georgek
 * [That's it!](#that-s-it-)
 
 ## Short description of features
-1. Fast and minimied, loads in milliseconds (Check the lighthouse report below) 
-1. A templating system based on ```Razor Engine``` and ```Bootstrap```.
-1. Article and additional pages can be simple ```HTML``` with ```Bootstrap``` and ```highlightjs```.
-1. There are different templates for every page group (e.g. article pages, index pages etc).
-1. Index pages are using a ```masonry``` card (grid) system.
-1. A card and an article page generated for each article.
-1. There are additional card templates, like image cards and events cards.
-1. There are can be additional pages like a privacy page.
-1. SEO was in mind during building, with ```Open Graph``` tags and ```sitemap.xml``` build automatically in the root of the website. 
+1. Completely **free**, builds and deploys automatically with ```Azure DevOps``` to an ```Azure Static Web App```.
+2. Fast and minified, loads in milliseconds (Check the [lighthouse report](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)) 
+3. 4. A templating system based on ```Razor Engine``` and ```Bootstrap```.
+5. Article and additional pages can be simple ```HTML``` with ```Bootstrap``` and ```highlightjs```.
+6. There are different templates for every page group (e.g. article pages, index pages etc).
+7. Index pages are using a ```masonry``` card (grid) system.
+8. A card and an article page generated for each article.
+9. There are additional card templates, like image cards and events cards.
+10. There are can be additional pages like a privacy page.
+11. SEO was in mind during building, with ```Open Graph``` tags and ```sitemap.xml``` build automatically in the root of the website. 
 
-## Lighthouse report of the index page
+## But the end result can be quite good :)
 [![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)
 
 ## There is no UI!
