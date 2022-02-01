@@ -27,6 +27,7 @@ Feel free to fork the solution and create your own! Contact [me](https://georgek
 * [Commenting System](#commenting-system)
 * [Migrating from WordPress](#migrating-from-wordpress)
 * [That's it!](#that-s-it-)
+* [And that is how my blog looks like!](#that-s-it-) 
 
 ## Short description of features
 1. Completely **free**, builds and deploys automatically with ```Azure DevOps``` to an ```Azure Static Web App```.
@@ -246,5 +247,5 @@ There is a solution in the folder ```_src``` named ```Wordpress.ContentMigrator`
 You made it so far, I am surprised :) Maybe I should do a shorter version!
 If you have any comments just reach out! You can find my social media handlers here: https://georgekosmidis.net. 
 
-## And that is how my blog looks like!!
+## And that is how my blog looks like!
 [![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://blog.georgekosmidis.net)
