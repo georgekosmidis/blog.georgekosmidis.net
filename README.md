@@ -5,11 +5,12 @@ Feel free to fork the solution and create your own! Contact [me](https://georgek
 
 > The solution follows fail-fast and throws an ```Exception``` when something is not as it should. This is by design because I wouldn't want to go forward and automatically publish my blog unless the process completed smoothly and with no errors at all. If you find that an error is forgiven, please [let me know](https://georgekosmidis.net) and I will immediately throw an exception :) 
 
-[![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/sample.png)
+## Lighthouse report of the index page
+[![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)
 
 ## Table of Contens
-* [Short description of features](#short-description-of-features)
 * [Lighthouse report of the index page](#lighthouse-report-of-the-index-page)
+* [Short description of features](#short-description-of-features)
 * [There is no UI!](#there-is-no-ui-)
     * [The yml file](#the-yml-file)
     * [Folder Structure](#folder-structure)
@@ -26,20 +27,19 @@ Feel free to fork the solution and create your own! Contact [me](https://georgek
 * [Commenting System](#commenting-system)
 * [Migrating from WordPress](#migrating-from-wordpress)
 * [That's it!](#that-s-it-)
+* [And that is how my blog looks like!](#and-that-is-how-my-blog-looks-like) 
 
 ## Short description of features
-1. Fast and minimied, loads in milliseconds (Check the lighthouse report below) 
-1. A templating system based on ```Razor Engine``` and ```Bootstrap```.
-1. Article and additional pages can be simple ```HTML``` with ```Bootstrap``` and ```highlightjs```.
-1. There are different templates for every page group (e.g. article pages, index pages etc).
-1. Index pages are using a ```masonry``` card (grid) system.
-1. A card and an article page generated for each article.
-1. There are additional card templates, like image cards and events cards.
-1. There are can be additional pages like a privacy page.
-1. SEO was in mind during building, with ```Open Graph``` tags and ```sitemap.xml``` build automatically in the root of the website. 
-
-## Lighthouse report of the index page
-[![Lighthouse report of blog.georgekosmidis.net](_readme/lighthouse.png)](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)
+1. Completely **free**, builds and deploys automatically with ```Azure DevOps``` to an ```Azure Static Web App```.
+2. Fast and minified, loads in milliseconds (Check the [lighthouse report](https://raw.githubusercontent.com/georgekosmidis/blog.georgekosmidis.net/main/_readme/lighthouse.png)) 
+3. 4. A templating system based on ```Razor Engine``` and ```Bootstrap```.
+5. Article and additional pages can be simple ```HTML``` with ```Bootstrap``` and ```highlightjs```.
+6. There are different templates for every page group (e.g. article pages, index pages etc).
+7. Index pages are using a ```masonry``` card (grid) system.
+8. A card and an article page generated for each article.
+9. There are additional card templates, like image cards and events cards.
+10. There are can be additional pages like a privacy page.
+11. SEO was in mind during building, with ```Open Graph``` tags and ```sitemap.xml``` build automatically in the root of the website. 
 
 ## There is no UI!
 The builder is actually a ```Console App```, which you can use as a pipeline step in ```Azure DevOps``` and automate the build and publishing of your static website. If you want to build your site locally, either open the [_src/Blog.Builder.sln](_src/Blog.Builder.sln) solution and run it or just run the [/build.ps1](/build.ps1) powershell.
@@ -246,3 +246,6 @@ There is a solution in the folder ```_src``` named ```Wordpress.ContentMigrator`
 ## That's it!
 You made it so far, I am surprised :) Maybe I should do a shorter version!
 If you have any comments just reach out! You can find my social media handlers here: https://georgekosmidis.net. 
+
+## And that is how my blog looks like!
+[![Sample of blog.georgekosmidis.net](/_readme/sample.png)](https://blog.georgekosmidis.net)
