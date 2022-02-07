@@ -42,7 +42,7 @@ steps:
     modifyOutputPath: false
 
 - task: PowerShell@2
-  displayName: Running Builder
+  displayName: Running Blog Builder
   inputs:
     targetType: 'inline'
     script: |
