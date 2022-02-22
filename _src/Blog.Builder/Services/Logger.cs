@@ -11,8 +11,5 @@ internal class Logger : ILogger
     /// Wrapper of <see cref="Console.WriteLine()"/>.
     /// </summary>
     /// <param name="msg">The message to be written to the default output.</param>
-    public void Log(string msg)
-    {
-        Console.WriteLine($"{DateTime.Now:HH:mm:ss.fff} - {msg}");
-    }
+    public void Log(string msg) => Console.WriteLine($"{DateTime.Now:HH:mm:ss.fff} - {msg}");
 }

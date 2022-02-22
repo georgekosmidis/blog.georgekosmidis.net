@@ -11,10 +11,7 @@ public record class LayoutSitemapModel : ModelBase
     /// Constructor.
     /// Sets the <see cref="ModelBase.TemplateDataModel"/> to nameof <see cref="LayoutSitemapModel"/>.
     /// </summary>
-    public LayoutSitemapModel()
-    {
-        TemplateDataModel = nameof(LayoutSitemapModel);
-    }
+    public LayoutSitemapModel() => TemplateDataModel = nameof(LayoutSitemapModel);
 
     /// <summary>
     /// A list of URLs which the sitemap.xml will include.
@@ -26,10 +23,7 @@ public record class LayoutSitemapModel : ModelBase
     /// </summary>
     /// <param name="relativeUrl">The relative URL of the page.</param>
     /// <param name="dateModified"> The last modified date.</param>
-    public void Add(string relativeUrl, DateTime dateModified)
-    {
-        Urls.Add(new Url { RelativeUrl = relativeUrl, DateModified = dateModified });
-    }
+    public void Add(string relativeUrl, DateTime dateModified) => Urls.Add(new Url { RelativeUrl = relativeUrl, DateModified = dateModified });
 
     /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.

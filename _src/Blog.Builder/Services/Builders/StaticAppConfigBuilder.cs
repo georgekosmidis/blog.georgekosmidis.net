@@ -1,8 +1,6 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Interfaces.Builders;
-using Blog.Builder.Models;
 using Blog.Builder.Models.Builders;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Blog.Builder.Services.Builders;
@@ -14,13 +12,11 @@ namespace Blog.Builder.Services.Builders;
 internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
 {
     public static readonly List<string> Routes = new();
-    private readonly AppSettings appSettings;
 
-    public StaticAppConfigBuilder(IOptions<AppSettings> options)
+    /// <inheritdoc/>
+    public StaticAppConfigBuilder()
     {
-        ExceptionHelpers.ThrowIfNull(options);
 
-        appSettings = options.Value;
     }
 
     /// <summary>
@@ -96,5 +92,4 @@ internal class StaticAppConfigBuilder : IStaticAppConfigBuilder
         File.WriteAllText(staticWebAppConfigFile, staticWebAppConfigContent);
 
     }
-
 }

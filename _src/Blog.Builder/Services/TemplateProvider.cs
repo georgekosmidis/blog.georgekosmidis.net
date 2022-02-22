@@ -39,23 +39,17 @@ internal class TemplateProvider : ITemplateProvider
             { nameof(CardCalendarEventsModel), Path.Combine(workingTemplatesFolder, Globals.TemplateCardCalendarEventsFilename) },
         };
 
-        foreach (var (model, path) in Templates)
+        foreach ((var model, var path) in Templates)
         {
             ExceptionHelpers.ThrowIfPathNotExists(path, model);
         }
     }
 
     /// <inheritdoc/>
-    public string GetHtml<T>()
-    {
-        return File.ReadAllText(this.GetPath<T>());
-    }
+    public string GetHtml<T>() => File.ReadAllText(GetPath<T>());
 
     /// <inheritdoc/>
-    public string GetHtml(string nameOfType)
-    {
-        return File.ReadAllText(this.GetPath(nameOfType));
-    }
+    public string GetHtml(string nameOfType) => File.ReadAllText(GetPath(nameOfType));
 
     /// <inheritdoc/>
     public string GetPath<T>()

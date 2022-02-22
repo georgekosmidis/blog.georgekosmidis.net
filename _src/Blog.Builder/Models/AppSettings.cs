@@ -35,14 +35,17 @@ internal record class AppSettings
     {
         get
         {
-#if RELEASE
+
             //ugly hack because I always forget to change the appsettings blogUrl
             if (blogUrl != default && blogUrl != "https://blog.georgekosmidis.net")
             {
+#if RELEASE
                 throw new Exception("You forgot to change the BlogUrl from the appsettings, AGAIN!");
-            }
 #endif
-            return blogUrl;
+            }
+
+
+            return blogUrl!;
         }
         init => blogUrl = value;
     }

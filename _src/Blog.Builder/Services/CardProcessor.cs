@@ -72,14 +72,14 @@ internal class CardProcessor : ICardProcessor
                 break;
             case nameof(CardCalendarEventsModel):
                 var calendarCard = CardCalendarEventsModel.FromBase(cardDataBase);
-                calendarCard.CalendarEvents = await this.GetCalendarEvents();
+                calendarCard.CalendarEvents = await GetCalendarEvents();
                 _cardBuilder.AddCard(calendarCard);
                 break;
             case nameof(CardArticleModel):
                 throw new Exception($"Method {nameof(ProcessCardAsync)} cannot be used with {nameof(CardArticleModel)}, use {nameof(ProcessArticleCard)} instead.");
             default:
                 throw new Exception($"{cardDataBase.TemplateDataModel} switch is missing.");
-        };
+        }
 
         //copy all media associated with this card
         if (Directory.Exists(Path.Combine(directory, "media")))
@@ -132,10 +132,7 @@ internal class CardProcessor : ICardProcessor
     }
 
     /// <inheritdoc/>
-    public IEnumerable<string> GetRightColumnCardsHtml()
-    {
-        return _cardBuilder.GetRightColumnCardsHtml();
-    }
+    public IEnumerable<string> GetRightColumnCardsHtml() => _cardBuilder.GetRightColumnCardsHtml();
 
     /// <inheritdoc/>
     public void ProcessArticleCard(CardArticleModel cardData, DateTime datePublished)
@@ -145,20 +142,10 @@ internal class CardProcessor : ICardProcessor
     }
 
     /// <inheritdoc/>
-    public IEnumerable<string> GetBodyCardsHtml(int pageIndex, int cardsPerPage)
-    {
-        return _cardBuilder.GetBodyCardsHtml(pageIndex, cardsPerPage);
-    }
+    public IEnumerable<string> GetBodyCardsHtml(int pageIndex, int cardsPerPage) => _cardBuilder.GetBodyCardsHtml(pageIndex, cardsPerPage);
 
     /// <inheritdoc/>
-    public int GetCardsNumber(int cardsPerPage)
-    {
-        return _cardBuilder.GetCardsNumber(cardsPerPage);
-    }
+    public int GetCardsNumber(int cardsPerPage) => _cardBuilder.GetCardsNumber(cardsPerPage);
 
-    public void Dispose()
-    {
-        _cardBuilder.Dispose();
-
-    }
+    public void Dispose() => _cardBuilder.Dispose();
 }

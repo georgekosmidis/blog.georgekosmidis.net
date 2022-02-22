@@ -16,10 +16,7 @@ internal class TemplateManager : ITemplateManager
     /// Custom Template Manager for the <see cref="RazorEngine"/>.
     /// </summary>
     /// <param name="templateProvider">The template provider that hosts paths and html of all templates. See <see cref="TemplateProvider"/>.</param>
-    public TemplateManager(ITemplateProvider templateProvider)
-    {
-        _templateProvider = templateProvider;
-    }
+    public TemplateManager(ITemplateProvider templateProvider) => _templateProvider = templateProvider;
 
     /// <inheritdoc/>
     public ITemplateSource Resolve(ITemplateKey key)
@@ -34,7 +31,7 @@ internal class TemplateManager : ITemplateManager
     {
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(name);
 
-        var path = _templateProvider.GetPath(name);
+        string? path = _templateProvider.GetPath(name);
         ExceptionHelpers.ThrowIfPathNotExists(path);
 
         // template is specified by full path
@@ -49,9 +46,6 @@ internal class TemplateManager : ITemplateManager
     /// <param name="source">Not to be used.</param>
     /// <exception cref="NotImplementedException">Throws this exception whenever is called.</exception>
     [DoesNotReturn]
-    public void AddDynamic(ITemplateKey key, ITemplateSource source)
-    {
-        throw new NotImplementedException($"{nameof(AddDynamic)} should never be called under this custom implementation." +
+    public void AddDynamic(ITemplateKey key, ITemplateSource source) => throw new NotImplementedException($"{nameof(AddDynamic)} should never be called under this custom implementation." +
             $"All the templates are solved based on their template model (e.g. {nameof(LayoutIndexModel)}");
-    }
 }

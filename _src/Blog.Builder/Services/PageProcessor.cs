@@ -48,8 +48,8 @@ internal class PageProcessor : IPageProcessor
     {
         ExceptionHelpers.ThrowIfPathNotExists(jsonPath);
 
-        var json = File.ReadAllText(jsonPath);
-        var data = JsonConvert.DeserializeObject<T>(json);
+        string? json = File.ReadAllText(jsonPath);
+        T? data = JsonConvert.DeserializeObject<T>(json);
         ExceptionHelpers.ThrowIfNull(data);
 
         //enrich with standard properites
@@ -63,29 +63,29 @@ internal class PageProcessor : IPageProcessor
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
         //read json and html from the folder
-        var jsonFileContent = Path.Combine(directory, Globals.ContentJsonFilename);
+        string? jsonFileContent = Path.Combine(directory, Globals.ContentJsonFilename);
 
-        var pageData = GetPageModelData<T>(jsonFileContent);
+        T? pageData = GetPageModelData<T>(jsonFileContent);
         ExceptionHelpers.ThrowIfNull(pageData);
 
-        var pageHtml = File.ReadAllText(Path.Combine(directory, Globals.ContentHtmlFilename));
+        string? pageHtml = File.ReadAllText(Path.Combine(directory, Globals.ContentHtmlFilename));
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(pageHtml);
 
         //add azure static web app routes
         _staticAppConfigBuilder.Add(pageData.RelativeUrl, pageData.DatePublished);
 
         //add the GitHub repo
-        var articleFolderName = Path.GetFileName(directory.Trim(Path.DirectorySeparatorChar));
+        string? articleFolderName = Path.GetFileName(directory.Trim(Path.DirectorySeparatorChar));
         pageData.GithubUrl = $"{appSettings.GithubWorkablesFolderUrl}/{Globals.WorkingArticlesFolderName}/{articleFolderName}/{Globals.ContentHtmlFilename}";
 
         //get the right column cards, if any
-        var rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
+        IEnumerable<string>? rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
 
         //get the inner layout build
-        var internalHtml = _pageBuilder.BuildInternalLayout(pageData, pageHtml, rightColumnCards);
+        string? internalHtml = _pageBuilder.BuildInternalLayout(pageData, pageHtml, rightColumnCards);
 
         //get the outer layout build
-        var builderResult = _pageBuilder.BuildMainLayout(pageData, internalHtml);
+        PageBuilderResult? builderResult = _pageBuilder.BuildMainLayout(pageData, internalHtml);
 
         //done!
         return builderResult;
@@ -97,13 +97,13 @@ internal class PageProcessor : IPageProcessor
         ExceptionHelpers.ThrowIfNullOrEmpty(pageCards);
 
         //get the right column cards, if any
-        var rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
+        IEnumerable<string>? rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
 
         //get the inner layout build
-        var internalHtml = _pageBuilder.BuildInternalLayout(pageData, pageCards, rightColumnCards);
+        string? internalHtml = _pageBuilder.BuildInternalLayout(pageData, pageCards, rightColumnCards);
 
         //get the outer layout build
-        var builderResult = _pageBuilder.BuildMainLayout(pageData, internalHtml);
+        PageBuilderResult? builderResult = _pageBuilder.BuildMainLayout(pageData, internalHtml);
 
         //done!
         return builderResult;
@@ -115,10 +115,10 @@ internal class PageProcessor : IPageProcessor
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
         //get the builder result
-        var builderResult = GetBuilderResult<T>(directory);
+        PageBuilderResult? builderResult = GetBuilderResult<T>(directory);
 
         //minify and save page
-        var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
+        MarkupMinificationResult? minifier = _markupMinifier.Minify(builderResult.FinalHtml);
         if (minifier.Errors.Count > 0)
         {
             //todo: add all errors
@@ -127,7 +127,7 @@ internal class PageProcessor : IPageProcessor
                 $"{Environment.NewLine}{minifier.Errors.First().SourceFragment}");
         }
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
-        var savingPath = Path.Combine(Globals.OutputFolderPath, Path.GetFileName(builderResult.RelativeUrl));
+        string? savingPath = Path.Combine(Globals.OutputFolderPath, Path.GetFileName(builderResult.RelativeUrl));
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //copy all media associated with this page
@@ -140,10 +140,10 @@ internal class PageProcessor : IPageProcessor
             );
 
             //create and copy a smaller version
-            foreach (var file in Directory.GetFiles(Path.Combine(directory, Globals.MediaFolderName)))
+            foreach (string? file in Directory.GetFiles(Path.Combine(directory, Globals.MediaFolderName)))
             {
-                var ext = Path.GetExtension(file);
-                var name = Path.GetFileNameWithoutExtension(file);
+                string? ext = Path.GetExtension(file);
+                string? name = Path.GetFileNameWithoutExtension(file);
 
                 Helpers.ResizeImage(file,
                     Path.Combine(Globals.OutputFolderPath, Globals.MediaFolderName, name + "-small" + ext),
@@ -162,12 +162,12 @@ internal class PageProcessor : IPageProcessor
         ArgumentNullException.ThrowIfNull(pageData);
 
         //Get all the cards html for the main page
-        var cards = _cardProcessor.GetBodyCardsHtml(pageData.Paging.CurrentPageIndex, cardsPerPage);
+        IEnumerable<string>? cards = _cardProcessor.GetBodyCardsHtml(pageData.Paging.CurrentPageIndex, cardsPerPage);
 
         //build the page
-        var builderResult = this.GetBuilderResult(pageData, cards);
+        PageBuilderResult? builderResult = GetBuilderResult(pageData, cards);
 
-        var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
+        MarkupMinificationResult? minifier = _markupMinifier.Minify(builderResult.FinalHtml);
         if (minifier.Errors.Count > 0)
         {
             throw new Exception($"Minification failed with at least one error:" +
@@ -177,8 +177,8 @@ internal class PageProcessor : IPageProcessor
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
 
         //save it
-        var indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);
-        var savingPath = Path.Combine(Globals.OutputFolderPath, $"index{indexPageNumber}.html");
+        string? indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);
+        string? savingPath = Path.Combine(Globals.OutputFolderPath, $"index{indexPageNumber}.html");
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //add it to sitemap.xml

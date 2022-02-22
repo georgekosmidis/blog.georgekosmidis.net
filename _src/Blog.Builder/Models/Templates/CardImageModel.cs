@@ -13,19 +13,16 @@ public record class CardImageModel : CardModelBase
     /// </summary>
     /// <param name="parent">The base <see cref="CardModelBase"/> to be used.</param>
     /// <returns>A new instance of a <see cref="CardImageModel"/>.</returns>
-    public static CardImageModel FromBase(CardModelBase parent)
+    public static CardImageModel FromBase(CardModelBase parent) => new()
     {
-        return new CardImageModel
-        {
-            TemplateDataModel = parent.TemplateDataModel,
-            ImageUrl = parent.ImageUrl,
-            Title = parent.Title,
-            Link = parent.Link,
-            Position = parent.Position,
-            IsSticky = parent.IsSticky,
-            RightColumnPosition = parent.RightColumnPosition,
-        };
-    }
+        TemplateDataModel = parent.TemplateDataModel,
+        ImageUrl = parent.ImageUrl,
+        Title = parent.Title,
+        Link = parent.Link,
+        Position = parent.Position,
+        IsSticky = parent.IsSticky,
+        RightColumnPosition = parent.RightColumnPosition,
+    };
 
     /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.
@@ -40,9 +37,8 @@ public record class CardImageModel : CardModelBase
             throw new Exception($"{nameof(TemplateDataModel)} must be {nameof(CardImageModel)} for the type {nameof(CardImageModel)}.");
         }
 
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Title);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Link);
-        ExceptionHelpers.ThrowIfPathNotExists(this.ImageUrl);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Title);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Link);
+        ExceptionHelpers.ThrowIfPathNotExists(ImageUrl);
     }
-
 }

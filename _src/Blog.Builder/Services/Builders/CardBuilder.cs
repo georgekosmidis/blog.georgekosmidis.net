@@ -41,7 +41,7 @@ internal class CardBuilder : ICardBuilder
     {
         ExceptionHelpers.ThrowIfNull(cardDataBase);
 
-        string cardHtml = CreateCardHtml(cardDataBase);
+        var cardHtml = CreateCardHtml(cardDataBase);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(cardHtml);
 
         //Add the card to the collection of cards
@@ -151,7 +151,7 @@ internal class CardBuilder : ICardBuilder
         // plus the sticky cards that will exist in every page
         var totalCount = ArticleCards.Count
                             + OtherCards.Count(x => !x.IsSticky)
-                            + OtherCards.Count(x => x.IsSticky) * (int)totalPages;
+                            + (OtherCards.Count(x => x.IsSticky) * (int)totalPages);
 
         //If last page contains just the sticky cards, then do not create a page just for that
         if (totalCount % cardsPerPage <= stickyCardsNum)
@@ -162,8 +162,5 @@ internal class CardBuilder : ICardBuilder
         return totalCount;
     }
 
-    public void Dispose()
-    {
-        _templateEngine.Dispose();
-    }
+    public void Dispose() => _templateEngine.Dispose();
 }

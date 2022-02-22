@@ -120,7 +120,7 @@ public record class LayoutModelBase : ModelBase
     {
         get
         {
-            var result = Regex.Replace(Description, "<.*?>", " ", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
+            string? result = Regex.Replace(Description, "<.*?>", " ", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
             return result.Trim();
         }
     }

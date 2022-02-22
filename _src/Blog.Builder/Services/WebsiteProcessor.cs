@@ -166,10 +166,10 @@ internal class WebsitePreparation : IWebsiteProcessor
     public async Task PrepareAsync()
     {
         PrepareOutputFolders();
-        await this.PrepareAdditionalCardsAsync();
-        this.PrepareStandalonePages();
-        this.PrepareArticlePages();
-        this.PrepareIndexPages();
+        await PrepareAdditionalCardsAsync();
+        PrepareStandalonePages();
+        PrepareArticlePages();
+        PrepareIndexPages();
         _sitemapBuilder.Build();
         _staticAppConfigBuilder.Build();
     }

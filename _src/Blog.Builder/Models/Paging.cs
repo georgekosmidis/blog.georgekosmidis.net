@@ -23,11 +23,5 @@ public record class Paging
     /// <summary>
     /// The calculated page count.
     /// </summary>
-    public int PageCount
-    {
-        get
-        {
-            return (int)Math.Ceiling(TotalCardsCount / (decimal)CardsPerPage);
-        }
-    }
+    public int PageCount => (int)Math.Ceiling(TotalCardsCount / (decimal)CardsPerPage);
 }

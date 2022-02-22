@@ -26,14 +26,7 @@ public abstract record class ModelBase
     ///       but maybe part of the host?
     /// </remarks>
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "RazorEngine wants it to be an instance member.")]
-    public Guid Nonce
-    {
-        get
-        {
-            //todo: lock or a better way for a unique nonce?
-            return nonce;
-        }
-    }
+    public Guid Nonce => nonce;
 
     /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.
@@ -41,7 +34,7 @@ public abstract record class ModelBase
     /// </summary>
     public void Validate()
     {
-        ExceptionHelpers.ThrowIfNull(this.Nonce);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.TemplateDataModel);
+        ExceptionHelpers.ThrowIfNull(Nonce);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(TemplateDataModel);
     }
 }

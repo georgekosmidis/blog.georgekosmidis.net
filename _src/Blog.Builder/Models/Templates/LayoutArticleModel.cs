@@ -55,12 +55,12 @@ public record class LayoutArticleModel : LayoutModelBase
     /// <returns>Returns the calculated string</returns>
     private static string SpanCalculation(TimeSpan span)
     {
-        var result = new StringBuilder();
+        StringBuilder? result = new();
 
         var years = Math.Round(span.Days / 365d);
-        var months = Math.Max(0, Math.Round((span.Days - years * 365) / 30));
-        var weeks = Math.Max(0, Math.Round((span.Days - years * 365 - months * 30) / 7));
-        var days = Math.Max(0, span.Days - weeks * 7 - months * 30 - years * 365);
+        var months = Math.Max(0, Math.Round((span.Days - (years * 365)) / 30));
+        var weeks = Math.Max(0, Math.Round((span.Days - (years * 365) - (months * 30)) / 7));
+        var days = Math.Max(0, span.Days - (weeks * 7) - (months * 30) - (years * 365));
 
         if (years > 0)
         {

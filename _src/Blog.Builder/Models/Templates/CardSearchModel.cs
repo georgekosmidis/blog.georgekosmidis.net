@@ -12,16 +12,13 @@ public record class CardSearchModel : CardModelBase
     /// </summary>
     /// <param name="parent">The base <see cref="CardModelBase"/> to be used.</param>
     /// <returns>A new instance of a <see cref="CardSearchModel"/>.</returns>
-    public static CardSearchModel FromBase(CardModelBase parent)
+    public static CardSearchModel FromBase(CardModelBase parent) => new()
     {
-        return new CardSearchModel
-        {
-            TemplateDataModel = parent.TemplateDataModel,
-            Position = parent.Position,
-            IsSticky = parent.IsSticky,
-            RightColumnPosition = parent.RightColumnPosition,
-        };
-    }
+        TemplateDataModel = parent.TemplateDataModel,
+        Position = parent.Position,
+        IsSticky = parent.IsSticky,
+        RightColumnPosition = parent.RightColumnPosition,
+    };
 
     /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.

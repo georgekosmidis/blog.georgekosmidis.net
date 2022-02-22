@@ -13,10 +13,7 @@ public record class LayoutIndexModel : LayoutModelBase
     /// This is a very specific tempalte model, so setting the <see cref="ModelBase.TemplateDataModel"/> from within 
     /// enforces its usage.
     /// </summary>
-    public LayoutIndexModel()
-    {
-        this.TemplateDataModel = nameof(LayoutIndexModel);//its a very specific model
-    }
+    public LayoutIndexModel() => TemplateDataModel = nameof(LayoutIndexModel);//its a very specific model
 
     /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.
@@ -35,6 +32,5 @@ public record class LayoutIndexModel : LayoutModelBase
         {
             throw new Exception($"{nameof(TemplateDataModel)} must be {nameof(LayoutIndexModel)} for the type {nameof(LayoutIndexModel)}.");
         }
-
     }
 }

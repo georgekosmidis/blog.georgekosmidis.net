@@ -13,18 +13,15 @@ public record class CardArticleModel : CardModelBase
     /// </summary>
     /// <param name="parent">The base <see cref="CardModelBase"/> to be used.</param>
     /// <returns>A new instance of a <see cref="CardArticleModel"/>.</returns>
-    public static CardArticleModel FromBase(CardModelBase parent)
+    public static CardArticleModel FromBase(CardModelBase parent) => new()
     {
-        return new CardArticleModel
-        {
-            TemplateDataModel = parent.TemplateDataModel,
-            ImageUrl = parent.ImageUrl,
-            Title = parent.Title,
-            Description = parent.Description,
-            Link = parent.Link,
-            Footer = parent.Footer
-        };
-    }
+        TemplateDataModel = parent.TemplateDataModel,
+        ImageUrl = parent.ImageUrl,
+        Title = parent.Title,
+        Description = parent.Description,
+        Link = parent.Link,
+        Footer = parent.Footer
+    };
 
     /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.
@@ -34,10 +31,10 @@ public record class CardArticleModel : CardModelBase
     {
         base.Validate();
 
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Title);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Description);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Footer);
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(this.Link);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Title);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Description);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Footer);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(Link);
 
         if (TemplateDataModel != nameof(CardArticleModel))
         {

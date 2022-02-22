@@ -45,7 +45,7 @@ internal class RazorEngineWrapperService : IRazorEngineWrapperService, IDisposab
     /// </summary>
     ~RazorEngineWrapperService()
     {
-        this.Dispose();
+        Dispose();
     }
 
     /// <inheritdoc/>
@@ -64,6 +64,4 @@ internal class RazorEngineWrapperService : IRazorEngineWrapperService, IDisposab
 
         return sb.ToString();
     }
-
-
 }

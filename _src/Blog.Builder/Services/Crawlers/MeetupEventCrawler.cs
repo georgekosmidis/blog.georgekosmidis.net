@@ -15,10 +15,7 @@ internal class MeetupEventCrawler : IMeetupEventCrawler
     /// </summary>
     private readonly HttpClientService _httpClientService;
 
-    public MeetupEventCrawler(IHttpClientServiceFactory requestServiceFactory)
-    {
-        _httpClientService = requestServiceFactory.CreateHttpClientService();
-    }
+    public MeetupEventCrawler(IHttpClientServiceFactory requestServiceFactory) => _httpClientService = requestServiceFactory.CreateHttpClientService();
 
     /// <inheritdoc/>
     public async Task<IList<CalendarEvent>> GetAsync(string ogranizer, Uri organizerUrl, Uri iCalendarUrl)

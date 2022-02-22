@@ -39,8 +39,5 @@ internal class SitemapBuilder : ISitemapBuilder
         sitemapModel.Add(relativeUrl, dateModified);
     }
 
-    public void Dispose()
-    {
-        _templateEngine.Dispose();
-    }
+    public void Dispose() => _templateEngine.Dispose();
 }

@@ -86,7 +86,7 @@ internal class PageBuilder : IPageBuilder
         //todo: should that be here?
         if (pageData.TemplateDataModel == nameof(LayoutArticleModel))
         {
-            var articleData = (pageData as LayoutArticleModel);
+            var articleData = pageData as LayoutArticleModel;
             ExceptionHelpers.ThrowIfNull(articleData);
 
             var footer = articleData.DateModifiedText == articleData.DatePublishedText ? $"Published {articleData.DatePublishedText}" : $"Modified {articleData.DateModifiedText}";
@@ -108,8 +108,5 @@ internal class PageBuilder : IPageBuilder
         return mainBuilderResult;
     }
 
-    public void Dispose()
-    {
-        _templateEngine.Dispose();
-    }
+    public void Dispose() => _templateEngine.Dispose();
 }
