@@ -2,8 +2,13 @@
 using Blog.Builder.Interfaces;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.RazorEngineServices;
+using Blog.Builder.Models;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
+using System.Text.RegularExpressions;
 
 namespace Blog.Builder.Services.Builders;
 
@@ -13,15 +18,18 @@ internal class PageBuilder : IPageBuilder
     private readonly IRazorEngineWrapperService _templateEngine;
     private readonly ICardProcessor _cardPreparation;
     private readonly ILogger _logger;
+    private readonly AppSettings appSettings;
 
-    public PageBuilder(IRazorEngineWrapperService templateService, ICardProcessor cardPreparation, ILogger logger)
+    public PageBuilder(IRazorEngineWrapperService templateService, ICardProcessor cardPreparation, ILogger logger, IOptions<AppSettings> options)
     {
         ArgumentNullException.ThrowIfNull(templateService);
         ArgumentNullException.ThrowIfNull(cardPreparation);
+        ArgumentNullException.ThrowIfNull(options);
 
         _templateEngine = templateService;
         _cardPreparation = cardPreparation;
         _logger = logger;
+        appSettings = options.Value;
     }
 
     /// <inheritdoc/>
@@ -67,6 +75,24 @@ internal class PageBuilder : IPageBuilder
         pageData.Validate();
 
         var finalHtml = _templateEngine.RunCompile(pageData);
+
+        //Add CreatorID
+        var linkParser = new Regex("http(s?):\\/\\/([^\"'\\s<>]*)(microsoft\\.com|azure\\.cn|msdn\\.com)([^\"'\\s<>)]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        var urlsToChange = new Dictionary<string,string>();
+        foreach (Match m in linkParser.Matches(finalHtml))
+        {
+            if (m.Value.Contains("mvp.microsoft.com") || m.Value.Contains($"WT.mc_id={appSettings.MicrosoftCreatorID}"))
+            {
+                continue;
+            }
+            urlsToChange[m.Value] = QueryHelpers.AddQueryString(m.Value, "WT.mc_id", appSettings.MicrosoftCreatorID);
+           
+        }
+        foreach(var (oldUrl,newUrl) in urlsToChange.Distinct())
+        {
+            finalHtml = finalHtml.Replace(oldUrl, newUrl);
+        }
 
         return new PageBuilderResult
         {

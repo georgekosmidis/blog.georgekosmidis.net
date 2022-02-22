@@ -74,5 +74,10 @@ internal record class AppSettings
     /// The URL of the workables folder in the Github repo.
     /// </summary>
     public string GithubWorkablesFolderUrl { get; init; } = default!;
+
+    /// <summary>
+    /// Microsoft CreatorID for skilling
+    /// </summary>
+    public string MicrosoftCreatorID { get; init; } = default!;
 }
 
