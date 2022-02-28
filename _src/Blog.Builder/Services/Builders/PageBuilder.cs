@@ -77,7 +77,7 @@ internal class PageBuilder : IPageBuilder
         var finalHtml = _templateEngine.RunCompile(pageData);
 
         //Add CreatorID
-        var linkParser = new Regex("http(s?):\\/\\/([^\"'\\s<>]*)(microsoft\\.com|azure\\.cn|msdn\\.com)([^\"'\\s<>)]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        var linkParser = new Regex("http(s?):\\/\\/([^\"'\\s<>]*)(microsoft\\.com|azure\\.cn|azure\\.com|msdn\\.com)([^\"'\\s<>)]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         var urlsToChange = new Dictionary<string,string>();
         foreach (Match m in linkParser.Matches(finalHtml))
