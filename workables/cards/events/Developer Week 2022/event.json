@@ -1,8 +1,8 @@
 {
-	"Organizer": "DevOps Pro Europe 2022",
-	"OrganizerUrl": "https://devopspro.lt/",
-	"Title" : "Create and Publish a Blazor Component as Nuget Package",
-    "DateTime" : "2022-05-24T12:05:00+02:00",
+	"Organizer": "Developer Week '22",
+	"OrganizerUrl": "https://www.developer-week.de/",
+	"Title" : "Using Azure DevOps to build and deploy a Docker image to Azure",
+    "DateTime" : "2022-07-08T09:00:00+02:00",
     "Place" : "Online",
     "Url" : "https://devopspro.lt/George-Kosmidis/"
 }
