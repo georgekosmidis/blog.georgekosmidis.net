@@ -22,7 +22,7 @@ public record class LayoutIndexModel : LayoutModelBase
     public new void Validate()
     {
         base.Validate();
-
+        
         ExceptionHelpers.ThrowIfNull(Paging);
         ExceptionHelpers.ThrowIfNull(Paging.CurrentPageIndex);
         ExceptionHelpers.ThrowIfNull(Paging.TotalCardsCount);
