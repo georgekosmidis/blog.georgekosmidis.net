@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /tag
-Disallow: /category
-Disallow: /sitemap_index.xml
 
 Sitemap: https://blog.georgekosmidis.net/sitemap.xml
