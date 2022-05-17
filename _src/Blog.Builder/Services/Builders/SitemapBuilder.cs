@@ -1,7 +1,9 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Interfaces.RazorEngineServices;
+using Blog.Builder.Models;
 using Blog.Builder.Models.Templates;
+using Microsoft.Extensions.Options;
 
 namespace Blog.Builder.Services.Builders;
 
@@ -9,11 +11,14 @@ namespace Blog.Builder.Services.Builders;
 internal class SitemapBuilder : ISitemapBuilder
 {
     private readonly IRazorEngineWrapperService _templateEngine;
-    private static readonly LayoutSitemapModel sitemapModel = new();
+    private readonly LayoutSitemapModel sitemapModel;
 
-    public SitemapBuilder(IRazorEngineWrapperService templateService)
+    public SitemapBuilder(IRazorEngineWrapperService templateService, IOptions<AppSettings> options)
     {
         ArgumentNullException.ThrowIfNull(templateService);
+        ArgumentNullException.ThrowIfNull(options);
+
+        sitemapModel = new(options.Value);
 
         _templateEngine = templateService;
     }
@@ -39,5 +44,8 @@ internal class SitemapBuilder : ISitemapBuilder
         sitemapModel.Add(relativeUrl, dateModified);
     }
 
-    public void Dispose() => _templateEngine.Dispose();
+    public void Dispose()
+    {
+        _templateEngine.Dispose();
+    }
 }

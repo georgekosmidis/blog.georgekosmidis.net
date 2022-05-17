@@ -9,6 +9,16 @@ namespace Blog.Builder.Models.Templates;
 /// </summary>
 public record class LayoutArticleModel : LayoutModelBase
 {
+
+    /// <summary>
+    /// Ctor.
+    /// </summary>
+    /// <param name="appSettings">The appsettings.json model</param>
+    public LayoutArticleModel(AppSettings appSettings) : base(appSettings)
+    {
+        TemplateDataModel = nameof(LayoutArticleModel);
+    }
+
     /// <summary>
     /// The calculated path for the small version of the image.
     /// The smaller version is automatically created from <see cref="Services.PageProcessor.ProcessPage{T}(string)"/>.

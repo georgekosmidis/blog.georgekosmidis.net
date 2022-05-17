@@ -3,7 +3,7 @@
 /// <summary>
 /// The AppSettings of this app.
 /// </summary>
-internal record class AppSettings
+public record class AppSettings
 {
     /// <summary>
     /// The number of cards per page (defauls is 9).
@@ -25,19 +25,16 @@ internal record class AppSettings
     /// </summary>
     public List<string> BlogTags { get; init; } = new List<string>();
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0032:Use auto property", Justification = "It's needed only for RELEASE, DEBUG can't see the requirement.")]
     private string blogUrl = default!;
-
     /// <summary>
-    /// The blog base url.
+    /// The blog base URL.
     /// </summary>
     public string BlogUrl
     {
         get
         {
-
             //ugly hack because I always forget to change the appsettings blogUrl
-            if (blogUrl != default && blogUrl != "https://blog.georgekosmidis.net")
+            if (blogUrl is not default(string?) and not "https://blog.georgekosmidis.net")
             {
 #if RELEASE
                 throw new Exception("You forgot to change the BlogUrl from the appsettings, AGAIN!");
@@ -54,6 +51,21 @@ internal record class AppSettings
     /// The blog image
     /// </summary>
     public string BlogImage { get; init; } = default!;
+
+    /// <summary>
+    /// The twitter handle of the author (or blog)
+    /// </summary>
+    public string TwitterHandle { get; init; } = default!;
+
+    /// <summary>
+    /// The author's personal page
+    /// </summary>
+    public string AuthorPersonalPage { get; init; } = default!;
+
+    /// <summary>
+    /// The author name of the blog posts
+    /// </summary>
+    public string AuthorName { get; init; } = default!;
 
     /// <summary>
     /// The name of the meetup.com usergroup that its events will be crawled.
@@ -73,7 +85,7 @@ internal record class AppSettings
     /// <summary>
     /// The URL of the workables folder in the Github repo.
     /// </summary>
-    public string GithubWorkablesFolderUrl { get; init; } = default!;
+    public string GithubRepoUrl { get; init; } = default!;
 
     /// <summary>
     /// Microsoft CreatorID for skilling

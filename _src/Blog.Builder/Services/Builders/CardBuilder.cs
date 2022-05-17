@@ -112,7 +112,7 @@ internal class CardBuilder : ICardBuilder
         // this action should have been avoided from GetCardsNumber method
         if (cards.Count == 0)
         {
-            throw new Exception($"A request to build a page with just sticky page is not valid. This action should have been avoided by the {nameof(this.GetCardsNumber)} method.");
+            throw new Exception($"A request to build a page with just sticky cards is not valid. This action should have been avoided by the {nameof(this.GetCardsNumber)} method.");
         }
 
         //Add the sticky card to their correct position
@@ -162,5 +162,8 @@ internal class CardBuilder : ICardBuilder
         return totalCount;
     }
 
-    public void Dispose() => _templateEngine.Dispose();
+    public void Dispose()
+    {
+        _templateEngine.Dispose();
+    }
 }

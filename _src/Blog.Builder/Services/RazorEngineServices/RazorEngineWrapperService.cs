@@ -21,9 +21,11 @@ internal class RazorEngineWrapperService : IRazorEngineWrapperService, IDisposab
     {
         ArgumentNullException.ThrowIfNull(templateManager);
 
-        var config = new TemplateServiceConfiguration();
-        config.EncodedStringFactory = new RawStringFactory();
-        config.TemplateManager = templateManager;
+        var config = new TemplateServiceConfiguration
+        {
+            EncodedStringFactory = new RawStringFactory(),
+            TemplateManager = templateManager
+        };
 #if DEBUG
         config.Debug = true;
 #endif

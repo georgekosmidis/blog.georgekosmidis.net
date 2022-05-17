@@ -8,20 +8,13 @@ namespace Blog.Builder.Models.Templates;
 public record class CardArticleModel : CardModelBase
 {
     /// <summary>
-    /// Converts a base <see cref="CardModelBase"/> to a <see cref="CardArticleModel"/> applying any custom logic
-    /// for this unusual conversion.
+    /// Ctor.
     /// </summary>
-    /// <param name="parent">The base <see cref="CardModelBase"/> to be used.</param>
-    /// <returns>A new instance of a <see cref="CardArticleModel"/>.</returns>
-    public static CardArticleModel FromBase(CardModelBase parent) => new()
+    /// <param name="appSettings">The appsettings.json model.</param>
+    public CardArticleModel(AppSettings appSettings) : base(appSettings)
     {
-        TemplateDataModel = parent.TemplateDataModel,
-        ImageUrl = parent.ImageUrl,
-        Title = parent.Title,
-        Description = parent.Description,
-        Link = parent.Link,
-        Footer = parent.Footer
-    };
+        TemplateDataModel = nameof(CardArticleModel);
+    }
 
     /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.

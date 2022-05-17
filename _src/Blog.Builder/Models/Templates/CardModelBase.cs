@@ -6,6 +6,17 @@
 public record class CardModelBase : ModelBase
 {
     /// <summary>
+    /// Ctor.
+    /// </summary>
+    /// <param name="appSettings">The appsettings.json model</param>
+    public CardModelBase(AppSettings appSettings) : base(appSettings)
+    {
+        TemplateDataModel = nameof(CardModelBase);
+        LinkTarget = "_blank";
+        RightColumnPosition = -1;
+    }
+
+    /// <summary>
     /// The title of the card. Can be empty if the card is a <see cref="CardImageModel"/> or a <see cref="CardSearchModel"/>.
     /// </summary>
     public string? Title { get; set; }
@@ -28,7 +39,7 @@ public record class CardModelBase : ModelBase
     /// <summary>
     /// The target for the link. Defaults to "_blank";
     /// </summary>
-    public string? LinkTarget { get; set; } = "_blank";
+    public string LinkTarget { get; set; }
 
     /// <summary>
     /// The url for the image of the card. Can be empty if the card is a <see cref="CardSearchModel"/>.
@@ -49,7 +60,7 @@ public record class CardModelBase : ModelBase
     /// The position of the card in the pages that have a right column.
     /// -1 means do not add.
     /// </summary>
-    public int RightColumnPosition { get; set; } = -1;
+    public int RightColumnPosition { get; set; }
 
     /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.

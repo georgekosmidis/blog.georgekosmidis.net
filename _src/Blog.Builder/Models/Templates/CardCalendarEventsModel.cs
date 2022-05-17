@@ -7,6 +7,14 @@ namespace Blog.Builder.Models.Templates;
 /// </summary>
 public record class CardCalendarEventsModel : CardModelBase
 {
+    /// <summary>
+    /// Ctor.
+    /// </summary>
+    /// <param name="appSettings">The appsettings.json model.</param>
+    public CardCalendarEventsModel(AppSettings appSettings) : base(appSettings)
+    {
+        TemplateDataModel = nameof(CardCalendarEventsModel);
+    }
 
     /// <summary>
     /// The calendar events (meetups or file events) to be parted in the template.
@@ -14,26 +22,11 @@ public record class CardCalendarEventsModel : CardModelBase
     public IList<CalendarEvent> CalendarEvents { get; set; } = new List<CalendarEvent>();
 
     /// <summary>
-    /// Converts a base <see cref="CardModelBase"/> to a <see cref="CardCalendarEventsModel"/> applying any custom logic
-    /// for this unusual conversion.
-    /// </summary>
-    /// <param name="parent">The base <see cref="CardModelBase"/> to be used.</param>
-    /// <returns>A new instance of a <see cref="CardCalendarEventsModel"/>.</returns>
-    public static CardCalendarEventsModel FromBase(CardModelBase parent) => new()
-    {
-        TemplateDataModel = parent.TemplateDataModel,
-        ImageUrl = parent.ImageUrl,
-        Title = parent.Title,
-        Link = parent.Link,
-        Position = parent.Position,
-        IsSticky = parent.IsSticky,
-        RightColumnPosition = parent.RightColumnPosition,
-    };
-
-    /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.
     /// Check the <see cref="Validate"/> source code for the validations.
     /// </summary>
-    public new void Validate() => base.Validate();
-
+    public new void Validate()
+    {
+        base.Validate();
+    }
 }

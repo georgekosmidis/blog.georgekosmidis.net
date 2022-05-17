@@ -40,17 +40,21 @@ internal class CardProcessor : ICardProcessor
     /// </summary>
     /// <param name="jsonPath">The path to a valid JSON.</param>
     /// <returns>A <see cref="CardModelBase"/> with the data from the JSON file.</returns>
-    private static CardModelBase GetCardModelData(string jsonPath)
+    private T GetCardModelData<T>(string jsonPath) where T : CardModelBase
     {
         ExceptionHelpers.ThrowIfPathNotExists(jsonPath);
 
+        var model = Activator.CreateInstance(typeof(T), new object[] { appSettings });
+        ExceptionHelpers.ThrowIfNull(model);
+
+
         var json = File.ReadAllText(jsonPath);
-        var data = JsonConvert.DeserializeObject<CardModelBase>(json);
-        ExceptionHelpers.ThrowIfNull(data);
+        JsonConvert.PopulateObject(json, model);
+        ExceptionHelpers.ThrowIfNull(model);
 
-        data.Validate();
+        (model as T)!.Validate();
 
-        return data;
+        return (model as T)!;
     }
 
     /// <inheritdoc/>
@@ -59,19 +63,21 @@ internal class CardProcessor : ICardProcessor
         ExceptionHelpers.ThrowIfPathNotExists(directory);
 
         var jsonFileContent = Path.Combine(directory, Globals.CardJsonFilename);
-        var cardDataBase = GetCardModelData(jsonFileContent);
+        var cardDataBase = GetCardModelData<CardModelBase>(jsonFileContent);
 
         //Find the correct model for this card.
         switch (cardDataBase.TemplateDataModel)
         {
             case nameof(CardSearchModel):
-                _cardBuilder.AddCard(CardSearchModel.FromBase(cardDataBase));
+                var cardSearch = GetCardModelData<CardSearchModel>(jsonFileContent);
+                _cardBuilder.AddCard(cardSearch);
                 break;
             case nameof(CardImageModel):
-                _cardBuilder.AddCard(CardImageModel.FromBase(cardDataBase));
+                var cardImage = GetCardModelData<CardImageModel>(jsonFileContent);
+                _cardBuilder.AddCard(cardImage);
                 break;
             case nameof(CardCalendarEventsModel):
-                var calendarCard = CardCalendarEventsModel.FromBase(cardDataBase);
+                var calendarCard = GetCardModelData<CardCalendarEventsModel>(jsonFileContent);
                 calendarCard.CalendarEvents = await GetCalendarEvents();
                 _cardBuilder.AddCard(calendarCard);
                 break;
@@ -132,7 +138,10 @@ internal class CardProcessor : ICardProcessor
     }
 
     /// <inheritdoc/>
-    public IEnumerable<string> GetRightColumnCardsHtml() => _cardBuilder.GetRightColumnCardsHtml();
+    public IEnumerable<string> GetRightColumnCardsHtml()
+    {
+        return _cardBuilder.GetRightColumnCardsHtml();
+    }
 
     /// <inheritdoc/>
     public void ProcessArticleCard(CardArticleModel cardData, DateTime datePublished)
@@ -142,10 +151,19 @@ internal class CardProcessor : ICardProcessor
     }
 
     /// <inheritdoc/>
-    public IEnumerable<string> GetBodyCardsHtml(int pageIndex, int cardsPerPage) => _cardBuilder.GetBodyCardsHtml(pageIndex, cardsPerPage);
+    public IEnumerable<string> GetBodyCardsHtml(int pageIndex, int cardsPerPage)
+    {
+        return _cardBuilder.GetBodyCardsHtml(pageIndex, cardsPerPage);
+    }
 
     /// <inheritdoc/>
-    public int GetCardsNumber(int cardsPerPage) => _cardBuilder.GetCardsNumber(cardsPerPage);
+    public int GetCardsNumber(int cardsPerPage)
+    {
+        return _cardBuilder.GetCardsNumber(cardsPerPage);
+    }
 
-    public void Dispose() => _cardBuilder.Dispose();
+    public void Dispose()
+    {
+        _cardBuilder.Dispose();
+    }
 }

@@ -48,14 +48,14 @@ internal class PageProcessor : IPageProcessor
     {
         ExceptionHelpers.ThrowIfPathNotExists(jsonPath);
 
-        string? json = File.ReadAllText(jsonPath);
-        T? data = JsonConvert.DeserializeObject<T>(json);
-        ExceptionHelpers.ThrowIfNull(data);
+        var model = Activator.CreateInstance(typeof(T), new object[] { appSettings });
+        ExceptionHelpers.ThrowIfNull(model);
 
-        //enrich with standard properites
-        data.BlogUrl = appSettings.BlogUrl;
+        string json = File.ReadAllText(jsonPath);
+        JsonConvert.PopulateObject(json, model);
+        ExceptionHelpers.ThrowIfNull(model);
 
-        return data;
+        return (model as T)!;
     }
 
     private PageBuilderResult GetBuilderResult<T>(string directory) where T : LayoutModelBase
@@ -76,13 +76,13 @@ internal class PageProcessor : IPageProcessor
 
         //add the GitHub repo
         string? articleFolderName = Path.GetFileName(directory.Trim(Path.DirectorySeparatorChar));
-        pageData.GithubUrl = $"{appSettings.GithubWorkablesFolderUrl}/{Globals.WorkingArticlesFolderName}/{articleFolderName}/{Globals.ContentHtmlFilename}";
+        pageData.GithubCurrentPageUrl = $"{appSettings.GithubRepoUrl}/tree/main/workables/{Globals.WorkingArticlesFolderName}/{articleFolderName}/{Globals.ContentHtmlFilename}";
 
         //get the right column cards, if any
         IEnumerable<string>? rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
 
         //get the inner layout build
-        string? internalHtml = _pageBuilder.BuildInternalLayout(pageData, pageHtml, rightColumnCards);
+        string? internalHtml = _pageBuilder.BuildInternalLayoutForPages(pageData, pageHtml, rightColumnCards);
 
         //get the outer layout build
         PageBuilderResult? builderResult = _pageBuilder.BuildMainLayout(pageData, internalHtml);
@@ -100,7 +100,7 @@ internal class PageProcessor : IPageProcessor
         IEnumerable<string>? rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
 
         //get the inner layout build
-        string? internalHtml = _pageBuilder.BuildInternalLayout(pageData, pageCards, rightColumnCards);
+        string? internalHtml = _pageBuilder.BuildInternalLayoutForIndex(pageData, pageCards, rightColumnCards);
 
         //get the outer layout build
         PageBuilderResult? builderResult = _pageBuilder.BuildMainLayout(pageData, internalHtml);
@@ -127,7 +127,7 @@ internal class PageProcessor : IPageProcessor
                 $"{Environment.NewLine}{minifier.Errors.First().SourceFragment}");
         }
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
-        string? savingPath = Path.Combine(Globals.OutputFolderPath, Path.GetFileName(builderResult.RelativeUrl));
+        var savingPath = Path.Combine(Globals.OutputFolderPath, Path.GetFileName(builderResult.RelativeUrl));
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //copy all media associated with this page
@@ -162,12 +162,12 @@ internal class PageProcessor : IPageProcessor
         ArgumentNullException.ThrowIfNull(pageData);
 
         //Get all the cards html for the main page
-        IEnumerable<string>? cards = _cardProcessor.GetBodyCardsHtml(pageData.Paging.CurrentPageIndex, cardsPerPage);
+        IEnumerable<string> cards = _cardProcessor.GetBodyCardsHtml(pageData.Paging.CurrentPageIndex, cardsPerPage);
 
         //build the page
         PageBuilderResult? builderResult = GetBuilderResult(pageData, cards);
 
-        MarkupMinificationResult? minifier = _markupMinifier.Minify(builderResult.FinalHtml);
+        var minifier = _markupMinifier.Minify(builderResult.FinalHtml);
         if (minifier.Errors.Count > 0)
         {
             throw new Exception($"Minification failed with at least one error:" +
@@ -177,11 +177,12 @@ internal class PageProcessor : IPageProcessor
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(minifier.MinifiedContent);
 
         //save it
-        string? indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);
-        string? savingPath = Path.Combine(Globals.OutputFolderPath, $"index{indexPageNumber}.html");
+        var indexPageNumber = pageData.Paging.CurrentPageIndex == 0 ? string.Empty : "-page-" + (pageData.Paging.CurrentPageIndex + 1);
+        var savingPath = Path.Combine(Globals.OutputFolderPath, $"index{indexPageNumber}.html");
         File.WriteAllText(savingPath, minifier.MinifiedContent);
 
         //add it to sitemap.xml
+        pageData.RelativeUrl = $"/index{indexPageNumber}.html";
         _sitemapBuilder.Add(string.IsNullOrWhiteSpace(indexPageNumber) ? "/" : $"/index{indexPageNumber}.html", builderResult.DateModified);
     }
 

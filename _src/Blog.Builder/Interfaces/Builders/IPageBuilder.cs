@@ -17,7 +17,7 @@ internal interface IPageBuilder : IDisposable
     /// <param name="bodyCards">A collection of cards that will be used as body.</param>
     /// <param name="rightColumnCards">The HTML of the cards of right column of the page.</param>
     /// <returns>Returns a string with the HTML of an internal layout, the relative URL and the date it was modified.</returns>
-    string BuildInternalLayout<T>(T pageData, IEnumerable<string> bodyCards, IEnumerable<string> rightColumnCards) where T : LayoutModelBase;
+    string BuildInternalLayoutForIndex<T>(T pageData, IEnumerable<string> bodyCards, IEnumerable<string> rightColumnCards) where T : LayoutModelBase;
 
     /// <summary>
     /// Builds the HTML of an interal layout
@@ -27,7 +27,7 @@ internal interface IPageBuilder : IDisposable
     /// <param name="bodyHtml">The HTML that will be used as body.</param>
     /// <param name="rightColumnCards">The HTML of the cards of right column of the page.</param>
     /// <returns>Returns a string with the HTML of an internal layout, the relative URL and the date it was modified.</returns>
-    string BuildInternalLayout<T>(T pageData, string bodyHtml, IEnumerable<string> rightColumnCards) where T : LayoutModelBase;
+    string BuildInternalLayoutForPages<T>(T pageData, string bodyHtml, IEnumerable<string> rightColumnCards) where T : LayoutModelBase;
 
     /// <summary>
     /// Buids the HTML of the main layout

@@ -8,12 +8,25 @@ namespace Blog.Builder.Models.Templates;
 /// </summary>
 public record class LayoutIndexModel : LayoutModelBase
 {
+
     /// <summary>
     /// Constructor that sets the <see cref="ModelBase.TemplateDataModel"/> to nameof(<seealso cref="LayoutIndexModel"/>).
     /// This is a very specific tempalte model, so setting the <see cref="ModelBase.TemplateDataModel"/> from within 
     /// enforces its usage.
     /// </summary>
-    public LayoutIndexModel() => TemplateDataModel = nameof(LayoutIndexModel);//its a very specific model
+    /// <param name="appSettings">The appsettings.json model</param>
+    public LayoutIndexModel(AppSettings appSettings) : base(appSettings)
+    {
+        TemplateDataModel = nameof(LayoutIndexModel);
+        DatePublished = DateTime.Now;
+        DateModified = DateTime.Now;
+        Paging = new Paging
+        {
+            CardsPerPage = appSettings.CardsPerPage,
+            CurrentPageIndex = 0,
+            TotalCardsCount = 0
+        };
+    }
 
     /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.
@@ -22,7 +35,7 @@ public record class LayoutIndexModel : LayoutModelBase
     public new void Validate()
     {
         base.Validate();
-        
+
         ExceptionHelpers.ThrowIfNull(Paging);
         ExceptionHelpers.ThrowIfNull(Paging.CurrentPageIndex);
         ExceptionHelpers.ThrowIfNull(Paging.TotalCardsCount);

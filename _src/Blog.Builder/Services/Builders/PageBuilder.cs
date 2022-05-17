@@ -5,7 +5,6 @@ using Blog.Builder.Interfaces.RazorEngineServices;
 using Blog.Builder.Models;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using System.Text.RegularExpressions;
@@ -33,7 +32,7 @@ internal class PageBuilder : IPageBuilder
     }
 
     /// <inheritdoc/>
-    public string BuildInternalLayout<T>(T pageData, string bodyHtml, IEnumerable<string> rightColumnCards) where T : LayoutModelBase
+    public string BuildInternalLayoutForPages<T>(T pageData, string bodyHtml, IEnumerable<string> rightColumnCards) where T : LayoutModelBase
     {
         ExceptionHelpers.ThrowIfNull(pageData);
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(bodyHtml);
@@ -50,7 +49,7 @@ internal class PageBuilder : IPageBuilder
     }
 
     /// <inheritdoc/>
-    public string BuildInternalLayout<T>(T pageData, IEnumerable<string> bodyCards, IEnumerable<string> rightColumnCards) where T : LayoutModelBase
+    public string BuildInternalLayoutForIndex<T>(T pageData, IEnumerable<string> bodyCards, IEnumerable<string> rightColumnCards) where T : LayoutModelBase
     {
         ExceptionHelpers.ThrowIfNull(pageData);
         ExceptionHelpers.ThrowIfNullOrEmpty(bodyCards);
@@ -79,7 +78,7 @@ internal class PageBuilder : IPageBuilder
         //Add CreatorID
         var linkParser = new Regex("http(s?):\\/\\/([^\"'\\s<>]*)(microsoft\\.com|azure\\.cn|azure\\.com|msdn\\.com)([^\"'\\s<>)]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        var urlsToChange = new Dictionary<string,string>();
+        var urlsToChange = new Dictionary<string, string>();
         foreach (Match m in linkParser.Matches(finalHtml))
         {
             if (m.Value.Contains("mvp.microsoft.com") || m.Value.Contains($"WT.mc_id={appSettings.MicrosoftCreatorID}"))
@@ -87,9 +86,9 @@ internal class PageBuilder : IPageBuilder
                 continue;
             }
             urlsToChange[m.Value] = QueryHelpers.AddQueryString(m.Value, "WT.mc_id", appSettings.MicrosoftCreatorID);
-           
+
         }
-        foreach(var (oldUrl,newUrl) in urlsToChange.Distinct())
+        foreach (var (oldUrl, newUrl) in urlsToChange.Distinct())
         {
             finalHtml = finalHtml.Replace(oldUrl, newUrl);
         }
@@ -117,7 +116,7 @@ internal class PageBuilder : IPageBuilder
 
             var footer = articleData.DateModifiedText == articleData.DatePublishedText ? $"Published {articleData.DatePublishedText}" : $"Modified {articleData.DateModifiedText}";
 
-            _cardPreparation.ProcessArticleCard(new CardArticleModel
+            var cardData = new CardArticleModel(appSettings)
             {
                 TemplateDataModel = nameof(CardArticleModel),
                 Title = articleData.Title,
@@ -127,12 +126,16 @@ internal class PageBuilder : IPageBuilder
                 LinkTarget = "_top",
                 IsSticky = false,
                 Position = -1,
-                Footer = footer,
-            }, pageData.DatePublished);
+                Footer = footer
+            };
+            _cardPreparation.ProcessArticleCard(cardData, pageData.DatePublished);
         }
 
         return mainBuilderResult;
     }
 
-    public void Dispose() => _templateEngine.Dispose();
+    public void Dispose()
+    {
+        _templateEngine.Dispose();
+    }
 }

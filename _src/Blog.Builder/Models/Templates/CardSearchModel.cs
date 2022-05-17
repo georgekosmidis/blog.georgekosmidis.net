@@ -7,18 +7,13 @@
 public record class CardSearchModel : CardModelBase
 {
     /// <summary>
-    /// Converts a base <see cref="CardModelBase"/> to a <see cref="CardSearchModel"/> applying any custom logic
-    /// for this unusual conversion.
+    /// Ctor.
     /// </summary>
-    /// <param name="parent">The base <see cref="CardModelBase"/> to be used.</param>
-    /// <returns>A new instance of a <see cref="CardSearchModel"/>.</returns>
-    public static CardSearchModel FromBase(CardModelBase parent) => new()
+    /// <param name="appSettings">The appsettings.json model</param>
+    public CardSearchModel(AppSettings appSettings) : base(appSettings)
     {
-        TemplateDataModel = parent.TemplateDataModel,
-        Position = parent.Position,
-        IsSticky = parent.IsSticky,
-        RightColumnPosition = parent.RightColumnPosition,
-    };
+        TemplateDataModel = nameof(CardModelBase);
+    }
 
     /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.

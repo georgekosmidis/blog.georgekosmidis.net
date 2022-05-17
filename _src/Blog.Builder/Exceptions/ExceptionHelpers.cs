@@ -74,5 +74,8 @@ internal static class ExceptionHelpers
     /// <param name="message">The message for the exception.</param>
     /// <exception cref="Exception">A generic exception for every <see cref="ExceptionHelpers"/> method.</exception>
     [DoesNotReturn]
-    private static void Throw(string? message) => throw new Exception(message);
+    private static void Throw(string? message)
+    {
+        throw new Exception(message);
+    }
 }

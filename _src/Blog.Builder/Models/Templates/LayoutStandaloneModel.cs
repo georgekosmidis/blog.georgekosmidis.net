@@ -9,6 +9,15 @@ namespace Blog.Builder.Models.Templates;
 public record class LayoutStandaloneModel : LayoutModelBase
 {
     /// <summary>
+    /// Ctor
+    /// </summary>
+    /// <param name="appSettings">The appsettings.json model</param>
+    public LayoutStandaloneModel(AppSettings appSettings) : base(appSettings)
+    {
+        TemplateDataModel = nameof(LayoutStandaloneModel);
+    }
+
+    /// <summary>
     /// Validates what this object knows and throws an exception if something is wrong.
     /// Check the <see cref="Validate"/> source code for the validations.
     /// </summary>

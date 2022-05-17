@@ -15,7 +15,6 @@ internal class WebsitePreparation : IWebsiteProcessor
     private readonly ISitemapBuilder _sitemapBuilder;
     private readonly IStaticAppConfigBuilder _staticAppConfigBuilder;
     private readonly AppSettings appSettings;
-    private readonly LayoutIndexModel layoutIndexModel;
     private bool additionalCardsPrepared = false;
     private bool articlesPrepared = false;
 
@@ -46,24 +45,6 @@ internal class WebsitePreparation : IWebsiteProcessor
         _sitemapBuilder = sitemapBuilder;
         _staticAppConfigBuilder = staticAppConfigBuilder;
         appSettings = options.Value;
-
-        layoutIndexModel = new LayoutIndexModel
-        {
-            DatePublished = DateTime.Now,
-            DateModified = DateTime.Now,
-            Description = appSettings.BlogDescription,
-            Tags = appSettings.BlogTags,
-            Title = appSettings.BlogTitle,
-            RelativeUrl = "/",
-            RelativeImageUrl = appSettings.BlogImage,
-            BlogUrl = appSettings.BlogUrl,
-            Paging = new Paging
-            {
-                CardsPerPage = appSettings.CardsPerPage,
-                CurrentPageIndex = 0,
-                TotalCardsCount = 0
-            }
-        };
     }
 
     /// <summary>
@@ -143,15 +124,17 @@ internal class WebsitePreparation : IWebsiteProcessor
     /// </summary>
     private void PrepareIndexPages()
     {
+
         if (!additionalCardsPrepared || !articlesPrepared)
         {
             throw new Exception($"Method {nameof(PrepareIndexPages)} must be called after methods {nameof(PrepareAdditionalCardsAsync)} and {nameof(PrepareArticlePages)}.");
         }
         var pageIndex = 0;
         var cardsNumber = _cardProcessor.GetCardsNumber(appSettings.CardsPerPage);
+        var layoutIndexModel = new LayoutIndexModel(appSettings);
         layoutIndexModel.Paging.TotalCardsCount = cardsNumber;
 
-        for (var i = appSettings.CardsPerPage; i < cardsNumber; i++)
+        for (var i = 0; i < cardsNumber - 1; i++)
         {
             if (i % appSettings.CardsPerPage == 0 || i == cardsNumber - 1)
             {

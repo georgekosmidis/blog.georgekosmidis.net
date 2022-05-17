@@ -46,10 +46,16 @@ internal class TemplateProvider : ITemplateProvider
     }
 
     /// <inheritdoc/>
-    public string GetHtml<T>() => File.ReadAllText(GetPath<T>());
+    public string GetHtml<T>()
+    {
+        return File.ReadAllText(GetPath<T>());
+    }
 
     /// <inheritdoc/>
-    public string GetHtml(string nameOfType) => File.ReadAllText(GetPath(nameOfType));
+    public string GetHtml(string nameOfType)
+    {
+        return File.ReadAllText(GetPath(nameOfType));
+    }
 
     /// <inheritdoc/>
     public string GetPath<T>()
