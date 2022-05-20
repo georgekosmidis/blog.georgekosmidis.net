@@ -1,4 +1,4 @@
-# A static blog builder based on [blog.net](https://github.com/georgekosmidis/blog.net)
+# My [blog](https://blog.georgekosmidis.net)'s repo, based on [blog.net](https://github.com/georgekosmidis/blog.net)
 
 [![Prepare Static App](https://github.com/georgekosmidis/blog.net/actions/workflows/prepare-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.net/actions/workflows/prepare-static-app.yml) [![Push Static App](https://github.com/georgekosmidis/blog.net/actions/workflows/push-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.net/actions/workflows/push-static-app.yml)
 
