@@ -2,7 +2,11 @@
 
 [![Prepare Static App](https://github.com/georgekosmidis/blog.net/actions/workflows/prepare-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.net/actions/workflows/prepare-static-app.yml) [![Push Static App](https://github.com/georgekosmidis/blog.net/actions/workflows/push-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.net/actions/workflows/push-static-app.yml)
 
-Visit [blog.net Quick Start Guide](https://github.com/georgekosmidis/blog.net#quick-start-guide) to start your own. The following instructions are a copy of [blog.net](https://github.com/georgekosmidis/blog.net) [README.md](https://github.com/georgekosmidis/blog.net/README.md) file
+This is the repo of my [blog](https://blog.georgekosmidis.net)! Visit [blog.net's Quick Start Guide](https://github.com/georgekosmidis/blog.net#quick-start-guide) to start your own! 
+
+-----------------------
+
+The following instructions are a copy of [blog.net](https://github.com/georgekosmidis/blog.net) [README.md](https://github.com/georgekosmidis/blog.net/README.md) file
 
 ## Table of Contents
   - [Table of Contents](#table-of-contents)
