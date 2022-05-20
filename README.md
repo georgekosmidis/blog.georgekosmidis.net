@@ -1,7 +1,8 @@
-# A static blog builder written in .NET 6 to help you hosted your blog for free in Azure Static Web Apps with an automated publishment using Github Actions.
+# A static blog builder based on [blog.net](https://github.com/georgekosmidis/blog.net)
 
 [![Prepare Static App](https://github.com/georgekosmidis/blog.net/actions/workflows/prepare-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.net/actions/workflows/prepare-static-app.yml) [![Push Static App](https://github.com/georgekosmidis/blog.net/actions/workflows/push-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.net/actions/workflows/push-static-app.yml)
 
+Visit [blog.net Quick Start Guide](https://github.com/georgekosmidis/blog.net#quick-start-guide) to start your own. The following instructions are a copy of [blog.net](https://github.com/georgekosmidis/blog.net) [README.md](https://github.com/georgekosmidis/blog.net/README.md) file
 
 ## Table of Contents
   - [Table of Contents](#table-of-contents)
