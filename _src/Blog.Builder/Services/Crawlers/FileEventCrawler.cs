@@ -29,7 +29,7 @@ internal class FileEventCrawler : IFileEventCrawler
             var jsonFileContent = File.ReadAllText(eventFile);
             var calendarEventData = JsonConvert.DeserializeObject<CalendarEvent>(jsonFileContent);
             
-            if( calendarEventData.DateTime > DateTime.Now ) {
+            if( calendarEventData.DateTime < DateTime.Now ) {
                 continue;
             }
             
