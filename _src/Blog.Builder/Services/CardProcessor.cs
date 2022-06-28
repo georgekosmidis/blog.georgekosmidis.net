@@ -134,7 +134,7 @@ internal class CardProcessor : ICardProcessor
             )
         );
 
-        return calendarEvents;
+        return calendarEvents.OrderBy( x => x.DateTime);
     }
 
     /// <inheritdoc/>
