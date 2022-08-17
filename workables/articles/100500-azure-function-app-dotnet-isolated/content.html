@@ -1,0 +1,281 @@
+<p>
+  Did you know? In-process C# class library Azure Functions will not be supported from .NET 7.0 on! And although you
+  should
+  always target LTS and that gives you almost two years to adapt, the hard stop could require quite a massive rewrite!
+</p>
+
+<h2>But why this change?</h2>
+<p>
+  Previously, an Azure Function was only supporting a tightly integrated mode for .NET functions - it could only run as
+  a class library in the same process as the host. This mode was providing a deep integration between the two
+  contributing to speed, but also providing the engineers with goodies like sharing binding APIs and types. However,
+  this integration required a tighter coupling between the host process and the .NET function which means both had to
+  run on the same version of .NET.
+</p>
+
+<p>
+  The version constrain above wasn't usually a problem though. Most of the developers out there didn't even notice the
+  limitation and even more, all(?) of us enjoyed sharing types with mama Azure Function. But don't getting me wrong
+  here; if it happened you were on the wrong side of the story, you were in for a ride! Massive problems with almost no
+  solution available, rendering Azure Function decisions obsolete.
+</p>
+
+<p>
+  And then came Microsoft. With the out-of-proc approach solved the blockers for these few poor teams but also decided
+  to stop supporting in-proc at all - how many combination of an Azure Function should Microsoft support? I mean, for
+  the in-proc workloads you would need a host that can run all different supported .NET versions a developer might
+  choose and then one more for the out-of-proc? That was too much I guess.
+</p>
+
+<p>
+  In any case, we are now here and this change does not come without benefits!
+</p>
+
+<h3>Benefits of running out-of-process</h3>
+<ul>
+  <li>Process isolation lets you develop functions that use current .NET releases (such as .NET 7.0), not natively
+    supported by the Functions runtime yet.</li>
+  <li>Fewer conflicts: because the functions run in a separate process, assemblies used in your app won't conflict with
+    different version of the same assemblies used by the host process.</li>
+  <li>Full control of the process: you control the start-up of the app and can control the configurations used and the
+    middleware started.</li>
+  <li>Dependency injection: because you have full control of the process, you can use current .NET
+    behaviors for dependency injection and incorporating middleware into your function app <i>(OK that's huge)</i></li>
+</ul>
+
+
+<h2>Supported versions</h2>
+<table class="table">
+  <tr>
+    <th>Functions runtime version</th>
+    <th>In-process</th>
+    <th>Out-of-process</th>
+  </tr>
+  <tr>
+    <td>Functions 4.x</td>
+    <td>.NET 6.0</td>
+    <td>.NET 6.0<br />
+      .NET 7.0<br />
+      .NET Framework 4.8</td>
+  </tr>
+  <tr>
+    <td>Functions 3.x</td>
+    <td>.NET Core 3.1</td>
+    <td>.NET 5.0</td>
+  </tr>
+  <tr>
+    <td>Functions 2.x</td>
+    <td>.NET Core 2.1</td>
+    <td>n/a</td>
+  </tr>
+  <tr>
+    <td>Functions 1.x</td>
+    <td>.NET Framework 4.8</td>
+    <td>n/a</td>
+  </tr>
+</table>
+
+<h2>Creating a .NET 6 isolated project</h2>
+<p>
+  Let's sample a dotnet-isolated function!<br /><br />
+  The following is a list of prerequisites you must have to run the code
+  that follows. Please go through them and once done continue to the exciting part!
+</p>
+
+<h3>Prerequisites</h3>
+Before you begin, you must have the following:
+<ul>
+  <li>
+    <a href="https://dotnet.microsoft.com/download" rel="noopener" _target="_blank">.NET 6.0 SDK</a>
+  </li>
+  <li>
+    <a href="functions-run-local#v2" rel="noopener" _target="_blank">Azure Functions Core Tools</a> version 4.x.
+  </li>
+  <li>
+    One of the following tools for creating Azure resources:
+    <ul>
+      <li>
+        <a href="/en-us/cli/azure/install-azure-cli" rel="noopener" _target="_blank">Azure CLI</a> version 2.4 or later.
+      </li>
+      <li>
+        The Azure <a href="/en-us/powershell/azure/install-az-ps" rel="noopener" _target="_blank">Az PowerShell
+          module</a> version 5.9.0 or later.
+      </li>
+    </ul>
+  </li>
+</ul>
+<h3>Let's create our function!</h3>
+<p>
+  After making sure that all of the requirements above are met, navigate to the folder your wish to create your project
+  and run:
+</p>
+<pre><code class="cli hljs">func init YourFunctionProject --worker-runtime dotnet-isolated --target-framework net6.0
+</code></pre>
+<p>
+  This will create a new folder named after your chosen function name (here <code>YourFunctionProject</code>). Navigate
+  into that folder and you should see the followings (among other):
+</p>
+<ul>
+  <li>
+    <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json?WT.mc_id=DT-MVP-5004591"
+      rel="noopener" _target="_blank">host.json</a>
+    file.<br /> stores configuration settings that affect all functions in the project when running locally or in
+    Azure.
+  </li>
+  <li>
+    <a href="https://docs.microsoft.com/azure/azure-functions/functions-develop-local?WT.mc_id=DT-MVP-5004591#local-settings-file"
+      rel="noopener" _target="_blank">local.settings.json</a> file<br /> stores app settings and connection strings that
+    are
+    used when running locally. This file contains secrets and isn't published to your function app in Azure. Instead,
+    <a href="/secrets-management-for-asp-net-core-and-azure-devops.html" rel="noopener" _target="_blank">add app
+      settings to your function app</a>.
+  </li>
+  <li>
+    C# project file (.csproj)<br />defines the project and dependencies.
+  </li>
+  <li>
+    Program.cs<br />a file that's the entry point for the app.
+  </li>
+  <li>
+    .vscode folder<br />
+    Yep, it's Visual Studio Code ready :)
+  </li>
+</ul>
+
+<blockquote>
+  <p>In Azure Functions, a function project is a container for one or more individual functions that each responds to a
+    specific trigger. All functions in a project share the same local and hosting configurations.</p>
+</blockquote>
+
+<h3>Creating an operation for our function</h3>
+
+As noted, the function we just created is an empty container; it contains no trigger, no code, no nothing. If we want to
+do something meaningful we should add an operation to the project by using the following command, where the
+<code>--name</code> argument is the unique name of the operation (here <code>HttpExample</code>) and the
+<code>--template</code> argument specifies the function's trigger (here HTTP).
+
+<pre><code class="cli">
+  func new --name HttpExample --template "HTTP trigger" --authlevel "anonymous"
+</code></pre>
+
+Upon running the command, a file <code>HttpExample.cs</code> will be created with the following sample code:
+
+<pre><code class="language-csharp">using System.Collections.Generic;
+  using System.Net;
+  using Microsoft.Azure.Functions.Worker;
+  using Microsoft.Azure.Functions.Worker.Http;
+  using Microsoft.Extensions.Logging;
+  
+  namespace LocalFunctionProj
+  {
+      public class HttpExample
+      {
+          private readonly ILogger _logger;
+  
+          public HttpExample(ILoggerFactory loggerFactory)
+          {
+              _logger = loggerFactory.CreateLogger&lt;HttpExample&gt;();
+          }
+  
+          [Function("HttpExample")]
+          public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
+          {
+              _logger.LogInformation("C# HTTP trigger function processed a request.");
+  
+              var response = req.CreateResponse(HttpStatusCode.OK);
+              response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+  
+              response.WriteString("Welcome to Azure Functions!");
+  
+              return response;
+          }
+      }
+  }
+  </code></pre>
+
+
+<h2>How to do bindings with the new model</h2>
+With the .NET worker, function apps migrated to a new binding model. In this model, no explicit
+<code>Microsoft.Azure.WebJobs</code> references are required. The attributes required to create <code>Functions</code>,
+<code>Triggers</code>, and <code>Bindings</code> are now available in these Nuget packages:
+
+<ul>
+  <li>Common types (FunctionAttribute): <code>Microsoft.Azure.Functions.Worker.Extensions.Abstractions</code></li>
+  <li>Http bindings: <code>Microsoft.Azure.Functions.Worker.Extensions.Http</code></li>
+  <li>Storage (Queue, Blob, Table) bindings: <code>Microsoft.Azure.Functions.Worker.Extensions.Storage</code></li>
+  <li>Timer bindings: <code>Microsoft.Azure.Functions.Worker.Extensions.Timer</code></li>
+  <li>Event Hubs bindings: <code>Microsoft.Azure.Functions.Worker.Extensions.EventHubs</code></li>
+  <li>Event Grid bindings: <code>Microsoft.Azure.Functions.Worker.Extensions.EventGrid</code></li>
+  <li>Service Bus bindings: <code>Microsoft.Azure.Functions.Worker.Extensions.ServiceBus</code></li>
+  <li>Cosmos DB bindings: <code>Microsoft.Azure.Functions.Worker.Extensions.CosmosDB</code></li>
+  <li>RabbitMQ bindings: <code>Microsoft.Azure.Functions.Worker.Extensions.RabbitMQ</code></li>
+  <li>SignalR Service bindings: <code>Microsoft.Azure.Functions.Worker.Extensions.SignalRService</code></li>
+  <li>Kafka bindings: <code>Microsoft.Azure.Functions.Worker.Extensions.Kafka</code></li>
+  <li>Warmup trigger: <code>Microsoft.Azure.Functions.Worker.Extensions.Warmup</code></li>
+</ul>
+
+<h3>Output Bindings</h3>
+In the new model, output bindings changed as well. You can now specify output bindings in two ways:
+
+<h4>Using Method Attributes (works if you only have one output binding)</h4>
+In this model, the function return value is treated as the value for the Output Binding. An example:
+
+<pre><code class="language-csharp">
+public static class EventHubsFunction
+{
+    [Function("EventHubsFunction")]
+    [EventHubOutput("MyEventHubName", Connection = "EventHubConnectionAppSetting")]
+    public static string Run([EventHubTrigger("src", Connection = "EventHubConnectionAppSetting")] string input,
+        FunctionContext context)
+    {
+        var logger = context.GetLogger("EventHubsFunction");
+
+        logger.LogInformation(input);
+
+        var message = $"Output message created at {DateTime.Now}";
+        return message;
+    }
+}
+</code></pre>
+
+<h4>Using Property Attributes (works with any number of output bindings)</h4>
+In this model, the function return type can specify output bindings using property attributes.
+
+<pre><code class="language-csharp">
+/// &lt;summary&gt;
+/// This class specifies output bindings in the properties of &lt;see cref="MyOutputType"/&gt;.
+/// &lt;see cref="MyOutputType"/&gt; defines a Queue output binding, and an Http Response property.
+/// By default, a property of type &lt;see cref="HttpResponseData"/&gt; in the return type of the function
+/// is treated as an Http output binding. This property can be used to provide a response to the Http trigger.
+/// &lt;/summary&gt;
+public static class MultiOutput
+{
+    [Function("MultiOutput")]
+    public static MyOutputType Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req,
+        FunctionContext context)
+    {
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        response.WriteString("Success!");
+
+        string myQueueOutput = "some output";
+
+        return new MyOutputType()
+        {
+            Name = myQueueOutput,
+            HttpReponse = response
+        };
+    }
+}
+
+public class MyOutputType
+{
+    [QueueOutput("myQueue")]
+    public string Name { get; set; }
+
+    public HttpResponseData HttpReponse { get; set; }
+}
+</code></pre>
+
+<h2>Conclusion</h2>
+<p>That was it! Get some samples over <a href="https://github.com/Azure/azure-functions-dotnet-worker/tree/main/samples"
+    rel="noopener" _target="_blank">here</a> and start and dive into the new Azure Function approach!</p>
