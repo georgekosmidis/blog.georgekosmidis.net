@@ -35,4 +35,4 @@ var blogs = context.Blogs
     .FromSql(@"SELECT * FROM dbo.Blogs WHERE username = {username}")
     .ToList();</code></pre></p>
 <p>Same as the previous approach, the supplied value is wrapped in a parameter and the generated parameter name inserted where the {0} placeholder was specified.</p>
-<p>The last two approaches, actually allow .NET to wrap the supplied value with the appropriate parameter for each dbContext: <code>SqlClient.SqlParmeter</code> for your running app, <code>Sqlite.SqliteParameter</code> for your tests!</p>
+<p>The last two approaches, actually allow .NET to wrap the supplied value with the appropriate parameter for each dbContext: <code>SqlClient.SqlParameter</code> for your running app, <code>Sqlite.SqliteParameter</code> for your tests!</p>
