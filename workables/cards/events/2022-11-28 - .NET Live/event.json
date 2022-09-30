@@ -1,0 +1,8 @@
+{
+	"Organizer": ".NET Live",
+	"OrganizerUrl": "https://dotnet.microsoft.com/live",
+	"Title" : "An Azure Function connecting to a CosmosDB using RBAC",
+    "DateTime" : "2023-01-16T18:00:00+02:00",
+    "Place" : "Online",
+    "Url" : "https://dotnet.microsoft.com/live"
+}
