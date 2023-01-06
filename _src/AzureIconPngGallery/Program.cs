@@ -220,7 +220,7 @@ internal class Program
 
         return $@"
             <div class=""row border rounded bg-light p-1 mb-3"">
-                <div class=""col-1 img-thumbnail d-flex flex-wrap align-items-center"">
+                <div class=""col-sm-1 col-2 img-thumbnail d-flex flex-wrap align-items-center"">
                     <img src=""{defaultSrc}"" alt=""{title}"" title=""{title}"" width=""{DisplayPngSize}"" height=""{DisplayPngSize}""/>
                 </div>
                 <div class=""col"">
