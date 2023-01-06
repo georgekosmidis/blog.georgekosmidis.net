@@ -1,0 +1,12 @@
+{
+  "TemplateDataModel": "CardImageModel",
+  "Title": "Azure Architecture Icons - SVGs, PNGs and draw.io libraries",
+  "Description": "Azure Architecture Icons - SVGs, PNGs and draw.io libraries",
+  "Footer": "Azure Architecture Icons - SVGs, PNGs and draw.io libraries",
+  "Link": "/azure-architecture-icons.html",
+  "LinkTarget": "_top",
+  "ImageUrl": "/media/azure-architecture-icons.png",
+  "Position": 5,
+  "IsSticky": true,
+  "RightColumnPosition" : 3
+}

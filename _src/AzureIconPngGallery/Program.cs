@@ -14,7 +14,7 @@ internal class Program
     private static string SvgDirectoryPath = "..\\..\\..\\Azure Architecture Icons\\";
     private static string CustomPagePath = "..\\..\\..\\..\\..\\workables\\standalones\\azure-architecture-icons\\";
 
-    private static string EditedSvgFlag = "-geko";
+    private static string EditedSvgFlag = "-custom";
 
     private static bool PreparePngs = false;
     private static int DisplayPngSize = 32;
@@ -24,17 +24,37 @@ internal class Program
 
         if (PreparePngs)
         {
+           
             Console.WriteLine(new string('*', 50));
             Console.WriteLine("Deleting old versions.");
             Console.WriteLine(new string('*', 50));
 
+            //Delete old PNGs
             var pngFiles = Directory.GetFiles(SvgDirectoryPath, "*.png", SearchOption.AllDirectories);
             foreach (var pngFile in pngFiles)
             {
                 File.Delete(pngFile);
                 Console.WriteLine($"{pngFile} deleted.");
             }
+
+            //Delete old SVGs
+            var svgFiles1 = Directory.GetFiles(SvgDirectoryPath, "*.svg", SearchOption.AllDirectories).Where(x => x.Contains("-geko"));
+            foreach (var svgFile in svgFiles1)
+            {
+                File.Delete(svgFile);
+                Console.WriteLine($"{svgFile} deleted.");
+
+            }
+            //Delete old SVGs
+            var svgFiles = Directory.GetFiles(SvgDirectoryPath, "*.svg", SearchOption.AllDirectories).Where(x => x.Contains(EditedSvgFlag));
+            foreach (var svgFile in svgFiles)
+            {
+                File.Delete(svgFile);
+                Console.WriteLine($"{svgFile} deleted.");
+            }
         }
+
+
 
         Console.WriteLine();
         Console.WriteLine();
@@ -68,8 +88,8 @@ internal class Program
 
                 // Remove original size restrictions
                 var svgText = File.ReadAllText(svgFile);
-                svgText = Regex.Replace(svgText, "width=['\"][0-9.]['\"]", "", RegexOptions.IgnoreCase);
-                svgText = Regex.Replace(svgText, "height=['\"][0-9.]['\"]", "", RegexOptions.IgnoreCase);
+                svgText = Regex.Replace(svgText, "width=['\"][0-9.]+['\"]", "", RegexOptions.IgnoreCase);
+                svgText = Regex.Replace(svgText, "height=['\"][0-9.]+['\"]", "", RegexOptions.IgnoreCase);
                 File.WriteAllText(Path.Combine(dir, $"{baseName}{EditedSvgFlag}.svg"), svgText);
 
                 var svgDocument = SvgDocument.Open(svgFile);
@@ -132,8 +152,8 @@ internal class Program
                         <p>
                             On this page, you will find a helpful resource for accessing every Azure Icon in SVG and PNG format in various sizes. 
                             This is an invaluable tool for creating Azure Architectural diagrams using online services like draw.io and miro.com, 
-                            as well as desktop applications like Visio. To use the webpage, simply visit the page, use CONTROL+F to search for the desired icon by name, 
-                            or scroll through the options to find the desired icon. This is a must-have resource for anyone working with Azure Architectural diagrams.
+                            as well as desktop applications like Visio. To use the webpage, simply visit the page, use <code>CTRL+F</code> to search for the desired icon by name, 
+                            or scroll through the options to find the desired icon. This is a must-have resource for anyone working with Azure Architectural Diagrams.
                         </p>
                         
                         <blockquote>
@@ -144,7 +164,7 @@ internal class Program
 
                         <p>
                             You can always find the original distribution of SVG Icons here: 
-                            <a href=""https://learn.microsoft.com/en-us/azure/architecture/icons/#icon-terms"">Azure Architecture Icons</a>
+                            <a href=""https://learn.microsoft.com/en-us/azure/architecture/icons/"">Azure Architecture Icons</a>
                         </p>
                     </div>
                 </div>
@@ -166,7 +186,7 @@ internal class Program
     private static string GetCardHTML(string rootFolder, string baseName)
     {
         var defaultSrc = GetAzureImageUrl(rootFolder, GetImageName(baseName, DisplayPngSize));
-        var svgSrc = GetAzureImageUrl(rootFolder, $"{baseName}-geko.svg");
+        var svgSrc = GetAzureImageUrl(rootFolder, $"{baseName}{EditedSvgFlag}.svg");
 
         //var srcset = new StringBuilder();
         //foreach (var size in Sizes)
