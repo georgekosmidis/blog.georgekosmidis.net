@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <urlset xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-<<<<<<< HEAD
-        <loc>/azure-architecture-icons.html</loc>
-        <lastmod>2023-01-06T22:57:05+01:00</lastmod>
-    </url>
-    <url>
-=======
->>>>>>> 2416b30f0bbcb01c497e670242763b976810c8b5
         <loc>/privacy.html</loc>
         <lastmod>2021-12-25T16:49:25+00:00</lastmod>
     </url>
     <url>
         <loc>/azure-architecture-icons.html</loc>
-        <lastmod>2023-01-06T21:06:05+00:00</lastmod>
+        <lastmod>2023-01-06T22:06:20+00:00</lastmod>
     </url>
     <url>
         <loc>/net-6-a-guide-for-the-high-impact-breaking-changes.html</loc>
@@ -217,74 +210,38 @@
     </url>
     <url>
         <loc>/</loc>
-<<<<<<< HEAD
-        <lastmod>2023-01-06T22:57:24+01:00</lastmod>
+        <lastmod>2023-01-06T22:23:38+00:00</lastmod>
     </url>
     <url>
         <loc>/index-page-2.html</loc>
-        <lastmod>2023-01-06T22:57:24+01:00</lastmod>
+        <lastmod>2023-01-06T22:23:38+00:00</lastmod>
     </url>
     <url>
         <loc>/index-page-3.html</loc>
-        <lastmod>2023-01-06T22:57:24+01:00</lastmod>
+        <lastmod>2023-01-06T22:23:38+00:00</lastmod>
     </url>
     <url>
         <loc>/index-page-4.html</loc>
-        <lastmod>2023-01-06T22:57:24+01:00</lastmod>
+        <lastmod>2023-01-06T22:23:38+00:00</lastmod>
     </url>
     <url>
         <loc>/index-page-5.html</loc>
-        <lastmod>2023-01-06T22:57:24+01:00</lastmod>
+        <lastmod>2023-01-06T22:23:38+00:00</lastmod>
     </url>
     <url>
         <loc>/index-page-6.html</loc>
-        <lastmod>2023-01-06T22:57:24+01:00</lastmod>
+        <lastmod>2023-01-06T22:23:38+00:00</lastmod>
     </url>
     <url>
         <loc>/index-page-7.html</loc>
-        <lastmod>2023-01-06T22:57:24+01:00</lastmod>
+        <lastmod>2023-01-06T22:23:38+00:00</lastmod>
     </url>
     <url>
         <loc>/index-page-8.html</loc>
-        <lastmod>2023-01-06T22:57:24+01:00</lastmod>
+        <lastmod>2023-01-06T22:23:38+00:00</lastmod>
     </url>
     <url>
         <loc>/index-page-9.html</loc>
-        <lastmod>2023-01-06T22:57:24+01:00</lastmod>
-=======
-        <lastmod>2023-01-06T21:09:34+00:00</lastmod>
-    </url>
-    <url>
-        <loc>/index-page-2.html</loc>
-        <lastmod>2023-01-06T21:09:34+00:00</lastmod>
-    </url>
-    <url>
-        <loc>/index-page-3.html</loc>
-        <lastmod>2023-01-06T21:09:34+00:00</lastmod>
-    </url>
-    <url>
-        <loc>/index-page-4.html</loc>
-        <lastmod>2023-01-06T21:09:34+00:00</lastmod>
-    </url>
-    <url>
-        <loc>/index-page-5.html</loc>
-        <lastmod>2023-01-06T21:09:34+00:00</lastmod>
-    </url>
-    <url>
-        <loc>/index-page-6.html</loc>
-        <lastmod>2023-01-06T21:09:34+00:00</lastmod>
-    </url>
-    <url>
-        <loc>/index-page-7.html</loc>
-        <lastmod>2023-01-06T21:09:34+00:00</lastmod>
-    </url>
-    <url>
-        <loc>/index-page-8.html</loc>
-        <lastmod>2023-01-06T21:09:34+00:00</lastmod>
-    </url>
-    <url>
-        <loc>/index-page-9.html</loc>
-        <lastmod>2023-01-06T21:09:34+00:00</lastmod>
->>>>>>> 2416b30f0bbcb01c497e670242763b976810c8b5
+        <lastmod>2023-01-06T22:23:38+00:00</lastmod>
     </url>
 </urlset>
