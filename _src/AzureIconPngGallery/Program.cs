@@ -159,7 +159,7 @@ internal class Program
                             or scroll through the options to find the desired icon. This is a must-have resource for anyone working with Azure Architectural Diagrams.
                         </p>
 
-                        <p class=""d-flex justify-content-center>
+                        <p class=""d-flex justify-content-center"">
                             <a href=""https://app.diagrams.net/?splash=0&clibs=U{Uri.EscapeDataString($"{AzureBaseUri}diagrams.net - Azure Architecture Icons.xml")}"" class=""btn btn-dark"" target=""_blank"" rel=""noopener"">
                                Click to add the icons as a <i>diagrams.net</i> library (former draw.io)
                             </a>
