@@ -101,6 +101,9 @@ internal class Program
         File.Delete(CustomPagePath + "content.html");
         File.WriteAllText(CustomPagePath + "content.html", AddWrappers(html.ToString()));
 
+        var json = PrepareJson(tags);
+        File.Delete(CustomPagePath + "content.json");
+        File.WriteAllText(CustomPagePath + "content.json", json);
 
 
     }
@@ -115,9 +118,9 @@ internal class Program
                       ""DatePublished"": ""2023-01-04T18:48:24+02:00"",
                       ""DateModified"": ""{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzzz")}"",
                       ""RelativeImageUrl"": """",
-                      ""Tags"": [{string.Join(",", tags)}]
+                      ""Tags"": [""{string.Join("\",\"", tags)}""]
                     }}
-";
+        ";
     }
 
     private static string AddWrappers(string html)
