@@ -160,7 +160,7 @@ internal class Program
                         </p>
 
                         <p class=""d-flex justify-content-center"">
-                            <a href=""https://app.diagrams.net/?splash=0&clibs=U{Uri.EscapeDataString($"{AzureBaseUri}diagrams.net - Azure Architecture Icons.xml")}"" class=""btn btn-dark"" target=""_blank"" rel=""noopener"">
+                            <a href=""https://app.diagrams.net/?splash=0&clibs=U{Uri.EscapeDataString($"{AzureBaseUri}Azure Architecture Icons.xml")}"" class=""btn btn-dark"" target=""_blank"" rel=""noopener"">
                                Click to add the icons as a <i>diagrams.net</i> library (former draw.io)
                             </a>
                         </p>                        
