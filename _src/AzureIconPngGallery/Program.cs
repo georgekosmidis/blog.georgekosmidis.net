@@ -4,13 +4,14 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 internal class Program
 {
     private static List<int> Sizes = new() { 32, 64, 256, 512, 2048 };
     private static List<int> VisibleSizes = new() { 64, 256, 512, 2048 };
 
-    private static Uri AzureBaseUri = new("https://georgekosmidis.blob.core.windows.net/azure-architecture-icons/");
+    private static Uri AzureBaseUri = new("https://georgekosmidis.azureedge.net/azure-architecture-icons/");
     private static string SvgDirectoryPath = "..\\..\\..\\Azure Architecture Icons\\";
     private static string CustomPagePath = "..\\..\\..\\..\\..\\workables\\standalones\\azure-architecture-icons\\";
 
@@ -91,7 +92,8 @@ internal class Program
                 svgText = Regex.Replace(svgText, "width=['\"][0-9.]+['\"]", "", RegexOptions.IgnoreCase);
                 svgText = Regex.Replace(svgText, "height=['\"][0-9.]+['\"]", "", RegexOptions.IgnoreCase);
                 File.WriteAllText(Path.Combine(dir, $"{baseName}{EditedSvgFlag}.svg"), svgText);
-
+                //File.WriteAllText(Path.Combine("C:\\111", $"{MakeTextLookNice(rootFolder)} - {MakeTextLookNice(baseName)}.svg"), svgText);
+                
                 var svgDocument = SvgDocument.Open(svgFile);
                 svgDocument.ShapeRendering = SvgShapeRendering.GeometricPrecision;
 
@@ -149,13 +151,20 @@ internal class Program
             <div class=""container"">
                 <div class=""row p-1 mb-3 m2-3"">
                     <div class=""col"">
+
                         <p>
                             On this page, you will find a helpful resource for accessing every Azure Icon in SVG and PNG format in various sizes. 
                             This is an invaluable tool for creating Azure Architectural diagrams using online services like draw.io and miro.com, 
                             as well as desktop applications like Visio. To use the webpage, simply visit the page, use <code>CTRL+F</code> to search for the desired icon by name, 
                             or scroll through the options to find the desired icon. This is a must-have resource for anyone working with Azure Architectural Diagrams.
                         </p>
-                        
+
+                        <p class=""d-flex justify-content-center>
+                            <a href=""https://app.diagrams.net/?splash=0&clibs=U{Uri.EscapeDataString($"{AzureBaseUri}diagrams.net - Azure Architecture Icons.xml")}"" class=""btn btn-dark"" target=""_blank"" rel=""noopener"">
+                               Click to add the icons as a <i>diagrams.net</i> library (former draw.io)
+                            </a>
+                        </p>                        
+
                         <blockquote>
                             <strong>Icon terms!</strong><br />
                             Microsoft permits the use of these icons in architectural diagrams, training materials, or documentation. You may copy, distribute, 
@@ -166,6 +175,7 @@ internal class Program
                             You can always find the original distribution of SVG Icons here: 
                             <a href=""https://learn.microsoft.com/en-us/azure/architecture/icons/"">Azure Architecture Icons</a>
                         </p>
+
                     </div>
                 </div>
                 {html}
