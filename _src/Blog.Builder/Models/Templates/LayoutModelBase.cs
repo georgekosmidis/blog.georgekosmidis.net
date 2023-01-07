@@ -29,7 +29,6 @@ public record class LayoutModelBase : ModelBase
         Sections = new List<string>();
         ExtraHeaders = new List<string>();
         DateExpires = DateTime.MaxValue;
-
     }
 
     /// <summary>

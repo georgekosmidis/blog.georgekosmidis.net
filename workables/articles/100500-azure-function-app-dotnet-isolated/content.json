@@ -1,10 +1,10 @@
 {
-  "RelativeUrl": "/azure-function-app-dotnet-isolated.html",
+  "RelativeUrl": "azure-function-app-dotnet-isolated.html",
   "Title": "Create an Azure Function App for dotnet out-of-proc",
   "Description": "Did you know? In-process C# class library Azure Functions will not be supported from .NET 7.0 on! And although you should always target LTS and that gives you almost two years to adapt, the hard stop could require quite a massive rewrite!",
   "DatePublished": "2022-03-05T15:32:01+01:00",
   "DateModified": "2022-03-05T15:32:01+01:00",
-  "RelativeImageUrl": "/media/100500-feature.png",
+  "RelativeImageUrl": "media/100500-feature.png",
   "Tags": [
     "ASP.NET",
     "Azure Function App",
