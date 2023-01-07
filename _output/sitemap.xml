@@ -6,7 +6,7 @@
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/azure-architecture-icons.html</loc>
-        <lastmod>2023-01-06T22:40:47+00:00</lastmod>
+        <lastmod>2023-01-07T19:55:24+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/net-6-a-guide-for-the-high-impact-breaking-changes.html</loc>
@@ -129,6 +129,10 @@
         <lastmod>2022-03-05T14:32:01+00:00</lastmod>
     </url>
     <url>
+        <loc>https://blog.georgekosmidis.net/scale-set-vs-availability-set.html</loc>
+        <lastmod>2022-12-30T18:34:01+00:00</lastmod>
+    </url>
+    <url>
         <loc>https://blog.georgekosmidis.net/csharp-10-whats-new.html</loc>
         <lastmod>2022-01-15T12:14:19+00:00</lastmod>
     </url>
@@ -210,38 +214,38 @@
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/</loc>
-        <lastmod>2023-01-07T09:34:11+00:00</lastmod>
+        <lastmod>2023-01-07T20:50:05+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-2.html</loc>
-        <lastmod>2023-01-07T09:34:11+00:00</lastmod>
+        <lastmod>2023-01-07T20:50:05+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-3.html</loc>
-        <lastmod>2023-01-07T09:34:11+00:00</lastmod>
+        <lastmod>2023-01-07T20:50:05+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-4.html</loc>
-        <lastmod>2023-01-07T09:34:11+00:00</lastmod>
+        <lastmod>2023-01-07T20:50:05+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-5.html</loc>
-        <lastmod>2023-01-07T09:34:11+00:00</lastmod>
+        <lastmod>2023-01-07T20:50:05+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-6.html</loc>
-        <lastmod>2023-01-07T09:34:11+00:00</lastmod>
+        <lastmod>2023-01-07T20:50:05+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-7.html</loc>
-        <lastmod>2023-01-07T09:34:11+00:00</lastmod>
+        <lastmod>2023-01-07T20:50:05+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-8.html</loc>
-        <lastmod>2023-01-07T09:34:11+00:00</lastmod>
+        <lastmod>2023-01-07T20:50:05+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-9.html</loc>
-        <lastmod>2023-01-07T09:34:11+00:00</lastmod>
+        <lastmod>2023-01-07T20:50:05+00:00</lastmod>
     </url>
 </urlset>
