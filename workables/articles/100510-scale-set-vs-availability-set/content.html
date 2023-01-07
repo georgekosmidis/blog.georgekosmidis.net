@@ -1,0 +1,236 @@
+<p>
+  In this blog post, we will be comparing two important features in Azure: Scale Sets and Availability Sets. Both of these 
+  features are designed to help you manage and scale your applications, but they work in different ways and are suitable for
+   different use cases. Understanding the differences between these two features is important if you are planning to use Azure 
+   to host your applications. In this post, we will take a deep dive into each of these features and compare them in terms of their 
+   capabilities, use cases, and limitations. By the end of this post, you should have a clear understanding of which feature 
+   is best suited for your needs.
+</p>
+
+<h2>Scale Sets</h2>
+<p>
+  Scale Sets are a group of identical, load balanced virtual machines (VMs) that can automatically increase or decrease in size based on demand. 
+  This allows you to scale your application horizontally and handle more traffic without manually adding or removing VMs. Scale Sets are ideal for 
+  applications that can scale out, such as web servers and batch processing systems. One of the key capabilities of Scale Sets is autoscaling,
+   which allows you to automatically increase or decrease the number of VMs based on demand.
+</p>
+
+<blockquote>One of the limitations of Scale Sets is that they do not offer the same level of availability as Availability Sets. 
+  If you need to ensure the availability of your application, you may want to consider using Availability Sets instead. </blockquote>
+
+Here is an example of how you could use Bicep to deploy an Azure Scale Set:
+<pre><code class="bicep">
+  // Define the Scale Set resource
+  resource scaleSet 'Microsoft.Compute/virtualMachineScaleSets@2019-03-01' = {
+    name: 'myScaleSet'
+    location: 'westus2'
+    sku: {
+      name: 'Standard_DS2_v2'
+      capacity: 2
+    }
+    properties: {
+      upgradePolicy: 'Manual'
+      virtualMachineProfile: {
+        osProfile: {
+          computerNamePrefix: 'vm'
+          adminUsername: 'admin'
+          adminPassword: 'P@ssw0rd'
+        }
+        storageProfile: {
+          imageReference: {
+            publisher: 'MicrosoftWindowsServer'
+            offer: 'WindowsServer'
+            sku: '2019-datacenter'
+            version: 'latest'
+          }
+        }
+        networkProfile: {
+          networkInterfaceConfigurations: [{
+            name: 'nic'
+            properties: {
+              primary: true
+              ipConfigurations: [{
+                name: 'ip'
+                properties: {
+                  subnet: {
+                    id: '/subscriptions/{subscriptionId}/resourceGroups/myResourceGroup/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet'
+                  }
+                }
+              }]
+            }
+          }]
+        }
+      }
+    }
+  }
+  
+  // Define the Outputs
+  output scaleSetId {
+    value: resourceId(scaleSet)
+  }
+  
+</code></pre>
+
+And here is the same with Terraform:
+<pre><code class="terraform">
+  # Define the Scale Set resource
+  resource "azurerm_virtual_machine_scale_set" "my_scale_set" {
+    name                = "myScaleSet"
+    location            = "westus2"
+    resource_group_name = "myResourceGroup"
+    sku {
+      name     = "Standard_DS2_v2"
+      capacity = 2
+    }
+    upgrade_policy {
+      mode = "Manual"
+    }
+    virtual_machine_profile {
+      os_profile {
+        computer_name_prefix = "vm"
+        admin_username       = "admin"
+        admin_password       = "P@ssw0rd"
+      }
+      storage_profile_image_reference {
+        publisher = "MicrosoftWindowsServer"
+        offer     = "WindowsServer"
+        sku       = "2019-datacenter"
+        version   = "latest"
+      }
+      network_profile {
+        network_interface {
+          name    = "nic"
+          primary = true
+          ip_configuration {
+            name      = "ip"
+            subnet_id = "/subscriptions/{subscriptionId}/resourceGroups/myResourceGroup/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"
+          }
+        }
+      }
+    }
+  }
+  
+  # Define the Outputs
+  output "scale_set_id" {
+    value = azurerm_virtual_machine_scale_set.my_scale_set.id
+  }
+  
+</code></pre>
+
+Both sample will create an Azure Scale Set with 2 VMs, using the Standard_DS2_v2 VM size and the latest version of the Windows Server 2019 Datacenter image.
+ The Scale Set will be placed in the <code>'westus2</code>' region and will have a manual upgrade policy. The VMs in the Scale Set will have a computer name prefix of <code>'vm'</code>, 
+ an admin username of <code>'admin'</code>, and an admin password of <code>'P@ssw0rd'</code>. The output of both will be the ID of the Scale Set resource.
+ (The samples assume a virtual network and subnet that you will need to create in advance)
+
+
+<h2>Availability Sets</h2>
+<p>
+  Availability Sets are a group of VMs that are placed in different fault domains and update domains. Fault domains refer to the physical infrastructure 
+  within a data center, such as racks and power supplies. Update domains refer to the groups of VMs that can be taken down for maintenance at the same time. 
+  By placing VMs in different fault and update domains, you can ensure that your application remains available even if there is a hardware failure or 
+  maintenance event.
+</p>
+
+<blockquote>
+  Availability Sets takes the virtual machine and configures multiple copies of it.  Each copy is isolated within a separate physical server, compute rack, 
+  storage units and network switches within a single datacenter within an Azure Region.
+</blockquote>
+
+<pre><code class="bicep">
+  // Define the Availability Set resource
+  resource availabilitySet 'Microsoft.Compute/availabilitySets@2019-03-01' = {
+    name: 'myAvailabilitySet'
+    location: 'westus2'
+    properties: {
+      platformFaultDomainCount: 2
+      platformUpdateDomainCount: 2
+    }
+  }
+  
+  // Define the Outputs
+  output availabilitySetId {
+    value: resourceId(availabilitySet)
+  }
+</code></pre>
+
+<p>This code will create an Azure Availability Set with 2 fault domains and 2 update domains again in the <code>'westus2'</code> region. 
+The output of this code will be the ID of the Availability Set resource.</p>
+
+<p>To attach a VM to this Availability Set, you will need to specify the ID of the Availability Set as the <code>'availabilitySetId' </code>
+property when creating the VM resource.</p>
+
+<pre><code class="bicep">
+  // Define the VM resource
+  resource vm 'Microsoft.Compute/virtualMachines@2019-03-01' = {
+    name: 'myVM'
+    location: 'westus2'
+    properties: {
+      availabilitySet: {
+        id: resourceId(availabilitySet)
+      }
+      ...other properties
+    }
+  }
+</code></pre>
+
+<p>This will attach the VM to the Availability Set, ensuring that it is placed in a different fault and update domain from the other VMs in the set.</p>
+
+<p>In a similar fashion the following samples will create an availability set with Terraform</p>
+<pre><code class="terraform">
+  # Define the Availability Set resource
+  resource "azurerm_availability_set" "my_availability_set" {
+    name                = "myAvailabilitySet"
+    location            = "westus2"
+    resource_group_name = "myResourceGroup"
+    platform_fault_domain_count = 2
+    platform_update_domain_count = 2
+  }
+  
+  # Define the Outputs
+  output "availability_set_id" {
+    value = azurerm_availability_set.my_availability_set.id
+  }
+</code></pre>
+
+<p>And to attach a VM:</p>
+<pre><code class="terraform">
+  # Define the VM resource
+  resource "azurerm_virtual_machine" "my_vm" {
+    name                  = "myVM"
+    location              = "westus2"
+    resource_group_name   = "myResourceGroup"
+    availability_set_id   = azurerm_availability_set.my_availability_set.id
+
+    ...other properties
+  }
+</code></pre>
+
+<h2>Use Cases</h2>
+<p>
+  In terms of use cases, Scale Sets are best suited for applications that can scale out horizontally, such as web servers and batch processing systems. 
+  They are not designed to ensure the availability of an application in the event of a hardware failure or maintenance event. On the other hand, 
+  Availability Sets are designed specifically to ensure the availability of an application by placing VMs in different fault and update domains. 
+  They are not designed for horizontal scaling like Scale Sets.
+</p>
+
+<blockquote>
+  Fault domains refer to the physical infrastructure within a data center, such as racks and power supplies.
+   By placing VMs in different fault domains, you can ensure that your application remains available even if there is a hardware failure or 
+   maintenance event that affects one of the fault domains. For example, if you have an Availability Set with 3 fault domains and 
+   you deploy 2 VMs in each fault domain, then at least 2 VMs will be available even if one fault domain goes offline.
+</blockquote>
+
+<blockquote>
+  Update domains refer to the groups of VMs that can be taken down for maintenance at the same time. By placing VMs in different update domains, 
+  you can ensure that your application remains available even if there is a planned maintenance event that affects one of the update domains. 
+  For example, if you have an Availability Set with 3 update domains and you deploy 2 VMs in each update domain, then at least 2 VMs will be available 
+  even if one update domain goes offline for maintenance.
+</blockquote>
+
+<h2>Conclusion</h2>
+<p>
+  In summary, Azure Scale Sets and Availability Sets are both useful features that can help you manage and scale your applications in the Azure cloud. 
+  However, they work in different ways and are suitable for different use cases. Scale Sets are best suited for applications that can scale out horizontally, 
+  while Availability Sets are best suited for ensuring the availability of an application. It is important to understand the capabilities, 
+  use cases, and limitations of these two features in order to decide which one is best suited for your needs.
+</p>

@@ -17,7 +17,7 @@ internal class Program
 
     private static string EditedSvgFlag = "-custom";
 
-    private static bool PreparePngs = false;
+    private static bool PreparePngs = true;
     private static int DisplayPngSize = 32;
 
     private static void Main(string[] args)
@@ -25,7 +25,7 @@ internal class Program
 
         if (PreparePngs)
         {
-           
+
             Console.WriteLine(new string('*', 50));
             Console.WriteLine("Deleting old versions.");
             Console.WriteLine(new string('*', 50));
@@ -89,11 +89,10 @@ internal class Program
 
                 // Remove original size restrictions
                 var svgText = File.ReadAllText(svgFile);
-                svgText = Regex.Replace(svgText, "width=['\"][0-9.]+['\"]", "", RegexOptions.IgnoreCase);
-                svgText = Regex.Replace(svgText, "height=['\"][0-9.]+['\"]", "", RegexOptions.IgnoreCase);
+                svgText = FixSvg(svgText);
                 File.WriteAllText(Path.Combine(dir, $"{baseName}{EditedSvgFlag}.svg"), svgText);
-                //File.WriteAllText(Path.Combine("C:\\111", $"{MakeTextLookNice(rootFolder)} - {MakeTextLookNice(baseName)}.svg"), svgText);
-                
+                File.WriteAllText(Path.Combine("C:\\111", $"{MakeTextLookNice(rootFolder)} - {MakeTextLookNice(baseName)}.svg"), svgText);
+
                 var svgDocument = SvgDocument.Open(svgFile);
                 svgDocument.ShapeRendering = SvgShapeRendering.GeometricPrecision;
 
@@ -130,6 +129,24 @@ internal class Program
 
     }
 
+    private static string FixSvg(string svgText)
+    {
+        //svgText = Regex.Replace(svgText, "width=['\"][0-9.]+['\"]", "", RegexOptions.IgnoreCase);
+        //svgText = Regex.Replace(svgText, "height=['\"][0-9.]+['\"]", "", RegexOptions.IgnoreCase);
+
+        var regex = new Regex("width=['\"][0-9.]+['\"]\\sheight=['\"][0-9.]+['\"]\\sviewBox=\"[0-9.]+\\s[0-9.]+\\s[0-9.]+\\s[0-9.]+\"", RegexOptions.IgnoreCase);
+        var matches = regex.Matches(svgText);
+
+        if (matches.Count() == 1)
+        {
+            svgText = svgText.Replace(matches[0].Value, "viewBox=\"0 0 18 18\"");
+        }
+        else if(matches.Count() > 1)
+        {
+            throw new Exception("It has to be one and only one");
+        }
+        return svgText;
+    }
     private static string PrepareJson(List<string> tags)
     {
         return $@"
