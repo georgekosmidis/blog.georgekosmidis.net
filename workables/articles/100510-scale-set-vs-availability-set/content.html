@@ -2,23 +2,34 @@
   In this blog post, we will be comparing two important features in Azure: Scale Sets and Availability Sets. Both of these 
   features are designed to help you manage and scale your applications, but they work in different ways and are suitable for
    different use cases. Understanding the differences between these two features is important if you are planning to use Azure 
-   to host your applications. In this post, we will take a deep dive into each of these features and compare them in terms of their 
-   capabilities, use cases, and limitations. By the end of this post, you should have a clear understanding of which feature 
-   is best suited for your needs.
+   to host your applications.
 </p>
 
 <h2>Scale Sets</h2>
 <p>
-  Scale Sets are a group of identical, load balanced virtual machines (VMs) that can automatically increase or decrease in size based on demand. 
-  This allows you to scale your application horizontally and handle more traffic without manually adding or removing VMs. Scale Sets are ideal for 
-  applications that can scale out, such as web servers and batch processing systems. One of the key capabilities of Scale Sets is autoscaling,
-   which allows you to automatically increase or decrease the number of VMs based on demand.
+  An Azure Scale Set is a group of identical virtual machines (VMs) in Microsoft Azure that can be configured to 
+  automatically increase or decrease the number of VMs in the set based on demand. Scale sets provide a way to 
+  deploy and manage a large number of VMs in a consistent, predictable manner. They are designed to support 
+  workloads that are scalable and require a high level of availability.
 </p>
 
-<blockquote>One of the limitations of Scale Sets is that they do not offer the same level of availability as Availability Sets. 
-  If you need to ensure the availability of your application, you may want to consider using Availability Sets instead. </blockquote>
+<p>
+Scale sets are particularly useful for running <b>stateless applications</b>, such as web servers, 
+that can be easily scaled up or down based on the needs of the workload. They can also be used to 
+run stateful applications, such as databases, by using managed disks to persist data across multiple VMs.
+</p>
+
+<p>
+In addition to automatically scaling the number of VMs in the set, 
+Azure Scale Sets also provide features such as automatic health monitoring, load balancing, 
+and rolling upgrades, which make it easier to deploy and manage large-scale applications in Azure.
+</p>
+
+<blockquote>One of the key capabilities of Scale Sets is <b>autoscaling</b>,
+  which allows you to automatically increase or decrease the number of VMs based on demand.</blockquote>
 
 Here is an example of how you could use Bicep to deploy an Azure Scale Set:
+
 <pre><code class="bicep">
   // Define the Scale Set resource
   resource scaleSet 'Microsoft.Compute/virtualMachineScaleSets@2019-03-01' = {
@@ -117,7 +128,7 @@ And here is the same with Terraform:
   
 </code></pre>
 
-Both sample will create an Azure Scale Set with 2 VMs, using the Standard_DS2_v2 VM size and the latest version of the Windows Server 2019 Datacenter image.
+Both samples will create an Azure Scale Set with 2 VMs, using the Standard_DS2_v2 VM size and the latest version of the <i>Windows Server 2019 Datacenter</i> image.
  The Scale Set will be placed in the <code>'westus2</code>' region and will have a manual upgrade policy. The VMs in the Scale Set will have a computer name prefix of <code>'vm'</code>, 
  an admin username of <code>'admin'</code>, and an admin password of <code>'P@ssw0rd'</code>. The output of both will be the ID of the Scale Set resource.
  (The samples assume a virtual network and subnet that you will need to create in advance)
@@ -125,14 +136,25 @@ Both sample will create an Azure Scale Set with 2 VMs, using the Standard_DS2_v2
 
 <h2>Availability Sets</h2>
 <p>
-  Availability Sets are a group of VMs that are placed in different fault domains and update domains. Fault domains refer to the physical infrastructure 
-  within a data center, such as racks and power supplies. Update domains refer to the groups of VMs that can be taken down for maintenance at the same time. 
-  By placing VMs in different fault and update domains, you can ensure that your application remains available even if there is a hardware failure or 
-  maintenance event.
+  An Azure Availability Set is a group of VMs within a single Azure region that are designed to be highly available. The VMs in an 
+  availability set are placed in different fault domains and update domains, which helps to ensure that the VMs remain 
+  available even if there is a hardware or software failure or if Azure performs maintenance on the host infrastructure.
+</p>
+
+<p>
+  By placing VMs in an availability set, you can ensure that your workloads are <b>distributed across multiple physical servers, 
+  network switches, and storage units</b>. This helps to protect your applications from a single point of failure and improve the 
+  overall resiliency of your Azure environment.
+</p>
+
+<p>
+  To use an availability set, you simply create the VMs you want to include in the set and then specify the availability set 
+  when you create the VMs. Azure will automatically distribute the VMs across different fault domains and update domains to ensure 
+  that they are highly available.
 </p>
 
 <blockquote>
-  Availability Sets takes the virtual machine and configures multiple copies of it.  Each copy is isolated within a separate physical server, compute rack, 
+  Availability Sets take the virtual machine and configures multiple copies of it.  Each copy is isolated within a separate physical server, compute rack, 
   storage units and network switches within a single datacenter within an Azure Region.
 </blockquote>
 
