@@ -220,38 +220,43 @@
         <loc>https://blog.georgekosmidis.net/</loc>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <lastmod>2023-01-09T03:01:46+00:00</lastmod>
+=======
+        <lastmod>2023-01-09T10:53:53+00:00</lastmod>
+>>>>>>> feature/build-2023.01.09-10.53.53-268
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-2.html</loc>
-        <lastmod>2023-01-09T03:01:46+00:00</lastmod>
+        <lastmod>2023-01-09T10:53:53+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-3.html</loc>
-        <lastmod>2023-01-09T03:01:46+00:00</lastmod>
+        <lastmod>2023-01-09T10:53:53+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-4.html</loc>
-        <lastmod>2023-01-09T03:01:46+00:00</lastmod>
+        <lastmod>2023-01-09T10:53:53+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-5.html</loc>
-        <lastmod>2023-01-09T03:01:46+00:00</lastmod>
+        <lastmod>2023-01-09T10:53:53+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-6.html</loc>
-        <lastmod>2023-01-09T03:01:46+00:00</lastmod>
+        <lastmod>2023-01-09T10:53:53+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-7.html</loc>
-        <lastmod>2023-01-09T03:01:46+00:00</lastmod>
+        <lastmod>2023-01-09T10:53:53+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-8.html</loc>
-        <lastmod>2023-01-09T03:01:46+00:00</lastmod>
+        <lastmod>2023-01-09T10:53:53+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-9.html</loc>
+<<<<<<< HEAD
         <lastmod>2023-01-09T03:01:46+00:00</lastmod>
 =======
         <lastmod>2023-01-08T19:05:33+00:00</lastmod>
@@ -323,5 +328,8 @@
         <loc>https://blog.georgekosmidis.net/index-page-9.html</loc>
         <lastmod>2023-01-08T19:06:41+00:00</lastmod>
 >>>>>>> feature/build-2023.01.08-19.06.41-266
+=======
+        <lastmod>2023-01-09T10:53:53+00:00</lastmod>
+>>>>>>> feature/build-2023.01.09-10.53.53-268
     </url>
 </urlset>
