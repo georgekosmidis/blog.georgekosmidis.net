@@ -5,6 +5,7 @@
 /// </summary>
 public record class AppSettings
 {
+
     /// <summary>
     /// The number of cards per page (defauls is 9).
     /// </summary>
@@ -40,7 +41,6 @@ public record class AppSettings
                 throw new Exception("You forgot to change the BlogUrl from the appsettings, AGAIN!");
 #endif
             }
-
 
             return blogUrl!;
         }

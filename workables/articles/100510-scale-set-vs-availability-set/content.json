@@ -1,5 +1,5 @@
 {
-  "RelativeUrl": "scale-set-vs-availability-set.html",
+  "RelativeUrl": "/scale-set-vs-availability-set.html",
   "Title": "Azure Scale Set vs Azure Availability Set",
   "Description": "In this blog post, we will be comparing two important features in Azure: Scale Sets and Availability Sets. Both of these features are designed to help you manage and scale your applications, but they work in different ways and are suitable for different use cases. Understanding the differences between these two features is important if you are planning to use Azure to host your applications.",
   "DatePublished": "2022-12-30T19:34:01+01:00",

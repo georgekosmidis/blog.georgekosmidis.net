@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8" />
-	<base href="@Model.BlogUrl" />
+	<base href="@(Model.AbsoluteUrl)" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="@Model.PlainTextDescription" />
@@ -28,9 +28,9 @@
 else {
     <meta property="og:type" content="website" />
 }
-	<meta property="og:url" content="@(Model.BlogUrl)@(Model.RelativeUrl)" />
+	<meta property="og:url" content="@(Model.AbsoluteUrl)" />
 @if ( !string.IsNullOrWhiteSpace(@Model.RelativeImageUrl) ) {
-	<meta property="og:image" content="@(Model.BlogUrl)@(Model.RelativeImageUrl)" />
+	<meta property="og:image" content="@(Model.AbsoluteImageUrl)" />
 }
 	<meta property="og:description " content="@Model.PlainTextDescription" />
 	
@@ -171,6 +171,9 @@ else {
         }	
         blockquote p {
             margin-bottom: 0
+        }
+        dfn {
+            border-color: #343a40;
         }
     </style>
 <!-- Global site tag (gtag.js) - Google Analytics -->

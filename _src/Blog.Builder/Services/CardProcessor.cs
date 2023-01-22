@@ -79,7 +79,11 @@ internal class CardProcessor : ICardProcessor
             case nameof(CardCalendarEventsModel):
                 var calendarCard = GetCardModelData<CardCalendarEventsModel>(jsonFileContent);
                 calendarCard.CalendarEvents = await GetCalendarEvents();
-                _cardBuilder.AddCard(calendarCard);
+                //hide card if there are no events
+                if (calendarCard.CalendarEvents.Any()) 
+                {
+                    _cardBuilder.AddCard(calendarCard);
+                }
                 break;
             case nameof(CardArticleModel):
                 throw new Exception($"Method {nameof(ProcessCardAsync)} cannot be used with {nameof(CardArticleModel)}, use {nameof(ProcessArticleCard)} instead.");

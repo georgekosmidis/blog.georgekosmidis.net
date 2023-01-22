@@ -52,7 +52,8 @@ internal class PageProcessor : IPageProcessor
         ExceptionHelpers.ThrowIfNull(model);
 
         string json = File.ReadAllText(jsonPath);
-        JsonConvert.PopulateObject(json, model);
+        var serializerSettings = new JsonSerializerSettings { ObjectCreationHandling = ObjectCreationHandling.Replace };
+        JsonConvert.PopulateObject(json, model, serializerSettings);
         ExceptionHelpers.ThrowIfNull(model);
 
         return (model as T)!;
