@@ -96,7 +96,7 @@ internal class WebsitePreparation : IWebsiteProcessor
         );
 
         //hide work-in-progress from production
-#if RELEASE
+#if !DEBUG
         articleDirectories = articleDirectories.Where(x => !x.Contains("-WIP")).ToArray();
 #endif
 
