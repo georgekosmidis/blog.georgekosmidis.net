@@ -37,7 +37,7 @@ public record class AppSettings
             //ugly hack because I always forget to change the appsettings blogUrl
             if (blogUrl is not default(string?) and not "https://blog.georgekosmidis.net")
             {
-#if RELEASE
+#if !DEBUG
                 throw new Exception("You forgot to change the BlogUrl from the appsettings, AGAIN!");
 #endif
             }
