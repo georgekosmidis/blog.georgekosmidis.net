@@ -26,7 +26,7 @@ jobs:
       run: dotnet build ./_src/Blog.Builder.sln --configuration Release
 
     - name: publish-builder
-      run: dotnet publish ./_src/Blog.Builder.sln --output tmp
+      run: dotnet publish ./_src/Blog.Builder.sln --configuration Release --output tmp
     
     - name: build-output
       run: |
