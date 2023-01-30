@@ -1,0 +1,3471 @@
+<h2>Introduction</h2>
+In this article, we'll do a short overview of some of the most widely used Azure Services. In a bullet format, you'll
+quickly learn about their ideal use cases, which services complement them best, and where to avoid using them.
+Additionally, we'll note on important aspects such as backups, scalability, availability, and monitoring to help you
+make informed decisions when using these services. This article will be updated in the long run with new services, as
+demand and time allows.
+
+<h2 id="toc">Azure Services ToC <small class="text-muted">alphabetically sorted</small></h2>
+
+<ul class="list-unstyled">
+    <li>
+        <a href="#backup-and-recovery-services" class="fs-4">Backup and Recovery Services</a>
+        <ul class="list-unstyled ps-3">
+            <li><a href="#azure-backup">Azure Backup</a></li>
+            <li><a href="#azure-site-recovery">Azure Site Recovery</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#cache-services" class="fs-4">Cache Services</a>
+        <ul class="list-unstyled ps-3">
+            <li><a href="#azure-redis-cache">Azure Redis Cache</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#compute-services" class="fs-4">Compute Services</a>
+        <ul class="list-unstyled ps-3">
+            <li><a href="#azure-container-apps">Azure Container Apps</a></li>
+            <li><a href="#azure-container-instances">Azure Container Instances</a></li>
+            <li><a href="#azure-functions">Azure Functions</a></li>
+            <li><a href="#azure-kubernetes-service">todo: Azure Kubernetes Service</a></li>
+            <li><a href="#azure-logic-apps">Azure Logic Apps</a></li>
+            <li><a href="#azure-virtual-machines">Azure Virtual Machines</a></li>
+            <li><a href="#azure-web-apps">Azure Web Apps</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#data-integration-integration-and-management-services" class="fs-4">Data Integration and Management
+            Services</a>
+        <ul class="list-unstyled ps-3">
+            <li><a href="#azure-data-factory">Azure Data Factory</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#databases-services" class="fs-4">Databases Services</a>
+        <ul class="list-unstyled ps-3">
+            <li><a href="#azure-arc-enabled-sql-server">Azure Arc-enabled SQL Server</a></li>
+            <li><a href="#azure-sql">Azure SQL</a></li>
+            <li><a href="#azure-sql-edge">Azure SQL Edge</a></li>
+            <li><a href="#azure-sql-managed-instance">Azure SQL Managed Instance</a></li>
+            <li><a href="#azure-sql-server-big-data-clusters">Azure SQL Server Big Data Clusters</a></li>
+            <li><a href="#azure-sql-server-on-virtual-machines">Azure SQL Server on Virtual Machines</a></li>
+            <li><a href="#azure-synapse-analytics">Azure Synapse Analytics <small class="text-muted">(formerly SQL
+                        DataWarehouse)</small></a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#key-management-services" class="fs-4">Key Management Services</a>
+        <ul class="list-unstyled ps-3">
+            <li><a href="#azure-key-vault">Azure Key Vault</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#messaging-and-event-processing-services" class="fs-4">Messaging & Event Processing Services</a>
+        <ul class="list-unstyled ps-3">
+            <li><a href="#azure-event-grid">todo: Azure Event Grid</a></li>
+            <li><a href="#azure-event-hubs">todo: Azure Event Hubs</a></li>
+            <li><a href="#azure-service-bus">Azure Service Bus</a></li>
+            <li><a href="#azure-queue-storage">todo: Azure Queue Storage</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#monitoring-services" class="fs-4">Monitoring Services</a>
+        <ul class="list-unstyled ps-3">
+            <li><a href="#azure-log-analytics">Azure Log Analytics</a></li>
+            <li><a href="#azure-monitor">Azure Monitor</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#network-and-hybrid-integration-services" class="fs-4">Networking & Hybrid Integration Service</a>
+        <ul class="list-unstyled ps-3">
+            <li><a href="#azure-api-management">todo: Azure API Management</a></li>
+            <li><a href="#azure-application-gateway">todo: Azure Application Gateway</a></li>
+            <li><a href="#azure-dns-traffic">todo: Azure DNS Traffic</a></li>
+            <li><a href="#azure-front-door">todo: Azure Front Door</a></li>
+            <li><a href="#azure-load-balancer">todo: Azure Load Balancer</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <a href="#storage-services" class="fs-4">Storage Services</a>
+        <ul class="list-unstyled ps-3">
+            <li><a href="#azure-blob-storage">Azure Blob Storage</a></li>
+            <li><a href="#azure-cosmos-db">Azure Cosmos DB</a></li>
+            <li><a href="#azure-data-lake-storage">Azure Data Lake Storage</a></li>
+            <li><a href="#azure-queue-storage">Azure Queue Storage</a></li>
+            <li><a href="#azure-table-storage">Azure Table Storage</a></li>
+        </ul>
+    </li>
+</ul>
+
+<h2>Azure Services</h2>
+<h3 id="backup-and-recovery-services">Backup and Recovery Services</h3>
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/other/02360-icon-service-Azure-Backup-Center-256x256.png"
+                title="Azure Backup" alt="Azure Backup" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-backup">Azure Backup</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A cloud-based backup and disaster recovery service.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            Best used for backing up and restoring critical business data, such as servers, virtual machines, and
+            databases, from on-premises or in the cloud.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Backup integrates well with other Azure services like <a href="#azure-site-recovery">Azure Site
+                Recovery</a> for disaster recovery, <a href="#azure-storage">Azure
+                Storage</a> for cost-effective data storage, and <a href="#azure-monitor">Azure Monitor</a> for
+            monitoring and
+            alerts.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Backup is not suitable for real-time or continuous data backup or replication, use <a
+                href="#azure-site-recovery">Azure Site Recovery</a>
+            instead.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Backup provides a high level of availability through multiple data centers, with a <span
+                class="fw-bold">guaranteed 99.9%
+                uptime SLA</span>.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Backup scales to meet the changing needs of your organization, allowing you to store unlimited data in
+            the cloud.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Backup provides a comprehensive set of monitoring and reporting capabilities, including real-time
+            monitoring and alerts, backup reports, and detailed logs, to help you manage and troubleshoot your backup
+            and restore operations.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/storage/00017-icon-service-Recovery-Services-Vaults-256x256.png"
+                title="Azure Site Recovery" alt="Azure Site Recovery" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-site-recovery">Azure Site Recovery</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A disaster recovery solution that helps organizations protect their critical applications and
+                        data from downtime and data loss in case of a disaster or a disruption.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>Disaster recovery: Azure Site Recovery provides a fully managed disaster recovery solution that
+                    helps organizations ensure the availability and resiliency of their critical applications and data.
+                </li>
+                <li>Migration: Azure Site Recovery can be used to migrate applications and data to Azure, either as part
+                    of a disaster recovery plan or as a standalone migration solution.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-backup">Azure Backup</a>: A fully managed backup service that can be used to protect
+                    data and configuration for
+                    applications and workloads that are protected by Azure Site Recovery.</li>
+                <li><a href="#azure-monitor">Azure Monitor</a>: A fully managed monitoring service that can be used to
+                    monitor the health and
+                    performance of applications and workloads that are protected by Azure Site Recovery, and receive
+                    alerts and notifications in case of issues.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Applications and workloads that are not critical, as Azure Site Recovery is designed for protecting critical
+            applications and data, and may not be suitable for non-critical workloads.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Not applicable.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Site Recovery is designed for high availability, and provides automatic failover and load balancing to
+            ensure that your applications and data are always available.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Site Recovery is highly scalable, and can be easily scaled up or down to meet the changing needs of
+            your application, either manually or automatically based on pre-defined rules.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-monitor">Azure Monitor</a>: A fully managed monitoring service that can be used to monitor
+            the health and performance of
+            Azure Site Recovery, and receive alerts and notifications in case of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+
+<h3 id="cache-services">Cache Services</h3>
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/databases/10137-icon-service-Cache-Redis-256x256.png"
+                title="Azure Redis Cache" alt="Azure Redis Cache" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-redis-cache">Azure Redis Cache</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        An in-memory data store that can be used as a cache or a data store and supports various data
+                        structures such as strings, hashes, and lists
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>High-performance caching of frequently used data to speed up application response times.</li>
+                <li>Session management for web applications.</li>
+                <li>Real-time message notifications and broadcasting for online games or chat applications.</li>
+                <li>Storing and processing real-time analytics and sensor data from IoT devices.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-functions">Azure Functions</a>, can be used to process data stored in Azure Redis
+                    Cache and take actions based on
+                    the data.</li>
+                <li><a href="#azure-stream=analytics" class="no-show">Azure Stream Analytics</a>, can be used to stream
+                    data from IoT devices
+                    into Azure Redis Cache for
+                    real-time analytics and reporting.</li>
+                <li><a href="#azure-web-apps">Azure Web Apps</a>, can be used to host web applications that use Azure
+                    Redis Cache for session
+                    management and data caching.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Applications that require strong consistency guarantees, as Redis Cache provides eventually
+                    consistent data.</li>
+                <li>Applications that require data persistence, as Redis Cache is an in-memory data store.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-backup">Azure Backup</a>, a fully managed backup service that can be used to
+                    protect data stored in Azure Redis
+                    Cache.</li>
+                <li><a href="#azure-site-recovery">Azure Site Recovery</a>, a disaster recovery solution that can be used to
+                    replicate data stored in Azure
+                    Redis Cache to another region.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Redis Cache is designed for high availability, with data automatically distributed across multiple
+            cache nodes to ensure reliability and durability.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Redis Cache is highly scalable, and can be easily scaled up or down to meet the changing needs of your
+            application.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-monitor">Azure Monitor</a>, a fully managed monitoring service that can be used to monitor
+            the health and performance of
+            Azure Redis Cache, and receive alerts and notifications in case of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+
+<h3 id="compute-services">Compute Services</h3>
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/new%20icons/02884-icon-service-Worker-Container-App-256x256.png"
+                title="Azure Container Apps" alt="Azure Container Apps" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-container-apps">Azure Container Apps</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A set of services in Azure that enables you to build, deploy, and manage containerized
+                        applications at scale.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>Building, deploying, and scaling modern cloud-native applications, as it provides a flexible and
+                    scalable platform for running containerized applications.</li>
+                <li>Providing a platform for DevOps and CI/CD pipelines, as it integrates with a variety of tools and
+                    services for source control, build and deployment automation, and testing.</li>
+                <li>Building microservices architectures, as it allows you to break down monolithic applications into
+                    smaller, more manageable services that can be deployed and scaled independently.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-kubernetes-service">Azure Kubernetes Service (AKS)</a>: A managed Kubernetes service
+                    that makes it easy to deploy, manage,
+                    and scale containerized applications using Kubernetes.</li>
+                <li><a href="#azure-service-fabric" class="no-show">Azure Service Fabric</a>: A distributed systems
+                    platform that can be used to build and deploy highly
+                    scalable, reliable, and resilient cloud applications.</li>
+                <li><a href="#azure-devops" class="no-show">Azure DevOps</a>: A set of services for software development
+                    and collaboration that can be used to
+                    manage the end-to-end application lifecycle, from development to deployment and operations.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Applications that require low-level access to the underlying infrastructure, as Azure Container Apps
+                    provides a fully managed platform with limited control over the underlying infrastructure.</li>
+                <li>Applications that require real-time processing and low latency, as the multi-tenant nature of Azure
+                    Container Apps may result in variability in response times.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-backup">Azure Backup</a>: A fully managed backup service that can be used to protect
+                    data and configuration for
+                    Azure Container Apps.</li>
+                <li><a href="#azure-site-recovery">Azure Site Recovery</a>: A disaster recovery solution that can be
+                    used to replicate data and
+                    configuration for Azure Container Apps to another region.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Container Apps is designed for high availability, with automatic failover and load balancing to ensure
+            that your applications are always available.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Container Apps is highly scalable, and can be easily scaled up or down to meet the changing needs of
+            your application, either manually or automatically based on pre-defined rules.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-monitor">Azure Monitor</a>: A fully managed monitoring service that can be used to monitor
+            the health and performance of Azure Container Apps, and receive alerts and notifications in case of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/compute/10104-icon-service-Container-Instances-256x256.png"
+                title="Azure Container Instances" alt="Azure Container Instances" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-container-instances">Azure Container Instances</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A service in Azure that enables you to run containers in the cloud without having to manage any
+                        infrastructure.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>Running short-lived or infrequently used applications and tasks, as Azure Container Instances
+                    provides a fast and efficient way to run containers without having to manage any infrastructure.
+                </li>
+                <li>Testing and debugging container applications, as Azure Container Instances makes it easy to quickly
+                    run containers for testing and debugging purposes.</li>
+                <li>Deploying small scale, stateless applications and services, as Azure Container Instances provides a
+                    simple and scalable platform for running containerized applications.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-functions">Azure Functions</a>: A serverless computing platform that can be used to
+                    build and run event-driven
+                    applications and services.</li>
+                <li><a href="#azure-kubernetes-service">Azure Kubernetes Service (AKS)</a>: A managed Kubernetes service
+                    that makes it easy to deploy, manage,
+                    and scale containerized applications using Kubernetes.</li>
+                <li><a href="#azure-devops" class="no-show">Azure DevOps</a>: A set of services for software development
+                    and collaboration that can be used to
+                    manage the end-to-end application lifecycle, from development to deployment and operations.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Long-running applications and services, as Azure Container Instances is designed for short-lived or
+                    infrequently used applications and tasks.</li>
+                <li>Applications that require persistent storage, as Azure Container Instances does not provide any
+                    built-in storage solution.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-backup">Azure Backup</a>: A fully managed backup service that can be used to protect
+                    data and configuration for
+                    Azure Container Instances.</li>
+                <li><a href="#azure-site-recovery">Azure Site Recovery</a>: A disaster recovery solution that can be
+                    used to replicate data and
+                    configuration for Azure Container Instances to another region.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Container Instances is designed for high availability, with automatic failover and load balancing to
+            ensure that your containers are always available.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Container Instances is highly scalable, and can be easily scaled up or down to meet the changing needs
+            of your application, either manually or automatically based on pre-defined rules.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-monitor">Azure Monitor</a>: A fully managed monitoring service that can be used to monitor
+            the health and performance of
+            Azure Container Instances, and receive alerts and notifications in case of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/compute/10029-icon-service-Function-Apps-256x256.png"
+                title="Azure Functions" alt="Azure Functions" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-functions">Azure Functions</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A serverless computing platform.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>Event-driven applications that require processing of events, such as creating thumbnails from
+                    uploaded images, sending notifications, or analyzing logs.</li>
+                <li>Building microservices and serverless architectures, where you can run small pieces of code that
+                    perform a single function.</li>
+                <li>Applications that require rapid scaling and automatic provisioning of resources, as Azure Functions
+                    can automatically scale based on incoming request rate.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-event-grid">Azure Functions</a> for event-driven architectures, enabling Azure
+                    Functions to trigger in response to
+                    events from other Azure services.</li>
+                <li><a href="#azure-cosmos-db">Azure Cosmos DB</a> for storing and processing data, enabling Azure
+                    Functions to retrieve and store data
+                    in Cosmos DB.</li>
+                <li><a href="#azure-service-bus">Azure Service Bus</a> for messaging and queue processing, enabling
+                    Azure Functions to process messages
+                    and queues.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Applications that require long-running or persistent processes, as Azure Functions are designed for
+                    stateless and ephemeral processing.</li>
+                <li>Applications that require high-performance, low-latency access to data, as Azure Functions can have
+                    higher latency compared to other Azure services.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Functions provide built-in disaster recovery and data replication across multiple regions for high
+            availability, however, for backup and restore purposes, you can use <a href="#azure-backup">Azure Backup</a>
+            to protect your Azure
+            Functions by backing up its configuration and data to a recovery vault.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Functions provide high availability by automatically replicating your functions across multiple
+            regions and automatically provisioning additional resources to meet demand.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Functions automatically scale based on incoming request rate, enabling you to scale up or down
+            dynamically based on the needs of your application. You can also set up auto-scale rules based on custom
+            metrics.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Functions provides built-in monitoring capabilities, including logging and telemetry data, and
+            provides integration with <a href="#azure-monitor">Azure Monitor</a> to track performance and view logs and
+            metrics. You can also use
+            <a href="#azure-log-analytics">Azure Log Analytics</a> and <a href="#azure-monitor">Azure Monitor</a> to
+            track and visualize your Azure Functions usage and performance and
+            set up alerts to notify you of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/compute/10023-icon-service-Kubernetes-Services-256x256.png"
+                title="Azure Kubernetes Service (AKS)" alt="Azure Kubernetes Service (AKS)" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-kubernetes-service">Azure Kubernetes Service (AKS)</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        __servicedescr__
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            __scenarios__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __notwith__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __backup__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __availability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __scalability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __monitoring__
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/integration/02631-icon-service-Logic-Apps-256x256.png"
+                title="Azure Logic Apps" alt="Azure Logic Apps" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-logic-apps">Azure Logic Apps</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A cloud-based platform for building, deploying, and running workflows that integrate with
+                        various services and systems.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>Automating business processes and workflows, as Azure Logic Apps provides a visual and intuitive
+                    interface for building and deploying workflows that integrate with various services and systems.
+                </li>
+                <li>Integrating cloud-based and on-premises systems, as Azure Logic Apps supports a wide range of data
+                    sources and protocols for connecting to various services and systems.</li>
+                <li>Building microservices and serverless architectures, as Azure Logic Apps provides a scalable and
+                    flexible platform for building and deploying workflows that can be triggered by events and run in
+                    response to messages.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-functions">Azure Functions</a>: A serverless computing platform that can be used to
+                    build and run event-driven
+                    applications and services.</li>
+                <li><a href="#azure-api-management">Azure API Management</a>: A fully managed API management platform
+                    that can be used to publish, manage,
+                    and monitor APIs and microservices.</li>
+                <li><a href="#azure-event-grid">Azure Event Grid</a>: A fully managed event routing service that can be
+                    used to route events to various
+                    services and systems, including Azure Logic Apps.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>High-performance computing or data-intensive workloads, as Azure Logic Apps is designed for
+                    workflows and integrations, not for heavy-duty computing tasks.</li>
+                <li>Applications that require fine-grained control over the underlying infrastructure, as Azure Logic
+                    Apps provides a managed platform for building and deploying workflows, and does not provide direct
+                    access to the underlying infrastructure.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-backup">Azure Backup</a>: A fully managed backup service that can be used to protect
+                    data and configuration for
+                    Azure Logic Apps.</li>
+                <li><a href="#azure-site-recovery">Azure Site Recovery</a>: A disaster recovery solution that can be
+                    used to replicate data and
+                    configuration for Azure Logic Apps to another region.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Logic Apps is designed for high availability, with automatic failover and load balancing to ensure
+            that your workflows are always available.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Logic Apps is highly scalable, and can be easily scaled up or down to meet the changing needs of your
+            application, either manually or automatically based on pre-defined rules.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-monitor">Azure Monitor</a>: A fully managed monitoring service that can be used to monitor
+            the health and performance of
+            Azure Logic Apps, and receive alerts and notifications in case of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/compute/10021-icon-service-Virtual-Machine-256x256.png"
+                title="Azure Virtual Machines" alt="Azure Virtual Machines" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-virtual-machines">Azure Virtual Machines</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A service that allows you to create and manage virtualized computing environments in the cloud.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            Azure VMs are best used for scenarios that require a flexible and scalable computing environment. They can
+            be used to run a wide range of applications, including web applications, databases, and development
+            environments. Azure VMs are also useful for migrating existing applications to the cloud, as well as for
+            testing and development purposes.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure VMs can be used in combination with many other Azure services, including <a
+                href="#storage-services">Azure
+                Storage</a>, <a href="#azure-load-balancer">Azure Load Balancer</a>, and <a href="#azure-networking"
+                class="no-show">Azure Networking</a>, to create a complete and highly
+            available computing environment in the
+            cloud.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure VMs may not be appropriate for scenarios that require extremely low latency or high-performance
+            computing, as the performance of virtual machines can be affected by resource contention with other virtual
+            machines on the same host.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure VMs can be backed up using <a href="#azure-backup">Azure Backup</a>, a cloud-based backup service that
+            provides data protection
+            and recovery capabilities for virtual machines. You can use <a href="#azure-backup">Azure Backup</a> to
+            create and manage backup
+            schedules, and perform restore operations in the event of data loss.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure VMs provide high availability and resiliency through features such as availability sets, which ensure
+            that virtual machines are placed on separate physical hosts to protect against hardware failures.
+            Additionally, you can use <a href="#azure-site-recovery">Azure Site Recovery</a> to implement disaster
+            recovery and business continuity plans
+            for virtual machines.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure VMs can be easily scaled up or down as needed to meet changing demands. You can increase or decrease
+            the number of virtual machines in your environment, as well as adjust the size and configuration of
+            individual virtual machines to meet your needs.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure VMs can be monitored using <a href="#azure-monitor">Azure Monitor</a>, a cloud-based monitoring
+            service that provides visibility
+            into the performance and health of virtual machines. You can use <a href="#azure-monitor">Azure Monitor</a>
+            to track performance metrics,
+            set up alerts and notifications, and visualize log data for virtual machines.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/app%20services/10035-icon-service-App-Services-256x256.png"
+                title="Azure Web Apps" alt="Azure Web Apps" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-web-apps">Azure Web Apps</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A fully managed platform for building, deploying, and scaling web applications.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>Building and deploying modern web applications, including web apps, RESTful APIs, and mobile
+                    backends.</li>
+                <li>Hosting websites and web applications, as it provides a scalable and cost-effective platform for
+                    delivering content over the internet.</li>
+                <li>Providing a platform for development and testing, as it provides an easy-to-use environment for
+                    building, deploying, and testing web applications.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-sql">Azure SQL Database</a>: A fully managed
+                    relational database service that can be used as a backend for web applications hosted on Azure Web
+                    App.</li>
+                <li><a href="#azure-functions">Azure Functions</a>: A serverless compute service that can be used to
+                    build and run event-driven
+                    applications and microservices.</li>
+                <li><a href="#azure-redis-cache">Azure Cache for Redis</a>: A fully managed in-memory data store that
+                    can be used as a cache for web
+                    applications hosted on Azure Web App.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Applications that require low-level access to the underlying infrastructure, as Azure Web App
+                    provides a fully managed platform with limited control over the underlying infrastructure.</li>
+                <li>Applications that require real-time processing and low latency, as Azure Web App provides a
+                    multi-tenant platform that may result in variability in response times.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-backup">Azure Backup</a>, a fully managed backup service that can be used to protect
+                    data and configuration for
+                    Azure Web App.</li>
+                <li><a href="#azure-site-recovery">Azure Site Recovery</a>, a disaster recovery solution that can be
+                    used to replicate data and
+                    configuration for Azure Web App to another region.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Web App is designed for high availability, with automatic failover and load balancing to ensure that
+            your applications are always available.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Web App is highly scalable, and can be easily scaled up or down to meet the changing needs of your
+            application, either manually or automatically based on pre-defined rules.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-monitor">Azure Monitor</a>, a fully managed monitoring service that can be used to monitor
+            the health and performance of Azure Web App, and receive alerts and notifications in case of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+
+<h3 id="data-integration-integration-and-management-services">Data Integration and Management Services</h3>
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/analytics/10126-icon-service-Data-Factories-256x256.png"
+                title="Azure Data Factory" alt="Azure Data Factory" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-data-factory">
+                        Azure Data Factory
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A fully managed, cloud-based data integration service that allows you to create, schedule, and
+                        orchestrate data pipelines that can move and transform data from various sources to various
+                        destinations, including SQL databases.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's best used for ETL (Extract, Transform and Load) scenarios, and scenarios where you need to move and
+            transform data between various sources and destinations.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-data-lake-storage">Azure Data Lake Storage</a> Gen1 and Gen2, for
+                    data storage and data lake scenarios.</li>
+                <li><a href="#azure-machine-learning" class="no-show">Azure Machine Learning</a>, for advanced analytics
+                    and machine learning.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's not the best option for scenarios where you don't need to move or transform data between various
+            sources and destinations.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Data Factory itself can be used as a backup solution for other services like SQL DB, Synapse and
+            Cosmos
+            DB; it allows you to create data pipelines that can move data from your source to different destinations.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Azure Data Factory provides built-in high availability and disaster
+                        recovery options, including
+                    automatic failover to a secondary replica and point-in-time restore.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Scale out your data pipelines by adding more resources like data integration runtime to distribute
+                    data processing across multiple servers</li>
+                <li>Scale out your data pipelines by adding more regions to distribute data
+                    across multiple servers</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-log-analytics">Azure Log Analytics</a> is the best monitoring solution to use with
+                    Azure
+                    Data
+                    Factory.</li>
+                <li><a href="#azure-monitor">Azure Monitor</a> can be used to monitor Azure Data Factory performance and
+                    troubleshoot issues.
+                </li>
+                <li>Built-in monitoring capabilities such as pipeline run and activity run
+                        history,
+                        monitoring & alerting, and Data Factory Analytics that enables you
+                        to
+                        track performance, troubleshoot issues, and identify performance bottlenecks.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+
+<h3 id="databases-services">Databases Services</h3>
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/management%20+%20governance/00756-icon-service-Azure-Arc-256x256.png"
+                title="Azure Arc-enabled SQL Server" alt="Azure Arc-enabled SQL Server" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-arc-enabled-sql-server">
+                        Azure Arc-enabled SQL Server
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A service that allows you to manage SQL Server instances running on-premises or in other clouds
+                        with Azure Arc.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's best used for organizations that have multiple SQL Server instances running in different environments
+            and need a consistent way to manage and monitor them.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-networking" class="no-show">Azure Networking</a>, for secure network connectivity.</li>
+                <li><a href="#azure-expressroute" class="no-show">Azure ExpressRoute</a>, for a private connection to Azure.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's not suitable for scenarios where you don't have any on-premises or multi-cloud SQL Server
+            instances to manage.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-backup">Azure Backup</a> is the appropriate backup solution for Azure Arc-enabled SQL
+            Server.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Built-in high availability with automatic failover to a
+                    secondary replica, it can be either on-premises or in another cloud, depending on the configuration.
+                </li>
+                <li>Built-in disaster recovery options, including
+                    point-in-time restore, and long-term retention backup</li>
+                <li>Built-in read-scale out options, allowing you to
+                    distribute read traffic across multiple replicas.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Scale up or down the performance level of your SQL Server instances running on-premises or in other
+                    clouds.</li>
+                <li>Scale out your SQL Server instances using Azure Arc to distribute data
+                        processing across multiple
+                        servers.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-log-analytics">Azure Log Analytics</a> is the best monitoring solution to use with
+                    Azure
+                    SQL Managed Instance.</li>
+                <li><a href="#azure-monitor">Azure Monitor</a> for SQL to monitor performance and troubleshoot issues.
+                </li>
+                <li>Built-in monitoring capabilities such as Automatic tuning, Query store, and
+                    <a href="#azure-sql-analytics" class="no-show">Azure SQL Analytics</a>.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class=" container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/databases/10130-icon-service-SQL-Database-256x256.png"
+                title="Azure SQL Database" alt="Azure SQL Database" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-sql">Azure SQL</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A fully managed relational database service that supports SQL Server-compatible
+                        Transact-SQL.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            Best used for traditional relational database scenarios, such as
+            online transaction processing (OLTP) and line-of-business (LOB) applications, as well as for small
+            to
+            medium-sized data warehouses.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>
+                    <a href="#azure-active-directory" class="no-show">Azure Active Directory Authentication</a>,
+                    for secure access to the
+                    database.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's not the best option for scenarios that require
+            high-performance, real-time analytics and very large datasets.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-backup">Azure Backup</a> is the appropriate backup solution for
+            Azure SQL Database.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>
+                    Built-in high availability with automatic failover to a
+                    secondary
+                    replica in the same region, or a different region in the case of a disaster recovery
+                    scenario using
+                    active-geo replication.
+                </li>
+                <li>
+                    Built-in disaster recovery options, including point-in-time
+                    restore, and long-term retention backup.
+                </li>
+                <li>
+                    Built-in read-scale out options, allowing you to distribute
+                    read
+                    traffic across multiple replicas.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Scale up or down the performance level with a few clicks or automatically with the
+                    use of <a href="#azure-automation" class="no-show">Azure Automation</a>.</li>
+                <li>Scale out using read replicas to distribute read load across multiple servers.</li>
+                <li>Scale out using <a href="#azure-elastic-database-pools">Azure Elastic Database Pools</a> to
+                    share resources among
+                    multiple
+                    databases.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-log-analytics">Azure Log Analytics</a> is the best monitoring solution to
+                    use with
+                    Azure
+                    SQL Database.</li>
+                <li><a href="#azure-monitor">Azure Monitor</a> for SQL to monitor performance and troubleshoot
+                    issues.
+                </li>
+                <li>Built-in monitoring capabilities such as Automatic tuning, Query
+                    store, and
+                    <a href="#azure-sql-analytics" class="no-show">Azure SQL Analytics</a>.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/databases/02750-icon-service-Azure-SQL-Edge-256x256.png"
+                title="Azure SQL Edge" alt="Azure SQL Edge" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-sql-edge">
+                        Azure SQL Edge
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A small-footprint version of SQL Server optimized for IoT scenarios.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's best used for Internet of Things (IoT) and edge computing scenarios, where devices have limited
+            resources and require a lightweight, low-power database.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-iot-hub" class="no-show">Azure IoT Hub</a>, for IoT scenarios.</li>
+                <li><a href="#azure-stream-analytics" class="no-show">Azure Stream Analytics</a>, for real-time
+                    analytics.</li>
+                <li><a href="#azure-time-series-insights" class="no-show">Azure Time Series Insights</a>, for
+                    time-series data analysis.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's not the best option for scenarios that require high-performance or high-transactional
+            workloads.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-backup">Azure Backup</a> is the appropriate backup solution for Azure SQL Edge.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Built-in high availability with automatic failover to a
+                    secondary
+                    replica in
+                    the same region.</li>
+                <li>Built-in disaster recovery options, including point-in-time
+                    restore,
+                    and long-term retention backup</li>
+                <li>Built-in read-scale out options, allowing you to distribute
+                    read
+                    traffic across multiple replicas.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Scale up or down the performance level of your SQL Edge instances.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-log-analytics">Azure Log Analytics</a> is the best monitoring solution to
+                    use with
+                    Azure
+                    SQL Edge.</li>
+                <li><a href="#azure-monitor">Azure Monitor</a> for SQL to monitor performance and troubleshoot
+                    issues.
+                </li>
+                <li>Built-in monitoring capabilities such as Automatic tuning, Query store, and
+                    <a href="#azure-sql-analytics" class="no-show">Azure SQL Analytics</a>.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/databases/10136-icon-service-SQL-Managed-Instance-256x256.png"
+                title="Azure SQL Managed Instance" alt="Azure SQL Managed Instance" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-sql-managed-instance">
+                        Azure SQL Managed Instance
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A fully managed SQL Server instance that provides an almost lift-and-shift experience of
+                        moving on-premises SQL Server databases to the cloud.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's best used for applications that are currently running on an on-premises SQL Server and need to
+            be moved to the cloud with minimal changes.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-expressroute" class="no-show">Azure ExpressRoute</a>, for a private
+                    connection to Azure.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's not the best option if you're looking for a fully managed service with a high level of
+            automation and
+            scalability.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-backup">Azure Backup</a> is the appropriate backup solution for Azure SQL Managed
+            Instance.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>
+                    Built-in high availability with automatic failover to a secondary replica in the same region, or a different region in the case of a disaster recovery scenario using active-geo replication.
+                </li>
+                <li>
+                    Built-in disaster recovery options, including point-in-time restore, and long-term retention backup.
+                </li>
+                <li>
+                    Built-in read-scale out options, allowing you to distribute read traffic across multiple replicas.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Scale up or down the performance level with a few clicks or automatically with the
+                    use of <a href="#azure-automation" class="no-show">Azure Automation</a>.</li>
+                <li>Scale out using read replicas to distribute read load across multiple servers.</li>
+                <li>Scale out using <a href="#azure-elastic-database-pools">Azure Elastic Database Pools</a> to
+                    share resources among multiple databases.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-log-analytics">Azure Log Analytics</a> is the best monitoring solution to
+                    use with
+                    Azure
+                    SQL Managed Instance.</li>
+                <li><a href="#azure-monitor">Azure Monitor</a> for SQL to monitor performance and troubleshoot
+                    issues.
+                </li>
+                <li>Built-in monitoring capabilities such as Automatic tuning, Query
+                    store, and
+                    <a href="#azure-sql-analytics" class="no-show">Azure SQL Analytics</a>.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/integration/00036-icon-service-SQL-Data-Warehouses-256x256.png"
+                title="Azure SQL Server Big Data Clusters" alt="Azure SQL Server Big Data Clusters" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-sql-server-big-data-clusters">
+                        Azure SQL Server Big Data Clusters
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A fully-managed service that allows you to run SQL Server, Spark, and HDFS all together
+                        on Kubernetes.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's best used for big data scenarios and SQL Server scenarios that require integration with Apache
+            Spark and Hadoop ecosystem.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-data-factory">Azure Data Factory</a>, for data integration and data
+                    analytics.</li>
+                <li><a href="#azure-data-lake-storage">Azure Data Lake Storage</a> Gen1 and Gen2, for
+                    data storage and data lake scenarios.</li>
+                <li><a href="#azure-machine-learning" class="no-show">Azure Machine Learning</a>, for advanced
+                    analytics and machine learning.
+                </li>
+                <li><a href="#azure-networking" class="no-show">Azure Networking</a>, for secure network
+                    connectivity.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's not the best option for scenarios that don't require Spark integration.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-data-factory">Azure Data Factory</a> is an appropriate backup solution for Azure SQL
+            Server
+            Big
+            Data Clusters. <a href="#azure-data-factory">Azure Data Factory</a> allows you to create data
+            pipelines that can move data from Azure SQL Server Big Data Clusters to
+            <a href="#azure-blob-storage">Azure Blob Storage</a>, <a href="#azure-data-lake-storage">Azure Data
+                Lake Storage</a>, or
+            other data stores.
+            This allows you to create backups of your data in another location, and also allows you to do
+            incremental
+            backups.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Built-in high availability and disaster recovery
+                    options, including automatic failover to a secondary replica and point-in-time restore.</li>
+                <li>Built-in read-scale out options, allowing you to
+                    distribute read traffic across multiple replicas.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Scale out your SQL Server Big Data Clusters by adding more
+                        nodes to
+                    distribute data processing
+                    across multiple servers</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-log-analytics">Azure Log Analytics</a> is the best monitoring solution to
+                    use with
+                    <a href="#azure-sql-edge">Azure SQL Edge</a>.
+                </li>
+                <li><a href="#azure-monitor">Azure Monitor</a> for SQL to monitor performance and troubleshoot
+                    issues.
+                </li>
+                <li>Built-in monitoring capabilities such as Automatic tuning, Query
+                    store, and
+                    <a href="#azure-sql-analytics" class="no-show">Azure SQL Analytics</a>.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/databases/10124-icon-service-Azure-SQL-VM-256x256.png"
+                title="Azure SQL Server on Virtual Machines" alt="Azure SQL Server on Virtual Machines" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-sql-server-on-virtual-machines">
+                        Azure SQL Server on Virtual Machines
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        Allows you to run SQL Server on Azure virtual machines, giving you the flexibility to
+                        choose
+                        your operating system, storage, and networking options.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's best used for scenarios where you need full control over the SQL Server environment and have
+            specific
+            requirements that are not met by other Azure SQL services.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-expressroute" class="no-show">Azure ExpressRoute</a>, for a private
+                    connection to Azure.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's not the best option for scenarios where you don't need full control over the SQL Server
+            environment or
+            when you have requirements that are not met by other Azure SQL services.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-backup">Azure Backup</a> is the appropriate backup solution for Azure SQL Server on
+            Virtual
+            Machines.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>
+                   Built-in high availability with automatic failover to a
+                    secondary
+                    replica in the same region, or a different region in the case of a disaster recovery
+                    scenario using
+                    active-geo replication.
+                </li>
+                <li>
+                    Built-in disaster recovery options, including point-in-time
+                    restore, and long-term retention backup.
+                </li>
+                <li>
+                    Built-in read-scale out options, allowing you to distribute
+                    read
+                    traffic across multiple replicas.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Scale up or down the performance level of your SQL Server on Virtual Machines by adjusting the size
+                        of the virtual machine.</li>
+                <li>Scale out your SQL Server on Virtual Machines by adding more virtual
+                        machines
+                        to distribute data
+                        processing across multiple servers.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-log-analytics">Azure Log Analytics</a> is a good solution to use with Azure
+                    SQL
+                    Database.
+                </li>
+                <li><a href="#azure-monitor">Azure Monitor</a> for VMs to monitor the performance of your
+                    virtual
+                    machines and the underlying infrastructure.</li>
+                <li>SQL Server Management Studio (SSMS) and SQL
+                        Server Profiler to monitor and troubleshoot performance issues for SQL Server on
+                    Virtual
+                    Machines.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/analytics/00606-icon-service-Azure-Synapse-Analytics-256x256.png"
+                title="Azure Synapse Analytics (formerly SQL Data Warehouse)"
+                alt="Azure Synapse Analytics (formerly SQL Data Warehouse)" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-synapse-analytics">Azure Synapse Analytics <small
+                            class="text-muted">(formerly SQL Data
+                            Warehouse)</small></div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A fully managed, cloud-based analytics service that supports big data scenarios.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Best used for large-scale data warehousing and business intelligence (BI) workloads, as well as for
+            data
+            integration and data analytics.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-data-factory">Azure Data Factory</a>, for data integration and data
+                    analytics.</li>
+                <li><a href="#azure-data-lake-storage">Azure Data Lake Storage</a> Gen1 and Gen2, for
+                    data storage and data lake scenarios.</li>
+                <li><a href="#azure-networking" class="no-show">Azure Networking</a>, for secure network
+                    connectivity.</li>
+                <li><a href="#azure-machine-learning" class="no-show">Azure Machine Learning</a>, for advanced
+                    analytics and machine learning.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's not the best option for scenarios that require high-performance, real-time analytics and very
+            large
+            datasets.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-data-factory">Azure Data Factory</a> is an appropriate backup solution for Azure
+            Synapse
+            Analytics. Azure Data Factory allows
+            you to create data pipelines that can move data from Azure Synapse Analytics to <a
+                href="#azure-blob-storage">Azure Blob Storage</a>,
+            <a href="#azure-data-lake-storage">Azure Data Lake Storage</a>, or other data stores. This allows
+            you to
+            create
+            backups of your data in another location,
+            and also allows you to do incremental backups.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Built-in high availability with automatic failover to a
+                    secondary
+                    replica in the same region.</li>
+                <li>Built-in disaster recovery options, including point-in-time
+                    restore, and long-term retention backup</li>
+                <li>Built-in read-scale out options, allowing you to distribute
+                    read traffic across multiple replicas.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Scale up or down the performance level of your data warehouse with a few clicks or
+                    automatically
+                    with the use of <a href="#azure-automation" class="no-show">Azure Automation</a>.</li>
+                <li>Scale out your data warehouse using <a href="#azure-data-factory">Azure Data Factory</a> to
+                    distribute
+                    data processing across multiple
+                    servers.</li>
+                <li>Scale out your data warehouse using <a href="#azure-data-lake-storage">Azure Data Lake
+                        Storage</a> to store large
+                    amounts of data.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-log-analytics">Azure Log Analytics</a> is a great solution for monitoring Azure
+            Synapse
+            Analytics.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+
+<h3 id="key-management-services">Key Management Services</h3>
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/security/10245-icon-service-Key-Vaults-256x256.png"
+                title="Azure Key Vault" alt="Azure Key Vault" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-key-vault">Azure Key Vault</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A secure and scalable cloud-based solution for managing and storing secrets, such as
+                        certificates, keys, and passwords.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            Best used for securely storing, managing, and accessing secrets, such as certificates, keys, and
+            passwords,
+            used by cloud applications and services.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Everything, when you want secure any kind of secret, password, etc!
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Not applicable - if used for what was created for, it can work with any Azure (or not) Service.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Backup and recovery of secrets stored in Azure Key Vault can be achieved by exporting the secrets to
+            a file
+            and then storing the file in a secure location. You can also periodically create snapshots of your
+            Key Vault
+            to use as a backup in case of disaster or data loss.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Key Vault provides a high level of availability through multiple data centers, with a <span
+                class="fw-bold">guaranteed 99.9%
+                uptime SLA</span>.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Key Vault scales to meet the changing needs of your organization, allowing you to store an
+            unlimited
+            number of secrets.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Key Vault provides monitoring and logging capabilities, including activity logs and diagnostic
+            logs,
+            to
+            help you monitor and troubleshoot the usage and availability of your secrets.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+
+<h3 id="messaging-and-event-processing-services">Messaging Services</h3>
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/integration/10221-icon-service-Event-Grid-Subscriptions-256x256.png"
+                title="Azure Event Grid" alt="Azure Event Grid" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-event-grid">Azure Event Grid</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        __servicedescr__
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            __scenarios__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __notwith__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __backup__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __availability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __scalability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __monitoring__
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/analytics/10149-icon-service-Event-Hub-Clusters-256x256.png"
+                title="Azure Event Hubs" alt="Azure Event Hubs" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-event-hubs">Azure Event Hubs</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        __servicedescr__
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            __scenarios__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __notwith__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __backup__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __availability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __scalability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __monitoring__
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/integration/10836-icon-service-Azure-Service-Bus-256x256.png"
+                title="Azure Service Bus" alt="Azure Service Bus" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-service-bus">Azure Service Bus</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A messaging service that enables you to send and receive messages between different
+                        systems in a
+                        reliable and secure way.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            Best used for scenarios that require reliable messaging and decoupling of systems. It
+            can be used to implement a message-based communication architecture, where different systems can
+            send and
+            receive messages in a loosely coupled way. It can also be used to implement a publish-subscribe
+            pattern,
+            where messages can be sent to multiple subscribers at once.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Can be used in combination with <a href="#azure-functions">Azure Functions</a>, <a
+                href="#azure-webjobs">Azure WebJobs</a>, and <a href="#azure-logic-apps">Azure
+                Logic Apps</a> to
+            process messages in a decoupled way. It can also be used in combination with <a
+                href="#azure-event-grid">Azure Event Grid</a> to route
+            messages to different systems based on their content.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            May not be appropriate for scenarios that require extremely high throughput and low
+            latency, such as high-frequency trading systems.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Supports automatic data backup and disaster recovery. You can configure automatic backup
+            for your service bus namespace and configure data replication for high availability.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's a globally available service, meaning that it can be accessed from anywhere in the
+            world. Additionally, it provides built-in high availability and automatic failover, which can help
+            ensure
+            that messages are delivered even in case of failures.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's a highly scalable service that can handle millions of messages per second. You can
+            scale the number of messaging entities, throughput units, and message size according to your needs.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Service Bus provides several built-in monitoring and logging features that can help you
+            understand how
+            the service is being used and troubleshoot any issues that may arise. You can use <a
+                href="#azure-monitor">Azure Monitor</a> to collect
+            and analyze data from Azure Service Bus, as well as to set up alerts and notifications.
+            Additionally, you
+            can use <a href="#azure-log-analytics">Azure Log Analytics</a> to collect and analyze log data from
+            Azure
+            Service Bus.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+
+<h3 id="monitoring-services">Monitoring Services</h3>
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/analytics/00009-icon-service-Log-Analytics-Workspaces-256x256.png"
+                title="Azure Log Analytics" alt="Azure Log Analytics" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-log-analytics">Azure Log Analytics</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        Provides log collection, search, analysis, and alerting capabilities for your
+                        applications and
+                        infrastructure.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            Azure Log Analytics is best used for scenarios that require log data analysis and troubleshooting.
+            It can be
+            used to collect and analyze log data from various sources, including Azure services, on-premises
+            systems,
+            and third-party services. With its powerful search capabilities, you can quickly find the
+            information you
+            need to troubleshoot issues and resolve problems.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Log Analytics can be used in combination with many other Azure services, including <a
+                href="#azure-monitor">Azure Monitor</a>,
+            <a href="#azure-security-center" class="no-show">Azure Security Center</a>, and <a href="#azure-automation"
+                class="no-show">Azure Automation</a>, to provide a comprehensive view
+            of your environment and help
+            you monitor and manage your resources.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Log Analytics may not be appropriate for scenarios that require real-time analysis of log
+            data. The
+            data collection, search, and analysis features of the service are optimized for historical data
+            analysis and
+            troubleshooting.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Log Analytics does not require a separate backup solution, as it stores data in a highly
+            durable
+            manner within Azure. The data is stored in multiple locations to protect against failures and data
+            loss.
+            Additionally, you can use the export data feature to export your log data to other storage solutions
+            for
+            backup purposes.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Log Analytics is a globally available service that provides built-in redundancy and high
+            availability.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Log Analytics is a highly scalable service that can handle millions of log events per day. You
+            can
+            scale the service to meet your needs by adjusting the number of queries, data ingestion rate, and
+            data
+            retention period.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Log Analytics provides a wealth of monitoring and alerting features that can help you monitor
+            and
+            manage your environment. You can use the service to set up alerts and notifications based on
+            specific log
+            data patterns, and use the <a href="#azure-monitor">Azure Monitor</a> integration to visualize and
+            analyze
+            log data in real-time.
+            Additionally, you can use the Azure Log Analytics REST API to programmatically access and manage
+            your log
+            data.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/other/02488-icon-service-Azure-Monitor-Dashboard-256x256.png"
+                title="Azure Monitor" alt="Azure Monitor" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-monitor">Azure Monitor</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A comprehensive platform for monitoring, managing, and diagnosing applications,
+                        infrastructure,
+                        and network performance.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            Best used for monitoring the performance, health, and availability of Azure resources, applications,
+            and
+            services. It provides insights into resource utilization, network traffic, and logs.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Monitor integrates well with other Azure services, such as Azure Resource Manager, <a
+                href="#storage-services">Azure Storage</a>, and
+            <a href="#azure-functions">Azure Functions</a>, for comprehensive monitoring and management.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Not applicable - Azure Monitor is an umbrella of services that cover all your needs (e.g. Azure
+            Monitor for
+            SQL)
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Monitor provides a high level of availability through multiple data centers, with a <span
+                class="fw-bold">guaranteed 99.9%
+                uptime SLA</span>.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Monitor scales to meet the changing needs of your organization, allowing you to monitor an
+            unlimited
+            number of resources, applications, and services.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+
+<h3 id="network-and-hybrid-integration-services">Storage Services</h3>
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/devops/10042-icon-service-API-Management-Services-256x256.png"
+                title="Azure API Management" alt="Azure API Management" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-api-management">Azure API Management</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        __servicedescr__
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            __scenarios__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __notwith__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __backup__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __availability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __scalability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __monitoring__
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/networking/10076-icon-service-Application-Gateways-256x256.png"
+                title="Azure Application Gateway" alt="Azure Application Gateway" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-application-gateway">Azure Application Gateway</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        __servicedescr__
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            __scenarios__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __notwith__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __backup__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __availability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __scalability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __monitoring__
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/networking/10065-icon-service-Traffic-Manager-Profiles-256x256.png"
+                title="Azure DNS Traffic" alt="Azure DNS Traffic" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-dns-traffic">Azure DNS Traffic</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        __servicedescr__
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            __scenarios__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __notwith__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __backup__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __availability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __scalability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __monitoring__
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/networking/10073-icon-service-Front-Door-and-CDN-Profiles-256x256.png"
+                title="Azure Front Door" alt="Azure Front Door" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-front-door">Azure Front Door</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        __servicedescr__
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            __scenarios__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __notwith__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __backup__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __availability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __scalability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __monitoring__
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/networking/10062-icon-service-Load-Balancers-256x256.png"
+                title="Azure Load Balancer" alt="Azure Load Balancer" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-load-balancer">Azure Load Balancer</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        __servicedescr__
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            __scenarios__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __notwith__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __backup__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __availability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __scalability__
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            __monitoring__
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+<!------------------------------------------------------------ end of group ---------------------------------------------------------->
+
+<h3 id="storage-services">Storage Services</h3>
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/general/10839-icon-service-Storage-Container-256x256.png"
+                title="Azure Blob Storage" alt="Azure Blob Storage" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-blob-storage">Azure Blob Storage</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A fully managed object storage service that enables you to store and retrieve large
+                        amounts of
+                        unstructured data, such as text and binary data, in its native format.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>Storing unstructured data, such as images, videos, audio, and documents, for distribution
+                    and
+                    retrieval over the internet.</li>
+                <li>Storing data for backup and disaster recovery, as it provides a durable and cost-effective
+                    storage
+                    solution.</li>
+                <li>Storing data for big data analytics, as it can be easily accessed and processed using <a
+                        href="#azure-data-factory">Azure Data
+                        Factory</a> and <a href="#azure-hdinsight" class="no-show">Azure HDInsight</a>.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-functions">Azure Functions</a>, can be used to process data stored in Azure
+                    Blob
+                    Storage and take actions based on
+                    the data.</li>
+                <li><a href="#azure-data-factory">Azure Data Factory</a>, a fully managed data integration
+                    service that
+                    can
+                    be used to transfer data from
+                    Azure Blob Storage to other Azure services for further processing and analysis.</li>
+                <li><a href="#azure-hdinsight" class="no-show">Azure HDInsight</a>, a fully-managed cloud
+                    service that makes it easy to
+                    process big data using popular
+                    open-source frameworks such as Apache Hadoop, Hive, and Spark.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Applications that require low latency and high-frequency data access, as Azure Blob Storage
+                    is
+                    optimized for reliability and durability rather than speed.</li>
+                <li>Applications that require strong consistency guarantees, as Azure Blob Storage provides
+                    eventual
+                    consistency.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-backup">Azure Backup</a>, a fully managed backup service that can be used to
+                    protect data stored in Azure Blob
+                    Storage.</li>
+                <li><a href="#azure-site-recovery">Azure Site Recovery</a>, a disaster recovery solution that
+                    can be used to
+                    replicate data stored in Azure
+                    Blob Storage to another region.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Blob Storage is designed for high availability, with data automatically distributed across
+            multiple
+            storage nodes to ensure reliability and durability.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Blob Storage is highly scalable, and can be easily scaled up or down to meet the changing
+            needs of
+            your application.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-monitor">Azure Monitor</a>, a fully managed monitoring service that can be used to
+            monitor
+            the health and performance of
+            Azure Blob Storage, and receive alerts and notifications in case of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/databases/10121-icon-service-Azure-Cosmos-DB-256x256.png"
+                title="Azure Cosmos DB" alt="Azure Cosmos DB" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-cosmos-db">
+                        Azure Cosmos DB
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        A fully managed, globally distributed, multi-model database service that supports
+                        document,
+                        key-value, graph, and column-family data models.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's best used for globally distributed, low-latency, and highly available web, mobile, gaming, IoT,
+            and AI
+            applications.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-event-hubs">Azure Event Hubs</a>, for event streaming and real-time
+                    analytics</li>
+                <li><a href="#azure-functions">Azure Functions</a>, for serverless compute and event-driven
+                    programming
+                </li>
+                <li><a href="#azure-search">Azure Search</a>, for full-text search and indexing</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            It's not the best option for scenarios that require a traditional relational database with advanced
+            querying
+            capabilities like joins and sub-queries.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-data-factory">Azure Data Factory</a> is an appropriate backup solution for Azure
+            Cosmos DB.
+            a href="#azure-data-factory">Azure Data Factory</a> allows you to
+            create data pipelines that can move data from Azure Cosmos DB to <a href="#azure-blob-storage">Azure
+                Blob Storage</a>, <a href="#azure-data-lake-storage">Azure Data Lake Storage</a>, or other data
+            stores. This allows you to create backups of your data in another location, and also
+            allows you to do incremental backups
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Built-in high availability and global distribution, allowing
+                    you to
+                    replicate your data across multiple regions for low-latency access and high availability.
+                </li>
+                <li>Built-in disaster recovery options, including point-in-time
+                    restore
+                    and configurable consistency levels for different use cases.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Scale up or down the performance level of your database with a few clicks or automatically
+                    with the
+                    use of <a href="#azure-automation" class="no-show">Azure Automation</a>.</li>
+                <li>Scale out your database by adding more regions or Azure Virtual Network to distribute data
+                    across
+                    multiple servers.</li>
+                <li>Scale out your database by partitioning your data to distribute data across multiple
+                    servers.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-log-analytics">Azure Log Analytics</a> is the best monitoring solution to
+                    use with
+                    Azure
+                    SQL
+                    Edge.</li>
+                <li><a href="#azure-monitor">Azure Monitor</a> can be used to monitor <a
+                        href="#azure-data-factory">Azure Data Factory</a> performance and
+                    troubleshoot issues.
+                </li>
+                <li>Built-in monitoring capabilities such as Metrics, Alerts, and
+                    Diagnostic
+                    logs
+                    that enables you to track performance, troubleshoot issues, and identify performance
+                    bottlenecks.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/analytics/10150-icon-service-Data-Lake-Store-Gen1-256x256.png"
+                title="Azure Data Lake Storage" alt="Azure Data Lake Storage" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-data-lake-storage">Azure Data Lake Storage</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A highly scalable and secure data lake that enables you to store large amounts of data,
+                        including structured and unstructured data, in its native format.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>Storing and processing large amounts of structured and unstructured data for big data
+                    analytics.
+                </li>
+                <li>Storing data for machine learning and artificial intelligence applications.</li>
+                <li>Storing and processing log and telemetry data.</li>
+                <li>Storing and processing data for business intelligence and reporting.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-databricks" class="no-show">Azure Databricks</a>, a fast, easy, and
+                    collaborative Apache
+                    Spark-based
+                    analytics platform that can be
+                    used to process data stored in Azure Data Lake Storage.</li>
+                <li><a href="#azure-hdinsight" class="no-show">Azure HDInsight</a>, a fully-managed cloud
+                    service that makes it
+                    easy to
+                    process big data using popular
+                    open-source frameworks such as Apache Hadoop, Hive, and Spark.</li>
+                <li><a href="#azure-stream-analytics" class="no-show">Azure Stream Analytics</a>, can be used to
+                    stream data into Azure
+                    Data Lake
+                    Storage for real-time
+                    analytics and reporting.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Applications that require low latency and high-frequency data access, as Azure Data Lake
+                    Storage is
+                    optimized for large scale batch processing.</li>
+                <li>Applications that require strong consistency guarantees, as Azure Data Lake Storage provides
+                    eventual consistency.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-backup">Azure Backup</a>: A fully managed backup service that can be used to
+                    protect data stored in Azure Data
+                    Lake Storage.</li>
+                <li><a href="#azure-site-recovery">Azure Site Recovery</a>: A disaster recovery solution that
+                    can be
+                    used to
+                    replicate data stored in Azure
+                    Data Lake Storage to another region.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Data Lake Storage is designed for high availability, with data automatically distributed
+            across
+            multiple storage nodes to ensure reliability and durability.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Data Lake Storage is highly scalable, and can be easily scaled up or down to meet the changing
+            needs
+            of your application.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-monitor">Azure Monitor</a>, a fully managed monitoring service that can be used to
+            monitor
+            the health and performance of
+            Azure Data Lake Storage, and receive alerts and notifications in case of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/general/10840-icon-service-Storage-Queue-256x256.png"
+                title="Azure Queue Storage" alt="Azure Queue Storage" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-queue-storage">Azure Queue Storage</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A fully managed message queue that enables you to store and retrieve large numbers of
+                        messages,
+                        so you can send and receive messages between independent systems.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>Reliable communication between applications and microservices, especially when the
+                    communication
+                    involves multiple steps and can be performed asynchronously.</li>
+                <li>Processing batch jobs by breaking them into smaller tasks that can be processed by multiple
+                    worker
+                    roles in parallel.</li>
+                <li>Storing messages for later processing, such as emails or push notifications.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-functions">Azure Functions</a>, can be used to process messages stored in
+                    Azure
+                    Queue
+                    Storage and take actions
+                    based on the messages.</li>
+                <li><a href="#azure-service-bus">Azure Service Bus</a>, can be used to provide reliable and
+                    secure
+                    messaging
+                    between applications and
+                    services.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Applications that require low latency and high-frequency data access, as Azure Queue Storage
+                    is
+                    optimized for reliability and durability rather than speed.</li>
+                <li>Applications that require strong consistency guarantees, as Azure Queue Storage provides
+                    eventual
+                    consistency.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-backup">Azure Backup</a>, a fully managed backup service that can be used to
+                    protect data stored in Azure Queue
+                    Storage.</li>
+                <li><a href="#azure-site-recovery">Azure Site Recovery</a>, a disaster recovery solution that
+                    can be
+                    used to
+                    replicate data stored in Azure
+                    Queue Storage to another region.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Queue Storage is designed for high availability, with data automatically distributed across
+            multiple
+            storage nodes to ensure reliability and durability.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Queue Storage is highly scalable, and can be easily scaled up or down to meet the changing
+            needs of
+            your application.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-monitor">Azure Monitor</a>, a fully managed monitoring service that can be used to
+            monitor
+            the health and performance of
+            Azure Queue Storage, and receive alerts and notifications in case of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->
+
+<div class="container mt-5">
+    <div class="row p-3">
+        <div class="col-sm-2">
+            <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/general/10841-icon-service-Table-256x256.png"
+                title="Azure Table Storage" alt="Azure Table Storage" />
+        </div>
+        <div class="col-sm-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col h3" id="azure-table-storage">Azure Table Storage</div>
+                </div>
+                <div class="row">
+                    <div class="col lead">
+                        A scalable, low-cost NoSQL key-value store that can be used to store and query large
+                        amounts of
+                        unstructured data.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scenarios:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto ">
+            <ul>
+                <li>Storing large amounts of structured data for applications such as analytics, reporting, or
+                    auditing.
+                </li>
+                <li>Storing metadata or reference data for applications.</li>
+                <li>Storing data that does not need complex transactions or relationships, but still requires
+                    fast and
+                    efficient access.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Use with:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-functions">Azure Functions</a> can be used to process data stored in Azure
+                    Table
+                    Storage and take actions based on
+                    the data.</li>
+                <li><a href="#azure-stream-analytics" class="no-show">Azure Stream Analytics</a> can be used to
+                    stream data from IoT
+                    devices into Azure Table Storage for
+                    real-time analytics and reporting.</li>
+                <li><a href="#azure-data-factory">Azure Data Factory</a> can be used to extract, transform, and
+                    load
+                    data
+                    into Azure Table Storage for
+                    reporting and analytics.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Not ideal:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li>Applications that require complex transactions or relationships between data entities.</li>
+                <li>Applications that require a relational data model.</li>
+                <li>Applications that require strong consistency guarantees.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Backup:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <ul>
+                <li><a href="#azure-backup">Azure Backup</a>, a fully managed backup service that can be used to
+                    protect data stored in Azure Table
+                    Storage.</li>
+                <li><a href="#azure-site-recovery">Azure Site Recovery</a>, a disaster recovery solution that
+                    can be
+                    used to
+                    replicate data stored in Azure
+                    Table Storage to another region.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Availability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Table Storage is designed for high availability, with data automatically
+            distributed across multiple
+            storage nodes to ensure reliability and durability.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Scalability:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            Azure Table Storage is highly scalable, and can be easily scaled up or down to
+            meet the changing needs of
+            your application.
+        </div>
+    </div>
+    <div class="row bg-light border-4 border-bottom border-white">
+        <div class="col-sm-3 my-auto lead">Monitoring:</div>
+        <div class="col-sm-9 border-2 border-start border-white my-auto">
+            <a href="#azure-monitor">Azure Monitor</a>, a fully managed monitoring service that can be used to
+            monitor
+            the health and performance of
+            Azure Table Storage, and receive alerts and notifications in case of issues.
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col text-end"><a href="#toc" class="btn btn-primary">Top</a></div>
+    </div>
+</div>
+
+<!------------------------------------------------------------ end of template ---------------------------------------------------------->

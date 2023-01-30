@@ -1,0 +1,35 @@
+-Azure Logic Apps
+-Azure WebJobs
+-Azure Container Apps
+-Azure Container Instances
+-Azure AKS
+-Azure VMs
+-Azure Functions
+
+Azure Virtual Network
+Azure ExpressRoute
+
+-Azure Backup
+-Azure Log Analytics
+Azure SQL Analytics
+Azure HDInsight
+-Azure Site Recovery
+-Azure Monitor
+-Azure Event Hubs
+-Azure Event Grid
+Azure Search
+Azure Machine Learning
+-Azure Key Vault
++Azure Databricks
+Azure Stream Analytics
+-Azure Web Apps
+Azure IoT Hub
+Azure Time Series Insights
+Azure Security Center
+Azure Automation
+
+-Azure Load Balancer
+-and the rest layer-4 and layer-7 LB
+-Azure API Management
+
++Azure Elastic Database Pools
