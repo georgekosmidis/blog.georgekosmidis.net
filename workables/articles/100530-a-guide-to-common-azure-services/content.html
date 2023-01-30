@@ -27,7 +27,7 @@ demand and time allows.
             <li><a href="#azure-container-apps">Azure Container Apps</a></li>
             <li><a href="#azure-container-instances">Azure Container Instances</a></li>
             <li><a href="#azure-functions">Azure Functions</a></li>
-            <li><a href="#azure-kubernetes-service">todo: Azure Kubernetes Service</a></li>
+            <li><a href="#azure-kubernetes-service">Azure Kubernetes Service</a></li>
             <li><a href="#azure-logic-apps">Azure Logic Apps</a></li>
             <li><a href="#azure-virtual-machines">Azure Virtual Machines</a></li>
             <li><a href="#azure-web-apps">Azure Web Apps</a></li>
@@ -62,10 +62,10 @@ demand and time allows.
     <li>
         <a href="#messaging-and-event-processing-services" class="fs-4">Messaging & Event Processing Services</a>
         <ul class="list-unstyled ps-3">
-            <li><a href="#azure-event-grid">todo: Azure Event Grid</a></li>
-            <li><a href="#azure-event-hubs">todo: Azure Event Hubs</a></li>
+            <li><a href="#azure-event-grid">Azure Event Grid</a></li>
+            <li><a href="#azure-event-hubs">Azure Event Hubs</a></li>
             <li><a href="#azure-service-bus">Azure Service Bus</a></li>
-            <li><a href="#azure-queue-storage">todo: Azure Queue Storage</a></li>
+            <li><a href="#azure-queue-storage">Azure Queue Storage</a></li>
         </ul>
     </li>
     <li>
@@ -78,11 +78,11 @@ demand and time allows.
     <li>
         <a href="#network-and-hybrid-integration-services" class="fs-4">Networking & Hybrid Integration Service</a>
         <ul class="list-unstyled ps-3">
-            <li><a href="#azure-api-management">todo: Azure API Management</a></li>
-            <li><a href="#azure-application-gateway">todo: Azure Application Gateway</a></li>
-            <li><a href="#azure-dns-traffic">todo: Azure DNS Traffic</a></li>
-            <li><a href="#azure-front-door">todo: Azure Front Door</a></li>
-            <li><a href="#azure-load-balancer">todo: Azure Load Balancer</a></li>
+            <li><a href="#azure-api-management">Azure API Management</a></li>
+            <li><a href="#azure-application-gateway">Azure Application Gateway</a></li>
+            <li><a href="#azure-traffic-manager">Azure Traffic Manager</a></li>
+            <li><a href="#azure-front-door">Azure Front Door</a></li>
+            <li><a href="#azure-load-balancer">Azure Load Balancer</a></li>
         </ul>
     </li>
 
@@ -340,7 +340,8 @@ demand and time allows.
                 <li><a href="#azure-backup">Azure Backup</a>, a fully managed backup service that can be used to
                     protect data stored in Azure Redis
                     Cache.</li>
-                <li><a href="#azure-site-recovery">Azure Site Recovery</a>, a disaster recovery solution that can be used to
+                <li><a href="#azure-site-recovery">Azure Site Recovery</a>, a disaster recovery solution that can be
+                    used to
                     replicate data stored in Azure
                     Redis Cache to another region.</li>
             </ul>
@@ -630,7 +631,7 @@ demand and time allows.
         <div class="col-sm-3 my-auto lead">Use with:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
             <ul>
-                <li><a href="#azure-event-grid">Azure Functions</a> for event-driven architectures, enabling Azure
+                <li><a href="#azure-event-grid">Azure Event Grid</a> for event-driven architectures, enabling Azure
                     Functions to trigger in response to
                     events from other Azure services.</li>
                 <li><a href="#azure-cosmos-db">Azure Cosmos DB</a> for storing and processing data, enabling Azure
@@ -711,7 +712,8 @@ demand and time allows.
                 </div>
                 <div class="row">
                     <div class="col lead">
-                        __servicedescr__
+                        A fully managed Kubernetes service that makes it easy to deploy and manage containerized
+                        applications in the cloud.
                     </div>
                 </div>
             </div>
@@ -720,43 +722,67 @@ demand and time allows.
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scenarios:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto ">
-            __scenarios__
+            <ul>
+                <li>Containerized applications: AKS is ideal for deploying and managing containerized applications,
+                    especially those that are built using microservices architecture.</li>
+                <li>DevOps workflows: AKS supports DevOps workflows by providing an integrated and fully managed
+                    platform for deploying, updating, and scaling containerized applications.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Use with:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-
+            <ul>
+                <li><a href="#azure-container-registry">Azure Container Registry</a>: A fully managed container registry
+                    that can be used to store and manage
+                    container images for deployment on AKS.</li>
+                <li><a href="#azure-monitor">Azure Monitor</a>: A fully managed monitoring service that can be used to
+                    monitor the health and
+                    performance of containerized applications deployed on AKS, and receive alerts and notifications in
+                    case of issues.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Not ideal:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __notwith__
+            <ul>
+                <li>Applications that are not containerized, as AKS is designed specifically for deploying and managing
+                    containerized applications.</li>
+                <li>Applications that require a high degree of customization and control, as AKS is a fully managed
+                    service and does not provide direct access to the underlying infrastructure.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Backup:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __backup__
+            <a href="#azure-backup">Azure Backup</a>: A fully managed backup service that can be used to protect data
+            and configuration for
+            applications deployed on AKS.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Availability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __availability__
+            AKS is designed for high availability, and provides automatic failover and load balancing to ensure that
+            your applications are always available.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scalability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __scalability__
+            AKS is highly scalable, and can be easily scaled up or down to meet the changing needs of your application,
+            either manually or automatically based on pre-defined rules.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Monitoring:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __monitoring__
+            <a href="#azure-monitor">Azure Monitor</a>: A fully managed monitoring service that can be used to monitor
+            the health and performance of
+            AKS, and receive alerts and notifications in case of issues.
         </div>
     </div>
 </div>
@@ -1145,7 +1171,7 @@ demand and time allows.
         <div class="col-sm-9 border-2 border-start border-white my-auto">
             <ul>
                 <li>Azure Data Factory provides built-in high availability and disaster
-                        recovery options, including
+                    recovery options, including
                     automatic failover to a secondary replica and point-in-time restore.</li>
             </ul>
         </div>
@@ -1173,10 +1199,10 @@ demand and time allows.
                     troubleshoot issues.
                 </li>
                 <li>Built-in monitoring capabilities such as pipeline run and activity run
-                        history,
-                        monitoring & alerting, and Data Factory Analytics that enables you
-                        to
-                        track performance, troubleshoot issues, and identify performance bottlenecks.</li>
+                    history,
+                    monitoring & alerting, and Data Factory Analytics that enables you
+                    to
+                    track performance, troubleshoot issues, and identify performance bottlenecks.</li>
             </ul>
         </div>
     </div>
@@ -1229,8 +1255,10 @@ demand and time allows.
         <div class="col-sm-3 my-auto lead">Use with:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
             <ul>
-                <li><a href="#azure-networking" class="no-show">Azure Networking</a>, for secure network connectivity.</li>
-                <li><a href="#azure-expressroute" class="no-show">Azure ExpressRoute</a>, for a private connection to Azure.</li>
+                <li><a href="#azure-networking" class="no-show">Azure Networking</a>, for secure network connectivity.
+                </li>
+                <li><a href="#azure-expressroute" class="no-show">Azure ExpressRoute</a>, for a private connection to
+                    Azure.</li>
             </ul>
         </div>
     </div>
@@ -1269,8 +1297,8 @@ demand and time allows.
                 <li>Scale up or down the performance level of your SQL Server instances running on-premises or in other
                     clouds.</li>
                 <li>Scale out your SQL Server instances using Azure Arc to distribute data
-                        processing across multiple
-                        servers.</li>
+                    processing across multiple
+                    servers.</li>
             </ul>
         </div>
     </div>
@@ -1582,7 +1610,8 @@ demand and time allows.
         <div class="col-sm-9 border-2 border-start border-white my-auto">
             <ul>
                 <li>
-                    Built-in high availability with automatic failover to a secondary replica in the same region, or a different region in the case of a disaster recovery scenario using active-geo replication.
+                    Built-in high availability with automatic failover to a secondary replica in the same region, or a
+                    different region in the case of a disaster recovery scenario using active-geo replication.
                 </li>
                 <li>
                     Built-in disaster recovery options, including point-in-time restore, and long-term retention backup.
@@ -1716,7 +1745,7 @@ demand and time allows.
         <div class="col-sm-9 border-2 border-start border-white my-auto">
             <ul>
                 <li>Scale out your SQL Server Big Data Clusters by adding more
-                        nodes to
+                    nodes to
                     distribute data processing
                     across multiple servers</li>
             </ul>
@@ -1811,7 +1840,7 @@ demand and time allows.
         <div class="col-sm-9 border-2 border-start border-white my-auto">
             <ul>
                 <li>
-                   Built-in high availability with automatic failover to a
+                    Built-in high availability with automatic failover to a
                     secondary
                     replica in the same region, or a different region in the case of a disaster recovery
                     scenario using
@@ -1834,11 +1863,11 @@ demand and time allows.
         <div class="col-sm-9 border-2 border-start border-white my-auto">
             <ul>
                 <li>Scale up or down the performance level of your SQL Server on Virtual Machines by adjusting the size
-                        of the virtual machine.</li>
+                    of the virtual machine.</li>
                 <li>Scale out your SQL Server on Virtual Machines by adding more virtual
-                        machines
-                        to distribute data
-                        processing across multiple servers.</li>
+                    machines
+                    to distribute data
+                    processing across multiple servers.</li>
             </ul>
         </div>
     </div>
@@ -1854,7 +1883,7 @@ demand and time allows.
                     virtual
                     machines and the underlying infrastructure.</li>
                 <li>SQL Server Management Studio (SSMS) and SQL
-                        Server Profiler to monitor and troubleshoot performance issues for SQL Server on
+                    Server Profiler to monitor and troubleshoot performance issues for SQL Server on
                     Virtual
                     Machines.</li>
             </ul>
@@ -2099,7 +2128,8 @@ demand and time allows.
                 </div>
                 <div class="row">
                     <div class="col lead">
-                        __servicedescr__
+                        A fully managed event routing service that enables developers to build event-driven
+                        applications.
                     </div>
                 </div>
             </div>
@@ -2108,43 +2138,66 @@ demand and time allows.
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scenarios:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto ">
-            __scenarios__
+            <ul>
+                <li>Event-driven architectures: Event Grid enables you to build event-driven architectures and react to
+                    changes in your applications and services in near real-time.</li>
+                <li>Serverless computing: Event Grid can be used to trigger serverless computing resources like <a
+                        href="#azure-functions">Azure Functions</a>
+                    or <a href="#azure-logic-apps">Azure Logic Apps</a>.</li>
+                <li>IoT devices: Event Grid can be used to receive and process telemetry from IoT devices.</li>
+                <li>Event-based applications: Event Grid can be used for event-based applications that need to react to
+                    changes in the system.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Use with:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-
+            <ul>
+                <li><a href="#azure-functions">Azure Functions</a>: Azure Functions can be triggered by events emitted
+                    to Event Grid.</li>
+                <li><a href="#azure-logic-apps">Azure Logic Apps</a>: Azure Logic Apps can be used to build workflows
+                    that are triggered by events
+                    emitted to Event Grid.</li>
+                <li><a href="#azure-service-bus">Azure Service Bus</a>: Azure Service Bus can be used as an intermediary
+                    between Event Grid and other
+                    services that do not have direct integration.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Not ideal:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __notwith__
+            High-volume and high-velocity data processing as Event Grid is not optimized for this use case.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Backup:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __backup__
+            Use <a href="#azure-event-hubs">Azure Event Hubs</a> or other data ingestion services as a backup
+            destination for events that are published
+            to Event Grid.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Availability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __availability__
+            Azure Event Grid is highly available as it is a globally distributed service with built-in redundancy.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scalability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __scalability__
+            Scalability possibilities for Azure Event Grid include scaling up and down the number of events processed
+            per second and adding or removing event domains as required.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Monitoring:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __monitoring__
+            Monitoring for Azure Event Grid can be performed through <a href="#azure-monitor">Azure Monitor</a>, which
+            provides insights into the
+            health and performance of the service, as well as diagnostics and logging.
         </div>
     </div>
 </div>
@@ -2170,7 +2223,7 @@ demand and time allows.
                 </div>
                 <div class="row">
                     <div class="col lead">
-                        __servicedescr__
+                        A fully managed, real-time data ingestion service for big data streaming and event-processing.
                     </div>
                 </div>
             </div>
@@ -2179,43 +2232,83 @@ demand and time allows.
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scenarios:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto ">
-            __scenarios__
+            <ul>
+                <li>Event Hub is ideal for event and telemetry ingestion, such as IoT (Internet of Things) telemetry,
+                    log data, and social media data.</li>
+                <li>It's a great option for large-scale, real-time data processing, such as real-time analytics,
+                    event-driven applications, and batch data processing.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Use with:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-
+            <ul>
+                <li>Event Hub works well in combination with other Azure services such as <a
+                        href="#azure-stream-analytics" class="no-show">Azure Stream Analytics</a> for
+                    real-time data analysis, Azure Functions for serverless event-driven processing, and Azure
+                    Notification Hubs for push notifications.</li>
+                <li>It can also be used as a source of data for <a href="#azure-databricks" class="no-show">Azure
+                        Databricks</a>, Power BI, and Apache Spark for data
+                    warehousing and analytics purposes.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Not ideal:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __notwith__
+            <ul>
+                <li>Event Hub is not meant to be used as a transactional database or a long-term data storage solution.
+                </li>
+                <li>It's not recommended to use Event Hub for scenarios where low latency or high throughput is not
+                    important.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Backup:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __backup__
+            <ul>
+                <li>Event Hub provides built-in data retention and capture policies that enable you to backup your data.
+                </li>
+                <li>The backup data can be saved to <a href="#azure-blob-storage">Azure Blob Storage</a>,
+                    <a href="#azure-data-lake-storage">Azure Data Lake Storage</a>, or other Azure Event Hubs instances
+                    for
+                    further analysis.
+                </li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Availability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __availability__
+            <ul>
+                <li>Event Hub is highly available, with automatic redundancy built into the service.</li>
+                <li>It provides multiple levels of data redundancy, ensuring that your data is safe and available even
+                    in the event of hardware failures.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scalability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __scalability__
+            <ul>
+                <li>Event Hub is designed to scale horizontally and vertically, allowing you to easily handle increases
+                    in data volume.</li>
+                <li>It provides features such as partitioning and load balancing, allowing you to handle high-throughput
+                    scenarios.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Monitoring:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __monitoring__
+            <ul>
+                <li><a href="#azure-monitor">Azure Monitor</a> provides built-in monitoring and logging capabilities for
+                    Event Hub, allowing you to
+                    track events and troubleshoot issues.</li>
+                <li>It also provides real-time insights into the health, performance, and usage of the service.</li>
+            </ul>
         </div>
     </div>
 </div>
@@ -2529,7 +2622,8 @@ demand and time allows.
                 </div>
                 <div class="row">
                     <div class="col lead">
-                        __servicedescr__
+                        A fully managed service for publishing, securing, and managing APIs (Application Programming
+                        Interfaces).
                     </div>
                 </div>
             </div>
@@ -2538,43 +2632,59 @@ demand and time allows.
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scenarios:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto ">
-            __scenarios__
+            <ul>
+                <li>Exposing internal APIs to external consumers securely.</li>
+                <li>Creating a portal for external developers to interact with APIs.</li>
+                <li>Implementing rate limiting, security, and logging for APIs.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Use with:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-
+            <ul>
+                <li><a href="#azure-functions">Azure Functions</a> or <a href="#azure-web-apps">Azure Web Apps</a> for
+                    building and hosting the APIs.</li>
+                <li><a href="#azure-active-directory" class="no-show">Azure Active Directory Authentication</a> for
+                    securing access to APIs.</li>
+                <li><a href="#azure-monitor">Azure Monitor</a> for monitoring and logging of APIs.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Not ideal:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __notwith__
+            <ul>
+                <li>High-performance processing.</li>
+                <li>Applications with strict low latency requirements.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Backup:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __backup__
+            Azure API Management has built-in disaster recovery mechanisms and Azure Backup can also be used to backup
+            and restore data.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Availability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __availability__
+            Azure API Management provides high availability through multiple instances running in an active-active
+            configuration.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scalability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __scalability__
+            Azure API Management can be easily scaled up and down as per the requirement.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Monitoring:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __monitoring__
+            <a href="#azure-monitor">Azure Monitor</a> can be used for monitoring the performance and availability of
+            APIs. Azure API Management also provides built-in analytics and monitoring capabilities.
         </div>
     </div>
 </div>
@@ -2600,7 +2710,7 @@ demand and time allows.
                 </div>
                 <div class="row">
                     <div class="col lead">
-                        __servicedescr__
+                        A regional layer 7 load balancer that enables you to manage traffic to your web applications.
                     </div>
                 </div>
             </div>
@@ -2609,43 +2719,67 @@ demand and time allows.
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scenarios:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto ">
-            __scenarios__
+            <ul>
+                <li>Load balancing incoming web traffic to multiple back-end servers</li>
+                <li>SSL offloading, reducing the load on your back-end servers and improving performance</li>
+                <li>URL-based routing and path-based routing to direct traffic to specific back-end servers</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Use with:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-
+            <ul>
+                <li><a href="#azure-load-balancer">Azure Load Balancer</a>: for distributing incoming traffic across
+                    multiple VMs.</li>
+                <li><a href="#azure-virtual-machines">Azure Virtual Machines</a>: for hosting the back-end servers that
+                    handle incoming traffic.</li>
+                <li><a href="#azure-front-door">Azure Front Door</a>: for global and scalable traffic management.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Not ideal:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __notwith__
+            <ul>
+                <li>Storing and processing large amounts of data</li>
+                <li>Applications that require complex data processing and computation</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Backup:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __backup__
+            <a href="#azure-backup">Azure Backup</a> can be used to back up configuration and data stored in an Azure
+            Application Gateway.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Availability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __availability__
+            <ul>
+                <li>Azure Application Gateway provides high availability by distributing incoming traffic across
+                    multiple instances.</li>
+                <li>The service is highly available in multiple Azure regions and provides automatic failover in the
+                    event of an instance failure.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scalability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __scalability__
+            <ul>
+                <li>Azure Application Gateway can scale up and down based on incoming traffic, with auto-scaling
+                    capabilities to handle spikes in demand.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Monitoring:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __monitoring__
+            <a href="#azure-monitor">Azure Monitor</a> provides various monitoring options for the Azure Application
+            Gateway, including performance
+            and usage metrics, activity logs, and alerts.
         </div>
     </div>
 </div>
@@ -2662,16 +2796,17 @@ demand and time allows.
     <div class="row p-3">
         <div class="col-sm-2">
             <img src="https://georgekosmidis.azureedge.net/azure-architecture-icons/networking/10065-icon-service-Traffic-Manager-Profiles-256x256.png"
-                title="Azure DNS Traffic" alt="Azure DNS Traffic" />
+                title="Azure Traffic Manager" alt="Azure Traffic Manager" />
         </div>
         <div class="col-sm-10">
             <div class="container">
                 <div class="row">
-                    <div class="col h3" id="azure-dns-traffic">Azure DNS Traffic</div>
+                    <div class="col h3" id="azure-traffic-manager">Azure Traffic Manager</div>
                 </div>
                 <div class="row">
                     <div class="col lead">
-                        __servicedescr__
+                        A layer-4 global traffic load balancer that enables you to distribute incoming traffic to
+                        multiple endpoints based on configurable rules.
                     </div>
                 </div>
             </div>
@@ -2680,43 +2815,56 @@ demand and time allows.
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scenarios:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto ">
-            __scenarios__
+            <ul>
+                <li>Layer 4 load balancing</li>
+                <li>Routing traffic to multiple regions for high availability and performance</li>
+                <li>Routing traffic to multiple cloud service or web apps</li>
+                <li>Redirecting traffic to a new version of a service during a deployment</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Use with:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-
+            Azure Traffic Manager integrates well with various Azure services, including <a href="#azure-web-apps">Azure
+                Web Apps</a>, <a href="#azure-virtual-machines">Azure Virtual Machines</a>, <a
+                href="#azure-api-management">Azure API Management</a>, and <a href="#azure-functions">Azure
+                Functions</a>, allowing you to distribute incoming traffic to multiple endpoints for high availability
+            and performance.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Not ideal:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __notwith__
+            Applications that require session persistence as DNS Traffic Manager operates at the domain name level and
+            does not support session persistence.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Backup:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __backup__
+            Azure DNS Traffic Manager is a highly available service with built-in redundancy and failover capabilities,
+            so a specific backup solution is not required.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Availability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __availability__
+            Azure DNS Traffic Manager provides global availability with a 99.9% SLA.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scalability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __scalability__
+            Azure DNS Traffic Manager can handle millions of queries per minute and is automatically scalable.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Monitoring:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __monitoring__
+            Azure DNS Traffic Manager provides monitoring and diagnostic information through <a
+                href="#azure-monitor">Azure Monitor</a> and
+            <a href="#azure-log-analytics">Azure Log Analytics</a>.
         </div>
     </div>
 </div>
@@ -2742,7 +2890,8 @@ demand and time allows.
                 </div>
                 <div class="row">
                     <div class="col lead">
-                        __servicedescr__
+                        Layer 7 global load balancing across multiple regions to ensure optimal performance for
+                        end-users.
                     </div>
                 </div>
             </div>
@@ -2751,43 +2900,62 @@ demand and time allows.
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scenarios:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto ">
-            __scenarios__
+            <ul>
+                <li>Layer 7 global load balancing</li>
+                <li>Best suited for scenarios that require high-scale, globally distributed and
+                    highly available applications. It can be used for scenarios such as load balancing, content
+                    delivery, and
+                    performance optimization.</li>
+                <li>WAF: Front Door includes a Web Application Firewall (WAF) that provides protection against common
+                    web-based attacks such as SQL injection and cross-site scripting.</li>
+                <li>SSL/TLS Termination: Front Door supports SSL/TLS termination, allowing you to securely encrypt
+                    traffic between users and your backends.</li>
+                <li>Performance Optimization: Front Door optimizes end-to-end performance by using caching, compression,
+                    and health checks to ensure that your applications are highly available and fast for users.</li>
+            </ul>
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Use with:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-
+            Azure Front Door can be used in conjunction with <a href="#azure-cdn">Azure CDN</a>, <a
+                href="#azure-load-balancer">Azure Load Balancer</a>, and
+            <a href="#azure-application-gateway">Azure Application Gateway</a> for further optimizations and benefits.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Not ideal:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __notwith__
+            Azure Front Door <span class="fw-bold">should not be used as a sole solution for application
+                security</span>.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Backup:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __backup__
+            Azure Front Door does not require a specific backup solution as it has built-in high availability and
+            disaster recovery mechanisms.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Availability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __availability__
+            Azure Front Door provides high availability with multiple points of presence (PoPs) and active-active
+            architectures.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scalability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __scalability__
+            Azure Front Door is highly scalable, providing automatic scaling to meet the demands of your application.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Monitoring:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __monitoring__
+            Azure Front Door provides detailed performance metrics and logging capabilities through <a
+                href="#azure-monitor">Azure Monitor</a>,
+            allowing you to monitor and troubleshoot performance issues.
         </div>
     </div>
 </div>
@@ -2813,7 +2981,7 @@ demand and time allows.
                 </div>
                 <div class="row">
                     <div class="col lead">
-                        __servicedescr__
+                        A Layer 4 regional load balancer.
                     </div>
                 </div>
             </div>
@@ -2822,43 +2990,55 @@ demand and time allows.
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scenarios:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto ">
-            __scenarios__
+            Azure Load Balancer is best suited for distributing incoming traffic across multiple <a
+                href="#azure-virtual-machines">virtual machines</a> or
+            resources, providing high availability and scalability for applications. It can be used for load balancing
+            incoming internet traffic to multiple virtual machines, as well as for internal load balancing for virtual
+            machines in a virtual network.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Use with:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-
+            Azure Load Balancer works well in combination with <a href="#azure-virtual-machines">Azure Virtual
+                Machines</a>, Azure Cloud Services,
+            <a href="#azure-container-instances">Azure Container Instances</a> and <a href="#azure-web-apps">Azure Web
+                Apps</a>.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Not ideal:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __notwith__
+            Azure Load Balancer is not intended for specific security scenarios such as network security or
+            application-layer protection.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Backup:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __backup__
+            Azure Load Balancer does not require a specific backup solution as it is a highly available service within
+            Azure.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Availability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __availability__
+            Azure Load Balancer provides high availability through automatic failover to another instance in case of a
+            failure, ensuring continuity of service.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Scalability:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __scalability__
+            Azure Load Balancer can automatically scale to accommodate increased traffic and resource needs, providing
+            seamless scalability for applications.
         </div>
     </div>
     <div class="row bg-light border-4 border-bottom border-white">
         <div class="col-sm-3 my-auto lead">Monitoring:</div>
         <div class="col-sm-9 border-2 border-start border-white my-auto">
-            __monitoring__
+            Azure Load Balancer provides monitoring and diagnostics through <a href="#azure-monitor">Azure Monitor</a>, enabling the tracking of
+            health and performance metrics for the load balancer and the resources it distributes traffic to.
         </div>
     </div>
 </div>

@@ -33,3 +33,5 @@ Azure Automation
 -Azure API Management
 
 +Azure Elastic Database Pools
++Azure Container Registry
++Azure CDN
