@@ -35,3 +35,5 @@ Azure Automation
 +Azure Elastic Database Pools
 +Azure Container Registry
 +Azure CDN
+
+also, add css for the no-show
