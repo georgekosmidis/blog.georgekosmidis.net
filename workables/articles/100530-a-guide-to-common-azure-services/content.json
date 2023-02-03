@@ -2,8 +2,8 @@
   "RelativeUrl": "/a-guide-to-common-azure-services.html",
   "Title": "A Guide to Common Azure Services",
   "Description": "In this article, we'll do a short overview of some of the most widely used Azure Services. In a bullet format, you'll quickly learn about their ideal use cases, which services complement them best, and where to avoid using them. Additionally, we'll note on important aspects such as backups, scalability, availability, and monitoring to help you make informed decisions when using these services. This article will be updated in the long run with new services, as demand and time allows.",
-  "DatePublished": "2023-01-29T15:21:00+01:00",
-  "DateModified": "2023-01-29T15:21:00+01:00",
+  "DatePublished": "2023-01-18T15:21:00+01:00",
+  "DateModified": "2023-01-30T22:21:00+01:00",
   "RelativeImageUrl": "",
   "Tags": [
     "Azure"
