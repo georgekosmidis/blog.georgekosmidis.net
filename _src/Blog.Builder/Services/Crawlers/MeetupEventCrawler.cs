@@ -4,6 +4,7 @@ using Blog.Builder.Models.Crawlers;
 using Geko.HttpClientService;
 using Geko.HttpClientService.Extensions;
 using Ical.Net;
+using Blog.Builder.Services.Crawlers.MeetupEventCrawlerTools;
 
 namespace Blog.Builder.Services.Crawlers;
 
@@ -27,27 +28,27 @@ internal class MeetupEventCrawler : IMeetupEventCrawler
         ArgumentNullException.ThrowIfNull(organizerUrl);
         ArgumentNullException.ThrowIfNull(iCalendarUrl);
 
-        var iCalResult = await _httpClientService.GetAsync(iCalendarUrl.ToString());
-        if (iCalResult.HasError)
+        var rssResult = await _httpClientService.GetAsync(iCalendarUrl.ToString());
+        if (rssResult.HasError)
         {
-            throw new Exception($"An error occured while loading the calendar: {iCalResult.Error}.");
+            throw new Exception($"An error occured while loading the calendar: {rssResult.Error}.");
         }
-        ExceptionHelpers.ThrowIfNullOrWhiteSpace(iCalResult.BodyAsString);
+        ExceptionHelpers.ThrowIfNullOrWhiteSpace(rssResult.BodyAsString);
 
         //throws an exception if the format is wrong
-        var calendar = Calendar.Load(iCalResult.BodyAsString);
+        var calendarEvents = MeetupRssParser.Parse(rssResult.BodyAsString);
 
         var eventList = new List<CalendarEvent>();
 
-        foreach (var evnt in calendar.Events)
+        foreach (var evnt in calendarEvents)
         {
             eventList.Add(new CalendarEvent
             {
                 Organizer = ogranizer,
                 OrganizerUrl = organizerUrl.ToString(),
-                Title = evnt.Summary,
-                DateTime = evnt.Start.AsUtc,
-                Place = evnt.Location,
+                Title = evnt.Title,
+                DateTime = evnt.DateTime.ToUniversalTime(),
+                Place = evnt.Place,
                 Url = evnt.Url.ToString(),
 
             });
