@@ -38,7 +38,7 @@ internal static class MeetupRssParser
         return events;
     }
 
-    public DateTime ParseMeetupDateTime(string input)
+    public static DateTime ParseMeetupDateTime(string input)
     {
         if (input.Contains("EDT"))
         {
