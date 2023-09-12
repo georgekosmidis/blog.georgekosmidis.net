@@ -22,7 +22,7 @@ internal static class MeetupRssParser
             var organizer = title.Split(':')[0].Trim();
             var eventTitle = title.Split(':')[1].Trim();
             var url = item.Element(ns + "guid")?.Value;
-            var dateTime = DateTime.Parse(item.Element(ns + "pubDate")?.Value!);
+            var dateTime = ParseMeetupDateTime(item.Element(ns + "pubDate")?.Value!);
 
             events.Add(new CalendarEvent
             {
@@ -37,4 +37,14 @@ internal static class MeetupRssParser
 
         return events;
     }
+
+    public DateTime ParseMeetupDateTime(string input)
+    {
+        if (input.Contains("EDT"))
+        {
+            input = input.Replace("EDT", "-04:00"); // Replace EDT with UTC-4 offset
+        }
+        return DateTime.Parse(input);
+    }
+
 }
