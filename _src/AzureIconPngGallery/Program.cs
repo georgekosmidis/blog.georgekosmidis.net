@@ -15,7 +15,7 @@ internal class Program
     private static string SvgDirectoryPath = "..\\..\\..\\Azure Architecture Icons\\";
     private static string CustomPagePath = "..\\..\\..\\..\\..\\workables\\standalones\\azure-architecture-icons\\";
 
-    private static string EditedSvgFlag = "-custom";
+    private static string EditedSvgFlag = "-geko";
 
     private static bool PreparePngs = true;
     private static int DisplayPngSize = 32;
@@ -25,7 +25,6 @@ internal class Program
 
         if (PreparePngs)
         {
-
             Console.WriteLine(new string('*', 50));
             Console.WriteLine("Deleting old versions.");
             Console.WriteLine(new string('*', 50));
@@ -39,14 +38,6 @@ internal class Program
             }
 
             //Delete old SVGs
-            var svgFiles1 = Directory.GetFiles(SvgDirectoryPath, "*.svg", SearchOption.AllDirectories).Where(x => x.Contains("-geko"));
-            foreach (var svgFile in svgFiles1)
-            {
-                File.Delete(svgFile);
-                Console.WriteLine($"{svgFile} deleted.");
-
-            }
-            //Delete old SVGs
             var svgFiles = Directory.GetFiles(SvgDirectoryPath, "*.svg", SearchOption.AllDirectories).Where(x => x.Contains(EditedSvgFlag));
             foreach (var svgFile in svgFiles)
             {
@@ -54,8 +45,6 @@ internal class Program
                 Console.WriteLine($"{svgFile} deleted.");
             }
         }
-
-
 
         Console.WriteLine();
         Console.WriteLine();
@@ -91,7 +80,7 @@ internal class Program
                 var svgText = File.ReadAllText(svgFile);
                 svgText = FixSvg(svgText);
                 File.WriteAllText(Path.Combine(dir, $"{baseName}{EditedSvgFlag}.svg"), svgText);
-                File.WriteAllText(Path.Combine("C:\\111", $"{MakeTextLookNice(rootFolder)} - {MakeTextLookNice(baseName)}.svg"), svgText);
+                //File.WriteAllText(Path.Combine("C:\\111", $"{MakeTextLookNice(rootFolder)} - {MakeTextLookNice(baseName)}.svg"), svgText);
 
                 var svgDocument = SvgDocument.Open(svgFile);
                 svgDocument.ShapeRendering = SvgShapeRendering.GeometricPrecision;
