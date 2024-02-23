@@ -1,4 +1,4 @@
-# My [blog](https://blog.georgekosmidis.net)'s repo, based on [blog.net](https://github.com/georgekosmidis/blog.net)
+# My [blog](https://blog.georgekosmidis.net)'s repo, based on https://github.com/georgekosmidis/Geko.BlogBuilder
 
 [![Prepare Static App](https://github.com/georgekosmidis/blog.georgekosmidis.net/actions/workflows/prepare-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.georgekosmidis.net/actions/workflows/prepare-static-app.yml) [![Push Static App](https://github.com/georgekosmidis/blog.georgekosmidis.net/actions/workflows/push-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.georgekosmidis.net/actions/workflows/push-static-app.yml)
 
