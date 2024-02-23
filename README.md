@@ -1,6 +1,6 @@
 # My [blog](https://blog.georgekosmidis.net)'s repo, based on [blog.net](https://github.com/georgekosmidis/blog.net)
 
-[![Prepare Static App](https://github.com/georgekosmidis/blog.net/actions/workflows/prepare-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.net/actions/workflows/prepare-static-app.yml) [![Push Static App](https://github.com/georgekosmidis/blog.net/actions/workflows/push-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.net/actions/workflows/push-static-app.yml)
+[![Prepare Static App](https://github.com/georgekosmidis/blog.georgekosmidis.net/actions/workflows/prepare-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.georgekosmidis.net/actions/workflows/prepare-static-app.yml) [![Push Static App](https://github.com/georgekosmidis/blog.georgekosmidis.net/actions/workflows/push-static-app.yml/badge.svg)](https://github.com/georgekosmidis/blog.georgekosmidis.net/actions/workflows/push-static-app.yml)
 
 This is the repo of my [blog](https://blog.georgekosmidis.net)! Visit [blog.net's Quick Start Guide](https://github.com/georgekosmidis/blog.net#quick-start-guide) to start your own! 
 
