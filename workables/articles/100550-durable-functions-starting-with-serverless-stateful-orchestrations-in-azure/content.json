@@ -1,0 +1,15 @@
+{
+  "RelativeUrl": "/durable-functions-starting-with-serverless-stateful-orchestrations-in-azure.html",
+  "Title": "Durable Functions: Starting with Serverless Stateful Orchestrations in Azure",
+  "Description": "Durable Functions is an extension of Azure Functions that enables you to write stateful functions in a serverless computing environment. This extension allows for the creation of complex orchestration workflows where functions can call other functions, wait for those functions to finish, and resume where they left off without maintaining state externally. Durable Functions simplifies the process of writing stateful applications in a stateless environment.",
+  "DatePublished": "2023-04-03T16:29:00+01:00",
+  "DateModified":  "2023-04-03T16:29:00+01:00",
+  "RelativeImageUrl": "/media/100550-feature.png",
+  "Tags": [
+    "Azure Functions",
+    "Serverless Computing",
+    "Durable Functions",
+    "Cloud Orchestration",
+    "Stateful Workflows"
+  ]
+}
