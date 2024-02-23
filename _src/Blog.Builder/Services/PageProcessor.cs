@@ -4,6 +4,7 @@ using Blog.Builder.Interfaces.Builders;
 using Blog.Builder.Models;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
+using Markdig;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SixLabors.ImageSharp;
@@ -69,6 +70,16 @@ internal class PageProcessor : IPageProcessor
         T? pageData = GetPageModelData<T>(jsonFileContent);
         ExceptionHelpers.ThrowIfNull(pageData);
 
+        if(File.Exists(Path.Combine(directory, Globals.ContentMdFilename)))
+        {
+            string? pageMd = File.ReadAllText(Path.Combine(directory, Globals.ContentMdFilename));
+
+            var pipeline = new MarkdownPipelineBuilder()
+                .UseAutoIdentifiers()
+                .Build();
+            string? htmlText = Markdown.ToHtml(pageMd, pipeline);
+            File.WriteAllText(Path.Combine(directory, Globals.ContentHtmlFilename), htmlText);
+        }
         string? pageHtml = File.ReadAllText(Path.Combine(directory, Globals.ContentHtmlFilename));
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(pageHtml);
 
