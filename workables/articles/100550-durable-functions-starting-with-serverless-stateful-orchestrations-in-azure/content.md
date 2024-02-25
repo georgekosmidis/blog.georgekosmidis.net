@@ -29,13 +29,13 @@ The primary benefits of serverless computing include:
 Azure Functions is Microsoft's answer to serverless computing. It allows developers to write less code, maintain less infrastructure, and save on costs. In essence, Azure Functions is a serverless compute service that enables you to run code on-demand without having to explicitly provision or manage infrastructure.
 
 ### Key Features of Azure Functions:
-- **Event-driven**: You can trigger functions from a variety of events, including HTTP requests, database operations, queue messages, and more.
-- **Integrated Security**: Protect your functions with OAuth providers such as Azure Active Directory, Facebook, Google, Twitter, and Microsoft Account.
+- **Event-driven**: You can trigger functions from a variety of events, including HTTP requests, queue messages, and more.
+- **Integrated Security**: Protect your functions with oAuth providers such as Azure Entra.
 - **Programming Language Support**: Write functions using your choice of C#, Java, JavaScript, TypeScript, and Python.
 - **Scalability**: Azure Functions scale automatically based on demand, so your code always has the resources it needs to run, but you're only charged for the exact amount of resources your functions use.
 
 ### Example: A Simple HTTP-triggered Azure Function 
-Let’s look at a simple example of an Azure Function that's triggered by an HTTP request. This function (which is obviously **not** a Durable Function!) will return a personalized greeting to the user.
+Let’s look at a simple example of an Azure Function that's triggered by an HTTP request. This function will return a personalized greeting to the user.
 
 ```csharp
 using Microsoft.AspNetCore.Mvc;
@@ -78,7 +78,8 @@ Durable Functions is an extension of Azure Functions that enables you to write s
 ### Key Concepts
 - **Orchestrator Functions**: Control the workflow, executing other functions in a sequence or parallel, making decisions, and managing state.
 - **Activity Functions**: Perform the actual work of the workflow, such as database operations, calls to external services, or any computational task.
-- **Client Functions**: Trigger orchestrations and inquire about the status of a running orchestration.
+- **Client Functions**: Trigger orchestrations or entities and inquire about the status.
+- **Entity Functions**: Entity functions define operations for reading and updating small pieces of state.
 
 ### Example: Order Processing Workflow
 Imagine a scenario where you need to process orders in an e-commerce system. The workflow involves validating the order, checking inventory, processing payment, and finally, sending a confirmation email to the customer.
@@ -139,19 +140,15 @@ A client function triggers the orchestrator function, starting the workflow. The
 
 ## Core Concepts of Azure Durable Functions
 
-Azure Durable Functions stand out as a highly potent extension of Azure Functions, enabling developers to craft stateful functions in a serverless compute environment. This unique capability allows for the orchestration of complex workflows, asynchronous operations, and long-running processes without the overhead of managing server state or worrying about the durability of the workflow's progress. To fully leverage the power of Durable Functions, it’s essential to grasp a few core concepts that underpin how these functions operate and interact within the Azure ecosystem. Understanding these concepts will empower developers to design and implement more efficient, scalable, and reliable serverless applications.
+To fully leverage the power of Durable Functions, it’s essential to go through a few core concepts that also underpin how these functions operate and interact within the Azure ecosystem. 
 
 ### Function Chaining: How to Execute a Sequence of Functions in a Specific Order
 
 Function chaining in Azure Durable Functions is a pattern that allows you to execute a series of functions in a particular sequence. This pattern is particularly useful when you have tasks that need to be performed in order, where each task starts only after the previous one has completed, and the output of one function becomes the input to the next. Here’s a deeper dive into how function chaining works and how to implement it effectively.
 
-#### Understanding Function Chaining
-
-Function chaining involves invoking functions in a sequence, with each function performing its task and passing the result to the next function in the chain. This sequential execution is critical for workflows that require tasks to be completed in a specific order due to dependencies between tasks.
-
 #### How Durable Functions Facilitate Function Chaining
 
-Durable Functions extend Azure Functions by enabling stateful execution in a serverless environment. This statefulness is crucial for function chaining, as it allows the workflow to remember the state of execution as it moves from one function to the next. Durable Functions use "orchestrator functions" to control the workflow, including the execution order of functions.
+Statefulness is crucial for function chaining, as it allows the workflow to remember the state of execution as it moves from one function to the next. Durable Functions use "orchestrator functions" to control the workflow, including the execution order of functions.
 
 #### Implementing Function Chaining
 
@@ -189,10 +186,7 @@ In this example, each function is called in order, with the output of one functi
 
 #### Best Practices
 
-- **Error Handling**: Implement try-catch blocks within your orchestrator function to handle errors gracefully. This is crucial for maintaining the integrity of your workflow, especially in long chains where one function's failure could impact subsequent operations.
 - **Idempotency**: Ensure that your functions are idempotent, meaning they can be called multiple times without changing the result beyond the initial call. This is important for retry policies and error recovery in durable functions.
-
-Function chaining is a powerful pattern for orchestrating complex workflows in Azure Durable Functions. By understanding and implementing this pattern, you can build robust, sequential workflows that leverage the full potential of serverless computing in Azure.
 
 ### Fan-out/Fan-in: Implementing Parallel Processing Patterns and Aggregating Results
 
@@ -223,8 +217,6 @@ Durable Functions simplifies the implementation of the Fan-out/Fan-in pattern th
 - **Concurrency Limits**: Be aware of the concurrency and throughput limits of your environment. Excessive parallelism can lead to throttling or increased costs.
 - **Error Handling**: Implement comprehensive error handling for individual tasks. Failures in one task should not compromise the entire operation.
 - **State Management**: Durable Functions efficiently manages state for you, but be mindful of the data being passed between functions to avoid performance bottlenecks.
-
-This pattern is ideal for scenarios where tasks can be executed concurrently, significantly reducing processing time compared to sequential execution.
 
 #### A simple example
 
@@ -287,7 +279,7 @@ In traditional HTTP interactions, a client sends a request to a server, which pr
 
 #### How Durable Functions Address This
 
-Durable Functions introduce a pattern that decouples the long-running task from the initial HTTP request, using status query endpoints, send asynchronous response techniques, and external event handling.
+Durable Functions introduce a pattern that decouples the long-running task from the initial HTTP request, using status query endpoints, send asynchronous response techniques, and external event handling:
 
 ##### 1. Starting the Process
 
@@ -327,7 +319,7 @@ For processes that take an extended period, Durable Functions leverage durable t
 
 ### Monitoring: Creating Workflows that Monitor the Status of External Services
 
-In the realm of serverless architectures, maintaining awareness of your external services' health and performance is crucial. Durable Functions, an extension of Azure Functions, provides a robust framework for building complex, stateful workflows in a serverless environment. A particularly powerful application of Durable Functions is creating workflows designed to monitor the status of external services continuously.
+In the reality of serverless architectures, maintaining awareness of your external services' health and performance is crucial, and for that, a particularly powerful application of Durable Functions is creating workflows designed to monitor the status of external services continuously.
 
 #### The Basics of Monitoring with Durable Functions
 
@@ -353,9 +345,6 @@ Here's a high-level approach to implementing a monitoring workflow using Durable
 - **Scalability**: Consider the scalability of your workflow. Durable Functions are designed to scale automatically, but monitoring highly available services may require adjustments to function timeouts and concurrency settings.
 - **Error Handling**: Implement comprehensive error handling within your workflow. This includes handling transient errors gracefully and defining clear escalation paths for persistent issues with the external service.
 - **Resource Optimization**: Be mindful of the costs associated with polling external services frequently. Optimize the frequency of checks to balance between timely awareness and resource consumption.
-
-Certainly! Let's add a practical example to the "Monitoring: Creating workflows that monitor the status of external services" section to illustrate how you might implement a basic monitoring workflow using Durable Functions in Azure.
-
 
 #### Practical Example: Monitoring an External API Service
 
@@ -387,7 +376,7 @@ Create an activity function that performs the actual check on the external servi
 public static async Task<bool> CheckServiceStatus([ActivityTrigger] IDurableActivityContext context, ILogger log)
 {
     var httpClient = new HttpClient();
-    var response = await httpClient.GetAsync("https://your-external-service.com/health");
+    var response = await httpClient.GetAsync("https://your-external-service/health");
     bool isServiceUp = response.IsSuccessStatusCode;
 
     if (!isServiceUp)
@@ -450,10 +439,3 @@ Consider a document approval process where a document generated by a system need
 - GitHub Repository for Durable Functions: [github.com/Azure/azure-functions-durable-extension](https://github.com/Azure/azure-functions-durable-extension)
 - Stack Overflow - Azure Functions Durable Tag: [stackoverflow.com/questions/tagged/azure-functions-durable](https://stackoverflow.com/questions/tagged/azure-functions-durable)
 - Azure Blog: [azure.microsoft.com/blog/topics/azure-functions](https://azure.microsoft.com/blog/topics/azure-functions)
-
-#### YouTube Channels and Webinars
-- Microsoft Azure YouTube Channel: [youtube.com/user/windowsazure](https://www.youtube.com/user/windowsazure)
-- Azure DevOps Labs: [youtube.com/channel/UC-ikyViYMM69joIAmZCnepg](https://www.youtube.com/channel/UC-ikyViYMM69joIAmZCnepg)
-
-#### Books and eBooks
-- "Pro Azure Functions" for insights including Durable Functions
