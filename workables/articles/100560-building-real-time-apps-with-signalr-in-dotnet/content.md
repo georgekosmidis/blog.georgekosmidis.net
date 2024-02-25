@@ -54,8 +54,6 @@ Messages are the payload of information exchanged between clients and servers. S
 - **Client-to-Server and Server-to-Client**: Messages can flow in both directions. Clients can invoke methods on the server, and the server can send messages to one or more clients.
 - **Performance Considerations**: While sending messages is straightforward, developers must consider the impact of message size and frequency on performance and scalability, especially in applications with a large number of clients.
 
-Absolutely! Let's combine the initial setup and the extended functionalities into one cohesive example, showcasing a more feature-rich real-time chat application using SignalR.
-
 ## Building a Real-Time Chat Application with SignalR
 
 This tutorial will guide you through creating a feature-rich chat application using SignalR, covering both the basics and some advanced functionalities like handling user connections/disconnections and enabling private messaging.
