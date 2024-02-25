@@ -257,13 +257,11 @@ public override async Task OnDisconnectedAsync(Exception exception)
 }
 ```
 
-#### Connection Tracking
-
-- Implementing connection tracking can be done by maintaining a mapping of user identifiers to connection IDs, enabling targeted communication and connection-specific actions.
+> Implementing connection tracking can be done by maintaining a mapping of user identifiers to connection IDs, enabling targeted communication and connection-specific actions.
 
 ### Scaling SignalR Applications
 
-For SignalR applications to support thousands to millions of concurrent connections, scaling out is necessary. Azure SignalR Service is designed to handle this by offloading the connection management and scaling requirements from your servers.
+For SignalR applications to support thousands to millions of concurrent connections, scaling out is necessary. Azure SignalR Service is designed to handle this by offloading the connection management and scaling requirements from your servers. Although an intro into Azure SignalR worths an article, here is a small spoiler!
 
 #### How Azure SignalR Service Works
 
@@ -280,8 +278,6 @@ For SignalR applications to support thousands to millions of concurrent connecti
 2. **Update Your Application Configuration**: Integrate the service into your application by updating the connection strings and configuring your application to use Azure SignalR Service.
 
 3. **Adjust Your Code for Azure SignalR**: Ensure your application logic is compatible with the distributed nature of the cloud service, especially regarding connection and group management.
-
-
 
 ## Conclusion
 
