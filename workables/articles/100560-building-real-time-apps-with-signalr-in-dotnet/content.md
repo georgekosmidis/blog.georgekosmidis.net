@@ -1,4 +1,4 @@
-## Introduction
+## Introduction 
 
 In the digital age, the demand for interactive, real-time web applications is more prominent than ever. From live chat systems to instant notifications, users expect seamless, immediate interactions when they navigate online platforms. This is where SignalR, a powerful .NET library, steps in to revolutionize how developers build these dynamic experiences.
 
