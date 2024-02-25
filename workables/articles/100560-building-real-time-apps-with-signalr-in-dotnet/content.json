@@ -3,7 +3,7 @@
   "Title": "Building Real-Time Apps with SignalR in .NET",
   "Description": "SignalR is an open-source library that simplifies the process of adding real-time web functionality to applications. It enables two-way communication between the server and the client in real-time. As a part of the .NET ecosystem, SignalR seamlessly integrates with existing .NET applications, offering a robust solution for developing real-time features.",
   "DatePublished": "2023-05-010T15:29:00+01:00",
-  "DateModified":  "2023-04-010T15:30:00+01:00",
+  "DateModified":  "2023-04-01T15:30:00+01:00",
   "RelativeImageUrl": "/media/100560-feature.png",
   "Tags": [
     "dotnet",
