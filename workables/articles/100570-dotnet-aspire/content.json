@@ -1,0 +1,14 @@
+{
+  "RelativeUrl": "/dotnet-aspire.html",
+  "Title": ".NET Aspire",
+  "Description": ".NET Aspire significantly simplifies the development of observable, production-ready, microservice architected applications. Its design incorporates best practices and patterns that enable developers to focus on building their application's core functionality while benefiting from the framework's robust support for observability and production readiness. This approach reduces complexity and accelerates the development process, allowing teams to deliver high-quality, cloud-native applications more efficiently.",
+  "DatePublished": "2023-06-10T15:29:00+01:00",
+  "DateModified":  "2023-06-10T15:29:00+01:00",
+  "RelativeImageUrl": "/media/100570-feature.png",
+  "Tags": [
+    "dotnet",
+    "dotnet aspire",
+    "microservices",
+    "observability"
+  ]
+}
