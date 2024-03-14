@@ -79,9 +79,7 @@ public class HandleTechnicalIssuePlugin
     [Description("Provides assistance for technical-related customer queries.")]
     public string HandleTechnicalIssue([Description("A detailed description of the technical issue faced by the customer.")] string query)
     {
-        // Use AzureOpenAIChatCompletion to get a response
-        // var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
-
+        // Logic to handle technical query
         return "Have you tried turning it off and on again?"
     }
 }
@@ -94,7 +92,7 @@ public class HandleBillingIssuePlugin
     {
 
         // Logic to handle billing query
-        return "Too late, we have your credit card now"
+        return "Too late, we have your credit card now..."
     }
 }
 
@@ -164,5 +162,7 @@ In summary, it appears that the programming language of the future might closely
 
 1. [Microsoft Docs](https://learn.microsoft.com/en-us/semantic-kernel/overview/)
 1. [GitHub Repository for Semantic Kernel](https://github.com/microsoft/semantic-kernel/)
+1. [Semantic Kernel Starters](https://github.com/microsoft/semantic-kernel-starters)
+1. [Tutorial: ChatGPT + Enterprise data with Semantic Kernel, OpenAI and Azure Cognitive Search](https://github.com/Azure-Samples/semantic-kernel-rag-chat)
 1. [Using Semantic Kernel in C#](https://github.com/microsoft/semantic-kernel/blob/main/dotnet/README.md)
 1. [Microsoft.SemanticKernel Namespace](https://learn.microsoft.com/en-us/dotnet/api/microsoft.semantickernel?view=semantic-kernel-dotnet)
