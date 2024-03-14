@@ -1,0 +1,14 @@
+{
+  "RelativeUrl": "/an-introduction-to-semantic-kernel-and-semantic-understanding.html",
+  "Title": "An Introduction to Semantic Kernel and Semantic Understanding",
+  "Description": "Semantic Kernel is an SDK that integrates Large Language Models (LLMs) like OpenAI, Azure OpenAI, and Hugging Face with conventional programming languages like C#, Python, and Java. Semantic Kernel achieves this by allowing you to define plugins that can be chained together in just a few lines of code.",
+  "DatePublished": "2024-03-13T17:29:00+01:00",
+  "DateModified":  "2024-03-13T17:29:00+01:00",
+  "RelativeImageUrl": "/media/100580-feature.png",
+  "Tags": [
+    "dotnet",
+    "ai",
+    "semantic kernel",
+    "data processing"
+  ]
+}
