@@ -1,0 +1,326 @@
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#simplifying-distributed-app-development">Simplifying Distributed App Development</a></li>
+</ul>
+</li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#quickstart-guide-to-building-the-first-net-aspire-application">Quickstart Guide to Building the First .NET Aspire Application</a>
+<ul>
+<li><a href="#using-visual-studio-">Using Visual Studio:</a></li>
+<li><a href="#using-the-net-cli-">Using the .NET CLI:</a></li>
+</ul>
+</li>
+<li><a href="#diving-into-orchestration--components--and-tooling-in-net-aspire">Diving into Orchestration, Components, and Tooling in .NET Aspire</a></li>
+<li><a href="#available-net-aspire-components">Available .NET Aspire Components</a>
+<ul>
+<li><a href="#integrating-components---aspireazureaiopenai">Integrating Components - Aspire.Azure.AI.OpenAI</a></li>
+</ul>
+</li>
+<li><a href="#deploying-net-aspire-applications-on-azure">Deploying .NET Aspire Applications on Azure</a>
+<ul>
+<li><a href="#deployment-steps-">Deployment Steps:</a></li>
+</ul>
+</li>
+<li><a href="#integrating-with-application-insights-for-observability">Integrating with Application Insights for Observability</a>
+<ul>
+<li><a href="#integration-steps-">Integration Steps:</a></li>
+<li><a href="#example-code-">Example Code:</a></li>
+</ul>
+</li>
+<li><a href="#adding-net-aspire-in-an-existing-app">Adding .NET Aspire in an existing app</a>
+<ul>
+<li><a href="#adding-net-aspire-orchestration">Adding .NET Aspire Orchestration</a></li>
+<li><a href="#configuring-the-apphost">Configuring the AppHost</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>.NET Aspire is presented as a forward-thinking, opinionated stack designed specifically for the development of distributed applications that are ready for the cloud environment. It emphasizes the creation of applications that are not only prepared for production but also equipped with built-in observability features. This focus on cloud readiness and observability from the outset demonstrates .NET Aspire's commitment to meeting the demands of modern, distributed application development, making it an essential tool for developers looking to excel in the cloud-native ecosystem.</p>
+<p>.NET Aspire significantly simplifies the development of observable, production-ready applications. Its design incorporates best practices and patterns that enable developers to focus on building their application's core functionality while benefiting from the framework's robust support for observability and production readiness. This approach reduces complexity and accelerates the development process, allowing teams to deliver high-quality, cloud-native applications more efficiently.</p>
+<h3 id="simplifying-distributed-app-development">Simplifying Distributed App Development</h3>
+<p>.NET Aspire simplifies the development of distributed applications through its orchestration, components, and tooling by providing a unified and simplified approach to handling common cloud-native concerns:</p>
+<ul>
+<li><p><strong>Service Discovery</strong>: .NET Aspire automates the discovery of services within an application, allowing components to communicate seamlessly without hard-coding service locations or details. This simplification is achieved through the orchestration layer, which manages the injection of connection strings and service discovery information.</p>
+</li>
+<li><p><strong>Persistence</strong>: Components designed for data storage and retrieval, such as those for PostgreSQL or Redis, offer simplified access to databases and caching systems. They come with standardized configuration patterns, including support for health checks and telemetry, which eases the integration and management of data services in cloud-native applications.</p>
+</li>
+<li><p><strong>Health Checks</strong>: .NET Aspire components can include built-in health checks, ensuring that applications can monitor the status and health of each component and service. This feature is critical for maintaining the reliability and availability of distributed applications, especially in cloud environments where services may be dynamically scaled or replaced.</p>
+</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>To set up the .NET Aspire environment, follow these prerequisites and steps:</p>
+<ul>
+<li>Install <a href="https://dotnet.microsoft.com/en-us/download/dotnet/8.0">.NET 8.0</a> on your local machine.</li>
+<li>Install Docker Desktop, as some components, like Redis for caching, require Docker.</li>
+<li>Have an Integrated Development Environment (IDE) or code editor, such as Visual Studio 2022 (Preview version 17.9 or higher) or Visual Studio Code.</li>
+<li>For Visual Studio users, Visual Studio 2022 (17.10 Preview 1 or higher) includes the .NET Aspire preview 3 workload by default. You can verify or install this workload via the Visual Studio installer.</li>
+<li>For users preferring command-line tools or Visual Studio Code, install the .NET Aspire workload using the <code>.NET CLI</code> with the command <code>dotnet workload install aspire</code>.</li>
+</ul>
+<h2 id="quickstart-guide-to-building-the-first.net-aspire-application">Quickstart Guide to Building the First .NET Aspire Application</h2>
+<p>To create and run your first .NET Aspire application, you can use either Visual Studio or the .NET CLI. Here's a quick guide for both methods:</p>
+<h3 id="using-visual-studio">Using Visual Studio:</h3>
+<ol>
+<li>Navigate to <code>File &gt; New &gt; Project</code>.</li>
+<li>Search for &quot;Aspire&quot; in the dialog window, select <code>.NET Aspire Starter Application</code>, and click <code>Next</code>.</li>
+<li>Configure your new project by entering a project name (e.g., <code>AspireSample</code>) and leave the rest of the values at their defaults. Select <code>Next</code>.</li>
+<li>Ensure <code>.NET 8.0 (Long Term Support)</code> is selected, and check <code>Use Redis for caching (requires Docker)</code>. Click <code>Create</code>.</li>
+<li>Visual Studio will create a new solution structured to use .NET Aspire, including projects for API services, AppHost, ServiceDefaults, and a Blazor App project.</li>
+</ol>
+<h3 id="using-the.net-cli">Using the .NET CLI:</h3>
+<ol>
+<li>Open a terminal and run the command to create a new .NET Aspire application with Redis cache:
+<pre><code>dotnet new aspire-starter --use-redis-cache -o AspireAzdWalkthrough
+</code></pre>
+</li>
+<li>Change into the project directory:
+<pre><code>cd AspireAzdWalkthrough
+</code></pre>
+</li>
+<li>Run the project specifying the AppHost project:
+<pre><code>dotnet run --project AspireAzdWalkthrough.AppHost\AspireAzdWalkthrough.AppHost.csproj
+</code></pre>
+</li>
+</ol>
+<p>This set of commands will create and run a new .NET Aspire application based on the <code>aspire-starter</code> template, which includes a dependency on Redis cache.</p>
+<h2 id="diving-into-orchestration-components-and-tooling-in.net-aspire">Diving into Orchestration, Components, and Tooling in .NET Aspire</h2>
+<p><strong>Orchestration</strong> in .NET Aspire involves the coordination and management of various elements within a cloud-native application, aiming to streamline the configuration and interconnection of different parts of your application. It provides abstractions for managing service discovery, environment variables, and container configurations without delving into low-level details. This leads to consistent setup patterns across applications with multiple components and service.</p>
+<p>Orchestration helps with app composition by specifying .NET projects, containers, executables, and cloud resources that make up the application. It simplifies service discovery and connection string management by managing the injection of the correct connection strings and service discovery information, enhancing the developer experience.</p>
+<p>A practical example includes creating a local Redis container resource and configuring the appropriate connection string in a project with minimal code:</p>
+<pre><code class="language-csharp">// Orchestration example
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Aspire.Orchestration;
+
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Register the Redis container as a resource
+        services.AddContainerResource(&quot;redis&quot;, options =&gt;
+        {
+            options.Image = &quot;redis:latest&quot;;
+            options.PortMappings.Add(&quot;6379:6379&quot;);
+        });
+
+        // Configure the connection string for Redis
+        services.Configure&lt;RedisOptions&gt;(options =&gt;
+        {
+            var configuration = services.BuildServiceProvider().GetRequiredService&lt;IConfiguration&gt;();
+            options.ConnectionString = configuration.GetConnectionString(&quot;Redis&quot;);
+        });
+
+        // Other service registrations...
+    }
+}
+</code></pre>
+<p><strong>Components</strong> in .NET Aspire are NuGet packages designed to simplify connections to popular services like Redis or PostgreSQL. These components handle many cloud-native concerns through standardized configuration patterns, including health checks and telemetry. They are designed to work seamlessly with .NET Aspire's orchestration, allowing configurations to flow through dependencies based on .NET project and package references, thus enabling components to communicate with each other automatically.</p>
+<p>For example, the addition of the Azure Service Bus to an application involves registering a <code>ServiceBusClient</code> as a singleton in the dependency injection container and applying configurations for health checks, logging, and telemetry specific to Azure Service Bus usage.</p>
+<pre><code class="language-csharp">using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Aspire.Orchestration;
+using Azure.Messaging.ServiceBus;
+
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Register the Service Bus client as a singleton
+        services.AddSingleton&lt;ServiceBusClient&gt;(provider =&gt;
+        {
+            var configuration = provider.GetRequiredService&lt;IConfiguration&gt;();
+            var connectionString = configuration.GetConnectionString(&quot;ServiceBus&quot;);
+
+            return new ServiceBusClient(connectionString);
+        });
+
+        // Apply configurations for health checks, logging, etc.
+        services.AddHealthChecks()
+            .AddAzureServiceBusCheck(&quot;ServiceBus&quot;, provider =&gt;
+            {
+                var client = provider.GetRequiredService&lt;ServiceBusClient&gt;();
+                var queueName = &quot;my-queue&quot;;
+
+                return client.CreateReceiver(queueName);
+            });
+
+        // Other service registrations...
+    }
+}
+</code></pre>
+<p><strong>Tooling</strong> provided by .NET Aspire includes project templates and tooling experiences for Visual Studio and the dotnet CLI, which assist in creating and interacting with .NET Aspire applications. These tools follow a standardized structure designed around default .NET Aspire project templates, making it easier to start new projects with a setup that supports the orchestration and use of components.</p>
+<p>Visual Studio enhances the experience by offering additional features for working with .NET Aspire components and the App Host orchestrator project. It allows for the easy addition of .NET Aspire components through UI options and supports enlisting in .NET Aspire orchestration during the new project workflow.</p>
+<h2 id="available.net-aspire-components">Available .NET Aspire Components</h2>
+<ol>
+<li><p><strong>Azure Blob Storage</strong> (<code>Aspire.Azure.Storage.Blobs</code>): A library for accessing Azure Blob Storage, facilitating object storage solutions for cloud-native applications.</p>
+</li>
+<li><p><strong>Azure Cosmos DB Entity Framework Core</strong> (<code>Aspire.Microsoft.EntityFrameworkCore.Cosmos</code>): Enables access to Azure Cosmos DB databases using Entity Framework Core, providing a NoSQL database service integration.</p>
+</li>
+<li><p><strong>Azure Cosmos DB</strong> (<code>Aspire.Microsoft.Azure.Cosmos</code>): A library for directly accessing Azure Cosmos DB databases, supporting a wide range of data types and uses.</p>
+</li>
+<li><p><strong>Azure Key Vault</strong> (<code>Aspire.Azure.Security.KeyVault</code>): Facilitates secure access to keys, secrets, and certificates stored in Azure Key Vault, enhancing application security.</p>
+</li>
+<li><p><strong>Azure Service Bus</strong> (<code>Aspire.Azure.Messaging.ServiceBus</code>): Provides capabilities for integrating with Azure Service Bus, a messaging service for connecting applications, services, and systems.</p>
+</li>
+<li><p><strong>Azure Storage Queues</strong> (<code>Aspire.Azure.Storage.Queues</code>): A library for working with Azure Storage Queues, enabling reliable messaging between application components.</p>
+</li>
+<li><p><strong>Azure Table Storage</strong> (<code>Aspire.Azure.Data.Tables</code>): Allows access to Azure Table Storage, offering NoSQL storage for semi-structured data.</p>
+</li>
+<li><p><strong>MongoDB Driver</strong> (<code>Aspire.MongoDB.Driver</code>): Enables MongoDB database access, supporting document-based storage solutions.</p>
+</li>
+<li><p><strong>MySqlConnector</strong> (<code>Aspire.MySqlConnector</code>): Facilitates connectivity to MySQL databases, providing a managed ADO.NET driver.</p>
+</li>
+<li><p><strong>PostgreSQL Entity Framework Core</strong> (<code>Aspire.Npgsql.EntityFrameworkCore.PostgreSQL</code>): Integrates PostgreSQL database access using Entity Framework Core, allowing for object-relational mapping.</p>
+</li>
+<li><p><strong>PostgreSQL</strong> (<code>Aspire.Npgsql</code>): A library for accessing PostgreSQL databases, supporting a wide array of PostgreSQL features.</p>
+</li>
+<li><p><strong>RabbitMQ</strong> (<code>Aspire.RabbitMQ.Client</code>): Enables integration with RabbitMQ, a message broker for complex routing and message queuing.</p>
+</li>
+<li><p><strong>Redis Distributed Caching</strong> (<code>Aspire.StackExchange.Redis.DistributedCaching</code>), <strong>Redis Output Caching</strong> (<code>Aspire.StackExchange.Redis.OutputCaching</code>), and <strong>Redis</strong> (<code>Aspire.StackExchange.Redis</code>): Provide various levels of caching capabilities using Redis, enhancing performance and scalability.</p>
+</li>
+<li><p><strong>SQL Server Entity Framework Core</strong> (<code>Aspire.Microsoft.EntityFrameworkCore.SqlServer</code>) and <strong>SQL Server</strong> (<code>Aspire.Microsoft.Data.SqlClient</code>): Offer integration with SQL Server databases, with and without Entity Framework Core, for relational data storage and manipulation.</p>
+</li>
+</ol>
+<h3 id="integrating-components-aspire.azure.ai.openai">Integrating Components - Aspire.Azure.AI.OpenAI</h3>
+<p>Let's look at an example, on how to include OpenAI in a .NET Aspire project:</p>
+<p><strong>Integration Steps:</strong></p>
+<ol>
+<li><strong>NuGet Package Installation:</strong> Install the <code>Aspire.Azure.AI.OpenAI</code> NuGet package using the .NET CLI command <code>dotnet add package Aspire.Azure.AI.OpenAI --prerelease</code>.</li>
+<li><strong>Service Registration:</strong> In the <code>Program.cs</code> file of your application, use the <code>builder.AddAzureOpenAI</code> method to register the OpenAIClient for dependency injection, enabling the application to consume Azure AI OpenAI services.</li>
+<li><strong>Configuration:</strong> Configure the OpenAIClient by providing the connection name parameter that corresponds to your Azure OpenAI service configuration, typically defined in your application settings (e.g., <code>appsettings.json</code>).</li>
+</ol>
+<p><strong>Example:</strong></p>
+<pre><code class="language-json">{
+  &quot;AzureOpenAI&quot;: {
+    &quot;ConnectionName&quot;: &quot;openAiConnectionName&quot;
+  }
+}
+
+</code></pre>
+<pre><code class="language-csharp">// Other service registrations...
+services.AddAzureOpenAI(options =&gt;
+{
+    var configuration = provider.GetRequiredService&lt;IConfiguration&gt;();
+    var connectionName = configuration.GetValue&lt;string&gt;(&quot;AzureOpenAI:ConnectionName&quot;);
+
+    options.ConnectionString = configuration.GetConnectionString(connectionName);
+});
+// Other configurations...
+</code></pre>
+<h2 id="deploying.net-aspire-applications-on-azure">Deploying .NET Aspire Applications on Azure</h2>
+<p>.NET Aspire applications are designed with cloud-native principles, allowing for flexible deployment across various platforms, including Azure Container Apps (ACA). ACA provides a fully managed environment for running microservices and containerized applications on a serverless platform, making it an ideal target for .NET Aspire applications.</p>
+<h3 id="deployment-steps">Deployment Steps:</h3>
+<ol>
+<li><p><strong>Prepare Your .NET Aspire Application</strong>: Ensure your application is containerized and follows .NET Aspire's best practices for cloud-native development.</p>
+</li>
+<li><p><strong>Azure Container Apps (ACA)</strong>: Utilize ACA for hosting your application. ACA supports manual deployment using Bicep or the Azure Developer CLI (azd), which simplifies the deployment process.</p>
+</li>
+<li><p><strong>Azure Developer CLI (azd)</strong>: The Azure Developer CLI has been extended to support deploying .NET Aspire applications, offering a guided experience for provisioning and deploying your application to Azure, with specific focus on ACA.</p>
+</li>
+<li><p><strong>Provisioning and Deployment</strong>: Use the <code>azd init</code> and <code>azd up</code> commands to provision required Azure resources and deploy your application. The <code>azd</code> tool automates the creation of Azure resources like Azure Container Registry and configures your application for deployment to ACA.</p>
+</li>
+<li><p><strong>Configuration and Environment Setup</strong>: <code>azd</code> assists in initializing your project, identifying the .NET Aspire AppHost project, and setting up the environment for deployment. It generates necessary configuration files like <code>azure.yaml</code> to describe your app's services and maps them to Azure resources.</p>
+</li>
+</ol>
+<p>Here's a sample <code>azure.yaml</code> configuration that describes how a .NET Aspire application can be configured for deployment using the Azure Developer CLI (azd). This YAML configuration specifies the services of the app, such as the .NET Aspire AppHost project, and maps them to Azure resources, along with an OpenAI service.</p>
+<pre><code class="language-yaml"># yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: AspireAzdWalkthrough
+services:
+  app:
+    language: dotnet
+    project: .\AspireAzdWalkthrough.AppHost\AspireAzdWalkthrough.AppHost.csproj
+    host: containerapp
+  openai:
+    type: external
+    api_key: ${OPENAI_API_KEY}
+</code></pre>
+<h2 id="integrating-with-application-insights-for-observability">Integrating with Application Insights for Observability</h2>
+<p>Integrating Application Insights with .NET Aspire applications enhances observability by leveraging Azure Monitor's Application Performance Management (APM) capabilities. This integration allows for a comprehensive understanding of application performance, failures, and usage patterns.</p>
+<h3 id="integration-steps">Integration Steps:</h3>
+<ol>
+<li><p><strong>Configure Application Insights</strong>: Start by obtaining the Application Insights connection string from the Azure portal. This connection string should then be configured within your .NET Aspire application, typically as an environment variable within the AppHost project. This ensures the connection string is included in the deployment manifest for seamless integration.</p>
+</li>
+<li><p><strong>Telemetry Data Collection</strong>: .NET Aspire applications are designed with OpenTelemetry in mind, enabling the configuration of telemetry data collection to be directed towards Application Insights. This setup provides valuable insights into application performance and operational events.</p>
+</li>
+<li><p><strong>Use Azure Monitor Exporter</strong>: Include the Azure Monitor OpenTelemetry Exporter package in your application to facilitate the process of sending telemetry data to Application Insights. This package provides a set of defaults that enhance the observability of your application by simplifying the export of telemetry data to Azure Monitor.</p>
+</li>
+</ol>
+<h3 id="example-code">Example Code:</h3>
+<p>To integrate Application Insights, you can configure the connection string and use the Azure Monitor Exporter as follows:</p>
+<pre><code class="language-csharp">using Aspire.Hosting;
+
+var builder = DistributedApplication.CreateBuilder(args);
+
+var appInsightsConnectionString = builder.Configuration[&quot;APPLICATIONINSIGHTS_CONNECTION_STRING&quot;];
+
+var cache = builder.AddRedisContainer(&quot;cache&quot;);
+
+var apiservice = builder.AddProject&lt;Projects.AspireApp_ApiService&gt;(&quot;apiservice&quot;)
+    .WithEnvironment(&quot;APPLICATIONINSIGHTS_CONNECTION_STRING&quot;, appInsightsConnectionString);
+
+builder.AddProject&lt;Projects.AspireApp_Web&gt;(&quot;webfrontend&quot;)
+    .WithReference(cache)
+    .WithReference(apiservice)
+    .WithEnvironment(&quot;APPLICATIONINSIGHTS_CONNECTION_STRING&quot;, appInsightsConnectionString);
+
+builder.Build().Run();
+</code></pre>
+<p>And to manage the connection string securely:</p>
+<pre><code class="language-json">{
+  &quot;APPLICATIONINSIGHTS_CONNECTION_STRING&quot;: &quot;InstrumentationKey=12345678-abcd-1234-abcd-1234abcd5678;IngestionEndpoint=https://westus3-1.in.applicationinsights.azure.com&quot;
+}
+</code></pre>
+<p>Lastly, include the Azure Monitor Exporter package in your <code>ServiceDefaults</code> project to ensure it is available across all .NET Aspire applications:</p>
+<pre><code class="language-xml">&lt;PackageReference Include=&quot;Azure.Monitor.OpenTelemetry.AspNetCore&quot; Version=&quot;[SelectVersion]&quot; /&gt;
+</code></pre>
+<p>This integration approach outlines the critical steps for deploying .NET Aspire applications to Azure, utilizing ACA for hosting, and enhancing telemetry and observability with Application Insights. It underscores the synergy between Azure services and .NET Aspire, promoting a cloud-native development paradigm while ensuring robust monitoring and analytical capabilities essential for cloud-based applications.</p>
+<h2 id="adding.net-aspire-in-an-existing-app">Adding .NET Aspire in an existing app</h2>
+<p>To add .NET Aspire to an existing .NET 8 microservices application, follow these steps to harness its benefits of .NET Aspire, including service orchestration and enhanced telemetry:</p>
+<h3 id="adding.net-aspire-orchestration">Adding .NET Aspire Orchestration</h3>
+<ol>
+<li><p><strong>Enroll the Store Project</strong>: Right-click on your main project in Solution Explorer, select <code>Add</code>, and then choose <code>.NET Aspire Orchestrator Support</code>. Confirm any dialogs that appear to proceed with the addition.</p>
+</li>
+<li><p><strong>Enroll Other Projects</strong>: Similarly, add .NET Aspire support to other projects within your solution that you wish to be part of the orchestration. This might include backend services, APIs, or any other project types relevant to your application.</p>
+</li>
+</ol>
+<p>After adding .NET Aspire to your projects, Visual Studio will automatically add two new projects to your solution:</p>
+<ul>
+<li><code>AppHost</code>: An orchestrator project to connect and configure the different projects and services.</li>
+<li><code>ServiceDefaults</code>: A shared project to manage configurations reused across the solution, related to resilience, service discovery, and telemetry.</li>
+</ul>
+<h3 id="configuring-the-apphost">Configuring the AppHost</h3>
+<ol>
+<li><p><strong>Configure Service Registration</strong>: In the <code>Program.cs</code> file of your AppHost project, register the projects you've added to .NET Aspire orchestration using the <code>services.AddProject&lt;Projects.YourProject&gt;(&quot;yourProject&quot;)</code> method, where <code>YourProject</code> is the project name, and <code>&quot;yourProject&quot;</code> is the identifier used in the orchestration.</p>
+</li>
+<li><p><strong>Start the Application</strong>: Debug the solution in Visual Studio to see the effects of .NET Aspire orchestration. Ensure Docker Desktop is running, as it might be required for services that use containerization.</p>
+</li>
+<li><p><strong>Verify Orchestration and Service Discovery</strong>: Access the .NET Aspire dashboard that appears upon running the application to verify that your services are correctly registered and discoverable within the orchestration framework.</p>
+</li>
+</ol>
+<p>By following these steps, you integrate .NET Aspire into your existing microservices application, leveraging its orchestration capabilities, enhanced security, and observability features.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>.NET Aspire has emerged as a transformative stack for cloud-native application development, offering tools and patterns that align with the needs of modern distributed systems. Through a blend of orchestration, componentization, and comprehensive tooling, it streamlines the creation of observable, production-ready applications, setting developers on a path from novice to expert in the cloud-native landscape. By leveraging .NET Aspire, developers can focus on delivering value through their applications, confident in the stack's capabilities to handle the complexities of cloud-native development efficiently. This journey encapsulates the essence of evolving with .NET Aspire: embracing innovation, enhancing skills, and contributing to the future of cloud-ready applications.</p>
+<h2 id="resources">Resources</h2>
+<p>For those interested in .NET Aspire and looking for related content, here are some useful links to GitHub repositories and documentation:</p>
+<ol>
+<li><p><strong>.NET Aspire Repository</strong>: This is the main GitHub repository for .NET Aspire, where you can find all related components, documentation, and contribution guidelines.</p>
+<ul>
+<li><a href="https://github.com/dotnet/aspire">GitHub - dotnet/aspire</a></li>
+</ul>
+</li>
+<li><p><strong>.NET Aspire Samples</strong>: A repository dedicated to providing samples for .NET Aspire, showcasing various applications and implementations to help you get started.</p>
+<ul>
+<li><a href="https://github.com/dotnet/aspire-samples">GitHub - dotnet/aspire-samples</a></li>
+</ul>
+</li>
+<li><p><strong>.NET Aspire Documentation</strong>: This repository contains the documentation for .NET Aspire, offering in-depth information on how to use, extend, and deploy .NET Aspire applications.</p>
+<ul>
+<li><a href="https://github.com/dotnet/docs-aspire">GitHub - dotnet/docs-aspire</a></li>
+</ul>
+</li>
+</ol>
