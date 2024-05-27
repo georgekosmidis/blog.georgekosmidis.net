@@ -1,16 +1,14 @@
-### Title: Enhancing Azure Document Intelligence API with Custom API Version Overrides
 
-### Introduction
 The Azure Document Intelligence API offers powerful capabilities for form recognition and document analysis. However, the client library for JavaScript that offers ease of usage might not always align with your needs, especially when it comes to using preview versions of the API. In this blog post, we'll explore how to override the default API version used by the Azure Document Intelligence SDK to leverage the latest preview features.
 
-### Why Override the Default API Version?
+# Why Override the Default API Version?
 - **Access to New Features**: Preview versions often include cutting-edge features not yet available in the stable release.
 - **Customization**: Tailor the API behavior to suit specific project requirements.
 - **Future-proofing**: Stay ahead of the curve by testing and integrating new capabilities early.
 
-### Steps to Implement Custom API Version Override
+# Steps to Implement Custom API Version Override
 
-#### 1. Creating the Custom Policy Class
+## 1. Creating the Custom Policy Class
 The first step is to create a custom policy that overrides the default API version in the request URL.
 
 ```typescript
@@ -31,7 +29,7 @@ export class OverrideCustomApiVersionPolicy implements PipelinePolicy {
 }
 ```
 
-#### 2. Overriding the Default DocumentAnalysisClient
+## 2. Overriding the Default DocumentAnalysisClient
 Next, we'll override the default `DocumentAnalysisClient` to incorporate our custom policy.
 
 ```typescript
@@ -55,7 +53,7 @@ export class DocumentAnalysisClientPreview extends DocumentAnalysisClient {
 }
 ```
 
-#### 3. Defining Custom Options
+## 3. Defining Custom Options
 We also need to define a custom options interface to include the API version.
 
 ```typescript
@@ -66,7 +64,7 @@ export interface DocumentAnalysisClientOptionsPreview extends DocumentAnalysisCl
 }
 ```
 
-#### 4. Using the Custom Client
+## 4. Using the Custom Client
 Finally, we instantiate and use the custom client in our application.
 
 ```javascript
@@ -77,6 +75,6 @@ const client = new DocumentAnalysisClientPreview(
 );
 ```
 
-### Conclusion
+# Conclusion
 Although not perfect since it does not include potential model changes, implementing a custom API version override allows you to unlock preview versions of the Azure Document Intelligence API, access the latest features, and ensure your application remains at the forefront of technology - at least during development. 
 Just keep in mind that this is NOT a production solution, as preview versions can change or be withdrawn without notice!
