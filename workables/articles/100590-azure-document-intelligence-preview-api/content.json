@@ -1,0 +1,12 @@
+{
+  "RelativeUrl": "/azure-document-intelligence-sdk-preview-api.html",
+  "Title": "Preview versions in Azure Document Intelligence client libraries",
+  "Description": "The Azure Document Intelligence API offers powerful capabilities for form recognition and document analysis. However, the client library for JavaScript that offers ease of usage might not always align with your needs, especially when it comes to using preview versions of the API. In this blog post, we'll explore how to override the default API version used by the Azure Document Intelligence SDK to leverage the latest preview features.",
+  "DatePublished": "2024-05-27T19:22:00+01:00",
+  "DateModified":  "2024-05-27T19:22:00+01:00",
+  "RelativeImageUrl": "/media/100590-feature.png",
+  "Tags": [
+    "document intelligence",
+    "preview api"
+  ]
+}
