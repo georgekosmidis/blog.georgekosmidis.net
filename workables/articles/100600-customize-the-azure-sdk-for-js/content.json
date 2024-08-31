@@ -1,0 +1,13 @@
+{
+  "RelativeUrl": "/customize-the-azure-sdk-for-js.html",
+  "Title": "How to Build and Customize the Azure SDK for JavaScript",
+  "Description": "The Azure Document Intelligence API offers powerful capabilities for form recognition and document analysis. However, the client library for JavaScript that offers ease of usage might not always align with your needs, especially when it comes to using preview versions of the API. In this blog post, we'll explore how to override the default API version used by the Azure Document Intelligence SDK to leverage the latest preview features.",
+  "DatePublished": "2024-06-03T15:15:00+01:00",
+  "DateModified":  "2024-06-03T15:51:00+01:00",
+  "RelativeImageUrl": "/media/100600-feature.png",
+  "Tags": [
+    "azure-sdk-for-js",
+    "typescript",
+    "azure-ai-document-intelligence"
+  ]
+}
