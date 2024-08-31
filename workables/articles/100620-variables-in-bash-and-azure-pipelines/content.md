@@ -1,6 +1,28 @@
 # Contents
 
-...
+- [Contents](#contents)
+- [Intro](#intro)
+- [Part 1. Variables in Bash](#part-1-variables-in-bash)
+  - [b. Parentheses `(...)`](#b-parentheses-)
+  - [c. Square Brackets `[]`](#c-square-brackets-)
+  - [d. Curly Braces `{}`](#d-curly-braces-)
+- [Part 2. Variables in Azure Pipelines Tasks](#part-2-variables-in-azure-pipelines-tasks)
+  - [a. Using Variables in Azure Pipelines](#a-using-variables-in-azure-pipelines)
+  - [b. Mapping Bash Concepts to Azure Pipelines](#b-mapping-bash-concepts-to-azure-pipelines)
+- [Part 3. Combining Bash and Azure Pipelines](#part-3-combining-bash-and-azure-pipelines)
+  - [a. Running Bash Scripts in Azure Pipelines](#a-running-bash-scripts-in-azure-pipelines)
+  - [b. Variable Interchange Between Bash and Azure Pipelines](#b-variable-interchange-between-bash-and-azure-pipelines)
+- [Part 4. Exchanging Variables Between Tasks](#part-4-exchanging-variables-between-tasks)
+  - [a. Variable Scope and Lifespan](#a-variable-scope-and-lifespan)
+  - [b. Practical Examples](#b-practical-examples)
+- [Part 5. Exchanging Variables Between Jobs](#part-5-exchanging-variables-between-jobs)
+  - [a. Job Dependencies and Variable Sharing](#a-job-dependencies-and-variable-sharing)
+  - [b. Job Output as Input](#b-job-output-as-input)
+  - [Persisting Variables Across Jobs Using Pipeline Artifacts](#persisting-variables-across-jobs-using-pipeline-artifacts)
+- [Part 6. Exchanging Variables Between Stages](#part-6-exchanging-variables-between-stages)
+  - [a. Stage-Level Variable Sharing](#a-stage-level-variable-sharing)
+  - [b. Example Pipeline with Multi-Stage Variable Sharing](#b-example-pipeline-with-multi-stage-variable-sharing)
+- [Conclusion](#conclusion)
 
 # Intro
 
