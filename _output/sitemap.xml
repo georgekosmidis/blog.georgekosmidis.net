@@ -33,6 +33,10 @@
         <lastmod>2021-12-26T16:27:50+00:00</lastmod>
     </url>
     <url>
+        <loc>https://blog.georgekosmidis.net/customize-the-azure-sdk-for-js.html</loc>
+        <lastmod>2024-06-03T14:51:00+00:00</lastmod>
+    </url>
+    <url>
         <loc>https://blog.georgekosmidis.net/an-error-occurred-while-starting-the-application-process-failure-and-many-more.html</loc>
         <lastmod>2020-07-25T15:59:33+00:00</lastmod>
     </url>
@@ -67,6 +71,10 @@
     <url>
         <loc>https://blog.georgekosmidis.net/how-to-make-authenticated-requests-to-an-asp-net-core-web-api-using-identityserver4-with-client-credentials.html</loc>
         <lastmod>2020-03-17T19:46:14+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/variables-in-bash-and-azure-pipelines.html</loc>
+        <lastmod>2024-08-31T14:51:00+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/durable-functions-starting-with-serverless-stateful-orchestrations-in-azure.html</loc>
@@ -225,6 +233,10 @@
         <lastmod>2022-01-15T12:14:19+00:00</lastmod>
     </url>
     <url>
+        <loc>https://blog.georgekosmidis.net/customize-the-azure-sdk-for-js.html</loc>
+        <lastmod>2024-06-03T14:51:00+00:00</lastmod>
+    </url>
+    <url>
         <loc>https://blog.georgekosmidis.net/azure-function-app-dotnet-isolated.html</loc>
         <lastmod>2022-08-12T14:32:01+00:00</lastmod>
     </url>
@@ -246,38 +258,38 @@
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/</loc>
-        <lastmod>2024-08-31T03:01:07+00:00</lastmod>
+        <lastmod>2024-08-31T16:29:41+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-2.html</loc>
-        <lastmod>2024-08-31T03:01:07+00:00</lastmod>
+        <lastmod>2024-08-31T16:29:41+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-3.html</loc>
-        <lastmod>2024-08-31T03:01:07+00:00</lastmod>
+        <lastmod>2024-08-31T16:29:41+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-4.html</loc>
-        <lastmod>2024-08-31T03:01:07+00:00</lastmod>
+        <lastmod>2024-08-31T16:29:41+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-5.html</loc>
-        <lastmod>2024-08-31T03:01:07+00:00</lastmod>
+        <lastmod>2024-08-31T16:29:41+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-6.html</loc>
-        <lastmod>2024-08-31T03:01:07+00:00</lastmod>
+        <lastmod>2024-08-31T16:29:41+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-7.html</loc>
-        <lastmod>2024-08-31T03:01:07+00:00</lastmod>
+        <lastmod>2024-08-31T16:29:41+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-8.html</loc>
-        <lastmod>2024-08-31T03:01:07+00:00</lastmod>
+        <lastmod>2024-08-31T16:29:41+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-9.html</loc>
-        <lastmod>2024-08-31T03:01:07+00:00</lastmod>
+        <lastmod>2024-08-31T16:29:41+00:00</lastmod>
     </url>
 </urlset>
