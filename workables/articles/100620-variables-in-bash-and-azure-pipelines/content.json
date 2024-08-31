@@ -1,0 +1,14 @@
+{
+  "RelativeUrl": "/variables-in-bash-and-azure-pipelines.html",
+  "Title": "Variables in Bash and Azure Pipelines",
+  "Description": "",
+  "DatePublished": "2024-08-31T15:15:00+01:00",
+  "DateModified":  "2024-08-31T15:51:00+01:00",
+  "RelativeImageUrl": "",
+  "Tags": [
+    "variables",
+    "bash",
+    "azure-pipelines",
+	"azure-devops"
+  ]
+}
