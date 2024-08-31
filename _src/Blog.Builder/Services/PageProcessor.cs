@@ -83,8 +83,11 @@ internal class PageProcessor : IPageProcessor
         string? pageHtml = File.ReadAllText(Path.Combine(directory, Globals.ContentHtmlFilename));
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(pageHtml);
 
-        //add azure static web app routes
-        _staticAppConfigBuilder.Add(pageData.RelativeUrl, pageData.DatePublished);
+        //add azure static web app routes for old pages
+        if(pageData.DatePublished < DateTime.Parse("2022-01-01T00:00:00Z"))
+        {
+          _staticAppConfigBuilder.Add(pageData.RelativeUrl, pageData.DatePublished);
+        }
 
         //add the GitHub repo
         string? articleFolderName = Path.GetFileName(directory.Trim(Path.DirectorySeparatorChar));
