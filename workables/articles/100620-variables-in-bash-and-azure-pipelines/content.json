@@ -4,7 +4,7 @@
   "Description": "In this article, we'll explore the basics of variables in Bash, focusing on the role of symbols like $, (, [, and {. Each of these symbols has a specific function in Bash scripting, from referencing variables to grouping commands and conditions. Understanding these will not only enhance your scripting skills but will also give you a better grasp of how similar concepts are applied in Azure Pipelines",
   "DatePublished": "2024-08-31T15:15:00+01:00",
   "DateModified":  "2024-08-31T15:51:00+01:00",
-  "RelativeImageUrl": "",
+  "RelativeImageUrl": "/media/100620-feature.png",
   "Tags": [
     "variables",
     "bash",
