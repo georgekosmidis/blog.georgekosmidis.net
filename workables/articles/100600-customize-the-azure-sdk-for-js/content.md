@@ -1,16 +1,16 @@
-### How to Build and Customize the Azure SDK for JavaScript: A Step-by-Step Guide
+# How to Build and Customize the Azure SDK for JavaScript: A Step-by-Step Guide
 
-As a developer working with Azure services, you might find yourself needing to build and customize the Azure SDK to test a preview version of an Azure API that is not yet available in SDK. And of course you could just use Postman but where is the fun there :). Anyway, whether you're looking to make enhancements or support a new version that hasn't been officially released yet, having a clear set of instructions can save you a lot of time and hassle. In this post, we'll walk you through the process, from setting up your environment to pushing your custom changes to a forked repository.
+As a developer working with Azure services, you might find yourself needing to build and customize the Azure SDK to test a preview version of an Azure API that isn't yet available in the SDK. Sure, you could just use Postman, but where's the fun in that? :) Whether you're looking to make enhancements or support a new version that hasn't been officially released yet, having a clear set of instructions can save you a lot of time and hassle. In this post, we'll walk you through the process, from setting up your environment to pushing your custom changes to a forked repository.
 
-#### Prerequisites
+## Prerequisites
 
-Before we dive into the build process, you'll need to ensure you have the following tools installed:
+Before we dive into the build process, make sure you have the following tools installed:
 
-1. **Visual Studio 2022**: Make sure to include the "Desktop development with C++" workload. You can continue using VS Code for developing, VS just needs to be there, lost somewhere in your drive.
-2. **Python 3.9.13**: If you are already using Python in a different version **pyenv** is a handy tool.
-3. **Node 18.20.3**: Similarly, if you want to support multiple node versions try **nvm**. 
+1. **Visual Studio 2022**: Ensure that the "Desktop development with C++" workload is included. While you can continue using VS Code for development, Visual Studio just needs to be installed, even if it's buried somewhere on your drive.
+2. **Python 3.9.13**: If you're using a different version of Python, **pyenv** is a handy tool to manage multiple versions.
+3. **Node 18.20.3**: Similarly, if you need to manage multiple Node versions, try **nvm**. 
 
-#### Step 1: Forking and Making Changes
+## Step 1: Forking and Making Changes
 
 If you need to fork the repository, make custom changes, and then build it, follow these steps:
 
@@ -37,7 +37,7 @@ If you need to fork the repository, make custom changes, and then build it, foll
      git push fork ai-form-recognizer_5.0.0
      ```
 	 
-#### Step 2: Setting Up Your Environment
+## Step 2: Setting Up Your Environment
 
 First, install the necessary software:
 
@@ -55,7 +55,7 @@ First, install the necessary software:
   nvm use 18.20.3
   ```
 
-#### Step 3: Installing and Using Rush
+## Step 3: Installing and Using Rush
 
 Next, you'll need to install Rush, a build orchestration tool used by Microsoft for managing large monorepos:
 
@@ -73,7 +73,7 @@ rush build -t @azure/ai-form-recognizer
 
 This will build the specific package for the AI Form Recognizer.
 
-#### Step 4: Building the AI Form Recognizer Package
+## Step 4: Building the AI Form Recognizer Package
 
 Navigate to the AI Form Recognizer package directory and pack the module:
 
@@ -85,7 +85,7 @@ npm pack
 After running this command, you should have a file named `azure-ai-form-recognizer-5.0.0.tgz`. Copy this file to a location of your choice for later use.
 `
 
-#### That's it!
+## That's it!
 
 By following these steps, you'll be able to set up your development environment, build the SDK, make custom modifications, and push your changes to your forked repository. Happy coding!
 
