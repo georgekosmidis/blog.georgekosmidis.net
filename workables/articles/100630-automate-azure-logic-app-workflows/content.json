@@ -1,0 +1,14 @@
+{
+  "RelativeUrl": "/deploy-an-azure-logic-apps-workflow-in-standard-plan-with-azure-devops.html",
+  "Title": "Deploy an Azure Logic Apps Workflow in Standard Plan with Azure DevOps",
+  "Description": "This article provides a step-by-step guide on how to automate the deployment of workflows in Azure Logic Apps (Standard Plan) using the Azure CLI. It explains how to organize workflows, zip them, and deploy them to Azure through a Bash script, making it ideal for developers looking to streamline Logic App deployments in CI/CD pipelines.",
+  "DatePublished": "2024-09-04T20:24:00+01:00",
+  "DateModified":  "2024-09-04T20:24:00+01:00",
+  "RelativeImageUrl": "/media/100630-feature.png",
+  "Tags": [
+    "variables",
+    "bash",
+    "azure-pipelines",
+	"azure-devops"
+  ]
+}
