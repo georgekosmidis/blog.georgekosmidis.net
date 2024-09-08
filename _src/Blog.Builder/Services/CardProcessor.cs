@@ -80,7 +80,7 @@ internal class CardProcessor : ICardProcessor
                 var calendarCard = GetCardModelData<CardCalendarEventsModel>(jsonFileContent);
                 calendarCard.CalendarEvents = await GetCalendarEvents();
                 //hide card if there are no events
-                if (calendarCard.CalendarEvents.Any()) 
+                if (calendarCard.CalendarEvents.Any())
                 {
                     _cardBuilder.AddCard(calendarCard);
                 }
@@ -138,7 +138,7 @@ internal class CardProcessor : ICardProcessor
             )
         );
 
-        return calendarEvents.OrderBy( x => x.DateTime).ToList();
+        return calendarEvents.OrderBy(x => x.DateTime).ToList();
     }
 
     /// <inheritdoc/>

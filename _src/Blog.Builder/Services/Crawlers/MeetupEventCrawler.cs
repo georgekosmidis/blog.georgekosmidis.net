@@ -1,10 +1,9 @@
 ﻿using Blog.Builder.Exceptions;
 using Blog.Builder.Interfaces.Crawlers;
 using Blog.Builder.Models.Crawlers;
+using Blog.Builder.Services.Crawlers.MeetupEventCrawlerTools;
 using Geko.HttpClientService;
 using Geko.HttpClientService.Extensions;
-using Ical.Net;
-using Blog.Builder.Services.Crawlers.MeetupEventCrawlerTools;
 
 namespace Blog.Builder.Services.Crawlers;
 

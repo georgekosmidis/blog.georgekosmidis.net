@@ -70,7 +70,7 @@ internal class PageProcessor : IPageProcessor
         T? pageData = GetPageModelData<T>(jsonFileContent);
         ExceptionHelpers.ThrowIfNull(pageData);
 
-        if(File.Exists(Path.Combine(directory, Globals.ContentMdFilename)))
+        if (File.Exists(Path.Combine(directory, Globals.ContentMdFilename)))
         {
             string? pageMd = File.ReadAllText(Path.Combine(directory, Globals.ContentMdFilename));
 
@@ -84,9 +84,9 @@ internal class PageProcessor : IPageProcessor
         ExceptionHelpers.ThrowIfNullOrWhiteSpace(pageHtml);
 
         //add azure static web app routes for old pages
-        if(pageData.DatePublished < DateTime.Parse("2022-01-01T00:00:00Z"))
+        if (pageData.DatePublished < DateTime.Parse("2022-01-01T00:00:00Z"))
         {
-          _staticAppConfigBuilder.Add(pageData.RelativeUrl, pageData.DatePublished);
+            _staticAppConfigBuilder.Add(pageData.RelativeUrl, pageData.DatePublished);
         }
 
         //add the GitHub repo
