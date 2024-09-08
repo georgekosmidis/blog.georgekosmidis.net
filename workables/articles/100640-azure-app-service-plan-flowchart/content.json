@@ -1,0 +1,13 @@
+{
+  "RelativeUrl": "/azure-app-service-plan-flowchart.html",
+  "Title": "Choose The Right Azure Service Plan (with a flowchart)",
+  "Description": "Selecting the right Azure Service Plan is crucial for optimizing performance, cost, and scalability. This article provides a flowchart to help you choose the correct tier and includes plan details for each tier to help you get started.",
+  "DatePublished": "2024-09-08T20:24:00+01:00",
+  "DateModified":  "2024-09-08T20:24:00+01:00",
+  "RelativeImageUrl": "/media/100640-feature.png",
+  "Tags": [
+    "Azure Service Plan",
+    "Free, Basic, Standard, Premium, Isolated",
+    "Flowchart"
+  ]
+}
