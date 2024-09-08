@@ -1,0 +1,73 @@
+<h1 id="how-to-build-and-customize-the-azure-sdk-for-javascript-a-step-by-step-guide">How to Build and Customize the Azure SDK for JavaScript: A Step-by-Step Guide</h1>
+<p>As a developer working with Azure services, you might find yourself needing to build and customize the Azure SDK to test a preview version of an Azure API that isn't yet available in the SDK. Sure, you could just use Postman, but where's the fun in that? :) Whether you're looking to make enhancements or support a new version that hasn't been officially released yet, having a clear set of instructions can save you a lot of time and hassle. In this post, we'll walk you through the process, from setting up your environment to pushing your custom changes to a forked repository.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before we dive into the build process, make sure you have the following tools installed:</p>
+<ol>
+<li><strong>Visual Studio 2022</strong>: Ensure that the &quot;Desktop development with C++&quot; workload is included. While you can continue using VS Code for development, Visual Studio just needs to be installed, even if it's buried somewhere on your drive.</li>
+<li><strong>Python 3.9.13</strong>: If you're using a different version of Python, <strong>pyenv</strong> is a handy tool to manage multiple versions.</li>
+<li><strong>Node 18.20.3</strong>: Similarly, if you need to manage multiple Node versions, try <strong>nvm</strong>.</li>
+</ol>
+<h2 id="step-1-forking-and-making-changes">Step 1: Forking and Making Changes</h2>
+<p>If you need to fork the repository, make custom changes, and then build it, follow these steps:</p>
+<ol>
+<li><p><strong>Clone the Repository</strong>:</p>
+<pre><code class="language-sh">git clone https://github.com/Azure/azure-sdk-for-js.git
+cd azure-sdk-for-js
+</code></pre>
+</li>
+<li><p><strong>Check Out a Specific Tag</strong> (Optional):</p>
+<pre><code class="language-sh">git checkout tags/@azure/ai-form-recognizer_5.0.0 -b ai-form-recognizer_5.0.0
+</code></pre>
+</li>
+<li><p><strong>Make Your Changes</strong>: Open the code in your favorite editor and make the necessary modifications.</p>
+</li>
+<li><p><strong>Push Changes to Your Fork</strong> (Optional):</p>
+<ul>
+<li>Add a remote for your fork:
+<pre><code class="language-sh">git remote add fork https://github.com/&lt;your-username&gt;/azure-sdk-for-js.git
+</code></pre>
+</li>
+<li>Push your changes:
+<pre><code class="language-sh">git push fork ai-form-recognizer_5.0.0
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="step-2-setting-up-your-environment">Step 2: Setting Up Your Environment</h2>
+<p>First, install the necessary software:</p>
+<ul>
+<li><p><strong>Visual Studio 2022</strong>: Download and install from <a href="https://visualstudio.microsoft.com/vs/">https://visualstudio.microsoft.com/vs/</a>, ensuring you select the &quot;Desktop development with C++&quot; workload during installation.</p>
+</li>
+<li><p><strong>pyenv</strong>: Follow the installation instructions from <a href="https://github.com/pyenv/pyenv">pyenv's GitHub repository</a>. Once installed, set it to use Python 3.9.13:</p>
+<pre><code class="language-sh">pyenv install 3.9.13
+pyenv global 3.9.13
+</code></pre>
+<blockquote>If it is the first time you are using pyenv, it is advised to unistall all previous python versions.</blockquote>
+</li>
+<li><p><strong>nvm</strong>: Install nvm from the <a href="https://github.com/nvm-sh/nvm">nvm GitHub repository</a>. Then install Node.js 18.20.3:</p>
+<pre><code class="language-sh">nvm install 18.20.3
+nvm use 18.20.3
+</code></pre>
+</li>
+</ul>
+<h2 id="step-3-installing-and-using-rush">Step 3: Installing and Using Rush</h2>
+<p>Next, you'll need to install Rush, a build orchestration tool used by Microsoft for managing large monorepos:</p>
+<pre><code class="language-sh">npm install -g @microsoft/rush
+</code></pre>
+<p>Once Rush is installed, navigate to your project directory and run the following commands to install dependencies and build the SDK:</p>
+<pre><code class="language-sh">rush install --purge
+rush build
+rush build -t @azure/ai-form-recognizer
+</code></pre>
+<p>This will build the specific package for the AI Form Recognizer.</p>
+<h2 id="step-4-building-the-ai-form-recognizer-package">Step 4: Building the AI Form Recognizer Package</h2>
+<p>Navigate to the AI Form Recognizer package directory and pack the module:</p>
+<pre><code class="language-sh">cd .\sdk\formrecognizer\ai-form-recognizer
+npm pack
+</code></pre>
+<p>After running this command, you should have a file named <code>azure-ai-form-recognizer-5.0.0.tgz</code>. Copy this file to a location of your choice for later use.
+`</p>
+<h2 id="thats-it">That's it!</h2>
+<p>By following these steps, you'll be able to set up your development environment, build the SDK, make custom modifications, and push your changes to your forked repository. Happy coding!</p>
+<p>Feel free to leave comments or ask questions if you run into any issues!</p>

@@ -1,0 +1,102 @@
+<h1 id="deploy-an-azure-logic-apps-workflow-in-standard-plan-with-azure-devops">Deploy an Azure Logic Apps Workflow in Standard Plan with Azure DevOps</h1>
+<p>In this article, we’ll explore how to automate the deployment of workflows in Azure Logic Apps using the Azure CLI. We’ll cover a scenario where multiple workflows are organized in subfolders, and we’ll use a simple Bash script to zip each workflow and deploy it programmatically.</p>
+<h2 id="introduction">Introduction</h2>
+<p>Azure Logic Apps is a cloud service that helps you automate workflows that integrate apps, data, services, and systems. When working with the Standard Plan, you may need to deploy multiple workflows in a structured and automated way. This guide will show you how to use the Azure CLI to deploy workflows in bulk by zipping each one and pushing it to your Azure environment.</p>
+<h3 id="pre-requisites">Pre-requisites</h3>
+<p>Before we dive into the solution, ensure you have the following:</p>
+<ul>
+<li>An active Azure subscription.</li>
+<li>The Azure CLI installed on your local machine for testing.</li>
+<li>A service connection in Azure DevOps, if you're using it.</li>
+</ul>
+<h2 id="step-by-step-guide">Step-by-Step Guide</h2>
+<h3 id="organizing-your-logic-app-workflows">1. Organizing Your Logic App Workflows</h3>
+<p>Your Logic App Workflows should be structured in a folder. Each workflow should have its own subfolder under a main directory (e.g., <code>./mylogicapp/workflows/sample_workflow</code>). Inside each subfolder, the Logic App's workflow files should be present.</p>
+<p>Example Directory Structure:</p>
+<pre><code class="language-bash">mylogicapp/
+  └─ workflows/
+      ├─ workflow1/
+      ├─ workflow2/
+      └─ workflow3/
+</code></pre>
+<h3 id="writing-the-azure-cli-deployment-script">2. Writing the Azure CLI Deployment Script</h3>
+<p>We'll use a Bash script to:</p>
+<ol>
+<li>Zip each Logic App (workflow).</li>
+<li>Deploy the zip file to Azure using the Azure CLI command <code>az logicapp deployment source config-zip</code>.</li>
+</ol>
+<p>Here’s the script that automates this process:</p>
+<pre><code class="language-bash"># Set the directory where your logic apps are located
+LOGIC_APP_DIR=&quot;./mylogicapp/workflows/&quot;
+
+# Loop through each subfolder
+for folder in &quot;$LOGIC_APP_DIR&quot;/*; do
+  if [ -d &quot;$folder&quot; ]; then
+    # Create a zip file for each subfolder (Logic App)
+    folder_name=$(basename &quot;$folder&quot;)
+    zip_file=&quot;/tmp/${folder_name}.zip&quot;
+    
+    zip -r &quot;$zip_file&quot; &quot;$folder&quot;
+    
+    # Deploy the Logic App to Azure
+    az logicapp deployment source config-zip \
+      --resource-group &quot;${RG}&quot; \
+      --name &quot;${LOGIC_APP_NAME}&quot; \
+      --src &quot;$zip_file&quot;
+
+    echo &quot;Deployed $folder_name logic app using $zip_file&quot;
+  fi
+done
+</code></pre>
+<h3 id="explanation-of-key-commands">3. Explanation of Key Commands</h3>
+<h4 id="azure-cli-command">Azure CLI Command</h4>
+<pre><code class="language-bash">az logicapp deployment source config-zip
+</code></pre>
+<p>This command allows you to deploy a Logic App by specifying a zip file that contains the workflow definition and related resources. The key parameters are:</p>
+<ul>
+<li><code>--resource-group</code>: Specifies the resource group where the Logic App is deployed.</li>
+<li><code>--name</code>: The name of the Logic App instance.</li>
+<li><code>--src</code>: The path to the zip file that contains the Logic App’s workflow definition.</li>
+</ul>
+<h4 id="bash-script-breakdown">Bash Script Breakdown</h4>
+<ul>
+<li>Folder Traversal: The script loops through each subfolder in the directory.</li>
+<li>Zipping the Folder: Each subfolder is zipped into a file with the same name.</li>
+<li>Deploying to Azure: The <code>az logicapp deployment</code> command pushes the zip file to Azure, deploying the workflow.</li>
+</ul>
+<h3 id="running-the-script-in-an-azure-devops-pipeline">4. Running the Script in an Azure DevOps Pipeline</h3>
+<p>If you're working with Azure DevOps, you can integrate this script into a YAML pipeline. Here's an example task definition to run this script:</p>
+<pre><code class="language-yaml">- task: AzureCLI@2
+  displayName: 'Deploy Logic Apps Workflows'
+  inputs:
+    azureSubscription: '$(ArmServiceConnectionName)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      LOGIC_APP_DIR=&quot;./backend/analytics/de/logicapps&quot;
+      for folder in &quot;$LOGIC_APP_DIR&quot;/*; do
+        if [ -d &quot;$folder&quot; ]; then
+          folder_name=$(basename &quot;$folder&quot;)
+          zip_file=&quot;/tmp/${folder_name}.zip&quot;
+          zip -r &quot;$zip_file&quot; &quot;$folder&quot;
+          
+          az logicapp deployment source config-zip \
+            --resource-group &quot;${RG}&quot; \
+            --name &quot;${LOGIC_APP_NAME}&quot; \
+            --src &quot;$zip_file&quot;
+          
+          echo &quot;Deployed $folder_name logic app using $zip_file&quot;
+        fi
+      done
+</code></pre>
+<h3 id="troubleshooting-and-tips">5. Troubleshooting and Tips</h3>
+<ul>
+<li>Permissions: Make sure your service principal or Azure DevOps service connection has sufficient permissions to deploy Logic Apps in the target resource group.</li>
+<li>Error Handling: You may want to add error handling in the script to handle scenarios where the deployment fails.</li>
+<li>Naming Conventions: Ensure that the names of your Logic Apps and their subfolders are consistent and unique.</li>
+</ul>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/cli/azure/">Official Azure CLI Documentation</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/logic-apps/">Azure Logic Apps Documentation</a></li>
+</ul>

@@ -66,9 +66,7 @@ public class HandleBillingIssuePlugin
     [Description(&quot;Provides assistance for technical-related customer queries.&quot;)]
     public string HandleTechnicalIssue([Description(&quot;A detailed description of the technical issue faced by the customer.&quot;)] string query)
     {
-        // Use AzureOpenAIChatCompletion to get a response
-        // var chatCompletionService = kernel.GetRequiredService&lt;IChatCompletionService&gt;();
-
+        // Logic to handle technical query
         return &quot;Have you tried turning it off and on again?&quot;
     }
 }
@@ -81,7 +79,7 @@ public class HandleBillingIssuePlugin
     {
 
         // Logic to handle billing query
-        return &quot;Too late, we have your credit card now&quot;
+        return &quot;Too late, we have your credit card now...&quot;
     }
 }
 
@@ -137,6 +135,8 @@ namespace SemanticKernelExample.Controllers
 <ol>
 <li><a href="https://learn.microsoft.com/en-us/semantic-kernel/overview/">Microsoft Docs</a></li>
 <li><a href="https://github.com/microsoft/semantic-kernel/">GitHub Repository for Semantic Kernel</a></li>
+<li><a href="https://github.com/microsoft/semantic-kernel-starters">Semantic Kernel Starters</a></li>
+<li><a href="https://github.com/Azure-Samples/semantic-kernel-rag-chat">Tutorial: ChatGPT + Enterprise data with Semantic Kernel, OpenAI and Azure Cognitive Search</a></li>
 <li><a href="https://github.com/microsoft/semantic-kernel/blob/main/dotnet/README.md">Using Semantic Kernel in C#</a></li>
 <li><a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.semantickernel?view=semantic-kernel-dotnet">Microsoft.SemanticKernel Namespace</a></li>
 </ol>

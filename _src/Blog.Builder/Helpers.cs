@@ -37,6 +37,11 @@ internal static class Helpers
     /// <param name="size">The maximum allowed size of the image.</param>
     public static void ResizeImage(string inputPath, string outputPath, Size size)
     {
+        var ext = Path.GetExtension(inputPath);
+        if (ext.ToLower() != ".png")
+        {
+            return;
+        }
         using var image = Image.Load(inputPath);
         image.Mutate(x => x.Resize(new ResizeOptions
         {

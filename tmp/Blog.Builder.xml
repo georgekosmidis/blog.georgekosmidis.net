@@ -1,0 +1,1415 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blog.Builder</name>
+    </assembly>
+    <members>
+        <member name="T:Blog.Builder.Exceptions.ExceptionHelpers">
+            <summary>
+            Helper methods that throw exception based on a specific failed check.
+            </summary>
+            <remarks>
+            todo: Right now an exception of type <see cref="T:System.Exception"/> is thrown. A custom exception would be a nice idea.
+            </remarks>
+        </member>
+        <member name="M:Blog.Builder.Exceptions.ExceptionHelpers.ThrowIfNullOrWhiteSpace(System.String,System.String)">
+            <summary>
+            Throws an exception if <paramref name="argument"/> is null or contains white spaces only.
+            </summary>
+            <param name="argument">The reference type argument to validate as non-null or filled with white spaces only.</param>
+            <param name="paramName">The name of the parameter with which argument corresponds.</param>
+        </member>
+        <member name="M:Blog.Builder.Exceptions.ExceptionHelpers.ThrowIfNull(System.Object,System.String)">
+            <summary>
+            Throws an exception if <paramref name="argument"/> is null or default.
+            </summary>
+            <param name="argument">The reference type argument to validate as non-null.</param>
+            <param name="paramName">The name of the parameter with which argument corresponds.</param>
+        </member>
+        <member name="M:Blog.Builder.Exceptions.ExceptionHelpers.ThrowIfNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Throws an exception if the <paramref name="argument"/> is an empty list.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="argument">The reference type argument to validate as a non-empty list.</param>
+            <param name="paramName">The name of the parameter with which argument corresponds.</param>
+        </member>
+        <member name="M:Blog.Builder.Exceptions.ExceptionHelpers.ThrowIfPathNotExists(System.String,System.String)">
+            <summary>
+            Throws an exception if the <paramref name="argument"/> does not exists as a path in this system.
+            </summary>
+            <param name="argument">The reference type argument to validate as a path.</param>
+            <param name="paramName">The name of the parameter with which argument corresponds.</param>
+        </member>
+        <member name="M:Blog.Builder.Exceptions.ExceptionHelpers.Throw(System.String)">
+            <summary>
+            Throws an <seealso cref="T:System.Exception"/> when called.
+            </summary>
+            <param name="message">The message for the exception.</param>
+            <exception cref="T:System.Exception">A generic exception for every <see cref="T:Blog.Builder.Exceptions.ExceptionHelpers"/> method.</exception>
+        </member>
+        <member name="T:Blog.Builder.Globals">
+            <summary>
+            Constants and variables used through out the system.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Globals.WorkingFolderPath">
+            <summary>
+            The working folder, the folder that contains standalones, articles etc.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Globals.OutputFolderPath">
+            <summary>
+            The folder that everything will be copied at the end of the process.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.MediaFolderName">
+            <summary>
+            The name of the media folder in the output directory.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.WorkingTemplatesFolderName">
+            <summary>
+            The name of the folder that holds all tempaltes.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.WorkingJustCopyFolderName">
+            <summary>
+            The name of the folder that holds all items to be copied directly without any process.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.WorkingArticlesFolderName">
+            <summary>
+            The name of the folder where all the articles live.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.WorkingStandalonesFolderName">
+            <summary>
+            The name of the folder for the standalones (like privacy.html).
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.WorkingCardsFolderName">
+            <summary>
+            The name of the folder that holds all additional cards (besides the article cards).
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.WorkingEventsFolderName">
+            <summary>
+            The name of the folder that holds information about the events, along with its card.json.
+            It's a static and not constant because <see cref="F:System.IO.Path.DirectorySeparatorChar"/> is a static and not const!
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.TemplateMainFilename">
+            <summary>
+            The filename of the main template, the layout.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.TemplateIndexFilename">
+            <summary>
+            The filename of the index page.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.TemplateArticleFilename">
+            <summary>
+            The filename of the article template
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.TemplateSitemapFilename">
+            <summary>
+            The filename of the sitemap template.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.TemplateStandaloneFilename">
+            <summary>
+            The filename of the template for the standalones.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.TemplateCardArticleFilename">
+            <summary>
+            The filename of the template for the article cards.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.TemplateCardImageFilename">
+            <summary>
+            The filename of the template from the image cards.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.TemplateCardSearchFilename">
+            <summary>
+            The filename of the template for the search.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.TemplateCardCalendarEventsFilename">
+            <summary>
+            The filename of the template for the calendar events.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.EventJsonFilename">
+            <summary>
+            The filename of the json file that describes an event.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.CardJsonFilename">
+            <summary>
+            THe filename of the json file that describes a card.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.ContentJsonFilename">
+            <summary>
+            The filename of the json file that describes a content (article or standalone).
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.ContentHtmlFilename">
+            <summary>
+            The filename of the HTML for an article or a standalone
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.ContentMdFilename">
+            <summary>
+            The filename of the md for an article or a standalone
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.GoogleSitemap">
+            <summary>
+            The filename of the google sitemap.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.AppSettingsFilename">
+            <summary>
+            The name of the appsettings file.
+            </summary>
+        </member>
+        <member name="F:Blog.Builder.Globals.StaticWebAppFilename">
+            <summary>
+            The name of the Static Web App config.
+            For more information, please visit: https://docs.microsoft.com/en-us/azure/static-web-apps/configuration
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.Builders.ICardBuilder">
+            <summary>
+            The service that builds cards.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Builders.ICardBuilder.AddArticleCard(Blog.Builder.Models.Templates.CardArticleModel,System.DateTime)">
+            <summary>
+            Adds an article card to the collection of cards
+            </summary>
+            <param name="cardData">The <see cref="T:Blog.Builder.Models.Templates.CardArticleModel"/> that conains all information.</param>
+            <param name="datePublished">The date this artice was published (for ordering)</param>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Builders.ICardBuilder.AddCard``1(``0)">
+            <summary>
+            Adds a card to the collection of cards. 
+            The cardData of type <typeparamref name="T"/> that inherit from <see cref="T:Blog.Builder.Models.Templates.CardModelBase"/>, must be passed.
+            </summary>
+            <typeparam name="T">A card type that inherits from <see cref="T:Blog.Builder.Models.Templates.CardModelBase"/>.</typeparam>
+            <param name="cardData">The data of the card.</param>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Builders.ICardBuilder.GetBodyCardsHtml(System.Int32,System.Int32)">
+            <summary>
+            Builds the HTML of the requested index page.
+            </summary>
+            <param name="pageIndex">The index of the page (e.g. 2 for index-page-3.html)</param>
+            <param name="cardsPerPage">The number of cards per page.</param>
+            <returns>A list of the HTML of the cards in ascending order.</returns>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Builders.ICardBuilder.GetCardsNumber(System.Int32)">
+            <summary>
+            Gets the total number of cards in the collection.
+            The number of cards is calculated using the number of articles, the number of non-sticky cards
+            and the number of sticky cards multiplied by the number of pages, since the sticky ones will 
+            exist in every page.
+            </summary>
+            <param name="cardsPerPage">The number of cards per page. It will be used for the sticky cards calculation.</param>
+            <returns>The total number of cards registered.</returns>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Builders.ICardBuilder.GetRightColumnCardsHtml">
+            <summary>
+            Compiles the HTML for the right column.
+            </summary>
+            <returns>A list of the HTML of the cards in ascending order.</returns>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.Builders.IPageBuilder">
+            <summary>
+            The service that builds the pages.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Builders.IPageBuilder.BuildInternalLayoutForIndex``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Builds the HTML of an interal layout
+            </summary>
+            <typeparam name="T">A type that inherits from <see cref="T:Blog.Builder.Models.Templates.LayoutModelBase"/>.</typeparam>
+            <param name="pageData">The data of the page.</param>
+            <param name="bodyCards">A collection of cards that will be used as body.</param>
+            <param name="rightColumnCards">The HTML of the cards of right column of the page.</param>
+            <returns>Returns a string with the HTML of an internal layout, the relative URL and the date it was modified.</returns>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Builders.IPageBuilder.BuildInternalLayoutForPages``1(``0,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Builds the HTML of an interal layout
+            </summary>
+            <typeparam name="T">A type that inherits from <see cref="T:Blog.Builder.Models.Templates.LayoutModelBase"/>.</typeparam>
+            <param name="pageData">The data of the page.</param>
+            <param name="bodyHtml">The HTML that will be used as body.</param>
+            <param name="rightColumnCards">The HTML of the cards of right column of the page.</param>
+            <returns>Returns a string with the HTML of an internal layout, the relative URL and the date it was modified.</returns>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Builders.IPageBuilder.BuildMainLayout``1(``0,System.String)">
+            <summary>
+            Buids the HTML of the main layout
+            </summary>
+            <typeparam name="T">A type that inherits from <see cref="T:Blog.Builder.Models.Templates.LayoutModelBase"/>.</typeparam>
+            <param name="pageData">The data of the page.</param>
+            <param name="bodyHtml">The compiled HTML of an inner layout.</param>
+            <returns>Returns a <see cref="T:Blog.Builder.Models.Builders.PageBuilderResult"/> with the HTML of the main layout, the relative URL and the date it was modified.</returns>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.Builders.ISitemapBuilder">
+            <summary>
+            The service that builds the sitmap.xml
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Builders.ISitemapBuilder.Add(System.String,System.DateTime)">
+            <summary>
+            Adds a URL to the sitemap collection.
+            </summary>
+            <param name="relativeUrl">The relative URL of the page.</param>
+            <param name="dateModified">The last modification date.</param>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Builders.ISitemapBuilder.Build">
+            <summary>
+            Builds the sitemap based an all registered urls in a private static collection.
+            See also <see cref="T:Blog.Builder.Models.Templates.LayoutSitemapModel"/>.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.Crawlers.IFileEventCrawler">
+            <summary>
+            Crawls a folder for json files that follow the <see cref="T:Blog.Builder.Models.Crawlers.CalendarEvent"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Crawlers.IFileEventCrawler.Get(System.String)">
+            <summary>
+            Scans the <paramref name="directory"/> for json files representing a <see cref="T:Blog.Builder.Models.Crawlers.CalendarEvent"/>.
+            </summary>
+            <param name="directory">The directory where the folders with the json files live.</param>
+            <returns>A list of <see cref="T:Blog.Builder.Models.Crawlers.CalendarEvent"/> build from the corresponding json files in <paramref name="directory"/>.</returns>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.Crawlers.IMeetupEventCrawler">
+            <summary>
+            Crawls meetup.com iCalendars
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.Crawlers.IMeetupEventCrawler.GetAsync(System.String,System.Uri,System.Uri)">
+            <summary>
+            Crawls the <paramref name="iCalendarUrl"/> for events and adds them as <see cref="T:Blog.Builder.Models.Crawlers.CalendarEvent"/>.
+            </summary>
+            <param name="ogranizer">The name of the community (e.g. Munich .NET Meetup).</param>
+            <param name="organizerUrl">The URL of the community.</param>
+            <param name="iCalendarUrl">The URL of the iCalendar.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.ICardProcessor">
+            <summary>
+            The service that does the card processing
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.ICardProcessor.ProcessCardAsync(System.String)">
+            <summary>
+            Processes the data of a card (not article card).
+            </summary>
+            <param name="directory">The directory in which all necessary files exist.</param>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.ICardProcessor.ProcessArticleCard(Blog.Builder.Models.Templates.CardArticleModel,System.DateTime)">
+            <summary>
+            Processes article cards.
+            </summary>
+            <param name="cardData">A <see cref="T:Blog.Builder.Models.Templates.CardArticleModel"/> that contains all necessary information for an article.</param>
+            <param name="datePublished">The date this article has been published</param>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.ICardProcessor.GetCardsNumber(System.Int32)">
+            <summary>
+            Calls the card builder to calculate the number of cards available.
+            </summary>
+            <param name="cardsPerPage">The cards per page.</param>
+            <returns>Returns the total number of cards.</returns>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.ICardProcessor.GetBodyCardsHtml(System.Int32,System.Int32)">
+            <summary>
+            Calls the card builder to prepare the HTML for the body of the index pages.
+            </summary>
+            <param name="pageIndex">The index of the page (e.g. 2 for index-page-3.html)</param>
+            <param name="cardsPerPage">THe number of cards per page.</param>
+            <returns>A list of the HTML of the cards in ascending order.</returns>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.ICardProcessor.GetRightColumnCardsHtml">
+            <summary>
+            Compiles the HTML for the right column.
+            </summary>
+            <returns>A list of the HTML of the cards in ascending order.</returns>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.ILogger">
+            <summary>
+            For now it just writes to console
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.ILogger.Log(System.String)">
+            <summary>
+            Log a message.
+            </summary>
+            <param name="msg">The message to log</param>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.IPageProcessor">
+            <summary>
+            The service that does page processing
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.IPageProcessor.ProcessPage``1(System.String)">
+            <summary>
+            It processes data for a page that exists in a directory, e.g. standalones or articles.
+            </summary>
+            <typeparam name="T">The type of the model for the template.</typeparam>
+            <param name="directory">The directory where page data lies.</param>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.IPageProcessor.ProcessIndex(Blog.Builder.Models.Templates.LayoutIndexModel,System.Int32)">
+            <summary>
+            Processes data for index pages only (index.html, index-page-2.html etc)
+            </summary>
+            <param name="pageData">A <see cref="T:Blog.Builder.Models.Templates.LayoutIndexModel"/> that contains all necessary information for the index page.</param>
+            <param name="cardsPerPage">The number of cards per page.</param>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.ITemplateProvider">
+            <summary>
+            A service that provides the html for the templates.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.ITemplateProvider.GetHtml``1">
+            <summary>
+            Returns the proper template HTML based on the model <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The template model to get the equivalent HTML.</typeparam>.
+            <returns>The HTML of the proper template.</returns>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.ITemplateProvider.GetHtml(System.String)">
+            <summary>
+            Returns the proper template HTML based on the <paramref name="nameOfType"/> that represents
+            the type of the model (e.g. nameof(LayoutArticleModel)).
+            </summary>
+            <param name="nameOfType">A string that represents the type of the model (e.g. nameof(LayoutArticleModel)).</param>
+            <returns>The HTML of the proper template.</returns>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.ITemplateProvider.GetPath``1">
+            <summary>
+            Returns the path to the proper template based on the model <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The template model to get the equivalent tempalte path.</typeparam>.
+            <returns>The template path of the proper template.</returns>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.ITemplateProvider.GetPath(System.String)">
+            <summary>
+            Returns the path to the proper template based on the <paramref name="nameOfType"/> that represents
+            the type of the model (e.g. nameof(LayoutArticleModel)).
+            </summary>
+            <param name="nameOfType">A string that represents the type of the model (e.g. nameof(LayoutArticleModel)).</param>
+            <returns>The template path of the proper template.</returns>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.IWebsiteProcessor">
+            <summary>
+            Entry point for the website building. 
+            Method <see cref="M:Blog.Builder.Services.WebsitePreparation.PrepareAsync"/> should be the first thing to call.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.IWebsiteProcessor.PrepareAsync">
+            <summary>
+            Prepares everything needed for the website. 
+            Once this method is done, the website is ready at <see cref="P:Blog.Builder.Globals.OutputFolderPath"/>.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Interfaces.RazorEngineServices.IRazorEngineWrapperService">
+            <summary>
+            A wrapper for the <see cref="T:RazorEngine.Templating.IRazorEngineService"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Interfaces.RazorEngineServices.IRazorEngineWrapperService.RunCompile``1(``0)">
+            <summary>
+            Compiles and returns the html for the requested template
+            </summary>
+            <typeparam name="T">Any template model that inherits from a <see cref="T:Blog.Builder.Models.Templates.ModelBase"/>.</typeparam>
+            <param name="data">The data for the template</param>
+            <returns>Returns the compiled HTML of the template assigned to <typeparamref name="T"/>
+            and the data of the <paramref name="data"/> argument.</returns>
+        </member>
+        <member name="T:Blog.Builder.Models.AppSettings">
+            <summary>
+            The AppSettings of this app.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.CardsPerPage">
+            <summary>
+            The number of cards per page (defauls is 9).
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.BlogTitle">
+            <summary>
+            The blog title, displayed in index pages.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.BlogDescription">
+            <summary>
+            The blog description, displayed in index pages.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.BlogTags">
+            <summary>
+            The blog tags, displayed in index pages.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.BlogUrl">
+            <summary>
+            The blog base URL.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.BlogImage">
+            <summary>
+            The blog image
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.TwitterHandle">
+            <summary>
+            The twitter handle of the author (or blog)
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.AuthorPersonalPage">
+            <summary>
+            The author's personal page
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.AuthorName">
+            <summary>
+            The author name of the blog posts
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.MeetupUserGroupName">
+            <summary>
+            The name of the meetup.com usergroup that its events will be crawled.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.MeetupUserGroupUrl">
+            <summary>
+            The URL of the meetup.com usergroup.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.MeetupUserGroupIcalUrl">
+            <summary>
+            The URL of the ICal of the meetup.com usergroup.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.GithubRepoUrl">
+            <summary>
+            The URL of the workables folder in the Github repo.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.AppSettings.MicrosoftCreatorID">
+            <summary>
+            Microsoft CreatorID for skilling
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Builders.ArticleCardBuilderResult">
+            <summary>
+            The result of the <see cref="M:Blog.Builder.Services.Builders.CardBuilder.AddArticleCard(Blog.Builder.Models.Templates.CardArticleModel,System.DateTime)"/> method.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.ArticleCardBuilderResult.CardHtml">
+            <summary>
+            The card HTML.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.ArticleCardBuilderResult.DateCreated">
+            <summary>
+            The datetime this article was created (for ordering).
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Builders.OtherCardBuilderResult">
+            <summary>
+            The result of the <see cref="M:Blog.Builder.Services.Builders.CardBuilder.AddCard``1(``0)"/> method.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.OtherCardBuilderResult.CardHtml">
+            <summary>
+            The HTML of the card.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.OtherCardBuilderResult.IsSticky">
+            <summary>
+            The stickiness of the card (exists in the same <see cref="P:Blog.Builder.Models.Builders.OtherCardBuilderResult.Position"/> in every page).
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.OtherCardBuilderResult.RightColumnPosition">
+            <summary>
+            The position of this card in the right column for the layouts that support it.
+            Default is -1 which means "do not add to the right column".
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Builders.PageBuilderResult">
+            <summary>
+            The result of a <see cref="T:Blog.Builder.Services.Builders.PageBuilder"/> method.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.PageBuilderResult.FinalHtml">
+            <summary>
+            The final HTML that was build for this page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.PageBuilderResult.RelativeUrl">
+            <summary>
+            The relative URL of this page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.PageBuilderResult.DateModified">
+            <summary>
+            The date this page was last modified.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Builders.RouteBase">
+            <summary>
+            The base class for each route in the staticwebapp.config.json.
+            Read more at: https://docs.microsoft.com/en-us/azure/static-web-apps/configuration
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.RouteBase.Route">
+            <summary>
+            The incoming route.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Builders.RouteHeaders">
+            <summary>
+            Adds headers to the specific incoming route.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.RouteHeaders.Headers">
+            <summary>
+            A dictionary of headers, in the format "key: value".
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Builders.RouteRedirect">
+            <summary>
+            Adds redirect routes for the incoming route.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.RouteRedirect.Redirect">
+            <summary>
+            The redirect of the incoming route.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Builders.RouteRedirect.StatusCode">
+            <summary>
+            The status code, either 301 or 302.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Crawlers.CalendarEvent">
+            <summary>
+            An object describing a calendar event.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Crawlers.CalendarEvent.Organizer">
+            <summary>
+            The organizer of the event (e.g. Munich .NET Meetup)
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Crawlers.CalendarEvent.OrganizerUrl">
+            <summary>
+            The URL of the organizers website.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Crawlers.CalendarEvent.Title">
+            <summary>
+            The title of the event.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Crawlers.CalendarEvent.DateTime">
+            <summary>
+            The date and time of the event.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Crawlers.CalendarEvent.Place">
+            <summary>
+            The place of the event.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Crawlers.CalendarEvent.Url">
+            <summary>
+            The URL of the event.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Paging">
+            <summary>
+            The paging used in index pages
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Paging.CardsPerPage">
+            <summary>
+            The number of cards per page. Default is 9. 
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Paging.TotalCardsCount">
+            <summary>
+            The total number of cards registered for this website.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Paging.CurrentPageIndex">
+            <summary>
+            The current page index (e.g. 2 for index-page-3.html).
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Paging.PageCount">
+            <summary>
+            The calculated page count.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.CardArticleModel">
+            <summary>
+            A card template model that displays an article.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.CardArticleModel.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="appSettings">The appsettings.json model.</param>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.CardArticleModel.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.CardArticleModel.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.CardCalendarEventsModel">
+            <summary>
+            A card template model that displays a list of events .
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.CardCalendarEventsModel.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="appSettings">The appsettings.json model.</param>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.CardCalendarEventsModel.CalendarEvents">
+            <summary>
+            The calendar events (meetups or file events) to be parted in the template.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.CardCalendarEventsModel.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.CardCalendarEventsModel.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.CardImageModel">
+            <summary>
+            A card template model that displays an image.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.CardImageModel.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="appSettings">The appsettings.json model.</param>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.CardImageModel.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.CardImageModel.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.CardModelBase">
+            <summary>
+            The base template model for cards. Cards are used only in the index pages for now.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.CardModelBase.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="appSettings">The appsettings.json model</param>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.CardModelBase.Title">
+            <summary>
+            The title of the card. Can be empty if the card is a <see cref="T:Blog.Builder.Models.Templates.CardImageModel"/> or a <see cref="T:Blog.Builder.Models.Templates.CardSearchModel"/>.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.CardModelBase.Description">
+            <summary>
+            The description of the card. Can be empty if the card is a <see cref="T:Blog.Builder.Models.Templates.CardImageModel"/> or a <see cref="T:Blog.Builder.Models.Templates.CardSearchModel"/>.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.CardModelBase.Footer">
+            <summary>
+            The footer of the card. Can be empty if the card is a <see cref="T:Blog.Builder.Models.Templates.CardImageModel"/> or a <see cref="T:Blog.Builder.Models.Templates.CardSearchModel"/>.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.CardModelBase.Link">
+            <summary>
+            The link of the card. Can be empty if the card is a <see cref="T:Blog.Builder.Models.Templates.CardSearchModel"/>.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.CardModelBase.LinkTarget">
+            <summary>
+            The target for the link. Defaults to "_blank";
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.CardModelBase.ImageUrl">
+            <summary>
+            The url for the image of the card. Can be empty if the card is a <see cref="T:Blog.Builder.Models.Templates.CardSearchModel"/>.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.CardModelBase.Position">
+            <summary>
+            The position of the card in the grid.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.CardModelBase.IsSticky">
+            <summary>
+            A boolean signaling if the card should appear in the <see cref="P:Blog.Builder.Models.Templates.CardModelBase.Position"/> in every page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.CardModelBase.RightColumnPosition">
+            <summary>
+            The position of the card in the pages that have a right column.
+            -1 means do not add.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.CardModelBase.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.CardModelBase.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.CardSearchModel">
+            <summary>
+            Used for the (only one exists) search card.
+            Inherits all members of <see cref="T:Blog.Builder.Models.Templates.CardModelBase"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.CardSearchModel.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="appSettings">The appsettings.json model</param>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.CardSearchModel.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.CardSearchModel.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.LayoutArticleModel">
+            <summary>
+            Used for an article page (template-article.cshtml).
+            Inherits all members of <see cref="T:Blog.Builder.Models.Templates.LayoutModelBase"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutArticleModel.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="appSettings">The appsettings.json model</param>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutArticleModel.RelativeImageUrlSmall">
+            <summary>
+            The calculated path for the small version of the image.
+            The smaller version is automatically created from <see cref="M:Blog.Builder.Services.PageProcessor.ProcessPage``1(System.String)"/>.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutArticleModel.DateModifiedText">
+            <summary>
+            A text representation of a TimeSpan for the modification date.
+            See also <see cref="M:Blog.Builder.Models.Templates.LayoutArticleModel.SpanCalculation(System.TimeSpan)"/> and <see cref="P:Blog.Builder.Models.Templates.LayoutModelBase.DateModified"/>.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutArticleModel.DatePublishedText">
+            <summary>
+            A text representation of a TimeSpan for the published date.
+            See also <see cref="M:Blog.Builder.Models.Templates.LayoutArticleModel.SpanCalculation(System.TimeSpan)"/> and <see cref="P:Blog.Builder.Models.Templates.LayoutModelBase.DatePublished"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutArticleModel.SpanCalculation(System.TimeSpan)">
+            <summary>
+            Calculates a user friendly representation of a <seealso cref="T:System.TimeSpan"/> in the formath " x minutes/hours/weeks... ago"
+            </summary>
+            <remarks>todo: The code suffers from too many ifs, a clearer way must be found.</remarks>
+            <param name="span">The <seealso cref="T:System.TimeSpan"/> to be described.</param>
+            <returns>Returns the calculated string</returns>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutArticleModel.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.LayoutArticleModel.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.LayoutIndexModel">
+            <summary>
+            Used for the index pages.
+            Inherits all members of <see cref="T:Blog.Builder.Models.Templates.LayoutModelBase"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutIndexModel.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Constructor that sets the <see cref="P:Blog.Builder.Models.Templates.ModelBase.TemplateDataModel"/> to nameof(<seealso cref="T:Blog.Builder.Models.Templates.LayoutIndexModel"/>).
+            This is a very specific tempalte model, so setting the <see cref="P:Blog.Builder.Models.Templates.ModelBase.TemplateDataModel"/> from within 
+            enforces its usage.
+            </summary>
+            <param name="appSettings">The appsettings.json model</param>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutIndexModel.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.LayoutIndexModel.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.LayoutModelBase">
+            <summary>
+            Used for the main template, the layout (template-layout.cshtml).
+            Inherits all members of <see cref="T:Blog.Builder.Models.Templates.ModelBase"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutModelBase.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="appSettings">The appsettings.json model</param>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.LastBuild">
+            <summary>
+            Last Build UTC
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.GithubCurrentPageUrl">
+            <summary>
+            The github repo URL of this article.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.RightColumnCards">
+            <summary>
+            The HTML for the right column.
+            Default is empty.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.CardsHtml">
+            <summary>
+            The HTML of the cards to be parsed
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.Paging">
+            <summary>
+            The paging information for this layout. 
+            Currently it is used only by index pages.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.RelativeUrl">
+            <summary>
+            The relative URL of the current page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.AbsoluteUrl">
+            <summary>
+            The absolute URL of the current page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.Title">
+            <summary>
+            The title of the current page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.Tags">
+            <summary>
+            The tags of the current page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.TagsText">
+            <summary>
+            A text representation for the <see cref="P:Blog.Builder.Models.Templates.LayoutModelBase.Tags"/> list.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.Sections">
+            <summary>
+            The section list of the current page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.SectionsText">
+            <summary>
+            A text representation for the <see cref="P:Blog.Builder.Models.Templates.LayoutModelBase.Sections"/> list.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.ExtraHeaders">
+            <summary>
+            Any list of extra headers to be included in the current page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.ExtraHeadersText">
+            <summary>
+            A text representation for the <see cref="P:Blog.Builder.Models.Templates.LayoutModelBase.ExtraHeaders"/> list.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.Description">
+            <summary>
+            An HTML description of the current page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.DatePublished">
+            <summary>
+            The date this page was first published.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.DateModified">
+            <summary>
+            The date this page was last modified.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.DateExpires">
+            <summary>
+            The date the information on this page expires.
+            Default is <see cref="F:System.DateTime.MaxValue"/>.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.RelativeImageUrl">
+            <summary>
+            The path to the main image of this page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.AbsoluteImageUrl">
+            <summary>
+            The path to the main image of this page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.Body">
+            <summary>
+            The HTML body of this page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutModelBase.PlainTextDescription">
+            <summary>
+            A calculated description of this page in plain text.
+            Uses regular expressions to remove all tags from the <see cref="P:Blog.Builder.Models.Templates.LayoutModelBase.Description"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutModelBase.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.LayoutModelBase.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.LayoutSitemapModel">
+            <summary>
+            Used for the sitemap.xml (template-sitemap.cshtml)
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutSitemapModel.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Constructor.
+            Sets the <see cref="P:Blog.Builder.Models.Templates.ModelBase.TemplateDataModel"/> to nameof <see cref="T:Blog.Builder.Models.Templates.LayoutSitemapModel"/>.
+            </summary>
+            <param name="appSettings">The appsettings.json model</param>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutSitemapModel.Urls">
+            <summary>
+            A list of URLs which the sitemap.xml will include.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutSitemapModel.Add(System.String,System.DateTime)">
+            <summary>
+            A helper method that adss a URL to the <see cref="P:Blog.Builder.Models.Templates.LayoutSitemapModel.Urls"/> list.
+            </summary>
+            <param name="relativeUrl">The relative URL of the page.</param>
+            <param name="dateModified"> The last modified date.</param>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutSitemapModel.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.LayoutSitemapModel.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.Url">
+            <summary>
+            An object that holds all urls for the sitemap.xml
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.Url.RelativeUrl">
+            <summary>
+            The relative URL of the page.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.Url.DateModified">
+            <summary>
+            The last modified date.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.LayoutStandaloneModel">
+            <summary>
+            Used for the standalones, e.g. privacy.html (template-standalone.cshtml).
+            Inherits all members of <see cref="T:Blog.Builder.Models.Templates.LayoutModelBase"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutStandaloneModel.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="appSettings">The appsettings.json model</param>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.LayoutStandaloneModel.RelativeImageUrlSmall">
+            <summary>
+            The calculated path for the small version of the image.
+            The smaller version is automatically created from <see cref="M:Blog.Builder.Services.PageProcessor.ProcessPage``1(System.String)"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.LayoutStandaloneModel.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.LayoutStandaloneModel.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Models.Templates.ModelBase">
+            <summary>
+            The base model of all tempalte models.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.ModelBase.#ctor(Blog.Builder.Models.AppSettings)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="appSettings">The appsettings.json model</param>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.ModelBase.TemplateDataModel">
+            <summary>
+            Property that holds the current template model name.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.ModelBase.TwitterHandle">
+            <summary>
+            The twitter handle of the author (or blog)
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.ModelBase.GithubRepoUrl">
+            <summary>
+            The Github repo URL
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.ModelBase.AuthorPersonalPage">
+            <summary>
+            The author's personal page
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.ModelBase.AuthorName">
+            <summary>
+            The author name of the blog posts
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.ModelBase.BlogTitle">
+            <summary>
+            The title of the blog.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.ModelBase.BlogUrl">
+            <summary>
+            The URL of the blog
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.ModelBase.BlogDescription">
+            <summary>
+            The description of the blog.
+            </summary>
+        </member>
+        <member name="P:Blog.Builder.Models.Templates.ModelBase.Nonce">
+            <summary>
+            A static Guid as the cryptographic nonce attribute.
+            Since the build is static a new nonce will not produced in every visit but in every build.
+            </summary>
+            <remarks>
+            todo: find a way to produce a new nonce for every page load, which means it cannot be part of the build,
+                  but maybe part of the host?
+            </remarks>
+        </member>
+        <member name="M:Blog.Builder.Models.Templates.ModelBase.Validate">
+            <summary>
+            Validates what this object knows and throws an exception if something is wrong.
+            Check the <see cref="M:Blog.Builder.Models.Templates.ModelBase.Validate"/> source code for the validations.
+            </summary>
+        </member>
+        <member name="T:Blog.Builder.Services.Builders.CardBuilder">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.CardBuilder.CreateCardHtml``1(``0)">
+            <summary>
+            Creates the HTML of card based on a type that inherits from <see cref="T:Blog.Builder.Models.Templates.CardModelBase"/>.
+            </summary>
+            <typeparam name="T">Any type that inherits from <see cref="T:Blog.Builder.Models.Templates.CardModelBase"/></typeparam>
+            <param name="cardData">The data of the card, necessary for building the HTML of a card.</param>
+            <returns>The HTML of the card.</returns>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.CardBuilder.AddCard``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.CardBuilder.AddArticleCard(Blog.Builder.Models.Templates.CardArticleModel,System.DateTime)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.CardBuilder.GetRightColumnCardsHtml">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.CardBuilder.GetBodyCardsHtml(System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.CardBuilder.GetCardsNumber(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Blog.Builder.Services.Builders.PageBuilder">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.PageBuilder.BuildInternalLayoutForPages``1(``0,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.PageBuilder.BuildInternalLayoutForIndex``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.PageBuilder.Build``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.PageBuilder.BuildMainLayout``1(``0,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Blog.Builder.Services.Builders.SitemapBuilder">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.SitemapBuilder.Build">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.SitemapBuilder.Add(System.String,System.DateTime)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Blog.Builder.Services.Builders.StaticAppConfigBuilder">
+            <summary>
+            A builder that supports part of the routes for staticwebapp.config.json
+            Check https://docs.microsoft.com/en-us/azure/static-web-apps/configuration for more information
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.StaticAppConfigBuilder.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Builders.StaticAppConfigBuilder.Add(System.String,System.DateTime)">
+            <summary>
+            Registers the routes to redirect old wordpress routes.
+            </summary>
+            <param name="relativeUrl">The new relative URL. Old wordpress URLs will be build out of this.</param>
+            <param name="datePublished">The date an article is published is used by wordpress in the format YYYY/MM/DD.</param>
+        </member>
+        <member name="T:Blog.Builder.Services.CardProcessor">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.CardProcessor.GetCardModelData``1(System.String)">
+            <summary>
+            Reads the JSON from <paramref name="jsonPath"/> and retuns an object of type <see cref="T:Blog.Builder.Models.Templates.CardModelBase"/>.
+            </summary>
+            <param name="jsonPath">The path to a valid JSON.</param>
+            <returns>A <see cref="T:Blog.Builder.Models.Templates.CardModelBase"/> with the data from the JSON file.</returns>
+        </member>
+        <member name="M:Blog.Builder.Services.CardProcessor.ProcessCardAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.CardProcessor.GetCalendarEvents">
+            <summary>
+            Retrieves all calendar events from meetup.com but also from a file repo located at <see cref="F:Blog.Builder.Globals.WorkingEventsFolderName"/>.
+            </summary>
+            <returns>A list of <see cref="T:Blog.Builder.Models.Crawlers.CalendarEvent"/>.</returns>
+        </member>
+        <member name="M:Blog.Builder.Services.CardProcessor.GetRightColumnCardsHtml">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.CardProcessor.ProcessArticleCard(Blog.Builder.Models.Templates.CardArticleModel,System.DateTime)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.CardProcessor.GetBodyCardsHtml(System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.CardProcessor.GetCardsNumber(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Blog.Builder.Services.Crawlers.FileEventCrawler">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.Crawlers.FileEventCrawler.Get(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Blog.Builder.Services.Crawlers.MeetupEventCrawler">
+            <inheritdoc/>
+        </member>
+        <member name="F:Blog.Builder.Services.Crawlers.MeetupEventCrawler._httpClientService">
+            <summary>
+            The Geko.HttpClientService.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Services.Crawlers.MeetupEventCrawler.GetAsync(System.String,System.Uri,System.Uri)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Blog.Builder.Services.Logger">
+            <summary>
+            I just need to write to the output, nothing fancy here
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Services.Logger.Log(System.String)">
+            <summary>
+            Wrapper of <see cref="M:System.Console.WriteLine"/>.
+            </summary>
+            <param name="msg">The message to be written to the default output.</param>
+        </member>
+        <member name="T:Blog.Builder.Services.PageProcessor">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.PageProcessor.ProcessPage``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.PageProcessor.ProcessIndex(Blog.Builder.Models.Templates.LayoutIndexModel,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Blog.Builder.Services.RazorEngineServices.RazorEngineWrapperService">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.RazorEngineServices.RazorEngineWrapperService.#ctor(RazorEngine.Templating.ITemplateManager)">
+            <summary>
+            Creates an instance of a <see cref="T:RazorEngine.Templating.RazorEngineService"/> and keeps in a private field.
+            </summary>
+            <param name="templateManager">The <see cref="T:RazorEngine.Templating.ITemplateManager"/> that will be used with this instance of <see cref="T:RazorEngine.Templating.RazorEngineService"/></param>
+        </member>
+        <member name="M:Blog.Builder.Services.RazorEngineServices.RazorEngineWrapperService.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.RazorEngineServices.RazorEngineWrapperService.Finalize">
+            <summary>
+            It is super important to release unmanaged resources from RazorEngine, 
+             so we can't just wait from the devs not to forget the dispose.
+            The undeterministic way below, is better than nothing!
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Services.RazorEngineServices.RazorEngineWrapperService.RunCompile``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Blog.Builder.Services.RazorEngineServices.TemplateManager">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.RazorEngineServices.TemplateManager.#ctor(Blog.Builder.Interfaces.ITemplateProvider)">
+            <summary>
+            Custom Template Manager for the <see cref="N:RazorEngine"/>.
+            </summary>
+            <param name="templateProvider">The template provider that hosts paths and html of all templates. See <see cref="T:Blog.Builder.Services.TemplateProvider"/>.</param>
+        </member>
+        <member name="M:Blog.Builder.Services.RazorEngineServices.TemplateManager.Resolve(RazorEngine.Templating.ITemplateKey)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.RazorEngineServices.TemplateManager.GetKey(System.String,RazorEngine.Templating.ResolveType,RazorEngine.Templating.ITemplateKey)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.RazorEngineServices.TemplateManager.AddDynamic(RazorEngine.Templating.ITemplateKey,RazorEngine.Templating.ITemplateSource)">
+            <summary>
+            Throws a <see cref="T:System.NotImplementedException"/>.
+            This method cannot be used with a custom implatemantation of a <see cref="T:RazorEngine.Templating.ITemplateManager"/>.
+            </summary>
+            <param name="key">Not to be used.</param>
+            <param name="source">Not to be used.</param>
+            <exception cref="T:System.NotImplementedException">Throws this exception whenever is called.</exception>
+        </member>
+        <member name="T:Blog.Builder.Services.TemplateProvider">
+            <inheritdoc/>
+        </member>
+        <member name="F:Blog.Builder.Services.TemplateProvider.Templates">
+            <summary>
+            A dictionary with key the name of a tempalte model (e.g. <see cref="T:Blog.Builder.Models.Templates.LayoutArticleModel"/>)
+            and value the html of proper template. 
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Services.TemplateProvider.#ctor(Microsoft.Extensions.Options.IOptions{Blog.Builder.Models.AppSettings})">
+            <summary>
+            Besides DI, it registers all template htmls in a dictionary with key being the name of the model for that dictionary.
+            </summary>
+            <param name="options">The options that hold the app settings.</param>
+        </member>
+        <member name="M:Blog.Builder.Services.TemplateProvider.GetHtml``1">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.TemplateProvider.GetHtml(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.TemplateProvider.GetPath``1">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.TemplateProvider.GetPath(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Blog.Builder.Services.WebsitePreparation">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blog.Builder.Services.WebsitePreparation.#ctor(Blog.Builder.Interfaces.IPageProcessor,Blog.Builder.Interfaces.ICardProcessor,Blog.Builder.Interfaces.Builders.ISitemapBuilder,Blog.Builder.Interfaces.Builders.IStaticAppConfigBuilder,Microsoft.Extensions.Options.IOptions{Blog.Builder.Models.AppSettings})">
+            <summary>
+            Besides DI, it creates and hold the basic information for the index pages. 
+            See <seealso cref="T:Blog.Builder.Models.Templates.LayoutIndexModel"/>.
+            </summary>
+            <param name="pageProcessor">The service that processes full pages (like index.html and privacy.html).</param>
+            <param name="cardProcessor">The service that processes all cards.</param>
+            <param name="sitemapBuilder">The service that builds the sitemap.xml.</param>
+            <param name="staticAppConfigBuilder">The service that builds the staticwebapp.config.json.</param>
+            <param name="options">The AppSettings</param>
+        </member>
+        <member name="M:Blog.Builder.Services.WebsitePreparation.PrepareOutputFolders">
+            <summary>
+            Prepares the output folder located at <see cref="P:Blog.Builder.Globals.OutputFolderPath"/> by deleting it first 
+            and then creating all the necessary folders again.
+            It will also copy all the <see cref="F:Blog.Builder.Globals.WorkingJustCopyFolderName"/> directly to <see cref="P:Blog.Builder.Globals.OutputFolderPath"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Services.WebsitePreparation.PrepareStandalonePages">
+            <summary>
+            Prepares all the standalone pages (like privacy.html).
+            Standalones are scanned from <see cref="F:Blog.Builder.Globals.WorkingStandalonesFolderName"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Services.WebsitePreparation.PrepareArticlePages">
+            <summary>
+            Prepares all the article pages and the article cards for the index pages.
+            Articles are scanned from <see cref="F:Blog.Builder.Globals.WorkingArticlesFolderName"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Services.WebsitePreparation.PrepareAdditionalCardsAsync">
+            <summary>
+            Prepares all the additional cards for the index pages.
+            Additional cards are scanned from <see cref="F:Blog.Builder.Globals.WorkingCardsFolderName"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Services.WebsitePreparation.PrepareIndexPages">
+            <summary>
+            Prepares all the index pages (like index.html, index-page-2.html etc) 
+            and copies it to <see cref="P:Blog.Builder.Globals.OutputFolderPath"/>.
+            </summary>
+        </member>
+        <member name="M:Blog.Builder.Services.WebsitePreparation.PrepareAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:Helpers">
+            <summary>
+            Helper methods that don't deserve a class
+            </summary>
+        </member>
+        <member name="M:Helpers.Copy(System.String,System.String)">
+            <summary>
+            Copies everything from <paramref name="sourceDir"/> to <paramref name="targetDir"/>.
+            Overwrites are not allowed.
+            </summary>
+            <param name="sourceDir">The directory to copy everything from.</param>
+            <param name="targetDir">The directory to copy everything to.</param>
+        </member>
+        <member name="M:Helpers.ResizeImage(System.String,System.String,SixLabors.ImageSharp.Size)">
+            <summary>
+            Resize the image from <paramref name="inputPath"/> to the <paramref name="size"/> and saves it to <paramref name="outputPath"/>.
+            It will reduce the size of the image until at least one side meets the criteria.
+            If one side is already smalled, it does nothing.
+            </summary>
+            <param name="inputPath">The image to be processed.</param>
+            <param name="outputPath">The destination of the processed image.</param>
+            <param name="size">The maximum allowed size of the image.</param>
+        </member>
+    </members>
+</doc>
