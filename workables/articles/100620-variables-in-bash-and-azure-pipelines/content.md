@@ -161,15 +161,16 @@ In Azure Pipelines, variables are essential for customizing and controlling your
 You can also define your own variables in Azure Pipelines. These custom variables can be defined at different levels: pipeline, stage, job, or task. They are defined in your pipeline YAML file using the `variables` keyword. Here’s a basic example of defining and using a variable in an Azure Pipelines YAML file:
 
 ```yaml
-variables:
-  myVariable: 'Hello, World!'
-
-steps:
-- script: echo $(myVariable)
-  displayName: 'Display myVariable'
+- job: JobA
+  variables:
+    myVar: 'Hello, World!'
+  steps:
+  - script: |
+      echo $(myVar)
+    displayName: 'Display myVar'
 ```
 
-In this example, `myVariable` is defined at the pipeline level and can be referenced using the `$(variableName)` syntax. The `script` task then uses `$(myVariable)` to echo the value of the variable. This syntax is how you generally reference variables throughout Azure Pipelines, allowing you to inject dynamic content into your pipeline scripts and tasks.
+In this example, `myVar` is defined at the pipeline level and can be referenced using the `$(variableName)` syntax. The `script` task then uses `$(myVar)` to echo the value of the variable. This syntax is how you generally reference variables throughout Azure Pipelines, allowing you to inject dynamic content into your pipeline scripts and tasks.
 
 ## b. Mapping Bash Concepts to Azure Pipelines
 
@@ -187,15 +188,7 @@ When you move from Bash scripting to Azure Pipelines, it’s important to unders
 
   Here, square brackets are used to reference variables in conditions, particularly when the variable name includes special characters or when accessing nested variables.
 
-- **Curly Braces `{}`**: In Bash, curly braces are used for variable expansion and grouping, like `${MY_VAR}`. In Azure Pipelines, curly braces are less common but might appear in expressions or template syntax. For instance, when defining expressions for conditions or when using template expressions, curly braces can be used:
-
-  ```yaml
-  steps:
-  - script: echo "Value of myVar is ${{ variables.myVariable }}"
-    displayName: 'Display myVariable using curly braces'
-  ```
-
-  Here, `${{ }}` is used to evaluate expressions and access variables in a more complex way than the simple `$(variableName)` syntax.
+- **Curly Braces `{}`**: In Bash, curly braces are used for variable expansion and grouping, like `${MY_VAR}`. In Azure Pipelines, curly braces are less common but might appear in expressions or template syntax.
 
 ### Examples of Using These Concepts in Pipeline Tasks
 
@@ -251,18 +244,18 @@ When working with variables, you can pass Azure Pipeline variables to your Bash 
 ```yaml
 - script: |
     echo "Running my script with arguments"
-    ./myscript.sh $(PipelineVar)
-  displayName: 'Run myscript.sh with PipelineVar'
+    ./myscript.sh $(myVar)
+  displayName: 'Run myscript.sh with myVar'
 ```
 
-In this example, `$(PipelineVar)` is an Azure Pipeline variable that gets passed as an argument to the Bash script. Inside the `myscript.sh` script, you can access it using `$1` or similar positional parameters.
+In this example, `$(myVar)` is an Azure Pipeline variable that gets passed as an argument to the Bash script. Inside the `myscript.sh` script, you can access it using `$1` or similar positional parameters.
 
 Alternatively, you can pass variables as environment variables:
 
 ```yaml
 - script: |
     echo "Running my script with environment variable"
-    export MY_ENV_VAR=$(PipelineVar)
+    export MY_ENV_VAR=$(myVar)
     ./myscript.sh
   displayName: 'Run myscript.sh with environment variable'
 ```
@@ -283,13 +276,14 @@ For example, in your pipeline YAML:
 
 ```yaml
 - script: |
-    MY_VALUE="Hello, Pipeline!"
-    echo "##vso[task.setvariable variable=myVar]$MY_VALUE"
+    myVar="Hello"
+    echo "##vso[task.setvariable variable=myVar]$myVar"  # Do not use `IsOutput=true` if you intend
+                                                         #  to only use the var within the same job.
   name: task1
   displayName: 'Set pipeline variable from script'
 
 - script: |
-    echo "The value of myVar is: $(task1.myVar)"
+    echo "The value of myVar is: $(myVar)"                # Access `myVar` using `$(myVar)`
   displayName: 'Use pipeline variable'
 ```
 
@@ -309,11 +303,11 @@ Let’s look at a few examples on how to consume the variable a task is outputti
 
 ```yaml
 - task: Bash@3
-  name: GenerateVar
+  name: TaskA
   inputs:
     targetType: 'inline'
     script: |
-      myVar="HelloWorld"
+      myVar="Hello"
       echo "##vso[task.setvariable variable=myVar]$myVar"
   displayName: 'Generate a variable'
  ```
@@ -337,26 +331,27 @@ This task accesses the `myVar` variable set by the previous task and prints its 
 ```yaml
 - task: Bash@3
   inputs:
-    myVar:  $(GenerateVar.myVar)
+    myVar:  $(myVar)
     script: |
       ...
   displayName: 'Use the variable from previous task'
 ```
 
-Here, the variable `myVar` from the `GenerateVar` task is directly referenced using `$(GenerateVar.myVar)`. This allows you to use the value of `myVa`r in subsequent tasks, either within the script or as an input parameter.
+Here, the variable `myVar` from the `GenerateVar` task is directly referenced using `$(myVar)`. This allows you to use the value of `myVar` in subsequent tasks, either within the script or as an input parameter.
 
 ### How to use in conditions in YAML
 
 ```yaml
 - task: Bash@3
   name: ConditionalStep
-  condition: eq(variables['myVar'], 'HelloWorld')
+  condition: eq(variables['myVar'], 'Hello')
   inputs:
     targetType: 'inline'
     script: |
      ...
   displayName: 'Conditional execution based on variable'
 ```
+
 In this example, the `ConditionalStep` task will only execute if the value of `myVar` is equal to `HelloWorld`. The `condition` field is used to create a conditional step based on the value of a pipeline variable.
 
 # Part 5. Exchanging Variables Between Jobs
@@ -365,11 +360,9 @@ In this example, the `ConditionalStep` task will only execute if the value of `m
 
 In Azure Pipelines, jobs are often designed to be independent units of work. However, there are scenarios where you need to share variables between these jobs, particularly when the output of one job is necessary for the execution of another. This is where job dependencies and variable sharing come into play.
 
-### Using `dependsOn` and `condition`
+### Using `dependsOn`
 
 The `dependsOn` attribute allows you to specify that a job should only run after one or more other jobs have successfully completed. This attribute is essential when you want to ensure that a downstream job only executes after its prerequisite jobs have finished processing.
-
-For variable sharing between jobs, the `condition` attribute is used to control the execution of a job based on the outcome of another job. This is useful for scenarios where you want to run a job only if certain conditions are met in a previous job.
 
 For example, consider the following YAML snippet:
 
@@ -377,84 +370,48 @@ For example, consider the following YAML snippet:
 jobs:
 - job: JobA
   steps:
-  - script: echo "##vso[task.setvariable variable=JobAVar]JobAOutput"
-    name: SetJobAVar
+  - script: |
+      myVar="Hello"
+      echo "##vso[task.setvariable variable=myVar;IsOutput=true]$myVar"
+    name: Task1
 
 - job: JobB
   dependsOn: JobA
-  condition: succeeded()  # Only runs if JobA succeeds
+  variables:
+    MY_VAR: $[ dependencies.JobA.outputs['Task1.myVar'] ]
   steps:
-  - script: echo "JobA output was $(JobAVar)"
+  - script: echo "JobA output was $(MY_VAR)"
 ```
 
-In this example, `JobB` depends on `JobA` and only runs if `JobA` is successful. The variable `JobAVar` is set in `JobA` and then accessed in `JobB` using the `$(JobAVar)` syntax.
+In this example, `JobB` depends on `JobA` and only runs if `JobA` is successful. The variable `myVar` is set in `JobA` and then accessed in `JobB` using the `$(MY_VAR)` syntax, having first set as a local variable in the job.
 
+> Mind the importance of `IsOutput=true`! If you want to exchange variables between tasks you should NOT use it! Use it only to exchange variables between jobs!
 
-## b. Job Output as Input
-
-There are many scenarios where the output from one job is essential for the execution of another. Azure Pipelines allows you to capture and pass this output between jobs seamlessly.
-
-### Using Job Outputs
-
-To use the output of one job as the input to another, you can leverage the `jobOutputs` feature. This allows you to define outputs in a job that can be accessed by downstream jobs.
-
-Here’s a practical example:
+If you want a variable to be available for both tasks and jobs, use both approaches; same variable names, one with `IsOutput=true`and one without it. For example:
 
 ```yaml
 jobs:
 - job: JobA
   steps:
-  - script: echo "JobA output"
-    name: SetJobAOutput
-  - script: echo "##vso[task.setvariable variable=JobAResult;isOutput=true]JobAOutput"
+  - script: |
+      myVar="Hello"
+      echo "##vso[task.setvariable variable=myVar;]$myVar"                # Case 1: Without "IsOutput"
+      echo "##vso[task.setvariable variable=myVar;IsOutput=true]$myVar"   # Case 2: With "IsOutput"
+    name: Task1
+  - script: |
+      echo "Without the task name: $(myVar)"                              # Only works when case 1 is used      
+      echo "With the task name: $(Task1.myVar)"                           # Only works when case 2 is used     
+                                                                          # Both work when both are used (case 1 and case 2) 
+    name: Task2
 
 - job: JobB
   dependsOn: JobA
   variables:
-    JobBInput: $[ dependencies.JobA.outputs['SetJobAOutput.JobAResult'] ]
+    MY_VAR: $[ dependencies.JobA.outputs['Task1.myVar'] ]                 // Only works when case 2 is used  
   steps:
-  - script: echo "JobA result: $(JobBInput)"
+  - script: echo "JobA output was $(MY_VAR)"                              // Only works a job local variable has been set,
+                                                                          // there is no other way to access the output of a job!
 ```
-
-In this example, `JobA` sets a variable `JobAResult` and marks it as output using `isOutput=true`. In `JobB`, this output is accessed through the `dependencies` context, allowing `JobB` to use the value of `JobAResult`.
-
-### Practical Example with a Multi-Job Pipeline Setup
-
-Consider a more comprehensive pipeline where the output from one job is critical for determining the behavior of another job. For instance, imagine a pipeline that first compiles code, then runs tests, and finally deploys the application only if the tests pass.
-
-```yaml
-jobs:
-- job: Compile
-  steps:
-  - script: echo "Compiling code..."
-  - script: echo "##vso[task.setvariable variable=BuildOutput;isOutput=true]CompiledCode"
-
-- job: Test
-  dependsOn: Compile
-  variables:
-    TestInput: $[ dependencies.Compile.outputs['Compile.BuildOutput'] ]
-  steps:
-  - script: echo "Testing $(TestInput)"
-  - script: exit 1  # Simulating a test failure
-
-- job: Deploy
-  dependsOn:
-    - Compile
-    - Test
-  condition: succeeded()
-  variables:
-    DeployInput: $[ dependencies.Compile.outputs['Compile.BuildOutput'] ]
-  steps:
-  - script: echo "Deploying $(DeployInput)"
-```
-
-In this setup:
-
-- The `Compile` job compiles the code and outputs `CompiledCode`.
-- The `Test` job runs tests using the compiled code. If the tests fail, `Deploy` won’t run due to the `condition: succeeded()` setting.
-- If the tests pass, the `Deploy` job uses the same `CompiledCode` for deployment.
-
-This example demonstrates a typical scenario where jobs are linked, and variables are passed from one to the next, ensuring that the entire pipeline behaves as expected based on the outputs of individual jobs.
 
 ## Persisting Variables Across Jobs Using Pipeline Artifacts
 
@@ -465,7 +422,7 @@ Here’s how you can persist variables across jobs using artifacts:
 ```yaml
 jobs:
 - job: JobA
-  steps:
+  steps
   - script: echo "JobA output" > output.txt
   - publish: output.txt
     artifact: JobAOutput
