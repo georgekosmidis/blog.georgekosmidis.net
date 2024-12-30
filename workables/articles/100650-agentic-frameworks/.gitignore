@@ -1,0 +1,4 @@
+.venv
+.cache
+.autogen_chat
+__pycache__
