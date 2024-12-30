@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-09-08T19:22:47.760Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.13 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="xRlHP1mvg6hf1OMjTRM6" version="24.4.13" type="device" pages="2">
+<mxfile host="Electron" modified="2024-09-09T08:20:32.357Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.13 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="BLjZwP1fTJd8LFXGhggz" version="24.4.13" type="device" pages="2">
   <diagram id="N4iRV68BVkmkfJKtZu4H" name="Page-2">
     <mxGraphModel dx="1615" dy="1103" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -262,7 +262,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="SfIZksV7vS0lqTn1m1YL" name="Page-3">
-    <mxGraphModel dx="1434" dy="2125" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1050" dy="1886" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -511,6 +511,12 @@
         </mxCell>
         <mxCell id="bjYaRJj1VPDax2cxkhRb-57" value="Staging Slots&lt;div&gt;or&lt;/div&gt;&lt;div&gt;Daily Backups&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;fontFamily=Helvetica;strokeWidth=1;rounded=1;shadow=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;aspect=fixed;fontStyle=0;" parent="1" vertex="1">
           <mxGeometry x="520" y="260" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="XSV1bOl7R1Y1eA53T63c-1" value="The Right Azure App Service Plan For You" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;fontStyle=0" vertex="1" parent="1">
+          <mxGeometry x="310" y="550" width="660" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XSV1bOl7R1Y1eA53T63c-2" value="https://blog.georgekosmidis.net" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="770" y="610" width="170" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
