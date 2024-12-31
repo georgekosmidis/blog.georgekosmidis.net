@@ -76,6 +76,10 @@ internal class PageProcessor : IPageProcessor
 
             var pipeline = new MarkdownPipelineBuilder()
                 .UseAutoIdentifiers()
+                .UsePipeTables()
+                .UseAdvancedExtensions()
+                .UseEmphasisExtras()
+                .UseAutoLinks()
                 .Build();
             string? htmlText = Markdown.ToHtml(pageMd, pipeline);
             File.WriteAllText(Path.Combine(directory, Globals.ContentHtmlFilename), htmlText);

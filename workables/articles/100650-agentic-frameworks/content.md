@@ -46,7 +46,7 @@ config_list = [
         "api_type": 'azure',                                  # Indicate that the API is hosted on Azure
         "api_rate_limit": 5,                                  # Set the rate limit for API calls per second
         "api_key": "YOUR_KEY",                                # Placeholder for the API key
-        "base_url": "https://your_endpoint.openai.azure.com/",# Base URL for the API
+        "base_url": "https://your_endpoint/",                 # Base URL for the API
         "price": [0, 0]                                       # Price for prompt and completion per 1k            
     }
 ]
@@ -138,7 +138,7 @@ chat_completion_service = AzureChatCompletion(
     service_id="your_service_id",                       # Replace with your service identifier (just about anything will do!)
     deployment_name="your_model",                       # Replace with your Azure OpenAI deployment name
     api_key="YOUR_KEY",                                 # Replace with your Azure OpenAI API key
-    endpoint="https://your_endpoint.openai.azure.com/"  # Replace with your Azure OpenAI endpoint
+    endpoint="https://your_endpoint"                    # Replace with your Azure OpenAI endpoint
 )
 
 # Mind the "your_service_id" placeholder
