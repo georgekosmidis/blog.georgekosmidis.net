@@ -1,35 +1,37 @@
 # Microsoft’s Agentic AI Frameworks
 
-In the rapidly advancing world of artificial intelligence, Microsoft is leading the charge in developing agentic AI frameworks. These platforms empower developers to create autonomous, intelligent systems capable of executing complex tasks with minimal human intervention. The standout offerings from Microsoft - **Semantic Kernel** and **AutoGen** - are revolutionizing the possibilities of what AI systems can achieve.
+In the rapidly advancing world of AI, Microsoft is leading the charge in developing **Agentic AI** frameworks. These platforms enable developers to create autonomous, intelligent systems capable of executing complex tasks with minimal human intervention. The standout offerings from Microsoft - **AutoGen** and **Semantic Kernel** - are revolutionizing the possibilities of what AI systems can achieve.
+
+> The two agentic framework teams [are working quickly and diligently to get to an alignment between the two Agentic Framewords](https://devblogs.microsoft.com/semantic-kernel/microsofts-agentic-ai-frameworks-autogen-and-semantic-kernel/), with the goal of making it available in early 2025 with version 0.4.
 
 ## What Are Agentic AI Frameworks?
 
-Agentic AI frameworks are tools and libraries that simplify the creation of AI systems designed to act as "agents." These agents can perform tasks autonomously, coordinate with other agents, and interact seamlessly with humans when needed. By employing such frameworks, developers can design solutions that:
+Agentic AI frameworks are tools and libraries that simplify the creation of AI systems designed to act as "agents." These agents can perform tasks autonomously, coordinate with other agents, and interact with humans when needed. By using such frameworks, developers can design solutions that:
 
 - Automate repetitive and intricate processes.
 - Collaborate with other AI agents to manage multifaceted workflows.
 - Provide real-time dynamic responses and adapt to new scenarios efficiently.
 
-These frameworks are particularly valuable in a world increasingly reliant on AI-driven automation and interaction. Microsoft’s agentic AI strategy showcases its commitment to fostering innovation in this transformative field.
+These frameworks are particularly valuable in a world increasingly reliant on AI-driven automation and interaction. 
 
 ### AutoGen
 
 **AutoGen**, developed by Microsoft’s AI Frontiers Lab, focuses on creating distributed, event-driven systems where multiple AI agents collaborate to achieve complex goals. It is a versatile tool designed to simplify the development of multi-agent frameworks, enabling solutions for intricate workflows.
 
-**What Makes AutoGen Unique?**
+#### What Makes AutoGen Unique?
 
-1. **Distributed Systems:** Facilitates the creation of agentic ecosystems where multiple agents work together, even across diverse environments.
+1. **Distributed Systems:** Supports the creation of agentic ecosystems where multiple agents work together, even across diverse environments.
 2. **Event-Driven Workflows:** Allows agents to respond dynamically to events, making the framework highly adaptable to evolving requirements.
 3. **Language Support:** Currently supports C# and Python, with plans for expanded language compatibility in the future.
 4. **Human-AI Collaboration:** AutoGen’s agents can operate autonomously or include human oversight when necessary, making it suitable for fully automated or hybrid workflows.
 
-**Example Applications:**
+#### Example Applications
 
 - **Supply Chain Optimization:** Using AutoGen, companies can deploy a network of AI agents that coordinate to monitor inventory levels, predict demand, and automate order placements, ensuring just-in-time delivery.
 - **Smart Home Management:** AutoGen can power a system where different agents manage lighting, temperature, and security autonomously, while interacting with the homeowner to adapt settings based on preferences.
 - **Collaborative Problem Solving:** AutoGen enables the creation of a multi-agent system where individual agents tackle different parts of a complex problem, such as disaster response planning or multi-departmental project management.
 
-**Code Sample:**
+#### Code Sample
 
 Below is an example of creating a multi-agent system using AutoGen in Python. The script sets up a group chat simulation with three agents—a user proxy, a coder, and a product manager - using the `autogen` library. It configures each agent with specific roles and settings, including language model parameters for the coder and product manager, and code execution preferences for the user proxy. The group chat is managing a discussion aimed at finding a recent GPT-4 paper on arXiv and exploring its potential software applications.
 
@@ -98,27 +100,27 @@ user_proxy.initiate_chat(
 
 ```
 
-> This was an adaptation of the script that can be found here: https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_groupchat/
+> This example was an adaptation of a script that can be found here: [https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_groupchat/](https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_groupchat/)
 
 
 ### Semantic Kernel
 
 At the heart of Microsoft’s agentic AI strategy lies **Semantic Kernel**, an open-source SDK designed to seamlessly integrate large language models (LLMs) into various applications. With support for popular programming languages like C#, Python, and Java, Semantic Kernel equips developers with the flexibility to implement AI-driven features efficiently.
 
-**Key Features:**
+#### Key Features
 
 1. **Language Model Integration:** Connect effortlessly to LLMs such as OpenAI's GPT models, enabling natural language understanding and generation.
 2. **Agent Framework:** A recently introduced feature that allows developers to design single and multi-agent systems capable of collaborative or independent functionality.
 3. **Event-Driven Architecture:** Supports asynchronous workflows, ensuring agents respond promptly to triggers and execute tasks in real time.
 4. **Enterprise-Ready Tools:** Provides built-in capabilities for scalability, security, and deployment in enterprise environments.
 
-**Example Applications:**
+#### Example Applications
 
 - **Customer Support Bot:** Using Semantic Kernel, a company can create a chatbot that understands customer queries in natural language, retrieves relevant information, and responds intelligently - all while escalating complex issues to human agents when necessary.
 - **Dynamic Content Generator:** Publishers can leverage Semantic Kernel to automatically generate personalized articles, marketing materials, or social media posts tailored to specific audiences, reducing workload and increasing engagement.
 - **Autonomous Research Assistant:** Semantic Kernel can be used to develop an AI assistant that autonomously compiles reports, summarizes research, and even generates actionable insights from large datasets.
 
-**Code Sample:**
+#### Code Sample
 
 Here’s a simple example that creates a chatbot using Semantic Kernel for basic natural language interactions:
 
@@ -133,16 +135,17 @@ from semantic_kernel.contents import ChatHistory
 from semantic_kernel.functions import KernelArguments
 
 chat_completion_service = AzureChatCompletion(
-    service_id="service_id",                            # Replace with your service identifier
-    deployment_name="model ",                           # Replace with your Azure OpenAI deployment name
-    api_key="--------------------------------",         # Replace with your Azure OpenAI API key
-    endpoint="https://endpoint.openai.azure.com/"       # Replace with your Azure OpenAI endpoint
+    service_id="your_service_id",                       # Replace with your service identifier (just about anything will do!)
+    deployment_name="your_model",                       # Replace with your Azure OpenAI deployment name
+    api_key="YOUR_KEY",                                 # Replace with your Azure OpenAI API key
+    endpoint="https://your_endpoint.openai.azure.com/"  # Replace with your Azure OpenAI endpoint
 )
 
-request_settings = AzureChatPromptExecutionSettings(service_id="service_id")
+# Mind the "your_service_id" placeholder
+request_settings = AzureChatPromptExecutionSettings(service_id="your_service_id") 
 
 # This is the system message that gives the chatbot its personality.
-system_message = "You are a chatbot named Mosscap with one goal: Find what people need!"
+system_message = "You are a chatbot with one goal: Find what people need!"
 
 # Create a chat history object with the system message.
 chat_history = ChatHistory(system_message=system_message)
@@ -200,42 +203,42 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-> This was an adaptation of the chat completion services sample from the Semantic Kernel repository. The original sample can be found here: https://github.com/microsoft/semantic-kernel/blob/main/python/samples/concepts/setup/chat_completion_services.py
+> This was an adaptation of the chat completion services sample from the Semantic Kernel repository. The original sample can be found here: [https://github.com/microsoft/semantic-kernel/blob/main/python/samples/concepts/setup/chat_completion_services.py](https://github.com/microsoft/semantic-kernel/blob/main/python/samples/concepts/setup/chat_completion_services.py)
 
 
 ## Integration and Future Alignment
 
-In November 2024, Microsoft announced a significant milestone: the alignment of AutoGen’s multi-agent runtime with Semantic Kernel. This integration is set to provide developers with a unified framework for experimenting with advanced agentic patterns and transitioning smoothly into production-ready environments. The alignment is expected to be completed by early 2025, further streamlining the development of scalable AI systems.
+In November 2024, Microsoft announced a significant milestone: the integration of AutoGen’s multi-agent runtime with Semantic Kernel. This effort aims to offer developers a unified framework for experimenting with advanced agentic patterns and transitioning smoothly to production-ready environments. The integration is expected to complete by early 2025, bringing changes to the AutoGen API. Additionally, Microsoft introduced AG2, a branch of AutoGen maintained by its original creators, which will preserve existing features and remain unaffected by the forthcoming changes.
 
-**Why Does This Matter?**
+### Versions Overview
 
-- **Seamless Transition:** Developers can prototype ideas using AutoGen’s flexible architecture and scale them effortlessly with Semantic Kernel.
-- **Consistency Across Frameworks:** Shared APIs and tools reduce the learning curve, making development faster and more efficient.
-- **Broader Applications:** From automating business workflows to creating interactive gaming agents, the potential use cases are virtually limitless.
+- **AutoGen v0.2:** The current version.
+- **AutoGen v0.3:** This branch will be rebranded as [AG2](https://ag2.ai/), continuing as an independent project.
+- **AutoGen v0.4:** Currently in [preview](https://microsoft.github.io/autogen), this represents the future of AutoGen, aligned with Semantic Kernel.
 
-This alignment signifies a pivotal step in unifying the agentic AI ecosystem, enhancing its usability for developers and enterprises alike. Here is an example of an integrated system combining the capabilities of Semantic Kernel and AutoGen:
+Until the integration is finalized, developers are advised to:
+- Use **Semantic Kernel** for production environments.
+- Leverage **AutoGen** for experimentation.
+- Consider the **AG2** path to avoid the migration overhead from AutoGen v0.2 to v0.4.
 
-> In another recent development (we are racing forward like never before!), AutoGen has split into two paths: AG2 and Microsoft's version. Read more here: https://www.gettingstarted.ai/autogen-vs-ag2/
+### Why This Matters
 
-## Beyond Semantic Kernel and AutoGen: Microsoft’s Expanding Vision
+- **Seamless Transition:** Developers can prototype ideas using AutoGen’s flexible architecture and scale them efficiently with Semantic Kernel.  
+- **Consistency Across Frameworks:** Unified APIs and tools simplify development, reducing learning curves and speeding up workflows.  
+- **Expanded Possibilities:** From automating business operations to creating interactive gaming agents, the integration unlocks a wide range of applications.
+
+This alignment marks a transformative step in unifying the agentic AI ecosystem, significantly enhancing its utility for developers and enterprises. Below is an example showcasing the combined capabilities of Semantic Kernel and AutoGen. 
+
+
+
+## Beyond Semantic Kernel and AutoGen
 
 Microsoft’s commitment to agentic AI extends beyond Semantic Kernel and AutoGen. Additional frameworks and tools illustrate the company’s dedication to pushing the boundaries of AI innovation:
 
-- **TinyTroupe:** TinyTroupe is an experimental Python library that allows the simulation of people with specific personalities, interests, and goals. These artificial agents - `TinyPersons` - can listen to us and one another, reply back, and go about their lives in simulated `TinyWorld` environments. Read more here: https://github.com/microsoft/TinyTroupe
+- **TinyTroupe:** TinyTroupe is an experimental Python library that allows the simulation of people with specific personalities, interests, and goals. These artificial agents - `TinyPersons` - can listen to us and one another, reply back, and go about their lives in simulated `TinyWorld` environments. Read more here: [https://github.com/microsoft/TinyTroupe](https://github.com/microsoft/TinyTroupe)
 - **Magentic-One:**  Build on AutoGen, it's a sophisticated framework for orchestrating specialized agents to tackle complex, domain-specific challenges. For example, Magentic-One can be used to manage a healthcare system where agents specialize in tasks like patient triage, appointment scheduling, and resource allocation. Each agent operates independently, but the framework ensures seamless coordination, enabling a comprehensive solution. 
 
 These complementary tools expand the scope of agentic AI, offering new avenues for innovation in various industries.
-
-
-## A Glimpse Into the Future
-
-The development of agentic AI frameworks represents a transformative shift in how we interact with technology. Microsoft’s tools aim not only to make AI smarter but also more autonomous, collaborative, and adaptable. As these frameworks mature, we can expect:
-
-1. **Enhanced Productivity:** AI agents will take over tedious, time-consuming tasks, allowing humans to focus on creative and strategic work.
-2. **Smarter Ecosystems:** Seamless integration of AI agents into daily life - from personal assistants to enterprise automation - will redefine convenience and efficiency.
-3. **Scalable Solutions:** Versatile tools will cater to both experimental applications and enterprise-scale deployments, ensuring accessibility for developers at all levels.
-
-The advancements in Microsoft’s agentic AI frameworks are paving the way for a future where intelligent systems operate with unprecedented efficiency and autonomy. These tools are not just technological innovations; they are enablers of a new era where machines and humans collaborate in harmony to achieve extraordinary outcomes.
 
 
 ## Ready to Build the Future?
@@ -244,8 +247,8 @@ With frameworks like Semantic Kernel, AutoGen, and more, Microsoft is opening th
 
 ## Relevant Links
 
-- [Semantic Kernel Documentation](https://learn.microsoft.com/en-us/semantic-kernel/)
-- [AutoGen Overview](https://github.com/microsoft/autogen)
+- [Semantic Kernel](https://learn.microsoft.com/en-us/semantic-kernel/)
+- [AutoGen](https://microsoft.github.io/autogen)
+- [AG2](https://ag2.ai/)
 - [Magentic-One Details](https://github.com/microsoft/magentic-one)
 - [TinyTroupe Repository](https://github.com/microsoft/tinytroupe)
-- [Microsoft AI Tools](https://www.microsoft.com/en-us/ai) 
