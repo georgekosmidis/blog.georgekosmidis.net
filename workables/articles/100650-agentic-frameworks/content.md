@@ -210,26 +210,16 @@ if __name__ == "__main__":
 
 In November 2024, Microsoft announced a significant milestone: the integration of AutoGen’s multi-agent runtime with Semantic Kernel. This effort aims to offer developers a unified framework for experimenting with advanced agentic patterns and transitioning smoothly to production-ready environments. The integration is expected to complete by early 2025, bringing changes to the AutoGen API. Additionally, Microsoft introduced AG2, a branch of AutoGen maintained by its original creators, which will preserve existing features and remain unaffected by the forthcoming changes.
 
-### Versions Overview
+### AutoGen Version Overview (as of 2025-01-02)
 
 - **AutoGen v0.2:** The current version.
-- **AutoGen v0.3:** This branch will be rebranded as [AG2](https://ag2.ai/), continuing as an independent project.
-- **AutoGen v0.4:** Currently in [preview](https://microsoft.github.io/autogen), this represents the future of AutoGen, aligned with Semantic Kernel.
+- **AutoGen v0.3:** This is a branch of v0.2 and it has been rebranded as [AG2](https://ag2.ai/). It will continue as an independent project supporting current features.
+- **AutoGen v0.4:** This is the continuation of v0.2 that is currently being worked in alignment with Semantic Kernel. It is in [preview](https://microsoft.github.io/autogen) and represents the future of AutoGen. This alignment marks a transformative step in unifying the agentic AI ecosystem, significantly enhancing its utility for developers and enterprises.
 
 Until the integration is finalized, developers are advised to:
 - Use **Semantic Kernel** for production environments.
-- Leverage **AutoGen** for experimentation.
-- Consider the **AG2** path to avoid the migration overhead from AutoGen v0.2 to v0.4.
-
-### Why This Matters
-
-- **Seamless Transition:** Developers can prototype ideas using AutoGen’s flexible architecture and scale them efficiently with Semantic Kernel.  
-- **Consistency Across Frameworks:** Unified APIs and tools simplify development, reducing learning curves and speeding up workflows.  
-- **Expanded Possibilities:** From automating business operations to creating interactive gaming agents, the integration unlocks a wide range of applications.
-
-This alignment marks a transformative step in unifying the agentic AI ecosystem, significantly enhancing its utility for developers and enterprises. Below is an example showcasing the combined capabilities of Semantic Kernel and AutoGen. 
-
-
+- Use **AutoGen** for experimentation.
+- Consider the **AG2** path to avoid the migration overhead from AutoGen v0.2 to v0.4, loosing though the alignment with Semantic Kernel along with all new features.
 
 ## Beyond Semantic Kernel and AutoGen
 
