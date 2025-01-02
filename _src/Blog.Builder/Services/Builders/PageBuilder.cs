@@ -76,26 +76,38 @@ internal class PageBuilder : IPageBuilder
         var finalHtml = _templateEngine.RunCompile(pageData);
 
         //Add CreatorID
-        var linkParser = new Regex(@"https?://([a-zA-Z0-9\-\.]*\.)?(microsoft\.com|azure\.cn|azure\.com|msdn\.com)(/[^""'\s<>]*)?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        var linkParser = new Regex(@"href\s*=\s*[""'](https?://([a-zA-Z0-9\-\.]*\.)?(microsoft\.com|azure\.cn|azure\.com|msdn\.com)(/[^""'\s<>]*)?)[""']", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         var urlsToChange = new Dictionary<string, string>();
         foreach (Match m in linkParser.Matches(finalHtml))
         {
-            if (m.Value.Contains("mvp.microsoft.com") || m.Value.Contains($"WT.mc_id={appSettings.MicrosoftCreatorID}"))
+            var url = m.Groups[1].Value; // Extract captured URL
+            if (url.Contains("mvp.microsoft.com") || url.Contains($"WT.mc_id={appSettings.MicrosoftCreatorID}"))
             {
                 continue;
             }
-            urlsToChange[m.Value] = QueryHelpers.AddQueryString(m.Value, "WT.mc_id", appSettings.MicrosoftCreatorID);
+            urlsToChange[url] = QueryHelpers.AddQueryString(url, "WT.mc_id", appSettings.MicrosoftCreatorID);
 
         }
         foreach (var (oldUrl, newUrl) in urlsToChange.Distinct())
         {
-            finalHtml = finalHtml.Replace(oldUrl, newUrl);
+            // Use regex to ensure replacement happens only within href attributes
+            var escapedOldUrl = Regex.Escape(oldUrl);
+            finalHtml = Regex.Replace(
+                finalHtml,
+                $@"(href\s*=\s*[""']){escapedOldUrl}([""'])",
+                match => $"{match.Groups[1].Value}{newUrl}{match.Groups[2].Value}"
+            );
         }
+
+
+        // Add the "table" class to all <table> elements using regex
+        string finalHtml2 = Regex.Replace(finalHtml, @"<table([^>]*)", "<table class=\"table\"");
+
 
         return new PageBuilderResult
         {
-            FinalHtml = finalHtml,
+            FinalHtml = finalHtml2,
             DateModified = pageData.DateModified,
             RelativeUrl = pageData.RelativeUrl
         };
