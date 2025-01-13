@@ -1,5 +1,3 @@
-# How to Build and Customize the Azure SDK for JavaScript: A Step-by-Step Guide
-
 As a developer working with Azure services, you might find yourself needing to build and customize the Azure SDK to test a preview version of an Azure API that isn't yet available in the SDK. Sure, you could just use Postman, but where's the fun in that? :) Whether you're looking to make enhancements or support a new version that hasn't been officially released yet, having a clear set of instructions can save you a lot of time and hassle. In this post, we'll walk you through the process, from setting up your environment to pushing your custom changes to a forked repository.
 
 ## Prerequisites

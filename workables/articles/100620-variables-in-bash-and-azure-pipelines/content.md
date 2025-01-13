@@ -1,4 +1,4 @@
-# Contents
+## Contents
 
 - [Contents](#contents)
 - [Intro](#intro)
@@ -24,12 +24,12 @@
   - [b. Example Pipeline with Multi-Stage Variable Sharing](#b-example-pipeline-with-multi-stage-variable-sharing)
 - [Conclusion](#conclusion)
 
-# Intro
+## Intro
 
 In this article, we'll explore the basics of variables in Bash, focusing on the role of symbols like $, (, [, and {. Each of these symbols has a specific function in Bash scripting, from referencing variables to grouping commands and conditions. Understanding these will not only enhance your scripting skills but will also give you a better grasp of how similar concepts are applied in Azure Pipelines.
 
 
-# Part 1. Variables in Bash
+## Part 1. Variables in Bash
 
 Bash scripting is a powerful tool for automating tasks in Unix-based systems, and understanding how variables work is fundamental to making the most of it. In this section, we’ll break down how variables are defined and used in Bash, focusing on the key symbols: `$`, `()`, `[]`, and `{}`. Each of these plays a distinct role in how you interact with and manipulate variables within your scripts.
 

@@ -1,5 +1,3 @@
-# Microsoft’s Agentic AI Frameworks
-
 In the rapidly advancing world of AI, Microsoft is leading the charge in developing **Agentic AI** frameworks. These platforms enable developers to create autonomous, intelligent systems capable of executing complex tasks with minimal human intervention. The standout offerings from Microsoft - **AutoGen** and **Semantic Kernel** - are revolutionizing the possibilities of what AI systems can achieve.
 
 > The two agentic framework teams [are working quickly and diligently to get to an alignment between the two Agentic Framewords](https://devblogs.microsoft.com/semantic-kernel/microsofts-agentic-ai-frameworks-autogen-and-semantic-kernel/), with the goal of making it available in early 2025 with version 0.4.

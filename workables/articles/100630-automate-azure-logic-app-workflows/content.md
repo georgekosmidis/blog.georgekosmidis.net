@@ -1,5 +1,3 @@
-# Deploy an Azure Logic Apps Workflow in Standard Plan with Azure DevOps
-
 In this article, we’ll explore how to automate the deployment of workflows in Azure Logic Apps using the Azure CLI. We’ll cover a scenario where multiple workflows are organized in subfolders, and we’ll use a simple Bash script to zip each workflow and deploy it programmatically.
 
 ## Introduction
