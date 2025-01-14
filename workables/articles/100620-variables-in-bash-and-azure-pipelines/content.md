@@ -457,22 +457,22 @@ Let’s consider a multi-stage pipeline where a variable is defined in the build
 
 ```yaml
 stages:
-- stage: Build
+- stage: BuildStage
   jobs:
   - job: BuildJob
     steps:
     - script: |
         echo "##vso[task.setvariable variable=BUILD_NUMBER;isOutput=true]$(Build.BuildId)"
-      name: SetBuildNumber
+      name: SetBuildNumberTask
     - publish: $(Pipeline.Workspace)/output
       artifact: buildOutput
 
 - stage: Deploy
-  dependsOn: Build
+  dependsOn: BuildStage
   jobs:
   - job: DeployJob
     variables:
-      BUILD_NUMBER: $[ dependencies.Build.jobs.BuildJob.outputs['SetBuildNumber.BUILD_NUMBER'] ]
+      BUILD_NUMBER: $[ dependencies.BuildStage.BuildJob.outputs['SetBuildNumberTask.BUILD_NUMBER'] ]
     steps:
     - download: current
       artifact: buildOutput
