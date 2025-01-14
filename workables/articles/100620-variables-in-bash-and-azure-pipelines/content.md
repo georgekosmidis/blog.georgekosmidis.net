@@ -401,7 +401,6 @@ jobs:
   - script: |
       echo "Without the task name: $(myVar)"                              # Only works when case 1 is used      
       echo "With the task name: $(Task1.myVar)"                           # Only works when case 2 is used     
-                                                                          # Both work when both are used (case 1 and case 2) 
     name: Task2
 
 - job: JobB
@@ -409,7 +408,7 @@ jobs:
   variables:
     MY_VAR: $[ dependencies.JobA.outputs['Task1.myVar'] ]                 // Only works when case 2 is used  
   steps:
-  - script: echo "JobA output was $(MY_VAR)"                              // Only works a job local variable has been set,
+  - script: echo "JobA output was $(MY_VAR)"                              // Only works if a job local variable has been set,
                                                                           // there is no other way to access the output of a job!
 ```
 
@@ -464,18 +463,14 @@ stages:
     - script: |
         echo "##vso[task.setvariable variable=BUILD_NUMBER;isOutput=true]$(Build.BuildId)"
       name: SetBuildNumberTask
-    - publish: $(Pipeline.Workspace)/output
-      artifact: buildOutput
 
 - stage: Deploy
   dependsOn: BuildStage
   jobs:
   - job: DeployJob
     variables:
-      BUILD_NUMBER: $[ dependencies.BuildStage.BuildJob.outputs['SetBuildNumberTask.BUILD_NUMBER'] ]
+      BUILD_NUMBER: $[ stageDependencies.BuildStage.BuildJob.outputs['SetBuildNumberTask.BUILD_NUMBER'] ]
     steps:
-    - download: current
-      artifact: buildOutput
     - script: |
         echo "Deploying build number $(BUILD_NUMBER)"
 ```
