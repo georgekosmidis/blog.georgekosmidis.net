@@ -2,15 +2,23 @@ PromptFlow is a powerful YAML-based framework designed for building and managing
 
 ## 1. **Basic Structure**
 ```yaml
-name: <workflow_name>          # The name of the workflow
-description: <description>     # A brief description of the workflow
-steps:                         # Sequential steps of the workflow
-  - name: <step_name>          # Unique identifier for the step
-    type: <step_type>          # Type of step (e.g., llm_call, script, api_call, etc.)
-    ...
-outputs:                       # Final outputs of the workflow
-  - name: <output_name>        # Name of the output
-    type: <output_type>        # Data type (e.g., string, json, etc.)
+name: workflow_name            # The name of the workflow
+description: description       # A brief description of the workflow
+inputs:                        # Global inputs for the entire workflow
+  - name: global_input_name    # Name of the global input
+    type: input_type           # Data type of the global input (e.g., string, json, etc.)
+nodes:                         # Sequential nodes of the workflow
+  - name: node_name            # Unique identifier for the node
+    type: node_type            # Type of node (e.g., llm_call, script, api_call, etc.)
+    inputs:                    # Inputs required for the node
+      - name: input_name       # Name of the input
+        type: input_type       # Data type of the input
+    outputs:                   # Outputs produced by the node
+      - name: node_output_name # Name of the node output
+        type: node_output_type # Data type of the node output
+outputs:                       # Global outputs of the entire workflow
+  - name: global_output_name   # Name of the global output
+    type: output_type          # Data type of the global output (e.g., string, json, etc.)
 ```
 
 ## 2. **Supported Step Types**
@@ -18,135 +26,160 @@ outputs:                       # Final outputs of the workflow
 Invokes a large language model with specified parameters.
 
 ```yaml
-- name: <step_name>
-  type: llm_call
-  model: <model_name>          # Name of the model (e.g., gpt-4, davinci)
+- name: step_name              # Unique identifier for the step
+  type: llm_call               # Specifies the step type as an LLM call
+  model: model_name            # Name of the model (e.g., gpt-4, davinci)
   parameters:                  # Model-specific parameters
-    temperature: <float>       # Creativity level (0.0 - 1.0)
-    max_tokens: <int>          # Maximum number of tokens to generate
-    top_p: <float>             # Nucleus sampling (0.0 - 1.0)
-    frequency_penalty: <float> # Penalize repeating phrases
-    presence_penalty: <float>  # Encourage new topics
+    temperature: 0.7           # Creativity level (0.0 - 1.0)
+    max_tokens: 150            # Maximum number of tokens to generate
+    top_p: 0.9                 # Nucleus sampling (0.0 - 1.0)
+    frequency_penalty: 0.0     # Penalize repeating phrases
+    presence_penalty: 0.6      # Encourage new topics
   prompt_template: |
-    <template_text>            # Multiline template for the prompt
+    This is a sample template for the LLM call.
+    Provide a meaningful and contextually relevant response based on the input.
   inputs:                      # Inputs for the prompt
-    - <input_variable>: <source_name>
+    - input_variable: source_name  # Mapping input variable to source
   outputs:                     # Outputs from the model
-    - name: <output_name>
-      type: <output_type>
+    - name: output_name        # Name of the output
+      type: output_type        # Data type of the output (e.g., string, json, etc.)
+
 ```
 
 ### b. **Script Execution (`script`)**
 Runs a Python or other script.
 
 ```yaml
-- name: <step_name>
-  type: script
-  script: <path_to_script>     # Path to the script file
-  inputs:                      # Inputs to the script
-    - <input_variable>: <source_name>
-  outputs:                     # Outputs from the script
-    - name: <output_name>
-      type: <output_type>
+- name: script_execution_node     # Unique identifier for the node
+  type: script                    # Specifies the node type as script
+  script: path_to_script.py       # Path to the script file
+  inputs:                         # Inputs to the script
+    input_variable: source_name   # Maps input variable to its source
+  outputs:                        # Outputs from the script
+    - name: output_name           # Name of the output
+      type: output_type           # Data type of the output (e.g., string, json, etc.)
+
 ```
 
 ### c. **API Call (`api_call`)**
 Makes an external API call.
 
 ```yaml
-- name: <step_name>
-  type: api_call
-  url: <api_endpoint>          # API URL
-  method: <http_method>        # HTTP method (e.g., GET, POST)
+- name: step_name              # Unique name for the step
+  type: api_call               # Type of step (API call)
+  url: api_endpoint            # API URL
+  method: http_method          # HTTP method (e.g., GET, POST)
   headers:                     # Request headers
-    <header_key>: <header_value>
+    header_key: header_value   # Replace with actual header key-value pairs
   body:                        # Request body (for POST/PUT)
-    <key>: <value>
+    key: value                 # Replace with actual body key-value pairs
   inputs:                      # Inputs to construct the request
-    - <input_variable>: <source_name>
+    - name: input_variable     # Input variable name
+      source: source_name      # Source of the input
   outputs:                     # Outputs from the API response
-    - name: <output_name>
-      type: <output_type>
+    - name: output_name        # Name of the output variable
+      type: output_type        # Data type of the output (e.g., string, json)
 ```
 
 ## 3. **Common Fields**
 ### a. **Inputs**
-Defines input variables for the step.
+Defines input variables for the node.
 
 ```yaml
 inputs:
-  - <input_variable>: <source_name>
+  - name: input_variable_name   # Name of the variable to use in this node
+    source: source_name         # Source of the value (e.g., output from a previous node)
 ```
-- `<input_variable>`: Name of the variable to use in this step.
-- `<source_name>`: Source of the value (e.g., previous step output).
+
+- `name`: The name of the variable to use in this node.
+- `source`: The source of the value (e.g., output from a previous node or a global input).
 
 ### b. **Outputs**
-Defines output variables for the step.
+
+Defines output variables for the node.
 
 ```yaml
 outputs:
-  - name: <output_name>
-    type: <output_type>
+  - name: output_variable_name  # Name of the output variable
+    type: output_type           # Type of data (e.g., string, json, array, etc.)
 ```
-- `<output_name>`: Variable name for the output.
-- `<output_type>`: Type of data (e.g., string, json, array, etc.).
+
+- `name`: The variable name for the output.
+- `type`: The data type of the output (e.g., string, json, array, etc.).
 
 ## 4. **Control Structures**
+
 ### a. **Conditionals (`if`)**
-Executes steps conditionally based on an expression.
+Executes nodes conditionally based on an expression.
 
 ```yaml
-- name: <step_name>
-  type: condition
-  condition: <expression>      # Logical condition (e.g., "input_value == 'yes'")
-  true_steps:                  # Steps to execute if condition is true
-    - <step_definition>
-  false_steps:                 # Steps to execute if condition is false
-    - <step_definition>
+- name: conditional_node_name   # Unique identifier for the conditional node
+  type: condition               # Specifies this node as a conditional control
+  condition: "{{ input_value == 'yes' }}"  # Logical condition in Jinja2 syntax
+  true_nodes:                   # Nodes to execute if the condition evaluates to true
+    - name: true_node_name
+      type: true_node_type      # Type of the node (e.g., llm_call, script, etc.)
+      inputs:
+        input_name: "{{ input_value }}"
+  false_nodes:                  # Nodes to execute if the condition evaluates to false
+    - name: false_node_name
+      type: false_node_type     # Type of the node (e.g., script, api_call, etc.)
+      inputs:
+        input_name: "{{ input_value }}"
 ```
 
 ### b. **Loops (`foreach`)**
-Executes a step or series of steps for each item in a list.
+Executes a node or series of nodes for each item in a list.
 
 ```yaml
-- name: <step_name>
-  type: foreach
-  list: <source_list>          # List to iterate over
-  steps:                       # Steps to execute for each item
-    - <step_definition>
+- name: loop_node_name          # Unique identifier for the loop node
+  type: foreach                 # Specifies this node as a loop control
+  list: "{{ source_list }}"     # List or array to iterate over in Jinja2 syntax
+  nodes:                        # Nodes to execute for each item in the list
+    - name: loop_step_node_name
+      type: loop_step_node_type # Type of the node (e.g., llm_call, script, etc.)
+      inputs:
+        item: "{{ item }}"      # Current item in the iteration
 ```
+
+
+Here’s the corrected version of the provided `<article part>` with adjustments for accuracy and clarity to ensure it aligns with valid PromptFlow code standards:
+
+---
 
 ## 5. **Workflow Outputs**
 Defines the final outputs of the workflow.
 
 ```yaml
 outputs:
-  - name: <output_name>
-    type: <output_type>
-    source: <step_output>
+  - name: output_name          # Name of the workflow output
+    type: output_type          # Data type (e.g., string, json, array, etc.)
+    source: node_name.variable_name  # Source node and variable (e.g., node_name.output_variable)
 ```
-- `<output_name>`: Name of the workflow output.
-- `<output_type>`: Data type (e.g., string, json, array, etc.).
-- `<step_output>`: The source step and variable (e.g., `step_name.variable_name`).
+
+- `output_name`: Name of the workflow output.
+- `output_type`: Data type (e.g., string, json, array, etc.).
+- `source`: The source node and variable (e.g., `node_name.output_variable`).
 
 ## 6. **Variables and Referencing**
 - Refer to variables using `{variable_name}` inside strings or prompt templates.
-- Reference step outputs using `<step_name>.<output_variable>`.
+- Reference node outputs using `node_name.output_variable`.
 
 ## 7. **Error Handling**
-Define fallback steps or actions when a step fails.
+Define fallback nodes or actions when a node fails.
 
 ```yaml
-- name: <step_name>
-  type: <step_type>
-  ...
-  on_error:                    # Error handling configuration
-    action: <continue/stop>    # Continue or stop the workflow
-    steps:                     # Fallback steps to execute
-      - <step_definition>
+nodes:
+  - name: node_name            # Unique identifier for the node
+    type: node_type            # Type of node (e.g., llm_call, script, api_call, etc.)
+    ...
+    on_error:                  # Error handling configuration
+      action: continue         # Action to take on error (continue or stop the workflow)
+      fallback_nodes:          # Fallback nodes to execute
+        - name: fallback_node_name
+          type: fallback_node_type
+          ...
 ```
-
-
 
 ## 8. **Reusable Components**
 ### a. **Reusable Prompts**
@@ -154,9 +187,13 @@ Define reusable prompt templates.
 
 ```yaml
 prompts:
-  - name: <prompt_name>
+  - name: prompt_name           # Unique identifier for the prompt
     template: |
-      <prompt_text>
+      Enter your prompt text here, replacing <prompt_text>. Use placeholders if necessary.
+    description: A brief description of the prompt's purpose. # Optional but recommended
+    inputs:                    # Inputs required for the prompt template (if applicable)
+      - name: input_name        # Name of the input
+        type: input_type        # Data type of the input (e.g., string, json, etc.)
 ```
 
 ### b. **Reusable Steps**
@@ -164,10 +201,18 @@ Use reusable or shared steps.
 
 ```yaml
 shared_steps:
-  - name: <shared_step_name>
-    definition:
-      <step_definition>
+  - name: shared_step_name      # Unique identifier for the shared step
+    definition:                 # Definition of the reusable step
+      type: step_type           # Type of step (e.g., llm_call, script, api_call, etc.)
+      inputs:                   # Inputs required for the shared step
+        - name: input_name      # Name of the input
+          type: input_type      # Data type of the input
+      outputs:                  # Outputs produced by the shared step
+        - name: output_name     # Name of the output
+          type: output_type     # Data type of the output
+    description: A brief description of the step's purpose. # Optional but recommended
 ```
+
 
 ## Example Workflow
 Here’s a complete example workflow:
@@ -176,12 +221,16 @@ Here’s a complete example workflow:
 name: text_analysis_workflow
 description: Analyzes text and summarizes the sentiment.
 
-steps:
+inputs:                        # Global inputs for the workflow
+  - name: input_text           # Input text to be analyzed
+    type: string
+
+nodes:                         # Updated from 'steps' to 'nodes'
   - name: preprocess
     type: script
     script: preprocess.py
     inputs:
-      - raw_text: input_text
+      raw_text: input_text     # Map global input to the node input
     outputs:
       - name: cleaned_text
         type: string
@@ -197,7 +246,7 @@ steps:
       ---
       {cleaned_text}
     inputs:
-      - cleaned_text: preprocess.cleaned_text
+      cleaned_text: preprocess.cleaned_text  # Reference the output of the 'preprocess' node
     outputs:
       - name: sentiment_result
         type: string
@@ -213,16 +262,13 @@ steps:
       ---
       Sentiment: {sentiment_result}
     inputs:
-      - sentiment_result: analyze_sentiment.sentiment_result
+      sentiment_result: analyze_sentiment.sentiment_result  # Reference the output of 'analyze_sentiment'
     outputs:
       - name: summary
         type: string
 
-outputs:
+outputs:                       # Global outputs for the workflow
   - name: final_summary
     type: string
-    source: summarize.summary
+    source: summarize.summary  # Map global output to the 'summarize' node output
 ```
-
-
-Well that's it, no epilogue here :)
