@@ -1,0 +1,12 @@
+{
+  "RelativeUrl": "/promptflow-yaml-cheat-sheet",
+  "Title": "PromptFlow YAML Cheat Sheet",
+  "Description": "PromptFlow is a powerful YAML-based framework designed for building and managing AI workflows. It enables seamless integration of Large Language Models (LLMs), custom scripts, APIs, and other tools, providing a structured approach to AI-driven applications. With its readable syntax, flexibility, and focus on reusability, PromptFlow simplifies the process of defining, executing, and optimizing complex workflows, making it an invaluable tool for developers, data scientists, and AI enthusiasts.",
+  "DatePublished": "2025-01-15T21:19:00+01:00",
+  "DateModified":  "2025-01-15T21:19:00+01:00",
+  "RelativeImageUrl": "/media/100670-feature.png",
+  "Tags": [
+    "Prompt Flow",
+    "PromptFlow"
+  ]
+}
