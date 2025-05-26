@@ -1,0 +1,14 @@
+{
+  "RelativeUrl": "/azure-function-azure-service-bus-tuning.html",
+  "Title": "Azure Functions Premium Plan and Service Bus Tuning Cheat-Sheet",
+  "Description": "Identify if your function is I/O-bound, CPU-bound, or memory-bound and set maxConcurrentCalls & prefetchCount to match - then adjust gradually under load.",
+  "DatePublished": "2025-05-25T21:19:00+01:00",
+  "DateModified":  "2025-05-25T21:19:00+01:00",
+  "RelativeImageUrl": "/media/100680-feature.png",
+  "Tags": [
+    "Azure Service Bus",
+    "Azure Functions",
+    "Tuning"
+  ]
+}
+
