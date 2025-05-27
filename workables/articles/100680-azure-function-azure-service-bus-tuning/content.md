@@ -2,9 +2,12 @@ In this article, we introduce a structured approach to optimizing message throug
 
 Efficient message processing from Azure Service Bus queues using Azure Functions depends on fine-tuning three key settings:
 
+- **FUNCTIONS_WORKER_PROCESS_COUNT** - the number of separate worker processes per function host instance, configured via the `FUNCTIONS_WORKER_PROCESS_COUNT` app setting.
 - **maxConcurrentCalls** - the number of messages processed in parallel by a single function instance, configured in **host.json**
 - **prefetchCount** - the number of messages fetched in advance, configured in **host.json**
 - **maxBurst** - the limit on sudden spikes in concurrency, configured in the **portal**, from Azure CLI or from your IaC
+
+> `FUNCTIONS_WORKER_PROCESS_COUNT` controls the number of separate worker processes (for language isolation and reliability) but does not multiply your `maxConcurrentCalls`. Concurrency is governed by the setting on the host instance.
 
 The method below provides a way to estimate initial values for each setting based on the type of workload, with adjustments made over time based on actual resource usage and downstream system performance. This approach assumes messages are lightweight, up to 10 KB in size.
 
@@ -71,13 +74,32 @@ This section describes how to fine-tune and safely scale your Azure Function aft
 
 By starting with workload-aware defaults and adjusting based on real-time feedback, you can maximize throughput while safeguarding both your function app and any dependent services.
 
-## 5. **`dynamicConcurrencyEnabled`** (auto-tuning concurrency)
+## 5. `dynamicConcurrencyEnabled` and `snapshotPersistenceEnabled` (auto-tuning with persistence)
 
 Azure Functions can manage trigger concurrency **automatically**. Enabling `dynamicConcurrencyEnabled: true` in **host.json** lets the Functions runtime **tune** the degree of parallelism for you. This is supported for Service Bus triggers (requires extension v5.x). Key points:
 
 - With dynamic concurrency on, the host starts each function at 1 concurrent execution and **adjusts up** to an optimal value based on real-time performance metrics. It monitors CPU, thread pool saturation, etc., and will **throttle incoming messages** (pause fetching) if an instance is overloaded.
 - Static settings like `maxConcurrentCalls` and `maxConcurrentSessions` are **ignored** when dynamic concurrency is active – the system finds the best concurrency level automatically. You can therefore omit these settings or leave them at default.
 - To use effectively: enable it and let it run for a while under typical load. Monitor the Function **logs** (look for `Host.Concurrency` traces) to see how it’s scaling concurrency. This can achieve optimal throughput without manual tuning, especially in workloads with variable performance characteristics. If using dynamic concurrency, you may keep **PrefetchCount** moderate (or default) – the system will fetch messages as needed.
+
+To maintain tuning across host restarts or scale operations, you can enable snapshot persistence:
+
+```json
+{
+  "extensions": {
+    "serviceBus": {
+      "dynamicConcurrencyEnabled": true,
+      "snapshotPersistenceEnabled": true
+    }
+  }
+}
+```
+
+- **snapshotPersistenceEnabled**: When set to `true`, the runtime periodically saves its current concurrency snapshot (the optimal concurrency value and related metrics) to durable storage. After a restart or scale-out, it reloads this snapshot to resume with near-optimal throughput immediately, avoiding the slow ramp-up phase.
+- **Persistence frequency**: The Functions host writes snapshots at regular intervals (typically every few minutes) and immediately before a clean shutdown.
+- **Fail-safe behavior**: If a persisted snapshot is unavailable (for example, on first start or if persistence fails), the host reverts to a conservative ramp-up—starting at one execution and scaling to the optimal level.
+
+Using these two settings together provides near–hands-off tuning: the Functions runtime continuously adjusts concurrency for you and remembers the previous best configuration, even if your app scales or restarts.
 
 ## 6. Signals to Watch and Tune
 
