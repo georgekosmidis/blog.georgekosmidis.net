@@ -1,268 +1,232 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <urlset xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://blog.georgekosmidis.net/azure-architecture-icons.html</loc>
-        <lastmod>2024-02-23T11:42:58+00:00</lastmod>
-    </url>
-    <url>
         <loc>https://blog.georgekosmidis.net/privacy.html</loc>
         <lastmod>2021-12-25T16:49:25+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/a-hello-world-with-microsoft-machine-learning-framework-ml-net.html</loc>
-        <lastmod>2020-07-26T08:31:48+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/unit-testing-a-custom-middleware-in-asp-net-core-api.html</loc>
-        <lastmod>2020-06-16T10:30:55+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/mongodb-shell-or-compass-query-with-a-guid.html</loc>
-        <lastmod>2022-01-16T13:13:19+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/early-vs-late-binding-reflection-and-type-dynamic-in-csharp.html</loc>
-        <lastmod>2021-12-10T19:47:22+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/parameterized-raw-sql-queries-with-entity-framework-how-to-unit-test-with-sqlite.html</loc>
-        <lastmod>2020-07-26T09:44:44+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/durable-functions-starting-with-serverless-stateful-orchestrations-in-azure.html</loc>
-        <lastmod>2023-04-03T15:29:00+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/mvc-custom-authorizeattribute-for-custom-authentication.html</loc>
-        <lastmod>2021-12-26T16:45:35+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/sql-server-weird-behavior-with-containstable-isabout-and-weighted-terms.html</loc>
-        <lastmod>2021-12-26T16:23:53+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/infinity-the-cosmology-god.html</loc>
-        <lastmod>2024-06-03T14:51:00+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/git-cheat-sheet.html</loc>
-        <lastmod>2020-07-20T18:31:52+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/mocking-expected-behaviour-of-sql-functions-for-unit-testing-with-sqlite.html</loc>
-        <lastmod>2019-07-26T12:32:07+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/dotnet-aspire.html</loc>
-        <lastmod>2024-02-26T17:57:00+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/the-dark-side-of-ai.html</loc>
-        <lastmod>2023-01-08T11:12:00+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/sql-server-how-to-simulate-drop-trigger-or-function-or-sp-if-exists.html</loc>
-        <lastmod>2021-12-26T16:16:35+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/sql-server-using-net-assemblies-clr.html</loc>
-        <lastmod>2020-07-29T10:03:33+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/integration-tests-in-asp-net-core-api.html</loc>
-        <lastmod>2020-07-26T09:05:32+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/code-snippet-how-to-upload-an-image-with-ftps-in-dotnet-core.html</loc>
-        <lastmod>2020-07-14T19:23:58+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/azure-architecture-icons.html</loc>
+        <lastmod>2024-02-23T11:42:58+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/scale-set-vs-availability-set.html</loc>
         <lastmod>2022-12-30T18:34:01+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/how-to-make-authenticated-requests-to-an-asp-net-core-web-api-using-identityserver4-with-client-credentials.html</loc>
-        <lastmod>2020-03-17T19:46:14+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/simple-website-stress-tool-with-c-and-apache-http-server-benchmarking-tool.html</loc>
-        <lastmod>2021-12-26T16:07:39+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/docker-cheatsheet-for-dotnet-core.html</loc>
-        <lastmod>2021-04-06T09:26:50+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/an-introduction-to-semantic-kernel-and-semantic-understanding.html</loc>
-        <lastmod>2024-03-13T16:29:00+00:00</lastmod>
-    </url>
-    <url>
         <loc>https://blog.georgekosmidis.net/csharp-9.html</loc>
         <lastmod>2020-06-11T18:43:47+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/troubleshooting-you-dont-appear-to-have-an-active-azure-subscription.html</loc>
-        <lastmod>2020-06-17T11:15:28+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/visual-studio-2012-4-run-as-administrator-the-application-cannot-start-error.html</loc>
-        <lastmod>2021-12-26T16:29:55+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/publishing-asp-net-core-an-error-occurred-while-starting-the-application.html</loc>
-        <lastmod>2020-07-26T09:09:49+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/action-results-in-asp-net-core-apis.html</loc>
-        <lastmod>2020-06-17T11:17:23+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/c-calculating-orthodox-and-catholic-easter.html</loc>
-        <lastmod>2021-12-26T16:27:50+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/get-started-with-swagger-and-asp-net-core.html</loc>
-        <lastmod>2020-07-11T14:58:26+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/using-mariadb-in-an-aspnet-core-api-with-entity-framework-core.html</loc>
-        <lastmod>2020-07-25T08:27:58+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/azure-function-app-dotnet-isolated.html</loc>
-        <lastmod>2022-08-12T14:32:01+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/customize-the-azure-sdk-for-js.html</loc>
-        <lastmod>2024-07-03T14:51:00+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/error-handling-in-asp-net-core-web-api.html</loc>
-        <lastmod>2019-08-08T16:08:18+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/swagger-in-asp-net-core-tips-and-tricks.html</loc>
-        <lastmod>2020-07-17T06:37:08+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/azure-app-service-plan-flowchart.html</loc>
-        <lastmod>2024-09-08T19:24:00+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/azure-function-azure-service-bus-tuning.html</loc>
-        <lastmod>2025-05-25T20:19:00+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/things-you-should-know-about-dotnet-5.html</loc>
-        <lastmod>2020-11-17T08:51:27+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/the-great-software-engineering-crisis-of-2023.html</loc>
-        <lastmod>2023-02-03T15:29:00+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/export-ms-sql-database-schema-with-c.html</loc>
-        <lastmod>2021-12-26T16:28:32+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/variables-in-bash-and-azure-pipelines.html</loc>
-        <lastmod>2024-08-31T14:51:00+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/building-real-time-apps-with-signalr-in-dotnet.html</loc>
-        <lastmod>2023-05-10T14:30:00+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/asp-net-mvc-5-authorization-by-default-your-web-app.html</loc>
-        <lastmod>2021-12-26T16:32:20+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/csharp-10-whats-new.html</loc>
-        <lastmod>2022-01-15T12:14:19+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/sql-server-using-rank-to-display-percent-percentage-of-relevance.html</loc>
-        <lastmod>2021-12-26T16:21:06+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/c-calculating-all-greek-holidays-for-any-given-year.html</loc>
-        <lastmod>2020-06-16T11:23:16+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/c-basic-combinatorics.html</loc>
-        <lastmod>2020-06-16T11:22:53+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/identityserver4-asp-dotnet-core-api-and-a-client-with-username-password.html</loc>
-        <lastmod>2020-07-26T10:59:06+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/asp-net-mvc-5-with-razor-kendo-ui-dynamic-grid-creation-columns-ordering-grouping-and-paging.html</loc>
-        <lastmod>2020-06-16T11:43:51+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/secrets-management-for-asp-net-core-and-azure-devops.html</loc>
-        <lastmod>2022-01-16T13:21:19+00:00</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.georgekosmidis.net/migrating-to-net-5-a-few-clicks-away.html</loc>
-        <lastmod>2020-12-21T21:40:50+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/a-guide-to-common-azure-services.html</loc>
+        <lastmod>2023-01-30T21:21:00+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/deploy-an-azure-logic-apps-workflow-in-standard-plan-with-azure-devops.html</loc>
         <lastmod>2024-09-04T19:24:00+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/publish-a-containerized-dotnet-core-app-using-docker-azure-devops-azure-container-registry-and-azure-app-service.html</loc>
-        <lastmod>2020-06-17T11:15:14+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/troubleshooting-you-dont-appear-to-have-an-active-azure-subscription.html</loc>
+        <lastmod>2020-06-17T11:15:28+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/c-getting-a-user-ip-behind-a-proxy-http_x_forwarded_for.html</loc>
-        <lastmod>2020-06-16T11:21:07+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/building-real-time-apps-with-signalr-in-dotnet.html</loc>
+        <lastmod>2023-05-10T14:30:00+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/create-and-use-your-first-component-in-blazor.html</loc>
-        <lastmod>2021-12-24T17:21:57+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/parameterized-raw-sql-queries-with-entity-framework-how-to-unit-test-with-sqlite.html</loc>
+        <lastmod>2020-07-26T09:44:44+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/handling-serializing-and-returning-exceptions-with-a-middleware-in-asp-net-core-api.html</loc>
-        <lastmod>2019-07-26T12:30:08+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/integration-tests-in-asp-net-core-api.html</loc>
+        <lastmod>2020-07-26T09:05:32+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/using-litedb-in-an-asp-net-core-api.html</loc>
-        <lastmod>2020-06-17T11:19:01+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/mvc-custom-authorizeattribute-for-custom-authentication.html</loc>
+        <lastmod>2021-12-26T16:45:35+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/promptflow-yaml-cheat-sheet.html</loc>
-        <lastmod>2025-01-15T20:19:00+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/variables-in-bash-and-azure-pipelines.html</loc>
+        <lastmod>2024-08-31T14:51:00+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/asp-net-mvc-5-custom-authentication-with-onactionexecuting.html</loc>
-        <lastmod>2019-07-26T11:30:17+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/azure-app-service-plan-flowchart.html</loc>
+        <lastmod>2024-09-08T19:24:00+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/an-error-occurred-while-starting-the-application-process-failure-and-many-more.html</loc>
-        <lastmod>2020-07-25T15:59:33+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/error-handling-in-asp-net-core-web-api.html</loc>
+        <lastmod>2019-08-08T16:08:18+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/azure-function-app-dotnet-isolated.html</loc>
+        <lastmod>2022-08-12T14:32:01+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/things-you-should-know-about-dotnet-5.html</loc>
+        <lastmod>2020-11-17T08:51:27+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/an-introduction-to-semantic-kernel-and-semantic-understanding.html</loc>
+        <lastmod>2024-03-13T16:29:00+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/swagger-in-asp-net-core-tips-and-tricks.html</loc>
+        <lastmod>2020-07-17T06:37:08+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/unit-testing-a-custom-middleware-in-asp-net-core-api.html</loc>
+        <lastmod>2020-06-16T10:30:55+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/secrets-management-for-asp-net-core-and-azure-devops.html</loc>
+        <lastmod>2022-01-16T13:21:19+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/asp-net-mvc-5-with-razor-kendo-ui-dynamic-grid-creation-columns-ordering-grouping-and-paging.html</loc>
+        <lastmod>2020-06-16T11:43:51+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/get-started-with-swagger-and-asp-net-core.html</loc>
+        <lastmod>2020-07-11T14:58:26+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/c-basic-combinatorics.html</loc>
+        <lastmod>2020-06-16T11:22:53+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/sql-server-how-to-simulate-drop-trigger-or-function-or-sp-if-exists.html</loc>
+        <lastmod>2021-12-26T16:16:35+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/writing-a-custom-outputformatter-to-return-an-excel-xlsx-from-an-action-in-asp-net-core-api.html</loc>
         <lastmod>2020-07-26T09:08:49+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/thread-synchronisation-with-semaphoreslim-and-async-await.html</loc>
-        <lastmod>2021-12-26T16:36:44+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/durable-functions-starting-with-serverless-stateful-orchestrations-in-azure.html</loc>
+        <lastmod>2023-04-03T15:29:00+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/azure-ai-foundry-no-code-bot-development.html</loc>
-        <lastmod>2025-01-12T11:19:00+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/c-calculating-orthodox-and-catholic-easter.html</loc>
+        <lastmod>2021-12-26T16:27:50+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/quantum-computing-basics-with-q-the-superposition-of-a-qubit.html</loc>
         <lastmod>2020-06-17T11:16:09+00:00</lastmod>
     </url>
     <url>
+        <loc>https://blog.georgekosmidis.net/using-mariadb-in-an-aspnet-core-api-with-entity-framework-core.html</loc>
+        <lastmod>2020-07-25T08:27:58+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/sql-server-weird-behavior-with-containstable-isabout-and-weighted-terms.html</loc>
+        <lastmod>2021-12-26T16:23:53+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/docker-cheatsheet-for-dotnet-core.html</loc>
+        <lastmod>2021-04-06T09:26:50+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/mocking-expected-behaviour-of-sql-functions-for-unit-testing-with-sqlite.html</loc>
+        <lastmod>2019-07-26T12:32:07+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/the-dark-side-of-ai.html</loc>
+        <lastmod>2023-01-08T11:12:00+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/mongodb-shell-or-compass-query-with-a-guid.html</loc>
+        <lastmod>2022-01-16T13:13:19+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/dotnet-aspire.html</loc>
+        <lastmod>2024-02-26T17:57:00+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/azure-ai-foundry-no-code-bot-development.html</loc>
+        <lastmod>2025-01-12T11:19:00+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/an-error-occurred-while-starting-the-application-process-failure-and-many-more.html</loc>
+        <lastmod>2020-07-25T15:59:33+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/c-calculating-all-greek-holidays-for-any-given-year.html</loc>
+        <lastmod>2020-06-16T11:23:16+00:00</lastmod>
+    </url>
+    <url>
         <loc>https://blog.georgekosmidis.net/net-6-a-guide-for-the-high-impact-breaking-changes.html</loc>
         <lastmod>2021-11-14T17:59:35+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/publish-a-containerized-dotnet-core-app-using-docker-azure-devops-azure-container-registry-and-azure-app-service.html</loc>
+        <lastmod>2020-06-17T11:15:14+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/code-snippet-how-to-upload-an-image-with-ftps-in-dotnet-core.html</loc>
+        <lastmod>2020-07-14T19:23:58+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/sql-server-using-net-assemblies-clr.html</loc>
+        <lastmod>2020-07-29T10:03:33+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/create-and-use-your-first-component-in-blazor.html</loc>
+        <lastmod>2021-12-24T17:21:57+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/identityserver4-asp-dotnet-core-api-and-a-client-with-username-password.html</loc>
+        <lastmod>2020-07-26T10:59:06+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/the-great-software-engineering-crisis-of-2023.html</loc>
+        <lastmod>2023-02-03T15:29:00+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/publishing-asp-net-core-an-error-occurred-while-starting-the-application.html</loc>
+        <lastmod>2020-07-26T09:09:49+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/thread-synchronisation-with-semaphoreslim-and-async-await.html</loc>
+        <lastmod>2021-12-26T16:36:44+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/action-results-in-asp-net-core-apis.html</loc>
+        <lastmod>2020-06-17T11:17:23+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/azure-function-azure-service-bus-tuning.html</loc>
+        <lastmod>2025-05-25T20:19:00+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/using-litedb-in-an-asp-net-core-api.html</loc>
+        <lastmod>2020-06-17T11:19:01+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/sql-server-using-rank-to-display-percent-percentage-of-relevance.html</loc>
+        <lastmod>2021-12-26T16:21:06+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/early-vs-late-binding-reflection-and-type-dynamic-in-csharp.html</loc>
+        <lastmod>2021-12-10T19:47:22+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/infinity-the-cosmology-god.html</loc>
+        <lastmod>2024-06-03T14:51:00+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/customize-the-azure-sdk-for-js.html</loc>
+        <lastmod>2024-07-03T14:51:00+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/a-hello-world-with-microsoft-machine-learning-framework-ml-net.html</loc>
+        <lastmod>2020-07-26T08:31:48+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/c-getting-a-user-ip-behind-a-proxy-http_x_forwarded_for.html</loc>
+        <lastmod>2020-06-16T11:21:07+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/promptflow-yaml-cheat-sheet.html</loc>
+        <lastmod>2025-01-15T20:19:00+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/microsoft-agentic-ai-frameworks.html</loc>
@@ -273,47 +237,83 @@
         <lastmod>2020-01-10T11:48:06+00:00</lastmod>
     </url>
     <url>
-        <loc>https://blog.georgekosmidis.net/a-guide-to-common-azure-services.html</loc>
-        <lastmod>2023-01-30T21:21:00+00:00</lastmod>
+        <loc>https://blog.georgekosmidis.net/visual-studio-2012-4-run-as-administrator-the-application-cannot-start-error.html</loc>
+        <lastmod>2021-12-26T16:29:55+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/export-ms-sql-database-schema-with-c.html</loc>
+        <lastmod>2021-12-26T16:28:32+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/simple-website-stress-tool-with-c-and-apache-http-server-benchmarking-tool.html</loc>
+        <lastmod>2021-12-26T16:07:39+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/migrating-to-net-5-a-few-clicks-away.html</loc>
+        <lastmod>2020-12-21T21:40:50+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/handling-serializing-and-returning-exceptions-with-a-middleware-in-asp-net-core-api.html</loc>
+        <lastmod>2019-07-26T12:30:08+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/git-cheat-sheet.html</loc>
+        <lastmod>2020-07-20T18:31:52+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/csharp-10-whats-new.html</loc>
+        <lastmod>2022-01-15T12:14:19+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/asp-net-mvc-5-authorization-by-default-your-web-app.html</loc>
+        <lastmod>2021-12-26T16:32:20+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/asp-net-mvc-5-custom-authentication-with-onactionexecuting.html</loc>
+        <lastmod>2019-07-26T11:30:17+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blog.georgekosmidis.net/how-to-make-authenticated-requests-to-an-asp-net-core-web-api-using-identityserver4-with-client-credentials.html</loc>
+        <lastmod>2020-03-17T19:46:14+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/</loc>
-        <lastmod>2026-02-19T03:47:23+00:00</lastmod>
+        <lastmod>2026-02-20T03:45:21+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-2.html</loc>
-        <lastmod>2026-02-19T03:47:23+00:00</lastmod>
+        <lastmod>2026-02-20T03:45:21+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-3.html</loc>
-        <lastmod>2026-02-19T03:47:23+00:00</lastmod>
+        <lastmod>2026-02-20T03:45:21+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-4.html</loc>
-        <lastmod>2026-02-19T03:47:23+00:00</lastmod>
+        <lastmod>2026-02-20T03:45:21+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-5.html</loc>
-        <lastmod>2026-02-19T03:47:23+00:00</lastmod>
+        <lastmod>2026-02-20T03:45:21+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-6.html</loc>
-        <lastmod>2026-02-19T03:47:23+00:00</lastmod>
+        <lastmod>2026-02-20T03:45:21+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-7.html</loc>
-        <lastmod>2026-02-19T03:47:23+00:00</lastmod>
+        <lastmod>2026-02-20T03:45:21+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-8.html</loc>
-        <lastmod>2026-02-19T03:47:23+00:00</lastmod>
+        <lastmod>2026-02-20T03:45:21+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-9.html</loc>
-        <lastmod>2026-02-19T03:47:23+00:00</lastmod>
+        <lastmod>2026-02-20T03:45:21+00:00</lastmod>
     </url>
     <url>
         <loc>https://blog.georgekosmidis.net/index-page-10.html</loc>
-        <lastmod>2026-02-19T03:47:23+00:00</lastmod>
+        <lastmod>2026-02-20T03:45:21+00:00</lastmod>
     </url>
 </urlset>
