@@ -73,7 +73,7 @@ For example, in the realm of quantum mechanics and general relativity, infinitie
 
 #### Comparisons to Deity Concepts
 
-The use of infinity in science parallels the concept of a god in religion in several ways. Both serve as placeholders for the unknown and the unexplainable. In religion, a god is often invoked to explain the origins of the universe, the nature of existence, and the meaning of life—areas where human understanding is limited. Similarly, infinity is used in science to grapple with concepts that are beyond our current comprehension.
+The use of infinity in science parallels the concept of a god in religion in several ways. Both serve as placeholders for the unknown and the unexplainable. In religion, a god is often invoked to explain the origins of the universe, the nature of existence, and the meaning of life-areas where human understanding is limited. Similarly, infinity is used in science to grapple with concepts that are beyond our current comprehension.
 
 Just as a deity can represent the ultimate source of knowledge and power, infinity represents the boundless potential of the universe and the endless possibilities for discovery. Both concepts inspire awe and drive the pursuit of deeper understanding, whether through faith or scientific inquiry. By invoking infinity, scientists acknowledge the vastness of what we do not yet know, much like how religious belief acknowledges the mysteries of the divine.
 

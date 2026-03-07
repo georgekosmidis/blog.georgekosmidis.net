@@ -31,7 +31,7 @@ These frameworks are particularly valuable in a world increasingly reliant on AI
 
 #### Code Sample
 
-Below is an example of creating a multi-agent system using AutoGen in Python. The script sets up a group chat simulation with three agents—a user proxy, a coder, and a product manager - using the `autogen` library. It configures each agent with specific roles and settings, including language model parameters for the coder and product manager, and code execution preferences for the user proxy. The group chat is managing a discussion aimed at finding a recent GPT-4 paper on arXiv and exploring its potential software applications.
+Below is an example of creating a multi-agent system using AutoGen in Python. The script sets up a group chat simulation with three agents-a user proxy, a coder, and a product manager - using the `autogen` library. It configures each agent with specific roles and settings, including language model parameters for the coder and product manager, and code execution preferences for the user proxy. The group chat is managing a discussion aimed at finding a recent GPT-4 paper on arXiv and exploring its potential software applications.
 
 ```python
 import autogen

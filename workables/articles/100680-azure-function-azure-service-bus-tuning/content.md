@@ -97,7 +97,7 @@ To maintain tuning across host restarts or scale operations, you can enable snap
 
 - **snapshotPersistenceEnabled**: When set to `true`, the runtime periodically saves its current concurrency snapshot (the optimal concurrency value and related metrics) to durable storage. After a restart or scale-out, it reloads this snapshot to resume with near-optimal throughput immediately, avoiding the slow ramp-up phase.
 - **Persistence frequency**: The Functions host writes snapshots at regular intervals (typically every few minutes) and immediately before a clean shutdown.
-- **Fail-safe behavior**: If a persisted snapshot is unavailable (for example, on first start or if persistence fails), the host reverts to a conservative ramp-up—starting at one execution and scaling to the optimal level.
+- **Fail-safe behavior**: If a persisted snapshot is unavailable (for example, on first start or if persistence fails), the host reverts to a conservative ramp-up-starting at one execution and scaling to the optimal level.
 
 Using these two settings together provides near–hands-off tuning: the Functions runtime continuously adjusts concurrency for you and remembers the previous best configuration, even if your app scales or restarts.
 
@@ -136,7 +136,7 @@ Once your Azure Function is deployed and running, ongoing monitoring is essentia
      ```
 
    - Filter by operation name, severity level, or custom dimensions to find relevant failures.
-   - **Watch for**: Frequent exceptions or repeating patterns — can indicate message format issues, dependency failures, or capacity limits.
+   - **Watch for**: Frequent exceptions or repeating patterns - can indicate message format issues, dependency failures, or capacity limits.
 
 4. **Service Bus Throughput**
    - In the Azure Portal, go to your **Service Bus Namespace**.
@@ -145,7 +145,7 @@ Once your Azure Function is deployed and running, ongoing monitoring is essentia
      - `Incoming Messages`
      - `Outgoing Messages`
    - Select the same time range and aggregation (e.g., `Sum`).
-   - **Watch for**: A growing gap between incoming and outgoing — suggests the function is falling behind.
+   - **Watch for**: A growing gap between incoming and outgoing - suggests the function is falling behind.
 
 5. **Dead-letter Queue (DLQ)**
    - In the **Service Bus Namespace**, select your queue or subscription.
@@ -153,7 +153,7 @@ Once your Azure Function is deployed and running, ongoing monitoring is essentia
    - To inspect DLQ contents:
      - Use **Service Bus Explorer** (available in the Azure Portal).
      - Or connect with a tool like **Azure Storage Explorer** or a custom script.
-   - **Watch for**: Sudden spikes in DLQ count — usually tied to repeated processing errors.
+   - **Watch for**: Sudden spikes in DLQ count - usually tied to repeated processing errors.
 
 ### Pro Tip: Build a Custom Dashboard
 

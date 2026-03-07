@@ -1,7 +1,7 @@
 {
   "RelativeUrl": "/100690-azure-ai-search-preview-features.html",
   "Title": "Azure AI Search Preview Features",
-  "Description": "Identify if your function is I/O-bound, CPU-bound, or memory-bound and set maxConcurrentCalls & prefetchCount to match - then adjust gradually under load.",
+  "Description": "A breakdown of the latest Azure AI Search preview features - from agentic retrieval and document-level access control to smarter vector filtering, GenAI skills, and more.",
   "DatePublished": "2026-03-01T21:19:00+01:00",
   "DateModified":  "2025-03-01T21:19:00+01:00",
   "RelativeImageUrl": "/media/100690-feature.png",
