@@ -8,7 +8,7 @@ This article is about why software engineering is next in line for that kind of 
 
 ## The Middle Layer
 
-To understand why software engineering is vulnerable, strip the job down to its **usual** structural function. Remove the frameworks, the tooling debates, the job titles. What the most of the software engineers do is this: **build and maintain the link between an interface and a persistence layer**. A user or machine does something, logic applies, data transform and move, state changes, something gets stored or retrieved. That work can be enormously complex - ingestion pipelines, distributed systems, intricate UIs, deep cloud expertise, hundreds of engineers working for years - or it can be straightforward CRUD operations. But at every level of complexity, the core function is the same. Everything else - the design patterns, the architecture decisions, the test coverage, the deployment pipelines, even the UI - exists to make that link work reliably and at scale.
+To understand why software engineering is vulnerable, strip the job down to its **usual** structural function. Remove the frameworks, the tooling debates, the job titles. What the most of the software engineers do is this: **build and maintain the link between an interface and a persistence layer**. A user or machine does something, logic applies, data transform and move, state changes, something gets stored or retrieved. That work can be enormously complex - ingestion pipelines, distributed systems, intricate UIs, deep cloud expertise, tens of engineers working for months - or it can be straightforward CRUD operations. But at every level of complexity, the core function is the same. Everything else - the design patterns, the architecture decisions, the test coverage, the deployment pipelines, even the UI - exists to make that link work reliably and at scale.
 
 > This does not describe every corner of the profession - kernel developers or embedded engineers operate differently. But it describes the work that the majority of software engineers do, and the work most exposed to what comes next.
 
@@ -21,7 +21,6 @@ The threat is not that AI writes code faster. **The threat is that the code may 
 When AI agents can connect directly to services, databases, and APIs - through standardized protocols like MCP or whatever succeeds it - the need for a human to hand-build the link between interfaces and data shrinks. Today, if you want an app that shows your calendar, your emails, and your task list in one view, an engineer needs to wire up three different APIs, handle authentication, manage state, deal with errors, and build the UI. In the agentic world, an agent connects to three services through a protocol layer. The glue code that an engineer would write becomes a configuration problem that a machine can solve.
 
 This is not science fiction. MCP has already been adopted by OpenAI, Microsoft, Google DeepMind, and thousands of developers. The protocol is still maturing - *its [2026 roadmap](https://thenewstack.io/model-context-protocol-roadmap-2026/) is focused on basic reliability and security problems that are far from solved* - but the direction is clear. And MCP is just one example of a broader trend: the standardization of machine-to-machine communication that bypasses the human engineer in the middle.
-
 
 ## The Travel Agent Precedent - Jevons Paradox
 
@@ -57,7 +56,7 @@ If you are a mid-career engineer who has spent years building expertise in the m
 
 ## The Uncertain Steps
 
-If the PC-era timeline holds - and the data in the [previous article](https://blog.georgekosmidis.net/the-historical-parallel-1987-computers-2025-ai.html) suggests it does - you have roughly five to eight years before the full reshuffling is complete. That is not a long time. It is roughly the length of a single job tenure.
+If the PC-era timeline holds - and the data in the [productivity paradox](https://blog.georgekosmidis.net/the-historical-parallel-1987-computers-2025-ai.html) article suggests it does - you have roughly five to eight years before the full reshuffling is complete. That is not a long time. It is roughly the length of a single job tenure.
 
 But there is a version of this story where the transformation stalls - and it is worth taking seriously.
 
