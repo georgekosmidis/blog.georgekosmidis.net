@@ -95,7 +95,10 @@ internal class PageProcessor : IPageProcessor
 
         //add the GitHub repo
         string? articleFolderName = Path.GetFileName(directory.Trim(Path.DirectorySeparatorChar));
-        pageData.GithubCurrentPageUrl = $"{appSettings.GithubRepoUrl}/tree/main/workables/{Globals.WorkingArticlesFolderName}/{articleFolderName}/{Globals.ContentHtmlFilename}";
+        string contentFilename = File.Exists(Path.Combine(directory, Globals.ContentMdFilename))
+            ? Globals.ContentMdFilename
+            : Globals.ContentHtmlFilename;
+        pageData.GithubCurrentPageUrl = $"{appSettings.GithubRepoUrl}/tree/main/workables/{Globals.WorkingArticlesFolderName}/{articleFolderName}/{contentFilename}";
 
         //get the right column cards, if any
         IEnumerable<string>? rightColumnCards = _cardProcessor.GetRightColumnCardsHtml();
