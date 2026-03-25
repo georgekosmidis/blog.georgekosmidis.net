@@ -75,7 +75,7 @@ internal class PageProcessor : IPageProcessor
             string? pageMd = File.ReadAllText(Path.Combine(directory, Globals.ContentMdFilename));
 
             var pipeline = new MarkdownPipelineBuilder()
-                .UseAutoIdentifiers()
+                .UseAutoIdentifiers(AutoIdentifierOptions.GitHub)
                 .UsePipeTables()
                 .UseAdvancedExtensions()
                 .UseEmphasisExtras()
