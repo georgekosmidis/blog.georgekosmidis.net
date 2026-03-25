@@ -408,6 +408,14 @@ else {
                 itemSelector: '.index-card-wrapper'
             });  
             msnry.layout();
+
+            var observer = new MutationObserver(function () {
+                msnry.layout();
+            });
+            var gcse = document.querySelector('.gcse-searchbox-only');
+            if (gcse) {
+                observer.observe(gcse, { childList: true, subtree: true });
+            }
         });
     </script>
 }
