@@ -5,6 +5,7 @@ using Blog.Builder.Models;
 using Blog.Builder.Models.Builders;
 using Blog.Builder.Models.Templates;
 using Markdig;
+using Markdig.Extensions.AutoIdentifiers;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SixLabors.ImageSharp;
