@@ -1,0 +1,15 @@
+{
+  "RelativeUrl": "/azure-skills-plugin-cookbook.html",
+  "Title": "The Azure Skills Plugin Cookbook - A Complete Cheat Sheet",
+  "Description": "Everything you need to know about the Azure Skills Plugin in one place: installation, skills reference, prompt examples, troubleshooting, and tips for getting the most out of your AI coding agent on Azure.",
+  "DatePublished": "2026-04-01T12:00:00+01:00",
+  "DateModified": "2026-04-01T12:00:00+01:00",
+  "RelativeImageUrl": "/media/100720-feature.png",
+  "Tags": [
+    "Azure",
+    "MCP",
+    "GitHub Copilot",
+    "AI",
+    "DevOps"
+  ]
+}
