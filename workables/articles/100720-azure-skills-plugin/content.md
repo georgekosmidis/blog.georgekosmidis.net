@@ -8,7 +8,7 @@ The plugin is **not** a prompt pack or a folder of clever one-liners. It ships t
 
 | Layer | What It Does | Scale |
 | ----- | ------------ | ----- |
-| **Azure Skills** | Reusable workflows, decision trees, and guardrails that teach the agent *how* Azure work gets done | 21 skill files |
+| **Azure Skills** | Reusable workflows, decision trees, and guardrails that teach the agent *how* Azure work gets done | 24 skill files |
 | **Azure MCP Server** | Structured tools for listing resources, checking prices, querying logs, provisioning infra, and driving deployments | ~200 tools, 40+ services |
 | **Foundry MCP Server** | Model deployment, agent management, and model catalog workflows for AI-powered apps | AI Foundry integration |
 
