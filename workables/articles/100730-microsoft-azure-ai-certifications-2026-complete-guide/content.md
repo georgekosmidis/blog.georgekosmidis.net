@@ -5,7 +5,7 @@ Microsoft's 2026 certification overhaul is the biggest shift in a decade. The co
   * [Azure AI / Cloud Track](#azure-ai---cloud-track)
     + [Fundamentals](#fundamentals)
     + [Associate](#associate)
-- [Data / ML Track](#data---ml-track)
+  * [Data / ML Track](#data---ml-track)
     + [Associate](#associate-1)
   * [Security Track](#security-track)
     + [Associate](#associate-2)
@@ -36,7 +36,7 @@ Microsoft's 2026 certification overhaul is the biggest shift in a decade. The co
 | [AZ-204](https://learn.microsoft.com/en-us/credentials/certifications/azure-developer/) | Azure Developer Associate | **Retiring Jul 31, 2026** | Covers Azure compute, storage, security, monitoring, and building solutions with SDKs and APIs. $165. |
 | [AI-200](https://learn.microsoft.com/en-us/credentials/certifications/azure-developer/) | Azure AI Cloud Developer Associate | **Beta Apr 2026 / Live Jul 2026** | Replaces AZ-204. Covers building AI solutions on Azure with containerized compute, vector-enabled databases, event-driven AI pipelines, serverless functions, and distributed observability. |
 
-# Data / ML Track
+## Data / ML Track
 
 ### Associate
 
