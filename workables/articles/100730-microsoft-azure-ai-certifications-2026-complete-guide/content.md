@@ -114,10 +114,10 @@ A few important things to keep in mind:
 
 - **Earned certifications are not invalidated.** They remain valid on your transcript until their normal expiration date.
 - **Fundamentals certs (like AI-900) never expire.** Upgrading to AI-901 is entirely optional.
-- **No automatic migration.** You need to study for and pass the new Exam separately - there is no free upgrade or voucher.
+- **No automatic migration.** You need to study for and pass the new exam separately - there is no free upgrade or voucher.
 - **Renew before retirement.** If your certification is eligible for renewal, do it before the retirement date. Once retired, you cannot renew.
-- **Beta exams are discounted.** Taking a beta Exam is a cost-effective way to earn the new certification early, though results take longer to process.
+- **Beta exams are discounted.** Taking a beta exam is a cost-effective way to earn the new certification early, though results take longer to process.
 
 ## Final Thoughts
 
-Microsoft's message is clear: AI is no longer a specialty - it is a baseline expectation built into every role. Whether you are a developer, data engineer, security professional, or business leader, the 2026 certification refresh offers a path that matches where the industry is heading. If you are currently studying for a retiring Exam and are close to ready, finish it. If you are just starting, pivot to the replacement.
+Microsoft's message is clear: AI is no longer a specialty - it is a baseline expectation built into every role. Whether you are a developer, data engineer, security professional, or business leader, the 2026 certification refresh offers a path that matches where the industry is heading. If you are currently studying for a retiring exam and are close to ready, finish it. If you are just starting, pivot to the replacement.

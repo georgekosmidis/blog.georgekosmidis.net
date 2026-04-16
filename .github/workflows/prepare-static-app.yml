@@ -93,6 +93,8 @@ jobs:
      # repository's GITHUB_TOKEN do NOT trigger new workflow runs. This prevents
      # workflow-created events from retriggering workflows and causing loops.
      # See: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow
+     # That is why for scheduled runs although we directly merge the PR to trigger the push-static-app.yml workflow it will not. 
+     # Wwe need to deploy it here
     - name: deploy
       uses: Azure/static-web-apps-deploy@v1
       if: ${{ github.event_name == 'schedule' }}
