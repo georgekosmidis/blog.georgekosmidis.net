@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Blog.Builder {
+namespace Blog.Builder.SettingsDesigner {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

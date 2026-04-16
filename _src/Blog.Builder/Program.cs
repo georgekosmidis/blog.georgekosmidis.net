@@ -45,7 +45,7 @@ var serviceProvider = new ServiceCollection()
             return new HtmlMinifier(settings);
         })
         .AddOptions()
-        .Configure<AppSettings>(
+        .Configure<Blog.Builder.Models.AppSettings>(
             new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile(Globals.AppSettingsFilename, optional: false)
