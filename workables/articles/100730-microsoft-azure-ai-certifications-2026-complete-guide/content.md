@@ -2,36 +2,27 @@
   th {
     white-space: nowrap;
   }
-  /* Scroll wrapper (Option 1 version) */
-  article table,
-  .content table,
-  main table {
-    display: block;
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-collapse: collapse;
-    /* no white-space: nowrap */
-  }
+.article table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-collapse: collapse;
+}
 
-  /* Force a minimum table width so it triggers horizontal scroll on small screens,
-    but allow cells to wrap their text normally */
-  article table > :is(thead, tbody),
-  .content table > :is(thead, tbody),
-  main table > :is(thead, tbody) {
-    display: table;
-    width: 100%;
-    min-width: 720px;
-  }
+.article table > :is(thead, tbody) {
+  display: table;
+  width: 100%;
+  min-width: 736px;
+}
 
-  /* Let cell text wrap, including long URLs */
-  article table td,
-  article table th {
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: anywhere;
-    vertical-align: top;
-  }
+.article table td,
+.article table th {
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  vertical-align: top;
+}
 </style>
 
 Microsoft's 2026 certification overhaul is the biggest shift in a decade. The company is retiring seven exams, replacing them with AI-native alternatives, and introducing entirely new credentials - all centered around generative AI, agentic architectures, and AI-powered cloud solutions. This post is a complete reference of every Microsoft AI certification, organized by track, with links, descriptions, and status.
