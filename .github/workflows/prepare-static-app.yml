@@ -90,11 +90,23 @@ jobs:
           const eventName = '${{ github.event_name }}';
           const allowedActors = ('${{ env.AUTO_MERGE_ACTORS }}' || '').split(',').map(s => s.trim()).filter(Boolean);
           if (eventName === 'schedule' || allowedActors.includes(actor)) {
-             await github.rest.pulls.merge({
-               owner,
-               repo,
-               pull_number: pr.data.number,
-             });
+             // Retry merge to handle "Base branch was modified" race condition
+             const maxRetries = 5;
+             for (let attempt = 1; attempt <= maxRetries; attempt++) {
+               try {
+                 await github.rest.pulls.merge({
+                   owner,
+                   repo,
+                   pull_number: pr.data.number,
+                 });
+                 core.info(`PR merged successfully on attempt ${attempt}`);
+                 break;
+               } catch (error) {
+                 if (attempt === maxRetries) throw error;
+                 core.warning(`Merge attempt ${attempt} failed: ${error.message}. Retrying in ${attempt * 5}s...`);
+                 await new Promise(r => setTimeout(r, attempt * 5000));
+               }
+             }
           }
     
      # Note: Events (pushes and pull requests) created by workflows using the

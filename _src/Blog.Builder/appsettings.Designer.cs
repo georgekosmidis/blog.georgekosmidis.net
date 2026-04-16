@@ -13,11 +13,11 @@ namespace Blog.Builder {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.9.0.0")]
-    internal sealed partial class appsettings : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class AppSettings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static appsettings defaultInstance = ((appsettings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new appsettings())));
+        private static AppSettings defaultInstance = ((AppSettings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new AppSettings())));
         
-        public static appsettings Default {
+        public static AppSettings Default {
             get {
                 return defaultInstance;
             }
