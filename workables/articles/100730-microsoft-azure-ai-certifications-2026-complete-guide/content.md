@@ -25,7 +25,7 @@
 }
 </style>
 
-Microsoft's 2026 certification overhaul is the biggest shift in a decade. The company is retiring seven exams, replacing them with AI-native alternatives, and introducing entirely new credentials - all centered around generative AI, agentic architectures, and AI-powered cloud solutions. This post is a complete reference of every Microsoft AI certification, organized by track, with links, descriptions, and status.
+Microsoft's 2026 certification overhaul is the biggest shift in a decade. The company is retiring seven exams, replacing them with AI-native alternatives, and introducing entirely new credentials - all centered around generative AI, agentic architectures, and AI-powered cloud solutions. This post is a complete reference of every Microsoft AI certification, organized by track, with links, descriptions, and status. 
 
 ## Table of Contents
 
