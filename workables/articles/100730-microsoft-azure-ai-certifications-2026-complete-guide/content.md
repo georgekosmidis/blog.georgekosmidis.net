@@ -2,25 +2,35 @@
   th {
     white-space: nowrap;
   }
+  article table,
+.content table,
+main table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+  white-space: nowrap;               /* stops cells from squishing */
+  border-collapse: collapse;
+}
 </style>
 
 Microsoft's 2026 certification overhaul is the biggest shift in a decade. The company is retiring seven exams, replacing them with AI-native alternatives, and introducing entirely new credentials - all centered around generative AI, agentic architectures, and AI-powered cloud solutions. This post is a complete reference of every Microsoft AI certification, organized by track, with links, descriptions, and status.
 
 ## Table of Contents
 
-  * [Azure AI / Cloud Track](#azure-ai---cloud-track)
+  * [Azure AI / Cloud Track](#azure-ai--cloud-track)
     + [Fundamentals](#fundamentals)
     + [Associate](#associate)
   * [Data / ML Track](#data---ml-track)
     + [Associate](#associate-1)
   * [Security Track](#security-track)
     + [Associate](#associate-2)
-  * [Business / Agentic AI Track](#business---agentic-ai-track)
+  * [Business / Agentic AI Track](#business--agentic-ai-track)
     + [Fundamentals](#fundamentals-1)
     + [Associate - Business Professionals](#associate---business-professionals)
     + [Associate - Technical Roles](#associate---technical-roles)
     + [Expert](#expert)
-  * [Quick Reference: Retirement and Replacement Pairs](#quick-reference--retirement-and-replacement-pairs)
+  * [Quick Reference: Retirement and Replacement Pairs](#quick-reference-retirement-and-replacement-pairs)
   * [What Happens to Your Existing Certifications?](#what-happens-to-your-existing-certifications-)
   * [Final Thoughts](#final-thoughts)
 
