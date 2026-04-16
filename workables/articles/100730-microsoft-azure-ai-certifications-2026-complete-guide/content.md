@@ -2,16 +2,36 @@
   th {
     white-space: nowrap;
   }
+  /* Scroll wrapper (Option 1 version) */
   article table,
-.content table,
-main table {
-  display: block;
-  max-width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
-  white-space: nowrap;               /* stops cells from squishing */
-  border-collapse: collapse;
-}
+  .content table,
+  main table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-collapse: collapse;
+    /* no white-space: nowrap */
+  }
+
+  /* Force a minimum table width so it triggers horizontal scroll on small screens,
+    but allow cells to wrap their text normally */
+  article table > :is(thead, tbody),
+  .content table > :is(thead, tbody),
+  main table > :is(thead, tbody) {
+    display: table;
+    width: 100%;
+    min-width: 720px;
+  }
+
+  /* Let cell text wrap, including long URLs */
+  article table td,
+  article table th {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    vertical-align: top;
+  }
 </style>
 
 Microsoft's 2026 certification overhaul is the biggest shift in a decade. The company is retiring seven exams, replacing them with AI-native alternatives, and introducing entirely new credentials - all centered around generative AI, agentic architectures, and AI-powered cloud solutions. This post is a complete reference of every Microsoft AI certification, organized by track, with links, descriptions, and status.
@@ -38,14 +58,14 @@ Microsoft's 2026 certification overhaul is the biggest shift in a decade. The co
 
 ### Fundamentals
 
-| Exam&nbsp;&nbsp;&nbsp;&nbsp;| Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Description |
+| Exam | Title | Status | Description |
 |------|-------|--------|-------------|
 | [AI-900](https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/) | Azure AI Fundamentals | **Retiring Jun 30, 2026** | Covers ML/AI concepts, Azure Cognitive Services, and responsible AI principles. No coding required. Lifetime validity - no renewal needed. |
 | [AI-901](https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/) | Azure AI Fundamentals (refreshed) | Beta Live / GA in Jun 2026 | Replaces AI-900. Shifts focus from understanding AI to building AI apps and agents on Microsoft Foundry (formerly Azure AI Studio). |
 
 ### Associate
 
-| Exam&nbsp;&nbsp;&nbsp;&nbsp;| Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Description |
+| Exam | Title | Status | Description |
 |------|-------|--------|-------------|
 | [AI-102](https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer/) | Azure AI Engineer Associate | **Retiring Jun 30, 2026** | Covers Azure AI Services, Azure OpenAI, AI Search, Computer Vision, NLP, Bot Service, and Document Intelligence. |
 | [AI-103](https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer/) | Azure AI App and Agent Developer Associate | Beta Live / GA in Jun 2026 | Replaces AI-102. Covers agentic architectures, multi-agent orchestration, generative AI applications, and multi-step reasoning workflows on Microsoft Foundry. |
@@ -56,7 +76,7 @@ Microsoft's 2026 certification overhaul is the biggest shift in a decade. The co
 
 ### Associate
 
-| Exam&nbsp;&nbsp;&nbsp;&nbsp;| Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Description |
+| Exam | Title | Status | Description |
 |------|-------|--------|-------------|
 | [DP-100](https://learn.microsoft.com/en-us/credentials/certifications/azure-data-scientist/) | Azure Data Scientist Associate | **Retiring Jun 1, 2026** | Covers Azure ML workspace, data assets, model training, MLflow, and responsible AI dashboards. |
 | [AI-300](https://learn.microsoft.com/en-us/credentials/certifications/operationalizing-machine-learning-and-generative-ai-solutions/) | MLOps Engineer Associate | Beta Live / GA in May 2026 | Replaces DP-100. Focuses on deploying, operationalizing, and maintaining ML and GenAI solutions in production - MLOps and GenAIOps. |
@@ -68,7 +88,7 @@ Microsoft's 2026 certification overhaul is the biggest shift in a decade. The co
 
 ### Associate
 
-| Exam&nbsp;&nbsp;&nbsp;&nbsp;| Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Description |
+| Exam | Title | Status | Description |
 |------|-------|--------|-------------|
 | [AZ-500](https://learn.microsoft.com/en-us/credentials/certifications/azure-security-engineer/) | Azure Security Engineer Associate | **Retiring Aug 31, 2026** | Covers identity management, platform protection, data and application security, and security operations. |
 | [SC-500](https://learn.microsoft.com/en-us/credentials/certifications/) | Cloud and AI Security Engineer Associate | Beta May 2026 <br /> Jul 2026| Replaces AZ-500. Expands to include AI model protection - designing and implementing secure environments for building and running AI solutions. |
@@ -80,20 +100,20 @@ This is the largest new addition to Microsoft's certification portfolio, coverin
 
 ### Fundamentals
 
-| Exam&nbsp;&nbsp;&nbsp;&nbsp;| Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Description |
+| Exam | Title | Status | Description |
 |------|-------|--------|-------------|
 | [AB-900](https://learn.microsoft.com/en-us/credentials/certifications/copilot-and-agent-administration-fundamentals/) | Microsoft 365 Certified: Copilot and Agent Administration Fundamentals | GA Live | Entry-level cert for IT admins managing Microsoft 365 Copilot and agent services. Covers configuration, security, and support. |
 
 ### Associate - Business Professionals
 
-| Exam&nbsp;&nbsp;&nbsp;&nbsp;| Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Description |
+| Exam | Title | Status | Description |
 |------|-------|--------|-------------|
 | [AB-730](https://learn.microsoft.com/en-us/credentials/certifications/ai-business-professional/) | AI Business Professional | GA Live | Validates using generative AI and Copilot to streamline business workflows and improve outcomes. No coding required. |
 | [AB-731](https://learn.microsoft.com/en-us/credentials/certifications/ai-transformation-leader/) | AI Transformation Leader | GA Live | Verifies ability to define AI's business value, drive company-wide AI adoption, and integrate Copilot and Foundry tools into enterprise strategy. |
 
 ### Associate - Technical Roles
 
-| Exam&nbsp;&nbsp;&nbsp;&nbsp;| Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Description |
+| Exam | Title | Status | Description |
 |------|-------|--------|-------------|
 | [AB-620](https://learn.microsoft.com/en-us/credentials/certifications/) | AI Agent Builder Associate | Beta Live / GA in Jun 2026 | For developers, AI engineers, and architects building production-ready Copilot Studio agents and multi-agent solutions with enterprise integration. |
 | [AB-410](https://learn.microsoft.com/en-us/credentials/certifications/) | Intelligent Applications Builder Associate | Beta Live / GA in Jun 2026 | For Power Platform pros building AI-first apps with Copilot, agents, automation, and models. Replaces PL-200 (retiring Aug 31, 2026). |
@@ -102,7 +122,7 @@ This is the largest new addition to Microsoft's certification portfolio, coverin
 
 ### Expert
 
-| Exam&nbsp;&nbsp;&nbsp;&nbsp;| Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Description |
+| Exam | Title | Status | Description |
 |------|-------|--------|-------------|
 | [AB-100](https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-business-solutions-architect/) | Agentic AI Business Solutions Architect | GA Live | Flagship expert-level cert. Covers multi-agent orchestration, generative AI, secure deployment, and measurable business outcomes. Requires one active associate-level cert. Recommended path for holders of retiring PL-600, MB-700, MB-335, MB-240, and PL-500. |
 
@@ -113,7 +133,7 @@ This is the largest new addition to Microsoft's certification portfolio, coverin
 | AI-900 | Jun 30, 2026 | AI-901 | Jun 2026 |
 | AI-102 | Jun 30, 2026 | AI-103 | Jun 2026 |
 | AZ-204 | Jul 31, 2026 | AI-200 | Jul 2026 |
-| DP-100 | Jun 1, 2026  | AI-300 | May 2026 |
+| DP-100 | Jun 1, 2026 | AI-300 | May 2026 |
 | AZ-500 | Aug 31, 2026 | SC-500 | Jul 2026 |
 | MB-280 | Jul 31, 2026 | AB-210 | Jun 2026 |
 | PL-200 | Aug 31, 2026 | AB-410 | Jun 2026 |
