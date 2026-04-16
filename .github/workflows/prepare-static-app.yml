@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      # Comma-separated list of GitHub usernames allowed to auto-merge and trigger deploy.
+      # Defaults to repository owner; edit to include more (e.g. "alice,bob").
+      AUTO_MERGE_ACTORS: '${{ github.repository_owner }}'
 
     steps:
     
@@ -82,9 +85,12 @@ jobs:
             issue_number: pr.data.number,
             labels: ['${{ github.event_name }}', 'automated-pr']
           });
-          
-          if( '${{ github.event_name }}'  == 'schedule' ) {
-             github.rest.pulls.merge({
+
+          const actor = '${{ github.actor }}';
+          const eventName = '${{ github.event_name }}';
+          const allowedActors = ('${{ env.AUTO_MERGE_ACTORS }}' || '').split(',').map(s => s.trim()).filter(Boolean);
+          if (eventName === 'schedule' || allowedActors.includes(actor)) {
+             await github.rest.pulls.merge({
                owner,
                repo,
                pull_number: pr.data.number,
@@ -99,7 +105,7 @@ jobs:
      # Wwe need to deploy it here
     - name: deploy
       uses: Azure/static-web-apps-deploy@v1
-      if: ${{ github.event_name == 'schedule' }}
+      if: ${{ github.event_name == 'schedule' || contains(env.AUTO_MERGE_ACTORS, github.actor) }}
       with:
         azure_static_web_apps_api_token: ${{ secrets.AZURE_DEPLOYMENT_TOKEN }}
         repo_token: ${{ secrets.GITHUB_TOKEN }}
