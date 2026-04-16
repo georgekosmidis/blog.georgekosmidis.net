@@ -2,27 +2,46 @@
   th {
     white-space: nowrap;
   }
-.article table {
-  display: block;
-  max-width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  border-collapse: collapse;
-}
+  table {
+    width: 100%;
+    table-layout: fixed; /* critical - makes column widths respected */
+    border-collapse: collapse;
+  }
 
-.article table > :is(thead, tbody) {
-  display: table;
-  width: 100%;
-  min-width: 736px;
-}
+  /* Exam code (AZ-500, SC-100, etc.) */
+  table th:nth-child(1),
+  table td:nth-child(1) {
+    width: 8%;
+    min-width: 80px;
+    white-space: nowrap;
+  }
 
-.article table td,
-.article table th {
-  white-space: normal;
-  word-break: normal;
-  overflow-wrap: anywhere;
-  vertical-align: top;
-}
+  /* Title */
+  table th:nth-child(2),
+  table td:nth-child(2) {
+    width: 22%;
+    min-width: 160px;
+  }
+
+  /* Status (dates) */
+  table th:nth-child(3),
+  table td:nth-child(3) {
+    width: 15%;
+    min-width: 120px;
+  }
+
+  /* Description */
+  table th:nth-child(4),
+  table td:nth-child(4) {
+    width: 55%;
+  }
+
+  /* Optional: keep text readable */
+  table td {
+    vertical-align: top;
+    padding: 12px 16px;
+    word-wrap: break-word;
+  }
 </style>
 
 Microsoft's 2026 certification overhaul is the biggest shift in a decade. The company is retiring seven exams, replacing them with AI-native alternatives, and introducing entirely new credentials - all centered around generative AI, agentic architectures, and AI-powered cloud solutions. This post is a complete reference of every Microsoft AI certification, organized by track, with links, descriptions, and status. 

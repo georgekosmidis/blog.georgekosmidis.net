@@ -180,6 +180,27 @@ else {
         dfn {
             border-color: #343a40;
         }
+        .article table {
+            display: block;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-collapse: collapse;
+        }
+
+        .article table > :is(thead, tbody) {
+            display: table;
+            width: 100%;
+            min-width: 716px;
+        }
+
+        .article table td,
+        .article table th {
+            white-space: normal;
+            word-break: normal;
+            overflow-wrap: anywhere;
+            vertical-align: top;
+        }
     </style>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3071108-41" nonce="@Model.Nonce"></script>
